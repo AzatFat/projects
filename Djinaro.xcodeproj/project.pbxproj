@@ -1,0 +1,393 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AA24C48F215ED95E009938CC /* slippers.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AA24C48E215ED95E009938CC /* slippers.jpg */; };
+		AA830C46215568C800F004B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA830C45215568C800F004B3 /* AppDelegate.swift */; };
+		AA830C48215568C800F004B3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA830C47215568C800F004B3 /* ViewController.swift */; };
+		AA830C4B215568C900F004B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA830C49215568C900F004B3 /* Main.storyboard */; };
+		AA830C4D215568D000F004B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA830C4C215568D000F004B3 /* Assets.xcassets */; };
+		AA830C50215568D000F004B3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA830C4E215568D000F004B3 /* LaunchScreen.storyboard */; };
+		AA830C5821557C4400F004B3 /* itemsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA830C5721557C4400F004B3 /* itemsTableViewCell.swift */; };
+		AA830C5C2155862400F004B3 /* itemsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA830C5B2155862400F004B3 /* itemsTableViewController.swift */; };
+		AA830C602157D1D000F004B3 /* QRScannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA830C5F2157D1D000F004B3 /* QRScannerController.swift */; };
+		AAF9254921580500007D7ACE /* ItemsInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF9254821580500007D7ACE /* ItemsInfoTableViewController.swift */; };
+		AAF9254B21582DE5007D7ACE /* Camera-03.png in Resources */ = {isa = PBXBuildFile; fileRef = AAF9254A21582DE4007D7ACE /* Camera-03.png */; };
+		AAF9254D21582DED007D7ACE /* Camera-03.svg in Resources */ = {isa = PBXBuildFile; fileRef = AAF9254C21582DED007D7ACE /* Camera-03.svg */; };
+		AAF9254F2158319A007D7ACE /* djinaro.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AAF9254E21583199007D7ACE /* djinaro.jpg */; };
+		AAF9255321583666007D7ACE /* backGround.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AAF9255221583666007D7ACE /* backGround.jpg */; };
+		AAF92555215AC1E0007D7ACE /* GoodsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF92554215AC1E0007D7ACE /* GoodsController.swift */; };
+		AAF92557215AC4AC007D7ACE /* GoodsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF92556215AC4AC007D7ACE /* GoodsItem.swift */; };
+		AAF92559215C2E78007D7ACE /* GoodsInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF92558215C2E78007D7ACE /* GoodsInfoTableViewCell.swift */; };
+		AAF9255F215C4E94007D7ACE /* LocationImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF9255E215C4E94007D7ACE /* LocationImageViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		AA24C48E215ED95E009938CC /* slippers.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = slippers.jpg; sourceTree = "<group>"; };
+		AA830C42215568C800F004B3 /* Djinaro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Djinaro.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA830C45215568C800F004B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		AA830C47215568C800F004B3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		AA830C4A215568C900F004B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		AA830C4C215568D000F004B3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AA830C4F215568D000F004B3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		AA830C51215568D000F004B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AA830C5721557C4400F004B3 /* itemsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = itemsTableViewCell.swift; sourceTree = "<group>"; };
+		AA830C5B2155862400F004B3 /* itemsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = itemsTableViewController.swift; sourceTree = "<group>"; };
+		AA830C5F2157D1D000F004B3 /* QRScannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerController.swift; sourceTree = "<group>"; };
+		AAF9254821580500007D7ACE /* ItemsInfoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsInfoTableViewController.swift; sourceTree = "<group>"; };
+		AAF9254A21582DE4007D7ACE /* Camera-03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Camera-03.png"; path = "Djinaro/Camera-03.png"; sourceTree = "<group>"; };
+		AAF9254C21582DED007D7ACE /* Camera-03.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "Camera-03.svg"; path = "Djinaro/Camera-03.svg"; sourceTree = "<group>"; };
+		AAF9254E21583199007D7ACE /* djinaro.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = djinaro.jpg; sourceTree = "<group>"; };
+		AAF9255221583666007D7ACE /* backGround.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = backGround.jpg; sourceTree = "<group>"; };
+		AAF92554215AC1E0007D7ACE /* GoodsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsController.swift; sourceTree = "<group>"; };
+		AAF92556215AC4AC007D7ACE /* GoodsItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsItem.swift; sourceTree = "<group>"; };
+		AAF92558215C2E78007D7ACE /* GoodsInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsInfoTableViewCell.swift; sourceTree = "<group>"; };
+		AAF9255E215C4E94007D7ACE /* LocationImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationImageViewController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AA830C3F215568C800F004B3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AA830C39215568C800F004B3 = {
+			isa = PBXGroup;
+			children = (
+				AA830C44215568C800F004B3 /* Djinaro */,
+				AA830C43215568C800F004B3 /* Products */,
+				AAF9254A21582DE4007D7ACE /* Camera-03.png */,
+				AAF9254C21582DED007D7ACE /* Camera-03.svg */,
+				AAF9254E21583199007D7ACE /* djinaro.jpg */,
+				AAF9255221583666007D7ACE /* backGround.jpg */,
+				AA24C48E215ED95E009938CC /* slippers.jpg */,
+			);
+			sourceTree = "<group>";
+		};
+		AA830C43215568C800F004B3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AA830C42215568C800F004B3 /* Djinaro.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AA830C44215568C800F004B3 /* Djinaro */ = {
+			isa = PBXGroup;
+			children = (
+				AA830C45215568C800F004B3 /* AppDelegate.swift */,
+				AA830C47215568C800F004B3 /* ViewController.swift */,
+				AA830C5721557C4400F004B3 /* itemsTableViewCell.swift */,
+				AA830C5B2155862400F004B3 /* itemsTableViewController.swift */,
+				AAF92554215AC1E0007D7ACE /* GoodsController.swift */,
+				AAF92556215AC4AC007D7ACE /* GoodsItem.swift */,
+				AA830C5F2157D1D000F004B3 /* QRScannerController.swift */,
+				AA830C49215568C900F004B3 /* Main.storyboard */,
+				AAF9254821580500007D7ACE /* ItemsInfoTableViewController.swift */,
+				AAF92558215C2E78007D7ACE /* GoodsInfoTableViewCell.swift */,
+				AAF9255E215C4E94007D7ACE /* LocationImageViewController.swift */,
+				AA830C4C215568D000F004B3 /* Assets.xcassets */,
+				AA830C4E215568D000F004B3 /* LaunchScreen.storyboard */,
+				AA830C51215568D000F004B3 /* Info.plist */,
+			);
+			path = Djinaro;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AA830C41215568C800F004B3 /* Djinaro */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA830C54215568D000F004B3 /* Build configuration list for PBXNativeTarget "Djinaro" */;
+			buildPhases = (
+				AA830C3E215568C800F004B3 /* Sources */,
+				AA830C3F215568C800F004B3 /* Frameworks */,
+				AA830C40215568C800F004B3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Djinaro;
+			productName = Djinaro;
+			productReference = AA830C42215568C800F004B3 /* Djinaro.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AA830C3A215568C800F004B3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1000;
+				LastUpgradeCheck = 1000;
+				ORGANIZATIONNAME = Azat;
+				TargetAttributes = {
+					AA830C41215568C800F004B3 = {
+						CreatedOnToolsVersion = 10.0;
+					};
+				};
+			};
+			buildConfigurationList = AA830C3D215568C800F004B3 /* Build configuration list for PBXProject "Djinaro" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AA830C39215568C800F004B3;
+			productRefGroup = AA830C43215568C800F004B3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AA830C41215568C800F004B3 /* Djinaro */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AA830C40215568C800F004B3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA830C50215568D000F004B3 /* LaunchScreen.storyboard in Resources */,
+				AAF9254B21582DE5007D7ACE /* Camera-03.png in Resources */,
+				AAF9254D21582DED007D7ACE /* Camera-03.svg in Resources */,
+				AAF9255321583666007D7ACE /* backGround.jpg in Resources */,
+				AA830C4D215568D000F004B3 /* Assets.xcassets in Resources */,
+				AA24C48F215ED95E009938CC /* slippers.jpg in Resources */,
+				AA830C4B215568C900F004B3 /* Main.storyboard in Resources */,
+				AAF9254F2158319A007D7ACE /* djinaro.jpg in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AA830C3E215568C800F004B3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA830C48215568C800F004B3 /* ViewController.swift in Sources */,
+				AA830C5821557C4400F004B3 /* itemsTableViewCell.swift in Sources */,
+				AA830C46215568C800F004B3 /* AppDelegate.swift in Sources */,
+				AA830C5C2155862400F004B3 /* itemsTableViewController.swift in Sources */,
+				AAF9254921580500007D7ACE /* ItemsInfoTableViewController.swift in Sources */,
+				AAF92557215AC4AC007D7ACE /* GoodsItem.swift in Sources */,
+				AA830C602157D1D000F004B3 /* QRScannerController.swift in Sources */,
+				AAF92559215C2E78007D7ACE /* GoodsInfoTableViewCell.swift in Sources */,
+				AAF92555215AC1E0007D7ACE /* GoodsController.swift in Sources */,
+				AAF9255F215C4E94007D7ACE /* LocationImageViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		AA830C49215568C900F004B3 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AA830C4A215568C900F004B3 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		AA830C4E215568D000F004B3 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AA830C4F215568D000F004B3 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		AA830C52215568D000F004B3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		AA830C53215568D000F004B3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AA830C55215568D000F004B3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 45B5A22726;
+				INFOPLIST_FILE = Djinaro/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Pick-and-Pop.Djinaro-1";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AA830C56215568D000F004B3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 45B5A22726;
+				INFOPLIST_FILE = Djinaro/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Pick-and-Pop.Djinaro-1";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AA830C3D215568C800F004B3 /* Build configuration list for PBXProject "Djinaro" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA830C52215568D000F004B3 /* Debug */,
+				AA830C53215568D000F004B3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AA830C54215568D000F004B3 /* Build configuration list for PBXNativeTarget "Djinaro" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA830C55215568D000F004B3 /* Debug */,
+				AA830C56215568D000F004B3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AA830C3A215568C800F004B3 /* Project object */;
+}
