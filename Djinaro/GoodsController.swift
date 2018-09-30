@@ -41,7 +41,10 @@ class GoodsController {
         task.resume()
     }
     
-   
+    // http://91.203.195.74/store/api/v1/good?sizes=40,41,42
+
+    
+    
     
     func fetchGood(goodsNamesIds: String, type: String, completion: @escaping (GoodsInfo?) -> Void) {
         
@@ -104,6 +107,43 @@ class GoodsController {
         }
         task.resume()
     }
+
+    
+    func fetchSearchGoodsBySize(search: String,completion: @escaping ([Good]?) -> Void) {
+        
+        let GoodsItemsUrl = baseURL.appendingPathComponent("good")
+        var components = URLComponents(url: GoodsItemsUrl, resolvingAgainstBaseURL: true)!
+        components.queryItems = [URLQueryItem(name: "sizes", value: search)]
+        
+        let GoodsURL = components.url!
+        print(GoodsURL)
+        let task = URLSession.shared.dataTask(with: GoodsURL) {(data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode([Good].self, from: data) {
+                    completion(list)
+                    
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode([Good].self, from: data)
+                        
+                    } catch let error {
+                        print("error in getting fetchListGoods")
+                        print(error)
+                        print(response)
+                    }
+                }
+                
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
+
+    
+    
     
 }
 

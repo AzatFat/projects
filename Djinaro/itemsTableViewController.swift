@@ -15,6 +15,7 @@ class itemsTableViewController: UITableViewController,UISearchBarDelegate {
 
     let goodsController = GoodsController()
     var goodList = [Good]()
+    let searchController = UISearchController(searchResultsController: nil)
     
     @IBOutlet var search: UISearchBar!
     
@@ -30,8 +31,7 @@ class itemsTableViewController: UITableViewController,UISearchBarDelegate {
         
         search.delegate = self
 
-       
-        
+        searchController.searchBar.delegate = self
         /*
         
         goodsController.fetchListGoods { (listGoods) in
@@ -45,7 +45,7 @@ class itemsTableViewController: UITableViewController,UISearchBarDelegate {
             }
         }
         */
-        hideKeyboardWhenTappedAround()
+        //hideKeyboardWhenTappedAround()
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -79,27 +79,27 @@ class itemsTableViewController: UITableViewController,UISearchBarDelegate {
                 self.tableView.reloadData()
             }
         }
-        
-        
-        
-        
     }
 
     // MARK: - Table view data source
 
-    
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = true;
+        searchBar.showsScopeBar = true
+        searchBar.scopeButtonTitles = ["Наименование", "Рамер"]
+        searchBar.sizeToFit()
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-
-        searchBar.showsCancelButton = false;
+       // hideKeyboardWhenTappedAround()
     }
     
-    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         
         searchBar.text = nil
+        searchBar.showsCancelButton = false;
+        searchBar.showsScopeBar = false
+        searchBar.sizeToFit()
         
         goodsController.fetchListGoods { (listGoods) in
             if let listGoods = listGoods {
@@ -111,21 +111,42 @@ class itemsTableViewController: UITableViewController,UISearchBarDelegate {
             }
             
         }
-        
         searchBar.resignFirstResponder()
     }
    
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        goodsController.fetchSearhGoods(search: searchBar.text!) { (listGoods) in
-            if let listGoods = listGoods {
-                
-                print("request List success")
-
-                self.goodList = listGoods
+        
+        guard let scopeString = searchBar.scopeButtonTitles? [searchBar.selectedScopeButtonIndex] else {return }
+        
+        searchBar.showsCancelButton = false;
+        searchBar.showsScopeBar = false
+        searchBar.sizeToFit()
+        
+        print(scopeString)
+        
+        if scopeString == "Рамер"{
+            
+            let searchList_1 = searchBar.text!.replacingOccurrences(of: ", ", with: ",")
+            let searchList = searchList_1.replacingOccurrences(of: " ", with: ",")
+            goodsController.fetchSearchGoodsBySize(search: searchList) { (listGoods) in
+                if let listGoods = listGoods {
+                    print("request List success")
+                    self.goodList = listGoods
+                }
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
             }
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
+        } else {
+            goodsController.fetchSearhGoods(search: searchBar.text!) { (listGoods) in
+                if let listGoods = listGoods {
+                    print("request List success")
+                    self.goodList = listGoods
+                }
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
             }
         }
         searchBar.resignFirstResponder()
@@ -133,7 +154,8 @@ class itemsTableViewController: UITableViewController,UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-
+      //  searchBar.showsScopeBar = true
+      //  searchBar.scopeButtonTitles = ["Наименование", "Рамер"]
        /*
         filtered = data.filter({ (text) -> Bool in
             let tmp: NSString = text
@@ -147,6 +169,11 @@ class itemsTableViewController: UITableViewController,UISearchBarDelegate {
         }
         self.tableView.reloadData()
          */
+    }
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        
+        searchBarTextDidBeginEditing(searchBar)
+        
     }
 
     
@@ -170,10 +197,7 @@ class itemsTableViewController: UITableViewController,UISearchBarDelegate {
             fatalError("The dequeued cell is not an instance of MealTableViewCell.")
         }
         let good = goodList[indexPath.row]
-        
         cell.labelTest.text = good.name
-        
-        
         return cell
     }
     
