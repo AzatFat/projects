@@ -139,8 +139,8 @@ class QRScannerController: UIViewController {
             let controller = segue.destination as! ItemsInfoTableViewController
             controller.id = found_text
             controller.type = "1"
+            controller.location = "Test Location"
             //controller.title = found_text
-            
         }
     }
 }

@@ -9,13 +9,15 @@
 import UIKit
 
 class LocationImageViewController: UIViewController {
+    
+    var locationText: String = ""
     @IBOutlet var GoodImage: UIImageView!
     
     @IBOutlet var GoodSize: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        GoodSize.text = locationText
         // Do any additional setup after loading the view.
     }
     

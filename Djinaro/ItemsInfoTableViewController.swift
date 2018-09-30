@@ -11,7 +11,6 @@ import UIKit
 
 class ItemsInfoTableViewController: UITableViewController {
 
-    
     var goodsController = GoodsController()
     var id: String!
     var type: String!
@@ -29,9 +28,12 @@ class ItemsInfoTableViewController: UITableViewController {
                 
                 if let goodLocation = self.good?.location {
                     self.location = goodLocation
+                    self.performSegue(withIdentifier: "location", sender: nil)
                 }
                 
             } else {
+                self.location = "test Location"
+                self.performSegue(withIdentifier: "location", sender: nil)
                 print("error in getting GoodInfo")
             }
             DispatchQueue.main.async {
@@ -55,16 +57,20 @@ class ItemsInfoTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     
-    /*
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let controller = segue.destination as? LocationImageViewController, segue.identifier == "location" {
+            controller.locationText = location
+        }
+        /*
         if segue.identifier == "location" {
             if let controller = segue.destination as? LocationImageViewController {
-                controller.contentString = location
+                controller.GoodSize.text = location
             }
-        }
+        }*/
     }
     
-    */
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
