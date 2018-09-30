@@ -27,8 +27,15 @@ class itemsTableViewController: UITableViewController,UISearchBarDelegate {
         
         tableView.delegate = self
         tableView.dataSource = self
+       
+        //searchController.search.scopeButtonTitles = ["Наименование", "Размер"]
+        
+        search.scopeButtonTitles = ["Наименование", "Размер"]
+        
         search.delegate = self
 
+       
+        
         /*
         
         goodsController.fetchListGoods { (listGoods) in
@@ -52,6 +59,8 @@ class itemsTableViewController: UITableViewController,UISearchBarDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        
+        /*
         goodsController.fetchListGoods { (listGoods) in
             if let listGoods = listGoods {
 
@@ -61,6 +70,21 @@ class itemsTableViewController: UITableViewController,UISearchBarDelegate {
                 self.tableView.reloadData()
             }
         }
+        
+        */
+        goodsController.fetchSearhGoods(search: "") { (listGoods) in
+            if let listGoods = listGoods {
+                
+                print("request List success")
+                
+                self.goodList = listGoods
+            }
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+        
+        
         
         
     }
@@ -216,6 +240,7 @@ class itemsTableViewController: UITableViewController,UISearchBarDelegate {
             
             let controller = segue.destination as! ItemsInfoTableViewController
             controller.id = id
+            controller.type = "0"
             controller.title = name
             
         }

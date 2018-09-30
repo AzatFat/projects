@@ -43,21 +43,24 @@ class GoodsController {
     
    
     
-    func fetchGood(goodsNamesIds: String, completion: @escaping (GoodsInfo?) -> Void) {
+    func fetchGood(goodsNamesIds: String, type: String, completion: @escaping (GoodsInfo?) -> Void) {
         
         let initialGoodsItemURL = baseURL.appendingPathComponent("good/info")
         var components = URLComponents(url: initialGoodsItemURL, resolvingAgainstBaseURL: true)!
-        components.queryItems = [URLQueryItem(name: "code", value: goodsNamesIds.decodeUrl)]
+        components.queryItems = [URLQueryItem(name: "code", value: goodsNamesIds.decodeUrl), URLQueryItem(name: "type", value: type)]
         //components.queryItems = [URLQueryItem(name: "goodIds", value: goodsNamesIds)]
         let GoodsURL = components.url!
         print(goodsNamesIds)
+        print(type)
         print(GoodsURL)
         let task = URLSession.shared.dataTask(with: GoodsURL) {(data, response, error) in
             if let data = data {
+                print(response)
                 do {
                     let jsonDecoder = JSONDecoder()
                     let good = try jsonDecoder.decode(GoodsInfo.self, from: data)
                     completion(good)
+                    print(good)
                 } catch let error{
                     print(error)
                 }
@@ -82,10 +85,12 @@ class GoodsController {
             if let data = data{
                 if let list = try? jsonDecoder.decode([Good].self, from: data) {
                     completion(list)
+                    
                 } else {
                     do {
                         let decoder = JSONDecoder()
                         let product = try decoder.decode([Good].self, from: data)
+                        
                     } catch let error {
                         print("error in getting fetchListGoods")
                         print(error)

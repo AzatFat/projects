@@ -14,13 +14,14 @@ class ItemsInfoTableViewController: UITableViewController {
     
     var goodsController = GoodsController()
     var id: String!
+    var type: String!
     var good:  GoodsInfo?
     var location = ""
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        goodsController.fetchGood(goodsNamesIds: id)
+        goodsController.fetchGood(goodsNamesIds: id, type: type)
         { (goodInfo) in
             if let goodInfo = goodInfo {
                 
@@ -35,6 +36,7 @@ class ItemsInfoTableViewController: UITableViewController {
             }
             DispatchQueue.main.async {
                 self.tableView.reloadData()
+                self.title = self.good?.name
                // self.performSegue(withIdentifier: "location", sender: nil)
             }
         }
