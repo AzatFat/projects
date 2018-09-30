@@ -21,16 +21,12 @@ class itemsTableViewController: UITableViewController,UISearchBarDelegate {
     var id = ""
     var name = ""
     var searchActive : Bool = false
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.delegate = self
         tableView.dataSource = self
-       
-        //searchController.search.scopeButtonTitles = ["Наименование", "Размер"]
-        
-        search.scopeButtonTitles = ["Наименование", "Размер"]
         
         search.delegate = self
 
