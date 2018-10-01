@@ -17,8 +17,13 @@ class LocationImageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        GoodSize.text = locationText
         // Do any additional setup after loading the view.
+    }
+    
+    func changeLocation(locationText: String){
+        DispatchQueue.main.async {
+            self.GoodSize.text = locationText
+        }
     }
     
 

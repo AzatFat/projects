@@ -58,7 +58,7 @@ class GoodsController {
         print(GoodsURL)
         let task = URLSession.shared.dataTask(with: GoodsURL) {(data, response, error) in
             if let data = data {
-                print(response)
+               // print(response)
                 do {
                     let jsonDecoder = JSONDecoder()
                     let good = try jsonDecoder.decode(GoodsInfo.self, from: data)

@@ -16,7 +16,7 @@ class ItemsInfoTableViewController: UITableViewController {
     var type: String!
     var good:  GoodsInfo?
     var location = ""
-    
+    var locationImageController = LocationImageViewController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,12 +28,13 @@ class ItemsInfoTableViewController: UITableViewController {
                 
                 if let goodLocation = self.good?.location {
                     self.location = goodLocation
-                    self.performSegue(withIdentifier: "location", sender: nil)
+                    self.locationImageController.changeLocation(locationText:  self.location)
                 }
                 
             } else {
                 self.location = "test Location"
-                self.performSegue(withIdentifier: "location", sender: nil)
+               // self.performSegue(withIdentifier: "location", sender: nil)
+                
                 print("error in getting GoodInfo")
             }
             DispatchQueue.main.async {
@@ -61,6 +62,7 @@ class ItemsInfoTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let controller = segue.destination as? LocationImageViewController, segue.identifier == "location" {
             controller.locationText = location
+            self.locationImageController = controller
         }
         /*
         if segue.identifier == "location" {
