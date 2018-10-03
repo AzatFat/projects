@@ -16,35 +16,36 @@ class itemsTableViewController: UITableViewController,UISearchBarDelegate {
     let goodsController = GoodsController()
     var goodList = [Good]()
     let searchController = UISearchController(searchResultsController: nil)
+
+    
     
     @IBOutlet var search: UISearchBar!
     
     var id = ""
     var name = ""
     var searchActive : Bool = false
+    var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.delegate = self
         tableView.dataSource = self
-        
         search.delegate = self
-
         searchController.searchBar.delegate = self
-        /*
         
-        goodsController.fetchListGoods { (listGoods) in
+        addPreload(start_stop: true)
+        
+        goodsController.fetchSearhGoods(search: "") { (listGoods) in
             if let listGoods = listGoods {
-                
                 print("request List success")
                 self.goodList = listGoods
             }
             DispatchQueue.main.async {
                 self.tableView.reloadData()
+                self.addPreload(start_stop: false)
             }
         }
-        */
         //hideKeyboardWhenTappedAround()
         
         // Uncomment the following line to preserve selection between presentations
@@ -55,34 +56,29 @@ class itemsTableViewController: UITableViewController,UISearchBarDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
-        /*
-        goodsController.fetchListGoods { (listGoods) in
-            if let listGoods = listGoods {
 
-                self.goodList = listGoods
-            }
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
-        
-        */
-        goodsController.fetchSearhGoods(search: "") { (listGoods) in
-            if let listGoods = listGoods {
-                
-                print("request List success")
-                
-                self.goodList = listGoods
-            } 
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
     }
 
+    func addPreload(start_stop: Bool){
+        if start_stop {
+            activityIndicator.center = self.view.center
+            activityIndicator.hidesWhenStopped = true
+            activityIndicator.style = UIActivityIndicatorView.Style.gray
+            tableView.addSubview(activityIndicator)
+            activityIndicator.startAnimating()
+         //   activityIndicator.style = UIActivityIndicatorView.t
+         //   tableView.shared.beginIgnoringInteractionEvents()
+        } else {
+            activityIndicator.stopAnimating()
+            UIApplication.shared.endIgnoringInteractionEvents()
+        }
+
+    }
+    
+    
     // MARK: - Table view data source
 
+    
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = true;
         searchBar.showsScopeBar = true
@@ -90,8 +86,11 @@ class itemsTableViewController: UITableViewController,UISearchBarDelegate {
         searchBar.sizeToFit()
     }
     
+    
+    
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
        // hideKeyboardWhenTappedAround()
+        searchBar.resignFirstResponder()
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -101,15 +100,16 @@ class itemsTableViewController: UITableViewController,UISearchBarDelegate {
         searchBar.showsScopeBar = false
         searchBar.sizeToFit()
         
-        goodsController.fetchListGoods { (listGoods) in
+        addPreload(start_stop: true)
+        goodsController.fetchSearhGoods(search: "") { (listGoods) in
             if let listGoods = listGoods {
-                
+                print("request List success")
                 self.goodList = listGoods
             }
             DispatchQueue.main.async {
                 self.tableView.reloadData()
+                self.addPreload(start_stop: false)
             }
-            
         }
         searchBar.resignFirstResponder()
     }
@@ -123,7 +123,7 @@ class itemsTableViewController: UITableViewController,UISearchBarDelegate {
         searchBar.showsScopeBar = false
         searchBar.sizeToFit()
         
-        print(scopeString)
+        self.addPreload(start_stop: true)
         
         if scopeString == "Рамер"{
             
@@ -136,6 +136,7 @@ class itemsTableViewController: UITableViewController,UISearchBarDelegate {
                 }
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
+                    self.addPreload(start_stop: false)
                 }
             }
         } else {
@@ -146,6 +147,7 @@ class itemsTableViewController: UITableViewController,UISearchBarDelegate {
                 }
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
+                    self.addPreload(start_stop: false)
                 }
             }
         }

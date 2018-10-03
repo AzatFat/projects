@@ -11,18 +11,22 @@ import UIKit
 class LocationImageViewController: UIViewController {
     
     var locationText: String = ""
+    var name: String = ""
     @IBOutlet var GoodImage: UIImageView!
     
     @IBOutlet var GoodSize: UILabel!
+    
+    @IBOutlet var goodName: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
     
-    func changeLocation(locationText: String){
+    func changeLocation(locationText: String, name: String){
         DispatchQueue.main.async {
             self.GoodSize.text = locationText
+            self.goodName.text = name
         }
     }
     

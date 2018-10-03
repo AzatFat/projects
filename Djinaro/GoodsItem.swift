@@ -43,7 +43,7 @@ struct GoodsInfo: Codable {
 struct avaliableSizes: Codable {
     
     var size: String?
-    var cost: Double?
+    var cost: String?
     var count: String?
     
     enum CodingKeys: String, CodingKey {

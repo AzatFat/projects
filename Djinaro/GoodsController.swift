@@ -31,6 +31,7 @@ class GoodsController {
                     } catch let error {
                         print("error in getting fetchListGoods")
                         print(error)
+                        completion(nil)
                     }
                 }
 
@@ -66,6 +67,7 @@ class GoodsController {
                     print(good)
                 } catch let error{
                     print(error)
+                    completion(nil)
                 }
             } else {
                 completion(nil)
@@ -98,6 +100,7 @@ class GoodsController {
                         print("error in getting fetchListGoods")
                         print(error)
                         print(response)
+                        completion(nil)
                     }
                 }
                 
@@ -132,6 +135,7 @@ class GoodsController {
                         print("error in getting fetchListGoods")
                         print(error)
                         print(response)
+                        completion(nil)
                     }
                 }
                 

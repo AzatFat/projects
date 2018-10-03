@@ -16,29 +16,35 @@ class ItemsInfoTableViewController: UITableViewController {
     var type: String!
     var good:  GoodsInfo?
     var location = ""
+    var name = ""
     var locationImageController = LocationImageViewController()
-
+    var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        addPreload(start_stop: true)
         goodsController.fetchGood(goodsNamesIds: id, type: type)
         { (goodInfo) in
             if let goodInfo = goodInfo {
                 
                 self.good = goodInfo
                 
-                if let goodLocation = self.good?.location {
+                if let goodLocation = self.good?.location, let goodname = self.good?.name {
                     self.location = goodLocation
-                    self.locationImageController.changeLocation(locationText:  self.location)
+                    self.name = goodname
+                    self.locationImageController.changeLocation(locationText:  self.location, name: self.name)
+                    self.addPreload(start_stop: false)
                 }
                 
             } else {
                 self.location = "test Location"
                // self.performSegue(withIdentifier: "location", sender: nil)
-                
                 print("error in getting GoodInfo")
+                self.locationImageController.changeLocation(locationText:  "", name: "Товар не найден")
             }
             DispatchQueue.main.async {
                 self.tableView.reloadData()
+                self.addPreload(start_stop: false)
                 self.title = self.good?.name
                // self.performSegue(withIdentifier: "location", sender: nil)
             }
@@ -58,10 +64,10 @@ class ItemsInfoTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let controller = segue.destination as? LocationImageViewController, segue.identifier == "location" {
             controller.locationText = location
+            controller.name = name
             self.locationImageController = controller
         }
         /*
@@ -72,6 +78,25 @@ class ItemsInfoTableViewController: UITableViewController {
         }*/
     }
     
+    func addPreload(start_stop: Bool){
+        if start_stop {
+            activityIndicator.center = self.view.center
+            activityIndicator.hidesWhenStopped = true
+            activityIndicator.style = UIActivityIndicatorView.Style.gray
+            tableView.addSubview(activityIndicator)
+            activityIndicator.startAnimating()
+            //   activityIndicator.style = UIActivityIndicatorView.t
+            // itemsTableViewController.shared.beginIgnoringInteractionEvents()
+        } else {
+            DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
+            // UIApplication.shared.endIgnoringInteractionEvents()
+            }
+        }
+        
+    }
+    
+    
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -80,7 +105,7 @@ class ItemsInfoTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        
+        /*
         if good != nil {
             
             if good!.available_sizes.count == 0 {
@@ -91,8 +116,13 @@ class ItemsInfoTableViewController: UITableViewController {
             
         } else {
             return 1
+        }*/
+        if let good_item = good  {
+            return good_item.available_sizes.count
+        } else {
+            return 0
+            
         }
-        
     }
 
     
@@ -124,16 +154,14 @@ class ItemsInfoTableViewController: UITableViewController {
                 print("size is unavalible")
                
             }
-            
-            print(sizes)
-            
+
             
             return cell
-        } else {
+        }else {
             
-            cell.count.text = "Нет в наличии"
-            cell.prise.text = "?"
-            cell.size.text = "?"
+            cell.count.text = ""
+            cell.prise.text = ""
+            cell.size.text = ""
             
             return cell
         }

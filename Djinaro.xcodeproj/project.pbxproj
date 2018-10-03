@@ -61,6 +61,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AA350BBA2162C23900AF4460 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		AA830C39215568C800F004B3 = {
 			isa = PBXGroup;
 			children = (
@@ -71,6 +78,7 @@
 				AAF9254E21583199007D7ACE /* djinaro.jpg */,
 				AAF9255221583666007D7ACE /* backGround.jpg */,
 				AA24C48E215ED95E009938CC /* slippers.jpg */,
+				AA350BBA2162C23900AF4460 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -135,6 +143,11 @@
 				TargetAttributes = {
 					AA830C41215568C800F004B3 = {
 						CreatedOnToolsVersion = 10.0;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -342,7 +355,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Pick-and-Pop.Djinaro-1";
+				PRODUCT_BUNDLE_IDENTIFIER = "Pick-and-Pop-Djinaro-1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
@@ -362,7 +375,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Pick-and-Pop.Djinaro-1";
+				PRODUCT_BUNDLE_IDENTIFIER = "Pick-and-Pop-Djinaro-1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
