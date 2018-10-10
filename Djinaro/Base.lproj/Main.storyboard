@@ -126,7 +126,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="4599" y="555"/>
+            <point key="canvasLocation" x="4624" y="375"/>
         </scene>
         <!--Items Info Table View Controller-->
         <scene sceneID="tcy-wV-Fnq">
@@ -234,7 +234,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OxU-9l-VCA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5769.375" y="554.57746478873241"/>
+            <point key="canvasLocation" x="5754" y="-77"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="mDL-X4-d6L">
@@ -268,11 +268,63 @@
                     <connections>
                         <segue destination="8vS-Zx-9gc" kind="relationship" relationship="viewControllers" id="jxr-XN-DFv"/>
                         <segue destination="POu-4W-TFY" kind="relationship" relationship="viewControllers" id="NNm-tD-4Zs"/>
+                        <segue destination="PjL-fn-p5u" kind="relationship" relationship="viewControllers" id="pLl-rg-GjK"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z3N-v2-pyJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3564" y="26.53673163418291"/>
+        </scene>
+        <!--micro-->
+        <scene sceneID="Dq8-p5-9ND">
+            <objects>
+                <viewController id="PjL-fn-p5u" customClass="SpeechViewController" customModule="Djinaro" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1uS-jf-f7w">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" alpha="0.94999999999999996" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PS0-P9-2Sn">
+                                <rect key="frame" x="109" y="390" width="100" height="100"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.20318505167961121" green="0.85557115077972412" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <state key="normal" title="Запись">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleShadowColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="StartStopSpeechRecognition:" destination="PjL-fn-p5u" eventType="touchUpInside" id="7q0-C7-S7H"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oTx-tv-con">
+                                <rect key="frame" x="16" y="178" width="288" height="172"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VGj-x1-TVz">
+                                <rect key="frame" x="16" y="96" width="289" height="74"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <string key="text">Для поиска по размеру от 36 до 46 перечислите их и закончите фразу словом "размер".  Для поиска по наименованию назовите ключевую фразу  м нажмите нажмите "Поиск".</string>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="10"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="kou-jU-uo6"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="micro" image="micro" id="rzm-BF-Bb5"/>
+                    <connections>
+                        <outlet property="SpeecToText" destination="oTx-tv-con" id="WBO-g2-Rgf"/>
+                        <outlet property="speechToTextOutlet" destination="PS0-P9-2Sn" id="SgP-5T-ptX"/>
+                        <segue destination="8vS-Zx-9gc" kind="show" identifier="speachSearch" id="caQ-w2-rsT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2uG-Ya-kv8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4623.75" y="1425"/>
         </scene>
         <!--Camera-->
         <scene sceneID="xo8-i9-UVV">
@@ -307,7 +359,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zBQ-9Y-tsR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5767.5" y="-370.77464788732397"/>
+            <point key="canvasLocation" x="4624" y="-492"/>
         </scene>
         <!--Location Image View Controller-->
         <scene sceneID="5Mq-bJ-8hp">
@@ -379,13 +431,15 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YpN-7M-3bd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6654.375" y="554.57746478873241"/>
+            <point key="canvasLocation" x="6557" y="-283"/>
         </scene>
     </scenes>
     <resources>
         <image name="Camera-3" width="37" height="37"/>
+        <image name="micro" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="0gY-wi-gwG"/>
+        <segue reference="ur2-6f-m7R"/>
+        <segue reference="caQ-w2-rsT"/>
     </inferredMetricsTieBreakers>
 </document>

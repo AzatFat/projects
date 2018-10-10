@@ -16,14 +16,14 @@ class itemsTableViewController: UITableViewController,UISearchBarDelegate {
     let goodsController = GoodsController()
     var goodList = [Good]()
     let searchController = UISearchController(searchResultsController: nil)
-
+    var needToSearchAll = true
     
     
     @IBOutlet var search: UISearchBar!
     
     var id = ""
     var name = ""
-    var searchActive : Bool = false
+    var searchActive = Bool()
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     
     override func viewDidLoad() {
@@ -33,19 +33,21 @@ class itemsTableViewController: UITableViewController,UISearchBarDelegate {
         tableView.dataSource = self
         search.delegate = self
         searchController.searchBar.delegate = self
-        
+        /*
         addPreload(start_stop: true)
-        
-        goodsController.fetchSearhGoods(search: "") { (listGoods) in
-            if let listGoods = listGoods {
-                print("request List success")
-                self.goodList = listGoods
-            }
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                self.addPreload(start_stop: false)
+        if needToSearchAll != false {
+            goodsController.fetchSearhGoods(search: "") { (listGoods) in
+                if let listGoods = listGoods {
+                    print("request List success viev did load")
+                    self.goodList = listGoods
+                }
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                    self.addPreload(start_stop: false)
+                }
             }
         }
+        */
         //hideKeyboardWhenTappedAround()
         
         // Uncomment the following line to preserve selection between presentations
@@ -103,7 +105,7 @@ class itemsTableViewController: UITableViewController,UISearchBarDelegate {
         addPreload(start_stop: true)
         goodsController.fetchSearhGoods(search: "") { (listGoods) in
             if let listGoods = listGoods {
-                print("request List success")
+                print("request List success searchBarCancelButtonClicked")
                 self.goodList = listGoods
             }
             DispatchQueue.main.async {
@@ -118,7 +120,6 @@ class itemsTableViewController: UITableViewController,UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
         guard let scopeString = searchBar.scopeButtonTitles? [searchBar.selectedScopeButtonIndex] else {return }
-        
         searchBar.showsCancelButton = false;
         searchBar.showsScopeBar = false
         searchBar.sizeToFit()
@@ -126,12 +127,11 @@ class itemsTableViewController: UITableViewController,UISearchBarDelegate {
         self.addPreload(start_stop: true)
         
         if scopeString == "Рамер"{
-            
             let searchList_1 = searchBar.text!.replacingOccurrences(of: ", ", with: ",")
             let searchList = searchList_1.replacingOccurrences(of: " ", with: ",")
             goodsController.fetchSearchGoodsBySize(search: searchList) { (listGoods) in
                 if let listGoods = listGoods {
-                    print("request List success")
+                    print("request List success searchBarSearchButtonClicked size")
                     self.goodList = listGoods
                 }
                 DispatchQueue.main.async {
@@ -142,7 +142,7 @@ class itemsTableViewController: UITableViewController,UISearchBarDelegate {
         } else {
             goodsController.fetchSearhGoods(search: searchBar.text!) { (listGoods) in
                 if let listGoods = listGoods {
-                    print("request List success")
+                    print("request List success searchBarSearchButtonClicked search")
                     self.goodList = listGoods
                 }
                 DispatchQueue.main.async {
@@ -152,25 +152,39 @@ class itemsTableViewController: UITableViewController,UISearchBarDelegate {
             }
         }
         searchBar.resignFirstResponder()
-      //  searchActive = false
     }
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-      //  searchBar.showsScopeBar = true
-      //  searchBar.scopeButtonTitles = ["Наименование", "Рамер"]
-       /*
-        filtered = data.filter({ (text) -> Bool in
-            let tmp: NSString = text
-            let range = tmp.rangeOfString(searchText, options: NSStringCompareOptions.CaseInsensitiveSearch)
-            return range.location != NSNotFound
-        })
-        if(filtered.count == 0){
-            searchActive = false;
-        } else {
-            searchActive = true;
+    func spechSizeSearch (search: String) {
+        self.addPreload(start_stop: true)
+        goodsController.fetchSearchGoodsBySize(search: search) { (listGoods) in
+            if let listGoods = listGoods {
+                print("request List success spechSearch ")
+                self.goodList = listGoods
+            }
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.addPreload(start_stop: false)
+            }
         }
-        self.tableView.reloadData()
-         */
+    }
+    
+    func spechGoodSearch (search: String) {
+        self.addPreload(start_stop: true)
+        goodsController.fetchSearhGoods(search: search) { (listGoods) in
+            if let listGoods = listGoods {
+                print("request List success spechGoodSearch search")
+                self.goodList = listGoods
+            }
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.addPreload(start_stop: false)
+            }
+        }
+    }
+    
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+
     }
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         

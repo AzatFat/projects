@@ -16,6 +16,7 @@
 		AA830C5821557C4400F004B3 /* itemsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA830C5721557C4400F004B3 /* itemsTableViewCell.swift */; };
 		AA830C5C2155862400F004B3 /* itemsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA830C5B2155862400F004B3 /* itemsTableViewController.swift */; };
 		AA830C602157D1D000F004B3 /* QRScannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA830C5F2157D1D000F004B3 /* QRScannerController.swift */; };
+		AADB9328216BDFC000AA2C34 /* SpeechViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADB9327216BDFC000AA2C34 /* SpeechViewController.swift */; };
 		AAF9254921580500007D7ACE /* ItemsInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF9254821580500007D7ACE /* ItemsInfoTableViewController.swift */; };
 		AAF9254B21582DE5007D7ACE /* Camera-03.png in Resources */ = {isa = PBXBuildFile; fileRef = AAF9254A21582DE4007D7ACE /* Camera-03.png */; };
 		AAF9254D21582DED007D7ACE /* Camera-03.svg in Resources */ = {isa = PBXBuildFile; fileRef = AAF9254C21582DED007D7ACE /* Camera-03.svg */; };
@@ -39,6 +40,7 @@
 		AA830C5721557C4400F004B3 /* itemsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = itemsTableViewCell.swift; sourceTree = "<group>"; };
 		AA830C5B2155862400F004B3 /* itemsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = itemsTableViewController.swift; sourceTree = "<group>"; };
 		AA830C5F2157D1D000F004B3 /* QRScannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerController.swift; sourceTree = "<group>"; };
+		AADB9327216BDFC000AA2C34 /* SpeechViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechViewController.swift; sourceTree = "<group>"; };
 		AAF9254821580500007D7ACE /* ItemsInfoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsInfoTableViewController.swift; sourceTree = "<group>"; };
 		AAF9254A21582DE4007D7ACE /* Camera-03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Camera-03.png"; path = "Djinaro/Camera-03.png"; sourceTree = "<group>"; };
 		AAF9254C21582DED007D7ACE /* Camera-03.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "Camera-03.svg"; path = "Djinaro/Camera-03.svg"; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 				AAF92556215AC4AC007D7ACE /* GoodsItem.swift */,
 				AA830C5F2157D1D000F004B3 /* QRScannerController.swift */,
 				AA830C49215568C900F004B3 /* Main.storyboard */,
+				AADB9327216BDFC000AA2C34 /* SpeechViewController.swift */,
 				AAF9254821580500007D7ACE /* ItemsInfoTableViewController.swift */,
 				AAF92558215C2E78007D7ACE /* GoodsInfoTableViewCell.swift */,
 				AAF9255E215C4E94007D7ACE /* LocationImageViewController.swift */,
@@ -202,6 +205,7 @@
 				AAF92559215C2E78007D7ACE /* GoodsInfoTableViewCell.swift in Sources */,
 				AAF92555215AC1E0007D7ACE /* GoodsController.swift in Sources */,
 				AAF9255F215C4E94007D7ACE /* LocationImageViewController.swift in Sources */,
+				AADB9328216BDFC000AA2C34 /* SpeechViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,7 +359,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Pick-and-Pop-Djinaro-1";
+				PRODUCT_BUNDLE_IDENTIFIER = "Pick-and-Pop.Djinaro-1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
@@ -375,7 +379,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "Pick-and-Pop-Djinaro-1";
+				PRODUCT_BUNDLE_IDENTIFIER = "Pick-and-Pop.Djinaro-1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
