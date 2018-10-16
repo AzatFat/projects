@@ -23,7 +23,7 @@ class SpeechViewController: UIViewController, SFSpeechRecognizerDelegate {
     @IBOutlet var speechToTextOutlet: UIButton!
     @IBOutlet var SpeecToText: UILabel!
     @IBAction func StartStopSpeechRecognition(_ sender: UIButton) {
-        print("click")
+
         if isRecognizing == false {
             self.recordAndRecognizeSpeech()
             speechToTextOutlet.setTitle("Поиск", for: UIControl.State.normal)
@@ -64,7 +64,6 @@ class SpeechViewController: UIViewController, SFSpeechRecognizerDelegate {
     
     
     func recordAndRecognizeSpeech() {
-        print("starting")
         
         let node = audioEngine.inputNode
         let recordingFormat = node.outputFormat(forBus: 0)
@@ -100,7 +99,6 @@ class SpeechViewController: UIViewController, SFSpeechRecognizerDelegate {
         let separators = CharacterSet(charactersIn: " -,")
         let strArray = resultString.components(separatedBy: separators)
         var sizes = [String]()
-        print(strArray)
         for i in strArray {
             switch i {
             case "37":

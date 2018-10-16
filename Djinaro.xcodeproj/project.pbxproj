@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA08A0A3217536A800083C85 /* GoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA08A0A2217536A800083C85 /* GoodViewController.swift */; };
 		AA24C48F215ED95E009938CC /* slippers.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AA24C48E215ED95E009938CC /* slippers.jpg */; };
 		AA830C46215568C800F004B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA830C45215568C800F004B3 /* AppDelegate.swift */; };
 		AA830C48215568C800F004B3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA830C47215568C800F004B3 /* ViewController.swift */; };
@@ -17,6 +18,12 @@
 		AA830C5C2155862400F004B3 /* itemsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA830C5B2155862400F004B3 /* itemsTableViewController.swift */; };
 		AA830C602157D1D000F004B3 /* QRScannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA830C5F2157D1D000F004B3 /* QRScannerController.swift */; };
 		AADB9328216BDFC000AA2C34 /* SpeechViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADB9327216BDFC000AA2C34 /* SpeechViewController.swift */; };
+		AADB932A2171E77900AA2C34 /* GoodsArrivalTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADB93292171E77900AA2C34 /* GoodsArrivalTableViewController.swift */; };
+		AADB932C2171E7DA00AA2C34 /* GoodsArrivalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADB932B2171E7DA00AA2C34 /* GoodsArrivalTableViewCell.swift */; };
+		AADB932E2173311F00AA2C34 /* Receipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADB932D2173311F00AA2C34 /* Receipt.swift */; };
+		AADB933021733B4500AA2C34 /* ReceiptController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADB932F21733B4500AA2C34 /* ReceiptController.swift */; };
+		AADB93322173D4E800AA2C34 /* GoodsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADB93312173D4E800AA2C34 /* GoodsTableViewController.swift */; };
+		AADB93342173D52900AA2C34 /* GoodsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADB93332173D52900AA2C34 /* GoodsTableViewCell.swift */; };
 		AAF9254921580500007D7ACE /* ItemsInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF9254821580500007D7ACE /* ItemsInfoTableViewController.swift */; };
 		AAF9254B21582DE5007D7ACE /* Camera-03.png in Resources */ = {isa = PBXBuildFile; fileRef = AAF9254A21582DE4007D7ACE /* Camera-03.png */; };
 		AAF9254D21582DED007D7ACE /* Camera-03.svg in Resources */ = {isa = PBXBuildFile; fileRef = AAF9254C21582DED007D7ACE /* Camera-03.svg */; };
@@ -29,6 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AA08A0A2217536A800083C85 /* GoodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodViewController.swift; sourceTree = "<group>"; };
 		AA24C48E215ED95E009938CC /* slippers.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = slippers.jpg; sourceTree = "<group>"; };
 		AA830C42215568C800F004B3 /* Djinaro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Djinaro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA830C45215568C800F004B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -41,6 +49,12 @@
 		AA830C5B2155862400F004B3 /* itemsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = itemsTableViewController.swift; sourceTree = "<group>"; };
 		AA830C5F2157D1D000F004B3 /* QRScannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerController.swift; sourceTree = "<group>"; };
 		AADB9327216BDFC000AA2C34 /* SpeechViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechViewController.swift; sourceTree = "<group>"; };
+		AADB93292171E77900AA2C34 /* GoodsArrivalTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsArrivalTableViewController.swift; sourceTree = "<group>"; };
+		AADB932B2171E7DA00AA2C34 /* GoodsArrivalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsArrivalTableViewCell.swift; sourceTree = "<group>"; };
+		AADB932D2173311F00AA2C34 /* Receipt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Receipt.swift; sourceTree = "<group>"; };
+		AADB932F21733B4500AA2C34 /* ReceiptController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptController.swift; sourceTree = "<group>"; };
+		AADB93312173D4E800AA2C34 /* GoodsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsTableViewController.swift; sourceTree = "<group>"; };
+		AADB93332173D52900AA2C34 /* GoodsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsTableViewCell.swift; sourceTree = "<group>"; };
 		AAF9254821580500007D7ACE /* ItemsInfoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsInfoTableViewController.swift; sourceTree = "<group>"; };
 		AAF9254A21582DE4007D7ACE /* Camera-03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Camera-03.png"; path = "Djinaro/Camera-03.png"; sourceTree = "<group>"; };
 		AAF9254C21582DED007D7ACE /* Camera-03.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "Camera-03.svg"; path = "Djinaro/Camera-03.svg"; sourceTree = "<group>"; };
@@ -96,17 +110,24 @@
 			isa = PBXGroup;
 			children = (
 				AA830C45215568C800F004B3 /* AppDelegate.swift */,
+				AAF92556215AC4AC007D7ACE /* GoodsItem.swift */,
+				AAF92554215AC1E0007D7ACE /* GoodsController.swift */,
 				AA830C47215568C800F004B3 /* ViewController.swift */,
 				AA830C5721557C4400F004B3 /* itemsTableViewCell.swift */,
 				AA830C5B2155862400F004B3 /* itemsTableViewController.swift */,
-				AAF92554215AC1E0007D7ACE /* GoodsController.swift */,
-				AAF92556215AC4AC007D7ACE /* GoodsItem.swift */,
 				AA830C5F2157D1D000F004B3 /* QRScannerController.swift */,
-				AA830C49215568C900F004B3 /* Main.storyboard */,
 				AADB9327216BDFC000AA2C34 /* SpeechViewController.swift */,
 				AAF9254821580500007D7ACE /* ItemsInfoTableViewController.swift */,
 				AAF92558215C2E78007D7ACE /* GoodsInfoTableViewCell.swift */,
 				AAF9255E215C4E94007D7ACE /* LocationImageViewController.swift */,
+				AA830C49215568C900F004B3 /* Main.storyboard */,
+				AADB932D2173311F00AA2C34 /* Receipt.swift */,
+				AADB932F21733B4500AA2C34 /* ReceiptController.swift */,
+				AADB93292171E77900AA2C34 /* GoodsArrivalTableViewController.swift */,
+				AADB932B2171E7DA00AA2C34 /* GoodsArrivalTableViewCell.swift */,
+				AADB93312173D4E800AA2C34 /* GoodsTableViewController.swift */,
+				AADB93332173D52900AA2C34 /* GoodsTableViewCell.swift */,
+				AA08A0A2217536A800083C85 /* GoodViewController.swift */,
 				AA830C4C215568D000F004B3 /* Assets.xcassets */,
 				AA830C4E215568D000F004B3 /* LaunchScreen.storyboard */,
 				AA830C51215568D000F004B3 /* Info.plist */,
@@ -195,16 +216,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AADB933021733B4500AA2C34 /* ReceiptController.swift in Sources */,
 				AA830C48215568C800F004B3 /* ViewController.swift in Sources */,
 				AA830C5821557C4400F004B3 /* itemsTableViewCell.swift in Sources */,
+				AADB932E2173311F00AA2C34 /* Receipt.swift in Sources */,
 				AA830C46215568C800F004B3 /* AppDelegate.swift in Sources */,
 				AA830C5C2155862400F004B3 /* itemsTableViewController.swift in Sources */,
+				AADB932A2171E77900AA2C34 /* GoodsArrivalTableViewController.swift in Sources */,
+				AA08A0A3217536A800083C85 /* GoodViewController.swift in Sources */,
 				AAF9254921580500007D7ACE /* ItemsInfoTableViewController.swift in Sources */,
 				AAF92557215AC4AC007D7ACE /* GoodsItem.swift in Sources */,
 				AA830C602157D1D000F004B3 /* QRScannerController.swift in Sources */,
 				AAF92559215C2E78007D7ACE /* GoodsInfoTableViewCell.swift in Sources */,
 				AAF92555215AC1E0007D7ACE /* GoodsController.swift in Sources */,
+				AADB93322173D4E800AA2C34 /* GoodsTableViewController.swift in Sources */,
 				AAF9255F215C4E94007D7ACE /* LocationImageViewController.swift in Sources */,
+				AADB93342173D52900AA2C34 /* GoodsTableViewCell.swift in Sources */,
+				AADB932C2171E7DA00AA2C34 /* GoodsArrivalTableViewCell.swift in Sources */,
 				AADB9328216BDFC000AA2C34 /* SpeechViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

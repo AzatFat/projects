@@ -33,28 +33,6 @@ class itemsTableViewController: UITableViewController,UISearchBarDelegate {
         tableView.dataSource = self
         search.delegate = self
         searchController.searchBar.delegate = self
-        /*
-        addPreload(start_stop: true)
-        if needToSearchAll != false {
-            goodsController.fetchSearhGoods(search: "") { (listGoods) in
-                if let listGoods = listGoods {
-                    print("request List success viev did load")
-                    self.goodList = listGoods
-                }
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                    self.addPreload(start_stop: false)
-                }
-            }
-        }
-        */
-        //hideKeyboardWhenTappedAround()
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -68,18 +46,12 @@ class itemsTableViewController: UITableViewController,UISearchBarDelegate {
             activityIndicator.style = UIActivityIndicatorView.Style.gray
             tableView.addSubview(activityIndicator)
             activityIndicator.startAnimating()
-         //   activityIndicator.style = UIActivityIndicatorView.t
-         //   tableView.shared.beginIgnoringInteractionEvents()
         } else {
             activityIndicator.stopAnimating()
             UIApplication.shared.endIgnoringInteractionEvents()
         }
 
     }
-    
-    
-    // MARK: - Table view data source
-
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = true;
@@ -88,10 +60,7 @@ class itemsTableViewController: UITableViewController,UISearchBarDelegate {
         searchBar.sizeToFit()
     }
     
-    
-    
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-       // hideKeyboardWhenTappedAround()
         searchBar.resignFirstResponder()
     }
     

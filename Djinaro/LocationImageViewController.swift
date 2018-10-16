@@ -12,8 +12,7 @@ class LocationImageViewController: UIViewController {
     
     var locationText: String = ""
     var name: String = ""
-    @IBOutlet var GoodImage: UIImageView!
-    
+
     @IBOutlet var GoodSize: UILabel!
     
     @IBOutlet var goodName: UILabel!
