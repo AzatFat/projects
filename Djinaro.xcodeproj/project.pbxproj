@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		AA08A0A3217536A800083C85 /* GoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA08A0A2217536A800083C85 /* GoodViewController.swift */; };
+		AA08A0A5217656D700083C85 /* ArrivalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA08A0A4217656D700083C85 /* ArrivalInfoViewController.swift */; };
+		AA08A0A7217679F700083C85 /* ArrivalInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA08A0A6217679F700083C85 /* ArrivalInfoTableViewCell.swift */; };
+		AA08A0A92177E4A600083C85 /* AddGoodsToArrivalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA08A0A82177E4A600083C85 /* AddGoodsToArrivalViewController.swift */; };
+		AA08A0AB2177E4E000083C85 /* AddGoodsToArrivalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA08A0AA2177E4E000083C85 /* AddGoodsToArrivalTableViewCell.swift */; };
 		AA24C48F215ED95E009938CC /* slippers.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AA24C48E215ED95E009938CC /* slippers.jpg */; };
 		AA830C46215568C800F004B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA830C45215568C800F004B3 /* AppDelegate.swift */; };
 		AA830C48215568C800F004B3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA830C47215568C800F004B3 /* ViewController.swift */; };
@@ -37,6 +41,10 @@
 
 /* Begin PBXFileReference section */
 		AA08A0A2217536A800083C85 /* GoodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodViewController.swift; sourceTree = "<group>"; };
+		AA08A0A4217656D700083C85 /* ArrivalInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrivalInfoViewController.swift; sourceTree = "<group>"; };
+		AA08A0A6217679F700083C85 /* ArrivalInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrivalInfoTableViewCell.swift; sourceTree = "<group>"; };
+		AA08A0A82177E4A600083C85 /* AddGoodsToArrivalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGoodsToArrivalViewController.swift; sourceTree = "<group>"; };
+		AA08A0AA2177E4E000083C85 /* AddGoodsToArrivalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGoodsToArrivalTableViewCell.swift; sourceTree = "<group>"; };
 		AA24C48E215ED95E009938CC /* slippers.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = slippers.jpg; sourceTree = "<group>"; };
 		AA830C42215568C800F004B3 /* Djinaro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Djinaro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA830C45215568C800F004B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -125,6 +133,10 @@
 				AADB932F21733B4500AA2C34 /* ReceiptController.swift */,
 				AADB93292171E77900AA2C34 /* GoodsArrivalTableViewController.swift */,
 				AADB932B2171E7DA00AA2C34 /* GoodsArrivalTableViewCell.swift */,
+				AA08A0A4217656D700083C85 /* ArrivalInfoViewController.swift */,
+				AA08A0A6217679F700083C85 /* ArrivalInfoTableViewCell.swift */,
+				AA08A0A82177E4A600083C85 /* AddGoodsToArrivalViewController.swift */,
+				AA08A0AA2177E4E000083C85 /* AddGoodsToArrivalTableViewCell.swift */,
 				AADB93312173D4E800AA2C34 /* GoodsTableViewController.swift */,
 				AADB93332173D52900AA2C34 /* GoodsTableViewCell.swift */,
 				AA08A0A2217536A800083C85 /* GoodViewController.swift */,
@@ -217,9 +229,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				AADB933021733B4500AA2C34 /* ReceiptController.swift in Sources */,
+				AA08A0A7217679F700083C85 /* ArrivalInfoTableViewCell.swift in Sources */,
 				AA830C48215568C800F004B3 /* ViewController.swift in Sources */,
 				AA830C5821557C4400F004B3 /* itemsTableViewCell.swift in Sources */,
 				AADB932E2173311F00AA2C34 /* Receipt.swift in Sources */,
+				AA08A0A5217656D700083C85 /* ArrivalInfoViewController.swift in Sources */,
 				AA830C46215568C800F004B3 /* AppDelegate.swift in Sources */,
 				AA830C5C2155862400F004B3 /* itemsTableViewController.swift in Sources */,
 				AADB932A2171E77900AA2C34 /* GoodsArrivalTableViewController.swift in Sources */,
@@ -228,6 +242,8 @@
 				AAF92557215AC4AC007D7ACE /* GoodsItem.swift in Sources */,
 				AA830C602157D1D000F004B3 /* QRScannerController.swift in Sources */,
 				AAF92559215C2E78007D7ACE /* GoodsInfoTableViewCell.swift in Sources */,
+				AA08A0A92177E4A600083C85 /* AddGoodsToArrivalViewController.swift in Sources */,
+				AA08A0AB2177E4E000083C85 /* AddGoodsToArrivalTableViewCell.swift in Sources */,
 				AAF92555215AC1E0007D7ACE /* GoodsController.swift in Sources */,
 				AADB93322173D4E800AA2C34 /* GoodsTableViewController.swift in Sources */,
 				AAF9255F215C4E94007D7ACE /* LocationImageViewController.swift in Sources */,

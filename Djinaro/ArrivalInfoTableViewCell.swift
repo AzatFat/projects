@@ -1,17 +1,18 @@
 //
-//  GoodsArrivalTableViewCell.swift
+//  ArrivalInfoTableViewCell.swift
 //  Djinaro
 //
-//  Created by Azat on 13.10.2018.
+//  Created by Azat on 16.10.2018.
 //  Copyright © 2018 Azat. All rights reserved.
 //
 
 import UIKit
 
-class GoodsArrivalTableViewCell: UITableViewCell {
+class ArrivalInfoTableViewCell: UITableViewCell {
 
-    @IBOutlet var arrivalName: UILabel!
-    @IBOutlet var arrivalPrise: UILabel!
+    @IBOutlet var arrivalGood: UILabel!
+    
+    @IBOutlet var arrivalCost: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

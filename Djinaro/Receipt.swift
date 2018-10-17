@@ -15,10 +15,12 @@ struct ListReceipt: Codable {
 }
 
 
+
 //  Поступление
 struct Receipt: Codable {
     var id : Int
     var receipt_Document_Id: Int?
+    var goods_Id: Int?
     var sizes_Id: Int?
     var cost: Decimal?
     var count: Int
@@ -29,6 +31,7 @@ struct Receipt: Codable {
     
     enum CodingKeys: String, CodingKey {
         case id = "Id"
+        case goods_Id = "Goods_Id"
         case receipt_Document_Id = "Receipt_Document_Id"
         case sizes_Id = "Sizes_Id"
         case cost = "Cost"
@@ -42,25 +45,23 @@ struct Receipt: Codable {
 // Документ поступления
 struct ReceiptDocument: Codable {
     var id: Int
-    var goodsId : Int?
     var employees_Id: Int?
-    var number: String?
+    var name: String?
     var create_Date: String?
     var receipt_Date: String?
     var the_Date: String?
-    var goods: Goods?
     var employees: Employees?
+    var receiptList: [Receipt]?
     
     enum CodingKeys: String, CodingKey {
         case id = "Id"
-        case goodsId = "Goods_Id"
         case employees_Id = "Employees_Id"
-        case number = "Number"
+        case name = "Name"
         case create_Date = "Create_Date"
         case receipt_Date = "Receipt_Date"
         case the_Date = "The_Date"
-        case goods = "Goods"
         case employees = "Employees"
+        case receiptList = "ReceiptList"
     }
     
 }
@@ -114,7 +115,7 @@ struct Employees: Codable {
     var surname: String?
     var name: String?
     var middle_Name: String?
-    var birth_Date: Date?
+    var birth_Date: String?
     var nickname: String?
     var password: String?
     var role_Id: Int?

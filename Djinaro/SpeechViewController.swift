@@ -25,10 +25,15 @@ class SpeechViewController: UIViewController, SFSpeechRecognizerDelegate {
     @IBAction func StartStopSpeechRecognition(_ sender: UIButton) {
 
         if isRecognizing == false {
+            audioEngine.inputNode.removeTap(onBus: 0)
             self.recordAndRecognizeSpeech()
             speechToTextOutlet.setTitle("Поиск", for: UIControl.State.normal)
             isRecognizing = true
         } else {
+            audioEngine.inputNode.removeTap(onBus: 0)
+            audioEngine.stop()
+            recognitionTask?.finish()
+            isRecognizing = false
             speechToTextOutlet.setTitle("Запись", for: UIControl.State.normal)
             if let goodSearch = SpeecToText.text {
                 searchString = goodSearch
@@ -37,10 +42,7 @@ class SpeechViewController: UIViewController, SFSpeechRecognizerDelegate {
             if searchString != "" {
                 performSegue(withIdentifier: "speachSearch", sender: nil)
             }
-            audioEngine.inputNode.removeTap(onBus: 0)
-            audioEngine.stop()
-            recognitionTask?.finish()
-            isRecognizing = false
+
         }
         
     }
@@ -67,7 +69,7 @@ class SpeechViewController: UIViewController, SFSpeechRecognizerDelegate {
         
         let node = audioEngine.inputNode
         let recordingFormat = node.outputFormat(forBus: 0)
-  //      node.removeTap(onBus: 0)
+//        node.removeTap(onBus: 0)
         node.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { buffer, _ in
             self.request.append(buffer)
         }
@@ -88,6 +90,7 @@ class SpeechViewController: UIViewController, SFSpeechRecognizerDelegate {
             if let result = result {
                 let bestString = result.bestTranscription.formattedString
                 self.SpeecToText.text = bestString
+                print(bestString)
                 self.checkSearch(resultString: bestString)
             } else if let error = error {
                 print(error)

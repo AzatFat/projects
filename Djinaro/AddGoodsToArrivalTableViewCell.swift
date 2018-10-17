@@ -1,17 +1,18 @@
 //
-//  GoodsArrivalTableViewCell.swift
+//  AddGoodsToArrivalTableViewCell.swift
 //  Djinaro
 //
-//  Created by Azat on 13.10.2018.
+//  Created by Azat on 18.10.2018.
 //  Copyright © 2018 Azat. All rights reserved.
 //
 
 import UIKit
 
-class GoodsArrivalTableViewCell: UITableViewCell {
+class AddGoodsToArrivalTableViewCell: UITableViewCell {
 
-    @IBOutlet var arrivalName: UILabel!
-    @IBOutlet var arrivalPrise: UILabel!
+    @IBOutlet var goodCount: UITextField!
+    @IBOutlet var goodPrise: UITextField!
+    @IBOutlet var goodSize: UITextField!
     
     override func awakeFromNib() {
         super.awakeFromNib()

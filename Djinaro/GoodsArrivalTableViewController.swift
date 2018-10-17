@@ -10,39 +10,314 @@ import UIKit
 
 class GoodsArrivalTableViewController: UITableViewController {
     
+    let mockData = String("""
+        [{
+        "Id": 5,
+        "Employees_Id": 1,
+        "Name": "1122112",
+        "Create_Date": "2018-10-13T12:02:03.0263+03:00",
+        "Receipt_Date": "2018-10-13T00:00:00",
+        "The_Date": "2018-10-13T00:00:00",
+        "Employees": null,
+        "ReceiptList": [
+            {
+            "Id": 8,
+            "Receipt_Document_Id": 5,
+            "Goods_Id": 875,
+            "Sizes_Id": 1,
+            "Cost": 2500.2,
+            "Count": 2,
+            "ReceiptDocument": null,
+            "Sizes": null,
+            "Goods": {
+                "Id": 875,
+                "Group_Goods_Id": 358,
+                "Name": "Ремень Off White",
+                "Code": "                                                  ",
+                "Description": null,
+                "Location": "                                                  ",
+                "Vendor_Code": null,
+                "GroupGoods": null
+                }
+            }
+        ]
+    },
+    {
+        "Id": 6,
+        "Employees_Id": 1,
+        "Name": "Document postuplenit",
+        "Create_Date": "2018-10-13T12:02:03.0263+03:00",
+        "Receipt_Date": "2018-10-13T00:00:00",
+        "The_Date": "2018-10-13T00:00:00",
+        "Employees": null,
+        "ReceiptList": [
+            {
+            "Id": 8,
+            "Receipt_Document_Id": 5,
+            "Goods_Id": 875,
+            "Sizes_Id": 1,
+            "Cost": 2500.2,
+            "Count": 2,
+            "ReceiptDocument": null,
+            "Sizes": null,
+            "Goods": {
+                "Id": 875,
+                "Group_Goods_Id": 358,
+                "Name": "Ремень Off White",
+                "Code": "                                                  ",
+                "Description": null,
+                "Location": "                                                  ",
+                "Vendor_Code": null,
+                "GroupGoods": null
+                }
+            },
+            {
+            "Id": 9,
+            "Receipt_Document_Id": 5,
+            "Goods_Id": 875,
+            "Sizes_Id": 2,
+            "Cost": 2500.2,
+            "Count": 2,
+            "ReceiptDocument": null,
+            "Sizes": null,
+            "Goods": {
+                "Id": 875,
+                "Group_Goods_Id": 358,
+                "Name": "Ремень Off White",
+                "Code": "                                                  ",
+                "Description": null,
+                "Location": "                                                  ",
+                "Vendor_Code": null,
+                "GroupGoods": null
+                }
+            }
+        ]
+    },
+    {
+        "Id": 6,
+        "Employees_Id": 1,
+        "Name": "1122112",
+        "Create_Date": "2018-10-12T12:02:03.0263+03:00",
+        "Receipt_Date": "2018-10-13T00:00:00",
+        "The_Date": "2018-10-13T00:00:00",
+        "Employees": null,
+        "ReceiptList": [
+            {
+            "Id": 8,
+            "Receipt_Document_Id": 5,
+            "Goods_Id": 875,
+            "Sizes_Id": 1,
+            "Cost": 2500.2,
+            "Count": 2,
+            "ReceiptDocument": null,
+            "Sizes": null,
+            "Goods": {
+                "Id": 875,
+                "Group_Goods_Id": 358,
+                "Name": "Ремень Off White",
+                "Code": "                                                  ",
+                "Description": null,
+                "Location": "                                                  ",
+                "Vendor_Code": null,
+                "GroupGoods": null
+                }
+            }
+        ]
+    },
+    {
+        "Id": 8,
+        "Employees_Id": 1,
+        "Name": "1122112",
+        "Create_Date": "2018-10-11T12:02:03.0263+03:00",
+        "Receipt_Date": "2018-10-13T00:00:00",
+        "The_Date": "2018-10-13T00:00:00",
+        "Employees": null,
+        "ReceiptList": [
+            {
+            "Id": 8,
+            "Receipt_Document_Id": 5,
+            "Goods_Id": 875,
+            "Sizes_Id": 1,
+            "Cost": 2500.2,
+            "Count": 2,
+            "ReceiptDocument": null,
+            "Sizes": null,
+            "Goods": {
+                "Id": 875,
+                "Group_Goods_Id": 358,
+                "Name": "Ремень Off White",
+                "Code": "                                                  ",
+                "Description": null,
+                "Location": "                                                  ",
+                "Vendor_Code": null,
+                "GroupGoods": null
+                }
+            }
+        ]
+    },
+    {
+        "Id": 9,
+        "Employees_Id": 1,
+        "Name": "1122112",
+        "Create_Date": "2018-10-11T12:02:03.0263+03:00",
+        "Receipt_Date": "2018-10-13T00:00:00",
+        "The_Date": "2018-10-13T00:00:00",
+        "Employees": null,
+        "ReceiptList": [
+            {
+            "Id": 8,
+            "Receipt_Document_Id": 5,
+            "Goods_Id": 875,
+            "Sizes_Id": 1,
+            "Cost": 2500.2,
+            "Count": 2,
+            "ReceiptDocument": null,
+            "Sizes": null,
+            "Goods": {
+                "Id": 875,
+                "Group_Goods_Id": 358,
+                "Name": "Ремень Off White",
+                "Code": "                                                  ",
+                "Description": null,
+                "Location": "                                                  ",
+                "Vendor_Code": null,
+                "GroupGoods": null
+                }
+            }
+        ]
+    },
+    {
+        "Id": 10,
+        "Employees_Id": 1,
+        "Name": "1122112",
+        "Create_Date": "2018-10-11T12:02:03.0263+03:00",
+        "Receipt_Date": "2018-10-13T00:00:00",
+        "The_Date": "2018-10-13T00:00:00",
+        "Employees": null,
+        "ReceiptList": [
+            {
+            "Id": 8,
+            "Receipt_Document_Id": 5,
+            "Goods_Id": 875,
+            "Sizes_Id": 1,
+            "Cost": 2500.2,
+            "Count": 2,
+            "ReceiptDocument": null,
+            "Sizes": null,
+            "Goods": {
+                "Id": 875,
+                "Group_Goods_Id": 358,
+                "Name": "Ремень Off White",
+                "Code": "                                                  ",
+                "Description": null,
+                "Location": "                                                  ",
+                "Vendor_Code": null,
+                "GroupGoods": null
+                }
+            }
+        ]
+    }]
+    """).data(using: .utf8)!
+    
     @IBAction func barButtonNewGood(_ sender: Any) {}
     @IBOutlet var arrives: UINavigationItem!
     @IBOutlet var barButonNewGoodOutlet: UIBarButtonItem!
-    @IBAction func addArrival(_ sender: Any) {}
+    @IBAction func addArrival(_ sender: Any) {
+        performSegue(withIdentifier: "CRUDArrival", sender: nil)
+    }
     
     var recieptController = ReceiptController()
-    var recieptList = [Receipt]()
-    override func viewDidLoad() {
+    var recieptDocumentList = [ReceiptDocument]()
+    var recieptDocumentId = ""
+    var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
+    
+    struct Objects {
         
-       
-        recieptController.GetReceipts { (listReceipt) in
-            if let listReceipt = listReceipt {
-                print("listReceipt get succes")
-                self.recieptList = listReceipt
-                print(self.recieptList)
-            }
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-               // self.addPreload(start_stop: false)
+        var sectionName : String!
+        var sectionObjects : [ReceiptDocument]!
+    }
+    var objectArray = [Objects]()
+    
+    func createSectionsForObject(recieptDocumentList: [ReceiptDocument]) -> [Objects] {
+        var objectArray = [Objects]()
+        var objectDictionary: Dictionary = [String: [ReceiptDocument]]()
+        
+        for i in recieptDocumentList {
+            
+            if let date = i.create_Date?.components(separatedBy: "T") {
+                
+                if  objectDictionary[date[0]] != nil {
+                    objectDictionary[date[0]]!.append(i)
+                
+                } else {
+                    objectDictionary[date[0]] = [i]
+                }
             }
         }
-        /*
-        goodsController.fetchSearhGoods(search: "") { (listGoods) in
-            if let listGoods = listGoods {
-                print("request List success searchBarCancelButtonClicked")
-                self.goodList = listGoods
+        
+        for (key, value) in objectDictionary {
+            objectArray.append(Objects(sectionName: key, sectionObjects: value))
+            
+        }
+        objectArray.sort(by: {$0.sectionName > $1.sectionName})
+        return objectArray
+    }
+    
+    
+    func addPreload(start_stop: Bool){
+        if start_stop {
+            activityIndicator.center = self.view.center
+            activityIndicator.hidesWhenStopped = true
+            activityIndicator.style = UIActivityIndicatorView.Style.gray
+            tableView.addSubview(activityIndicator)
+            activityIndicator.startAnimating()
+        } else {
+            activityIndicator.stopAnimating()
+            UIApplication.shared.endIgnoringInteractionEvents()
+        }
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "CRUDArrival" {
+            
+            let controller = segue.destination as! ArrivalInfoViewController
+            controller.receiptId = recieptDocumentId
+            
+        }
+    }
+    
+    override func viewDidLoad() {
+        
+        self.addPreload(start_stop: true)
+       
+        recieptController.GetReceiptDocuments { (listReceipt) in
+            if let listReceipt = listReceipt {
+                print("GetReceiptDocuments get succes")
+                self.recieptDocumentList = listReceipt
+                
+                print(self.recieptDocumentList)
+            } else {
+                print("GetReceiptDocuments get fail")
+                let data = self.mockData
+
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode([ReceiptDocument].self, from: data)
+                        self.recieptDocumentList = product
+                    } catch let error {
+                        print("error in getting ReceiptDocuments")
+                        print(error)
+                    }
             }
             DispatchQueue.main.async {
+                self.objectArray = self.createSectionsForObject(recieptDocumentList: self.recieptDocumentList)
+                print(self.objectArray)
                 self.tableView.reloadData()
                 self.addPreload(start_stop: false)
             }
-        }*/
-        
+        }
+
         
      //   barButonNewGoodOutlet.
         super.viewDidLoad()
@@ -60,12 +335,12 @@ class GoodsArrivalTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return objectArray.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return recieptList.count
+        return objectArray[section].sectionObjects.count
     }
 
     
@@ -74,26 +349,45 @@ class GoodsArrivalTableViewController: UITableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? GoodsArrivalTableViewCell  else {
             fatalError("The dequeued cell is not an instance of GoodsArrivalTableViewCell.")
         }
-        let receipt = recieptList[indexPath.row]
-        if let arrivaltDate = receipt.receiptDocument?.create_Date {
-                cell.arrivalDate.text = String(arrivaltDate)
-        }
         
-        if let arrivalName = receipt.goods?.name{
+        let receipt = objectArray[indexPath.section].sectionObjects[indexPath.row]
+        
+        
+        if let arrivalName = receipt.name{
             cell.arrivalName.text = String(arrivalName)
         }
         
-        if let arrivalPrise = receipt.cost {
-            
-            cell.arrivalPrise.text = arrivalPrise.formattedAmount
+        if let receiptListCostCount = receipt.receiptList {
+            var cost: Decimal = 0
+            for i in receiptListCostCount {
+                if let receiptCost = i.cost {
+                    cost += receiptCost
+                }
+            }
+            cell.arrivalPrise.text = cost.formattedAmount
         }
-        
         // Configure the cell...
 
         return cell
     }
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        return objectArray[section].sectionName
+    }
+    
+    
+  /*  override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100.0
+    }*/
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath as IndexPath)
+        tableView.deselectRow(at: indexPath as IndexPath, animated: true)
+        let receipt = objectArray[indexPath.section].sectionObjects[indexPath.row]
+        recieptDocumentId = String(receipt.id)
+        
+        performSegue(withIdentifier: "CRUDArrival", sender: cell)
     }
 
     /*

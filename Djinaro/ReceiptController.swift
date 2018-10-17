@@ -11,6 +11,65 @@ import Foundation
 class ReceiptController {
     let baseURL = URL(string: "http://91.203.195.74:5001/api/")!
     
+// Список документов поступлениий
+    func GetReceiptDocuments(completion: @escaping ([ReceiptDocument]?) -> Void) {
+        let GetReceipt = baseURL.appendingPathComponent("ReceiptDocument")
+        let components = URLComponents(url: GetReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        let task = URLSession.shared.dataTask(with: ReceiptURL) { (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode([ReceiptDocument].self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode([ReceiptDocument].self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in getting ReceiptDocuments")
+                        print(error)
+                        completion(nil)
+                    }
+                }
+                
+            } else {
+                completion(nil)
+            }
+        }
+        
+        task.resume()
+    }
+    
+    func GetReceiptDocument(id: String,completion: @escaping (ReceiptDocument?) -> Void) {
+        let GetReceipt = baseURL.appendingPathComponent("ReceiptDocument/" + id)
+        let components = URLComponents(url: GetReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        let task = URLSession.shared.dataTask(with: ReceiptURL) { (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode(ReceiptDocument.self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode(ReceiptDocument.self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in getting ReceiptDocument")
+                        print(error)
+                        completion(nil)
+                    }
+                }
+                
+            } else {
+                completion(nil)
+            }
+        }
+        
+        task.resume()
+    }
+    
     func GetReceipts(completion: @escaping ([Receipt]?) -> Void) {
         let GetReceipt = baseURL.appendingPathComponent("Receipt")
         let components = URLComponents(url: GetReceipt, resolvingAgainstBaseURL: true)!
