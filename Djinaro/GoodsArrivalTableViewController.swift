@@ -10,219 +10,13 @@ import UIKit
 
 class GoodsArrivalTableViewController: UITableViewController {
     
-    let mockData = String("""
-        [{
-        "Id": 5,
-        "Employees_Id": 1,
-        "Name": "1122112",
-        "Create_Date": "2018-10-13T12:02:03.0263+03:00",
-        "Receipt_Date": "2018-10-13T00:00:00",
-        "The_Date": "2018-10-13T00:00:00",
-        "Employees": null,
-        "ReceiptList": [
-            {
-            "Id": 8,
-            "Receipt_Document_Id": 5,
-            "Goods_Id": 875,
-            "Sizes_Id": 1,
-            "Cost": 2500.2,
-            "Count": 2,
-            "ReceiptDocument": null,
-            "Sizes": null,
-            "Goods": {
-                "Id": 875,
-                "Group_Goods_Id": 358,
-                "Name": "Ремень Off White",
-                "Code": "                                                  ",
-                "Description": null,
-                "Location": "                                                  ",
-                "Vendor_Code": null,
-                "GroupGoods": null
-                }
-            }
-        ]
-    },
-    {
-        "Id": 6,
-        "Employees_Id": 1,
-        "Name": "Document postuplenit",
-        "Create_Date": "2018-10-13T12:02:03.0263+03:00",
-        "Receipt_Date": "2018-10-13T00:00:00",
-        "The_Date": "2018-10-13T00:00:00",
-        "Employees": null,
-        "ReceiptList": [
-            {
-            "Id": 8,
-            "Receipt_Document_Id": 5,
-            "Goods_Id": 875,
-            "Sizes_Id": 1,
-            "Cost": 2500.2,
-            "Count": 2,
-            "ReceiptDocument": null,
-            "Sizes": null,
-            "Goods": {
-                "Id": 875,
-                "Group_Goods_Id": 358,
-                "Name": "Ремень Off White",
-                "Code": "                                                  ",
-                "Description": null,
-                "Location": "                                                  ",
-                "Vendor_Code": null,
-                "GroupGoods": null
-                }
-            },
-            {
-            "Id": 9,
-            "Receipt_Document_Id": 5,
-            "Goods_Id": 875,
-            "Sizes_Id": 2,
-            "Cost": 2500.2,
-            "Count": 2,
-            "ReceiptDocument": null,
-            "Sizes": null,
-            "Goods": {
-                "Id": 875,
-                "Group_Goods_Id": 358,
-                "Name": "Ремень Off White",
-                "Code": "                                                  ",
-                "Description": null,
-                "Location": "                                                  ",
-                "Vendor_Code": null,
-                "GroupGoods": null
-                }
-            }
-        ]
-    },
-    {
-        "Id": 6,
-        "Employees_Id": 1,
-        "Name": "1122112",
-        "Create_Date": "2018-10-12T12:02:03.0263+03:00",
-        "Receipt_Date": "2018-10-13T00:00:00",
-        "The_Date": "2018-10-13T00:00:00",
-        "Employees": null,
-        "ReceiptList": [
-            {
-            "Id": 8,
-            "Receipt_Document_Id": 5,
-            "Goods_Id": 875,
-            "Sizes_Id": 1,
-            "Cost": 2500.2,
-            "Count": 2,
-            "ReceiptDocument": null,
-            "Sizes": null,
-            "Goods": {
-                "Id": 875,
-                "Group_Goods_Id": 358,
-                "Name": "Ремень Off White",
-                "Code": "                                                  ",
-                "Description": null,
-                "Location": "                                                  ",
-                "Vendor_Code": null,
-                "GroupGoods": null
-                }
-            }
-        ]
-    },
-    {
-        "Id": 8,
-        "Employees_Id": 1,
-        "Name": "1122112",
-        "Create_Date": "2018-10-11T12:02:03.0263+03:00",
-        "Receipt_Date": "2018-10-13T00:00:00",
-        "The_Date": "2018-10-13T00:00:00",
-        "Employees": null,
-        "ReceiptList": [
-            {
-            "Id": 8,
-            "Receipt_Document_Id": 5,
-            "Goods_Id": 875,
-            "Sizes_Id": 1,
-            "Cost": 2500.2,
-            "Count": 2,
-            "ReceiptDocument": null,
-            "Sizes": null,
-            "Goods": {
-                "Id": 875,
-                "Group_Goods_Id": 358,
-                "Name": "Ремень Off White",
-                "Code": "                                                  ",
-                "Description": null,
-                "Location": "                                                  ",
-                "Vendor_Code": null,
-                "GroupGoods": null
-                }
-            }
-        ]
-    },
-    {
-        "Id": 9,
-        "Employees_Id": 1,
-        "Name": "1122112",
-        "Create_Date": "2018-10-11T12:02:03.0263+03:00",
-        "Receipt_Date": "2018-10-13T00:00:00",
-        "The_Date": "2018-10-13T00:00:00",
-        "Employees": null,
-        "ReceiptList": [
-            {
-            "Id": 8,
-            "Receipt_Document_Id": 5,
-            "Goods_Id": 875,
-            "Sizes_Id": 1,
-            "Cost": 2500.2,
-            "Count": 2,
-            "ReceiptDocument": null,
-            "Sizes": null,
-            "Goods": {
-                "Id": 875,
-                "Group_Goods_Id": 358,
-                "Name": "Ремень Off White",
-                "Code": "                                                  ",
-                "Description": null,
-                "Location": "                                                  ",
-                "Vendor_Code": null,
-                "GroupGoods": null
-                }
-            }
-        ]
-    },
-    {
-        "Id": 10,
-        "Employees_Id": 1,
-        "Name": "1122112",
-        "Create_Date": "2018-10-11T12:02:03.0263+03:00",
-        "Receipt_Date": "2018-10-13T00:00:00",
-        "The_Date": "2018-10-13T00:00:00",
-        "Employees": null,
-        "ReceiptList": [
-            {
-            "Id": 8,
-            "Receipt_Document_Id": 5,
-            "Goods_Id": 875,
-            "Sizes_Id": 1,
-            "Cost": 2500.2,
-            "Count": 2,
-            "ReceiptDocument": null,
-            "Sizes": null,
-            "Goods": {
-                "Id": 875,
-                "Group_Goods_Id": 358,
-                "Name": "Ремень Off White",
-                "Code": "                                                  ",
-                "Description": null,
-                "Location": "                                                  ",
-                "Vendor_Code": null,
-                "GroupGoods": null
-                }
-            }
-        ]
-    }]
-    """).data(using: .utf8)!
-    
+
     @IBAction func barButtonNewGood(_ sender: Any) {}
     @IBOutlet var arrives: UINavigationItem!
     @IBOutlet var barButonNewGoodOutlet: UIBarButtonItem!
     @IBAction func addArrival(_ sender: Any) {
+      recieptDocumentId = ""
+
         performSegue(withIdentifier: "CRUDArrival", sender: nil)
     }
     
@@ -279,12 +73,13 @@ class GoodsArrivalTableViewController: UITableViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         if segue.identifier == "CRUDArrival" {
-            
             let controller = segue.destination as! ArrivalInfoViewController
             controller.receiptId = recieptDocumentId
-            
         }
+        
+
     }
     
     override func viewDidLoad() {
@@ -295,38 +90,16 @@ class GoodsArrivalTableViewController: UITableViewController {
             if let listReceipt = listReceipt {
                 print("GetReceiptDocuments get succes")
                 self.recieptDocumentList = listReceipt
-                
-                print(self.recieptDocumentList)
-            } else {
-                print("GetReceiptDocuments get fail")
-                let data = self.mockData
-
-                    do {
-                        let decoder = JSONDecoder()
-                        let product = try decoder.decode([ReceiptDocument].self, from: data)
-                        self.recieptDocumentList = product
-                    } catch let error {
-                        print("error in getting ReceiptDocuments")
-                        print(error)
-                    }
             }
             DispatchQueue.main.async {
-                self.objectArray = self.createSectionsForObject(recieptDocumentList: self.recieptDocumentList)
-                print(self.objectArray)
+                self.objectArray = self.createSectionsForObject(recieptDocumentList:
+                    self.recieptDocumentList)
                 self.tableView.reloadData()
                 self.addPreload(start_stop: false)
             }
         }
 
-        
-     //   barButonNewGoodOutlet.
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
 
@@ -357,17 +130,9 @@ class GoodsArrivalTableViewController: UITableViewController {
             cell.arrivalName.text = String(arrivalName)
         }
         
-        if let receiptListCostCount = receipt.receiptList {
-            var cost: Decimal = 0
-            for i in receiptListCostCount {
-                if let receiptCost = i.cost {
-                    cost += receiptCost
-                }
-            }
-            cell.arrivalPrise.text = cost.formattedAmount
+        if let receiptListCostCount = receipt.totalCost {
+            cell.arrivalPrise.text = receiptListCostCount.formattedAmount
         }
-        // Configure the cell...
-
         return cell
     }
     
@@ -375,12 +140,7 @@ class GoodsArrivalTableViewController: UITableViewController {
         
         return objectArray[section].sectionName
     }
-    
-    
-  /*  override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100.0
-    }*/
-    
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath as IndexPath)
         tableView.deselectRow(at: indexPath as IndexPath, animated: true)
@@ -425,15 +185,7 @@ class GoodsArrivalTableViewController: UITableViewController {
     }
     */
 
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 

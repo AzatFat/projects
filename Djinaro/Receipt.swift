@@ -23,7 +23,7 @@ struct Receipt: Codable {
     var goods_Id: Int?
     var sizes_Id: Int?
     var cost: Decimal?
-    var count: Int
+    var count: Int?
     var receiptDocument: ReceiptDocument?
     var goods: Goods?
     var sizes: Sizes?
@@ -52,7 +52,7 @@ struct ReceiptDocument: Codable {
     var the_Date: String?
     var employees: Employees?
     var receiptList: [Receipt]?
-    
+    var totalCost: Decimal?
     enum CodingKeys: String, CodingKey {
         case id = "Id"
         case employees_Id = "Employees_Id"
@@ -62,6 +62,7 @@ struct ReceiptDocument: Codable {
         case the_Date = "The_Date"
         case employees = "Employees"
         case receiptList = "ReceiptList"
+        case totalCost = "TotalCost"
     }
     
 }

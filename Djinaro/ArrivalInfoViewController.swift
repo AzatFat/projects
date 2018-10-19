@@ -10,53 +10,31 @@ import UIKit
 
 class ArrivalInfoViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    @IBAction func addNewGood(_ sender: Any) {
+        performSegue(withIdentifier: "GoodsList", sender: nil)
+    }
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var arrivalName: UITextField!
+    @IBOutlet var receiptDate: UITextField!
+    @IBOutlet var theDate: UITextField!
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
+    var receiptId = ""
+    let receiptController = ReceiptController()
+    var recieptDocument: ReceiptDocument?
+    var receipts: [Receipt]?
+    var receiptsToAddNewGoodsController =  [Receipt]()
+    var receiptsnameToAddNewGoodsController: Goods?
+    
+    var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
+    
+    struct GroupReceipts {
+        var objectGood : Goods!
+        var objectRaw : [Receipt]!
+        var objectCost : String!
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return GroupReceiptsList.count
-    }
+    var GroupReceiptsList = [GroupReceipts]()
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellIdentifier = "arrivalInfoCell"
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? ArrivalInfoTableViewCell  else {
-            fatalError("The dequeued cell is not an instance of GoodsArrivalTableViewCell.")
-        }
-        cell.arrivalGood.text = GroupReceiptsList[indexPath.row].objectName
-        cell.arrivalCost.text = GroupReceiptsList[indexPath.row].objectCost
-       // print(CostEachreceipt.inn(forKey: indexPath.row))
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60.0
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        let cell = tableView.cellForRow(at: indexPath as IndexPath)
-        tableView.deselectRow(at: indexPath as IndexPath, animated: true)
-        if let receipts = GroupReceiptsList[indexPath.row].objectRaw {
-                receiptsToAddNewGoodsController = receipts
-            receiptsnameToAddNewGoodsController = GroupReceiptsList[indexPath.row].objectName
-        }
-        
-        performSegue(withIdentifier: "addGoodToArrival", sender: cell)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "addGoodToArrival" {
-            
-            let controller = segue.destination as! AddGoodsToArrivalViewController
-            controller.receipts = receiptsToAddNewGoodsController
-            controller.goodname = receiptsnameToAddNewGoodsController
-            
-        }
-    }
     
     func addPreload(start_stop: Bool){
         if start_stop {
@@ -71,101 +49,6 @@ class ArrivalInfoViewController: UIViewController, UITableViewDelegate, UITableV
         }
         
     }
-    
-    let mockData = String("""
-        {
-        "Id": 5,
-        "Employees_Id": 1,
-        "Name": "1122112",
-        "Create_Date": "2018-10-13T12:02:03.0263+03:00",
-        "Receipt_Date": "2018-10-13T00:00:00",
-        "The_Date": "2018-10-13T00:00:00",
-        "Employees": null,
-        "ReceiptList": [
-            {
-            "Id": 8,
-            "Receipt_Document_Id": 5,
-            "Goods_Id": 875,
-            "Sizes_Id": 1,
-            "Cost": 2500.2,
-            "Count": 2,
-            "ReceiptDocument": null,
-            "Sizes": null,
-            "Goods": {
-                "Id": 875,
-                "Group_Goods_Id": 358,
-                "Name": "Ремень Off White",
-                "Code": "                                                  ",
-                "Description": null,
-                "Location": "                                                  ",
-                "Vendor_Code": null,
-                "GroupGoods": null
-                }
-            },
-            {
-            "Id": 9,
-            "Receipt_Document_Id": 5,
-            "Goods_Id": 876,
-            "Sizes_Id": 1,
-            "Cost": 2500.2,
-            "Count": 2,
-            "ReceiptDocument": null,
-            "Sizes": null,
-            "Goods": {
-                "Id": 875,
-                "Group_Goods_Id": 358,
-                "Name": "Off White",
-                "Code": "                                                  ",
-                "Description": null,
-                "Location": "                                                  ",
-                "Vendor_Code": null,
-                "GroupGoods": null
-                }
-            },
-            {
-            "Id": 9,
-            "Receipt_Document_Id": 5,
-            "Goods_Id": 877,
-            "Sizes_Id": 1,
-            "Cost": 2500.2,
-            "Count": 2,
-            "ReceiptDocument": null,
-            "Sizes": null,
-            "Goods": {
-                "Id": 875,
-                "Group_Goods_Id": 358,
-                "Name": "White",
-                "Code": "jkjk",
-                "Description": null,
-                "Location": "                                                  ",
-                "Vendor_Code": null,
-                "GroupGoods": null
-                }
-            }
-        ]
-    }
-    """).data(using: .utf8)!
-    
-    
-    var receiptId = ""
-    let receiptController = ReceiptController()
-    var recieptDocument: ReceiptDocument?
-    var receipts: [Receipt]?
-    var receiptsToAddNewGoodsController =  [Receipt]()
-    var receiptsnameToAddNewGoodsController = ""
-    
-    @IBOutlet var arrivalName: UITextField!
-    @IBOutlet var receiptDate: UITextField!
-    @IBOutlet var theDate: UITextField!
-    var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
-    
-    struct GroupReceipts {
-        var objectName : String!
-        var objectRaw : [Receipt]!
-        var objectCost : String!
-    }
-    
-    var GroupReceiptsList = [GroupReceipts]()
     
     func countCostEachreceipt(receipts: [Receipt]) -> [GroupReceipts] {
         var GroupReceiptsList = [GroupReceipts]()
@@ -182,19 +65,70 @@ class ArrivalInfoViewController: UIViewController, UITableViewDelegate, UITableV
         
         for i in receiptDictionary {
             var cost : Decimal = 0.0
-            let name = i.value[0].goods?.name
+            let good = i.value[0].goods
             for j in i.value {
                 if let goodCost = j.cost {
-                    cost += goodCost
+                    cost += goodCost * Decimal(j.count!)
                 }
             }
-            GroupReceiptsList.append(GroupReceipts(objectName: name, objectRaw: i.value, objectCost: cost.formattedAmount))
+            GroupReceiptsList.append(GroupReceipts(objectGood: good, objectRaw: i.value, objectCost: cost.formattedAmount))
         }
         return GroupReceiptsList
         
     }
     
-
+    func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return GroupReceiptsList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cellIdentifier = "arrivalInfoCell"
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? ArrivalInfoTableViewCell  else {
+            fatalError("The dequeued cell is not an instance of GoodsArrivalTableViewCell.")
+        }
+        cell.arrivalGood.text = GroupReceiptsList[indexPath.row].objectGood.name
+        cell.arrivalCost.text = GroupReceiptsList[indexPath.row].objectCost
+        // print(CostEachreceipt.inn(forKey: indexPath.row))
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60.0
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let cell = tableView.cellForRow(at: indexPath as IndexPath)
+        tableView.deselectRow(at: indexPath as IndexPath, animated: true)
+        if let receipts = GroupReceiptsList[indexPath.row].objectRaw {
+            receiptsToAddNewGoodsController = receipts
+            receiptsnameToAddNewGoodsController = GroupReceiptsList[indexPath.row].objectGood
+        }
+        
+        performSegue(withIdentifier: "addGoodToArrival", sender: cell)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "addGoodToArrival" {
+            let controller = segue.destination as! AddGoodsToArrivalViewController
+            controller.receipts = receiptsToAddNewGoodsController
+            controller.good = receiptsnameToAddNewGoodsController
+            controller.receipt_Document_Id = recieptDocument?.id
+        }
+        if segue.identifier == "GoodsList" {
+            let controller = segue.destination as! GoodsTableViewController
+            controller.segue = "addGoodToArrival"
+            controller.title = "Выбор товара"
+            controller.receipts = receiptsToAddNewGoodsController
+            controller.receipt_Document_Id = recieptDocument?.id
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -206,20 +140,6 @@ class ArrivalInfoViewController: UIViewController, UITableViewDelegate, UITableV
                 
                 if let receiptDocument = receiptDocument {
                     self.recieptDocument = receiptDocument
-                } else {
-                    print("receiptDocument failed")
-                    let data = self.mockData
-                    
-                    do {
-                        let decoder = JSONDecoder()
-                        let product = try decoder.decode(ReceiptDocument.self, from: data)
-                        self.recieptDocument = product
-                        //addPreload(start_stop: false)
-
-                    } catch let error {
-                        print("error in getting ReceiptDocument")
-                        print(error)
-                    }
                 }
                 DispatchQueue.main.async {
                    // self.tableView.reloadData()
@@ -235,19 +155,6 @@ class ArrivalInfoViewController: UIViewController, UITableViewDelegate, UITableV
                 }
             }
         }
-        
-        // Do any additional setup after loading the view.
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 

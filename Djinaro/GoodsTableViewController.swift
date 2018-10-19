@@ -14,7 +14,11 @@ class GoodsTableViewController: UITableViewController {
     
     var goods = [Goods]()
     var goodId = ""
-
+    var good: Goods?
+    var receipts : [Receipt]?
+    var segue = "goodInfo"
+    var receipt_Document_Id : Int?
+    
     
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     
@@ -48,7 +52,6 @@ class GoodsTableViewController: UITableViewController {
                 self.addPreload(start_stop:  false)
             }
         }
-
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -87,15 +90,22 @@ class GoodsTableViewController: UITableViewController {
         let cell = tableView.cellForRow(at: indexPath as IndexPath)
         tableView.deselectRow(at: indexPath as IndexPath, animated: true)
         goodId = String(goods[indexPath.row].id)
-        performSegue(withIdentifier: "goodInfo", sender: cell)
+        good = goods[indexPath.row]
+        print(segue)
+        performSegue(withIdentifier: segue, sender: cell)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goodInfo" {
-            
             let controller = segue.destination as! GoodViewController
                 controller.goodId = goodId
-            
+        }
+        
+        if segue.identifier == "addGoodToArrival" {
+            let controller = segue.destination as! AddGoodsToArrivalViewController
+            controller.good = good
+            controller.receipts = receipts!
+            controller.receipt_Document_Id = receipt_Document_Id
         }
     }
     

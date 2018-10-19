@@ -100,6 +100,46 @@ class ReceiptController {
     }
     
     
+    func POSTReceipt (post: Receipt, completion: @escaping (Receipt?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("Receipt")
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let jsonEcoder = JSONEncoder()
+        let jsonData = try? jsonEcoder.encode(post)
+        print(jsonData)
+        request.httpBody = jsonData
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode(Receipt.self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode(Receipt.self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in Post Receipts")
+                        print(error)
+                        completion(nil)
+                    }
+                }
+                
+            } else {
+                completion(nil)
+            }
+            
+        }
+        task.resume()
+        
+        
+        
+    }
+    
     func GetGoods(completion: @escaping ([Goods]?) -> Void) {
         let GetReceipt = baseURL.appendingPathComponent("Goods/")
         let components = URLComponents(url: GetReceipt, resolvingAgainstBaseURL: true)!

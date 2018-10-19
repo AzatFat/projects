@@ -10,10 +10,11 @@ import UIKit
 
 class AddGoodsToArrivalTableViewCell: UITableViewCell {
 
-    @IBOutlet var goodCount: UITextField!
-    @IBOutlet var goodPrise: UITextField!
-    @IBOutlet var goodSize: UITextField!
-    
+
+    @IBOutlet var goodSize: UILabel!
+    @IBOutlet var goodCount: UILabel!
+    @IBOutlet var goodPrise: UILabel!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

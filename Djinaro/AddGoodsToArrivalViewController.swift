@@ -11,8 +11,41 @@ import UIKit
 class AddGoodsToArrivalViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     
+    @IBOutlet var goodName: UILabel!
+    @IBOutlet var tableVIew: UITableView!
+
+    @IBAction func addGood(_ sender: Any) {
+        
+        receipt = nil
+        performSegue(withIdentifier: "addReceipt", sender: nil)
+    }
+    
+    var receipt_Document_Id : Int?
+    var receipts = [Receipt]()
+    var good : Goods?
+    var receipt : Receipt?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableVIew.reloadData()
+        goodName.text = good?.name
+        // Do any additional setup after loading the view.
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        tableVIew.reloadData()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "addReceipt" {
+            let controller = segue.destination as! AddReceiptToArrivalViewController
+            controller.receipt = receipt
+            controller.goods_Id = good?.id
+            controller.receipt_Document_Id = receipt_Document_Id
+        }
+    }
+    
+// Working with table
     func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
@@ -25,40 +58,18 @@ class AddGoodsToArrivalViewController: UIViewController, UITableViewDelegate, UI
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? AddGoodsToArrivalTableViewCell  else {
             fatalError("The dequeued cell is not an instance of GoodsArrivalTableViewCell.")
         }
-        cell.goodCount.text = String(receipts[indexPath.row].count)
+        cell.goodCount.text = String(receipts[indexPath.row].count!)
         cell.goodPrise.text = receipts[indexPath.row].cost?.formattedAmount
-       // cell.goodSize = receipts[indexPath.row].
-        
-        
-        // print(CostEachreceipt.inn(forKey: indexPath.row))
         return cell
     }
     
-    
-    
-    
-    
-    @IBOutlet var goodName: UITextField!
-    @IBOutlet var tableVIew: UITableView!
-    
-    var receipts = [Receipt]()
-    var goodname = ""
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        tableVIew.reloadData()
-        goodName.text = goodname
-        // Do any additional setup after loading the view.
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath as IndexPath)
+        tableView.deselectRow(at: indexPath as IndexPath, animated: true)
+        receipt = receipts[indexPath.row]
+
+        performSegue(withIdentifier: "addReceipt", sender: cell)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    
 }

@@ -13,6 +13,7 @@ class GoodViewController: UIViewController {
     var recieptController = ReceiptController()
     var goodId = ""
     var good: Goods?
+    var receipt_Document_Id : Int?
     
     @IBOutlet var doneOutlet: UIBarButtonItem!
     @IBOutlet var GoodName: UITextField!
@@ -29,6 +30,8 @@ class GoodViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         let borderColor : UIColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0)
         GoodOverview.layer.borderColor = borderColor.cgColor
         GoodOverview.layer.cornerRadius = 5.0
