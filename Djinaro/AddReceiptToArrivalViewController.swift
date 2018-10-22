@@ -9,68 +9,184 @@
 import UIKit
 
 class AddReceiptToArrivalViewController: UIViewController {
-
     let receiptController = ReceiptController()
+    @IBOutlet var errorLable: UILabel!
     @IBOutlet var goodSIze: UITextField!
     @IBOutlet var goodCount: UITextField!
     @IBOutlet var goodPrise: UITextField!
     @IBOutlet var addChangeReceipt: UIButton!
+    
+    var PostOrPut = false
     @IBAction func addChangeReceiptAction(_ sender: Any) {
-        
-
-        sizes_Id = Int(goodSIze.text ?? "111")
-        cost = Decimal(string: goodPrise.text ?? "10.1")
-        count = Int(goodCount.text ?? "3")
-        
-        
-        let PostReceipt = Receipt.init(id: 1, receipt_Document_Id: receipt_Document_Id, goods_Id: goods_Id, sizes_Id: sizes_Id, cost: cost, count: count, receiptDocument: nil, goods: nil, sizes: nil)
-        
-        receiptController.POSTReceipt(post: PostReceipt) { (receipt) in
-            if let receipt = receipt {
-                self.receipt = receipt
-                print("congratulations your first post is created")
-                print(self.receipt)
-            } else {
-                print("problem to Post")
-            }
+        if PostOrPut {
+            PUTReceipt()
+        } else {
+            PostReceipt()
         }
-        
     }
+ 
     
     var receipt : Receipt?
 
     var receipt_Document_Id: Int?
     var goods_Id: Int?
-    var sizes_Id: Int?
+    var sizes_id: Int?
+    var sizes_name: String?
     var cost: Decimal?
     var count: Int?
+    var sizes: [Sizes]?
+     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
+    
+    func addPreload(start_stop: Bool){
+        if start_stop {
+            activityIndicator.center = self.view.center
+            activityIndicator.hidesWhenStopped = true
+            activityIndicator.style = UIActivityIndicatorView.Style.gray
+            view.addSubview(activityIndicator)
+            activityIndicator.startAnimating()
+        } else {
+            activityIndicator.stopAnimating()
+            UIApplication.shared.endIgnoringInteractionEvents()
+        }
+        
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        receiptController.GetSizes { (sizes) in
+            if let sizes = sizes{
+                self.sizes = sizes
+            }
+        }
         if let receipt = receipt {
-            goodSIze.text = String(receipt.sizes_Id!)
+            PostOrPut = true
+            goodSIze.text = sizes_name
             goodCount.text = String(receipt.count!)
             goodPrise.text = receipt.cost!.formattedAmount
+            addChangeReceipt.setTitle("Изменить", for: .normal)
         }
 
-        
-        print("receipt_Document_Id: \(receipt_Document_Id)")
-        print("goods_Id: \(goods_Id)")
-        print("sizes_Id")
-        print("receipt \(receipt)")
-        
+        hideKeyboardWhenTappedAround()
         // Do any additional setup after loading the view.
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func getSizes(text: String) -> Int? {
+        let searchtext = text.uppercased()
+        if let sizes = sizes {
+            for i in sizes {
+                if i.name == searchtext {
+                    return i.id
+                }
+            }
+        }
+        return nil
     }
-    */
+    
+    func getSizesName(id: Int) -> String? {
+        if let sizes = sizes {
+            for i in sizes {
+                if i.id == id {
+                    return i.name
+                }
+            }
+        }
+        return nil
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "unvindToArrivalInfo" {
+            let controller = segue.destination as! AddGoodsToArrivalViewController
+            print(PostOrPut)
+            if receipt != nil {
+                if PostOrPut {
+                    controller.addReceipt = receipt
+                    controller.changeReceipt()
+                } else {
+                    controller.receipts.append(receipt!)
+                }
+            }
+        }
+    }
+    
+    func PostReceipt () {
+        var needPost = true
+        if goodSIze.text != "" {
+            sizes_id = getSizes(text: goodSIze.text!)
+        } else {
+            errorLable.text = "Размер не найден"
+            needPost = false
+        }
+        if goodPrise.text != "" {
+            var prize = goodPrise.text!.replacingOccurrences(of: ",", with: ".")
+            prize = prize.replacingOccurrences(of: " ", with: "")
+            cost = Decimal(string: prize)
+        } else {
+            errorLable.text = "Цена указана не верно"
+            needPost = false
+        }
+        
+        if goodCount.text != "" {
+            count = Int(goodCount.text!)
+        } else {
+            errorLable.text = " Количество указана не верно"
+            needPost = false
 
+        }
+        addPreload(start_stop: true)
+        if needPost {
+            let PostReceipt = Receipt.init(id: 1, receipt_Document_Id: receipt_Document_Id, goods_Id: goods_Id, sizes_Id: sizes_id, cost: cost, count: count, receiptDocument: nil, goods: nil, sizes: nil)
+            
+            receiptController.POSTReceipt(post: PostReceipt) { (receipt) in
+                if let receipt = receipt {
+                    self.receipt = receipt
+                    DispatchQueue.main.async {
+                        self.addPreload(start_stop: false)
+                        self.performSegue(withIdentifier: "unvindToArrivalInfo", sender: self)
+                        //self.performSegue(withIdentifier: "backToAddGoods", sender: nil)
+                    }
+                } else {
+                    print("problem to Post")
+                }
+            }
+        }
+    }
+    
+    func PUTReceipt () {
+        print("trying to put")
+        var needPut = true
+        if goodSIze.text != "" {
+            receipt?.sizes_Id = getSizes(text: goodSIze.text!)
+        } else {
+            errorLable.text = "Размер не найден"
+            needPut = false
+        }
+        if goodPrise.text != "" {
+            var prize = goodPrise.text!.replacingOccurrences(of: ",", with: ".")
+            prize = prize.replacingOccurrences(of: " ", with: "")
+            receipt?.cost = Decimal(string: prize)
+        } else {
+            errorLable.text = "Цена указана не верно"
+            needPut = false
+        }
+        
+        if goodCount.text != "" {
+            receipt?.count = Int(goodCount.text!)
+        } else {
+            errorLable.text = " Количество указана не верно"
+            needPut = false
+        }
+        addPreload(start_stop: true)
+        if needPut {
+            receiptController.PUTReceipt(put: receipt!, id: String(receipt!.id)) { (receipt) in
+                DispatchQueue.main.async {
+                    self.addPreload(start_stop: false)
+                    self.performSegue(withIdentifier: "unvindToArrivalInfo", sender: self)
+                    //self.performSegue(withIdentifier: "backToAddGoods", sender: nil)
+                }
+            }
+        }
+    }
 }

@@ -91,6 +91,17 @@ struct Goods: Codable {
 
 }
 
+struct GoodsSearch: Codable {
+    var recordsTotal: Int
+    var recordsFiltered: Int
+    var data: [Goods]
+    enum CodingKeys: String, CodingKey {
+        case recordsTotal = "recordsTotal"
+        case recordsFiltered = "recordsFiltered"
+        case data = "data"
+    }
+}
+
 // Группа товаров
 struct GroupGoods: Codable {
     
@@ -158,4 +169,10 @@ struct TypeGoods: Codable {
         case name = "Name"
         case code = "Code"
     }
+}
+
+struct GroupReceipts {
+    var objectGood : Goods!
+    var objectRaw : [Receipt]!
+    var objectCost : String!
 }

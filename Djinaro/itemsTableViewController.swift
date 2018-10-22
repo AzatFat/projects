@@ -50,8 +50,10 @@ class itemsTableViewController: UITableViewController,UISearchBarDelegate {
             activityIndicator.stopAnimating()
             UIApplication.shared.endIgnoringInteractionEvents()
         }
-
     }
+    
+    
+    // Search bar view controller
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = true;
@@ -122,6 +124,9 @@ class itemsTableViewController: UITableViewController,UISearchBarDelegate {
         }
         searchBar.resignFirstResponder()
     }
+    
+    
+    
     
     func spechSizeSearch (search: String) {
         self.addPreload(start_stop: true)

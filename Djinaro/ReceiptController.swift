@@ -41,6 +41,75 @@ class ReceiptController {
         task.resume()
     }
     
+    
+    func POSTReceiptDocument (post: ReceiptDocument, completion: @escaping (ReceiptDocument?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("ReceiptDocument")
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let jsonEcoder = JSONEncoder()
+        let jsonData = try? jsonEcoder.encode(post)
+        request.httpBody = jsonData
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode(ReceiptDocument.self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode(ReceiptDocument.self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in Post ReceiptsDOcument")
+                        print(error)
+                        completion(nil)
+                    }
+                }
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
+    func PUTReceiptDocument (put: ReceiptDocument, id: String,completion: @escaping (ReceiptDocument?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("ReceiptDocument/" + id)
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "PUT"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let jsonEcoder = JSONEncoder()
+        let jsonData = try? jsonEcoder.encode(put)
+        request.httpBody = jsonData
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode(ReceiptDocument.self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode(ReceiptDocument.self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in Post ReceiptsDOcument")
+                        print(error)
+                        completion(nil)
+                    }
+                }
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
+    
+    
     func GetReceiptDocument(id: String,completion: @escaping (ReceiptDocument?) -> Void) {
         let GetReceipt = baseURL.appendingPathComponent("ReceiptDocument/" + id)
         let components = URLComponents(url: GetReceipt, resolvingAgainstBaseURL: true)!
@@ -69,6 +138,37 @@ class ReceiptController {
         
         task.resume()
     }
+    
+    func DELETEReceiptDocument (id: String,completion: @escaping (ReceiptDocument?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("ReceiptDocument/" + id)
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "DELETE"
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode(ReceiptDocument.self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode(ReceiptDocument.self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in DELETE ReceiptsDOcument")
+                        print(error)
+                        completion(nil)
+                    }
+                }
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
+    
     
     func GetReceipts(completion: @escaping ([Receipt]?) -> Void) {
         let GetReceipt = baseURL.appendingPathComponent("Receipt")
@@ -109,8 +209,8 @@ class ReceiptController {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         let jsonEcoder = JSONEncoder()
         let jsonData = try? jsonEcoder.encode(post)
-        print(jsonData)
         request.httpBody = jsonData
+        print(request)
         let task = URLSession.shared.dataTask(with: request){
             (data, response, error) in
             let jsonDecoder = JSONDecoder()
@@ -135,10 +235,73 @@ class ReceiptController {
             
         }
         task.resume()
-        
-        
-        
     }
+    
+    func PUTReceipt (put: Receipt, id: String,completion: @escaping (Receipt?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("Receipt/" + id)
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "PUT"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let jsonEcoder = JSONEncoder()
+        let jsonData = try? jsonEcoder.encode(put)
+        request.httpBody = jsonData
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode(Receipt.self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode(Receipt.self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in Post ReceiptsDOcument")
+                        print(error)
+                        completion(nil)
+                    }
+                }
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
+    
+    
+    func DELETEReceipt (id: String,completion: @escaping (Receipt?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("Receipt/" + id)
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "DELETE"
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode(Receipt.self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode(Receipt.self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in Post ReceiptsDOcument")
+                        print(error)
+                        completion(nil)
+                    }
+                }
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
+
     
     func GetGoods(completion: @escaping ([Goods]?) -> Void) {
         let GetReceipt = baseURL.appendingPathComponent("Goods/")
@@ -168,6 +331,39 @@ class ReceiptController {
         
         task.resume()
     }
+    
+    
+    func GetGoodsSearch(search:String, completion: @escaping ([Goods]?) -> Void) {
+        let GetReceipt = baseURL.appendingPathComponent("Goods/Search")
+        var components = URLComponents(url: GetReceipt, resolvingAgainstBaseURL: true)!
+        components.queryItems = [URLQueryItem(name: "start", value: "0"), URLQueryItem(name: "length", value: "100"),URLQueryItem(name: "search", value: search)]
+        let ReceiptURL = components.url!
+        print(ReceiptURL)
+        let task = URLSession.shared.dataTask(with: ReceiptURL) { (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode(GoodsSearch.self, from: data) {
+                    completion(list.data)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode(GoodsSearch.self, from: data)
+                        completion(product.data)
+                    } catch let error {
+                        print("error in getting Goods")
+                        print(error)
+                        completion(nil)
+                    }
+                }
+                
+            } else {
+                completion(nil)
+            }
+        }
+        
+        task.resume()
+    }
+    
     
     func GetGood(goodId: String, completion: @escaping (Goods?) -> Void) {
         let GetGood = baseURL.appendingPathComponent("Goods/" + goodId)
@@ -235,6 +431,36 @@ class ReceiptController {
                 print("no readable data received in response")
             }
         }
+        task.resume()
+    }
+    
+    
+    func GetSizes(completion: @escaping ([Sizes]?) -> Void) {
+        let GetGood = baseURL.appendingPathComponent("Sizes/")
+        let components = URLComponents(url: GetGood, resolvingAgainstBaseURL: true)!
+        let GoodURL = components.url!
+        let task = URLSession.shared.dataTask(with: GoodURL) { (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode([Sizes].self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode([Sizes].self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in getting Good")
+                        print(error)
+                        completion(nil)
+                    }
+                }
+                
+            } else {
+                completion(nil)
+            }
+        }
+        
         task.resume()
     }
 }

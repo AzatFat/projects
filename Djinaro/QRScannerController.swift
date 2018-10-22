@@ -9,8 +9,21 @@
 import UIKit
 import AVFoundation
 
-class QRScannerController: UIViewController {
 
+
+struct QRReceiptDocument: Codable {
+    var type: String
+    var id: Int
+
+    enum CodingKeys: String, CodingKey {
+        case type = "Type"
+        case id = "Id"
+    }
+    
+}
+
+
+class QRScannerController: UIViewController {
 
     @IBOutlet var messageLabel: UILabel!
     
@@ -19,6 +32,8 @@ class QRScannerController: UIViewController {
     var found_text = ""
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     var qrCodeFrameView: UIView?
+    
+    var qrReceiptDocument: QRReceiptDocument?
     
     private let supportedCodeTypes = [AVMetadataObject.ObjectType.upce,
                                       AVMetadataObject.ObjectType.code39,
@@ -36,10 +51,14 @@ class QRScannerController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         found_bar = 0
+        toggleTorch(on: true)
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        toggleTorch(on: false)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        toggleTorch(on: true)
         // Get the back-facing camera for capturing videos
         let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType.video, position: .back)
         
@@ -128,9 +147,13 @@ class QRScannerController: UIViewController {
     }
     
     
-    func segueToItemList(decodedString: String) {
-
-        performSegue(withIdentifier: "BarCodeSearch", sender: nil)
+    func segueToItemList(decodedString: String, searchType: String ) {
+        if searchType == "ReceiptDocument" {
+            performSegue(withIdentifier: "findReceiptInfo", sender: nil)
+        } else {
+            performSegue(withIdentifier: "BarCodeSearch", sender: nil)
+        }
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -140,7 +163,34 @@ class QRScannerController: UIViewController {
             controller.id = found_text
             controller.type = "1"
         }
+        
+        if segue.identifier == "findReceiptInfo" {
+            let controller = segue.destination as! ArrivalInfoViewController
+            controller.receiptId = found_text
+        }
     }
+    func toggleTorch(on: Bool) {
+        guard let device = AVCaptureDevice.default(for: .video) else { return }
+        
+        if device.hasTorch {
+            do {
+                try device.lockForConfiguration()
+                
+                if on == true {
+                    device.torchMode = .on
+                } else {
+                    device.torchMode = .off
+                }
+                
+                device.unlockForConfiguration()
+            } catch {
+                print("Torch could not be used")
+            }
+        } else {
+            print("Torch is not available")
+        }
+    }
+    
 }
 
 
@@ -167,10 +217,27 @@ extension QRScannerController: AVCaptureMetadataOutputObjectsDelegate {
             if metadataObj.stringValue != nil && found_bar == 0{
                 found_bar += 1
              //   launchApp(decodedURL: metadataObj.stringValue!)
+                
                 found_text = metadataObj.stringValue!
-                segueToItemList(decodedString: metadataObj.stringValue!)
+                print(found_text)
+                let documentReceiptId = found_text.data(using: .utf8)
+                var searchType = ""
+                if let data = documentReceiptId {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode(QRReceiptDocument.self, from: data)
+                        found_text = String(product.id)
+                        searchType = "ReceiptDocument"
+                    } catch let error {
+                        print("error in getting code")
+                        print(error)
+                    }
+                    
+                } else {
+                    print("data != documentReceiptId")
+                }
+                segueToItemList(decodedString: metadataObj.stringValue!, searchType: searchType)
                 messageLabel.text = metadataObj.stringValue
-                print("uhu")
             }
         }
     }

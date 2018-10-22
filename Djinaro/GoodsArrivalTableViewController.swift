@@ -8,18 +8,15 @@
 
 import UIKit
 
-class GoodsArrivalTableViewController: UITableViewController {
+class GoodsArrivalTableViewController: UITableViewController, UISearchBarDelegate {
     
-
+    @IBOutlet var searchButton: UISearchBar!
     @IBAction func barButtonNewGood(_ sender: Any) {}
     @IBOutlet var arrives: UINavigationItem!
     @IBOutlet var barButonNewGoodOutlet: UIBarButtonItem!
     @IBAction func addArrival(_ sender: Any) {
-      recieptDocumentId = ""
-
-        performSegue(withIdentifier: "CRUDArrival", sender: nil)
     }
-    
+    let searchController = UISearchController(searchResultsController: nil)
     var recieptController = ReceiptController()
     var recieptDocumentList = [ReceiptDocument]()
     var recieptDocumentId = ""
@@ -30,6 +27,7 @@ class GoodsArrivalTableViewController: UITableViewController {
         var sectionName : String!
         var sectionObjects : [ReceiptDocument]!
     }
+    
     var objectArray = [Objects]()
     
     func createSectionsForObject(recieptDocumentList: [ReceiptDocument]) -> [Objects] {
@@ -37,12 +35,9 @@ class GoodsArrivalTableViewController: UITableViewController {
         var objectDictionary: Dictionary = [String: [ReceiptDocument]]()
         
         for i in recieptDocumentList {
-            
             if let date = i.create_Date?.components(separatedBy: "T") {
-                
                 if  objectDictionary[date[0]] != nil {
                     objectDictionary[date[0]]!.append(i)
-                
                 } else {
                     objectDictionary[date[0]] = [i]
                 }
@@ -51,10 +46,25 @@ class GoodsArrivalTableViewController: UITableViewController {
         
         for (key, value) in objectDictionary {
             objectArray.append(Objects(sectionName: key, sectionObjects: value))
-            
         }
+        
         objectArray.sort(by: {$0.sectionName > $1.sectionName})
         return objectArray
+    }
+    
+    func getReceiptDocuments() {
+        recieptController.GetReceiptDocuments { (listReceipt) in
+            if let listReceipt = listReceipt {
+                print("GetReceiptDocuments get succes")
+                self.recieptDocumentList = listReceipt
+            }
+            DispatchQueue.main.async {
+                self.objectArray = self.createSectionsForObject(recieptDocumentList:
+                    self.recieptDocumentList)
+                self.tableView.reloadData()
+                self.addPreload(start_stop: false)
+            }
+        }
     }
     
     
@@ -69,41 +79,66 @@ class GoodsArrivalTableViewController: UITableViewController {
             activityIndicator.stopAnimating()
             UIApplication.shared.endIgnoringInteractionEvents()
         }
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         if segue.identifier == "CRUDArrival" {
             let controller = segue.destination as! ArrivalInfoViewController
             controller.receiptId = recieptDocumentId
         }
-        
-
     }
     
     override func viewDidLoad() {
-        
         self.addPreload(start_stop: true)
-       
-        recieptController.GetReceiptDocuments { (listReceipt) in
-            if let listReceipt = listReceipt {
-                print("GetReceiptDocuments get succes")
-                self.recieptDocumentList = listReceipt
-            }
-            DispatchQueue.main.async {
-                self.objectArray = self.createSectionsForObject(recieptDocumentList:
-                    self.recieptDocumentList)
-                self.tableView.reloadData()
-                self.addPreload(start_stop: false)
-            }
-        }
-
+        getReceiptDocuments()
         super.viewDidLoad()
+        searchButton.delegate = self
+        searchController.searchBar.delegate = self
+
     }
 
-
-
+    override func viewDidAppear(_ animated: Bool) {
+        self.addPreload(start_stop: true)
+        getReceiptDocuments()
+    }
+    ///// Search bar controller
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true;
+        searchBar.showsScopeBar = true
+        searchBar.sizeToFit()
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        
+        searchBar.text = nil
+        searchBar.showsCancelButton = false;
+        searchBar.showsScopeBar = false
+        searchBar.sizeToFit()
+        
+        addPreload(start_stop: true)
+        getReceiptDocuments()
+        searchBar.resignFirstResponder()
+    }
+    
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+        guard let scopeString = searchBar.scopeButtonTitles? [searchBar.selectedScopeButtonIndex] else {return }
+        searchBar.showsCancelButton = false;
+        searchBar.showsScopeBar = false
+        searchBar.sizeToFit()
+        
+        self.addPreload(start_stop: true)
+        getReceiptDocuments()
+        searchBar.resignFirstResponder()
+    }
+    /////
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -150,6 +185,22 @@ class GoodsArrivalTableViewController: UITableViewController {
         performSegue(withIdentifier: "CRUDArrival", sender: cell)
     }
 
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let receiptDocument = objectArray[indexPath.section].sectionObjects[indexPath.row]
+            // Delete the row from the data source
+            recieptController.DELETEReceiptDocument(id: String(receiptDocument.id)) { (receiptDocument) in
+                DispatchQueue.main.async {
+                    self.objectArray[indexPath.section].sectionObjects.remove(at: indexPath.row)
+                    tableView.deleteRows(at: [indexPath], with: .fade)
+                }
+            }
+            
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -184,8 +235,6 @@ class GoodsArrivalTableViewController: UITableViewController {
         return true
     }
     */
-
-
 
 }
 

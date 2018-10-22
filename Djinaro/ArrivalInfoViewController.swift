@@ -14,9 +14,11 @@ class ArrivalInfoViewController: UIViewController, UITableViewDelegate, UITableV
         performSegue(withIdentifier: "GoodsList", sender: nil)
     }
     @IBOutlet var tableView: UITableView!
-    @IBOutlet var arrivalName: UITextField!
+    @IBOutlet var arrivalName: UILabel!
     @IBOutlet var receiptDate: UITextField!
     @IBOutlet var theDate: UITextField!
+    private var datePicker: UIDatePicker!
+    private var theDatePicker: UIDatePicker!
     
     var receiptId = ""
     let receiptController = ReceiptController()
@@ -24,14 +26,8 @@ class ArrivalInfoViewController: UIViewController, UITableViewDelegate, UITableV
     var receipts: [Receipt]?
     var receiptsToAddNewGoodsController =  [Receipt]()
     var receiptsnameToAddNewGoodsController: Goods?
-    
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     
-    struct GroupReceipts {
-        var objectGood : Goods!
-        var objectRaw : [Receipt]!
-        var objectCost : String!
-    }
     
     var GroupReceiptsList = [GroupReceipts]()
     
@@ -102,7 +98,7 @@ class ArrivalInfoViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        print("trying to perform segue")
         let cell = tableView.cellForRow(at: indexPath as IndexPath)
         tableView.deselectRow(at: indexPath as IndexPath, animated: true)
         if let receipts = GroupReceiptsList[indexPath.row].objectRaw {
@@ -126,23 +122,78 @@ class ArrivalInfoViewController: UIViewController, UITableViewDelegate, UITableV
             controller.title = "Выбор товара"
             controller.receipts = receiptsToAddNewGoodsController
             controller.receipt_Document_Id = recieptDocument?.id
+            controller.groupReceiptsList = GroupReceiptsList
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        self.addPreload(start_stop: true)
-        
-        if receiptId != "" {
+    //////////// Date Picker control
+ /*   @objc func viewTapped(gestureRecognizer: UITapGestureRecognizer) {
+        view.endEditing(true)
+    } */
+    
+    @objc func dateChanged(dateChanged: UIDatePicker) {
+        let dateFormatted = DateFormatter()
+        dateFormatted.dateFormat = "yyyy-MM-dd"
+        receiptDate.text = dateFormatted.string(from: datePicker.date)
+    }
+    
+    @objc func theDateChanged(dateChanged: UIDatePicker) {
+        let dateFormatted = DateFormatter()
+        dateFormatted.dateFormat = "yyyy-MM-dd"
+        theDate.text = dateFormatted.string(from: theDatePicker.date)
+    }
+    
 
+    @objc func receiptDatedismissPicker() {
+        let dateFormatted = DateFormatter()
+        dateFormatted.dateFormat = "yyyy-MM-dd"
+        receiptDate.text = dateFormatted.string(from: datePicker.date)
+        recieptDocument?.receipt_Date = dateFormatted.string(from: datePicker.date) + "T00:00:00.0263+03:00"
+        PUTReceiptDocument()
+        view.endEditing(true)
+    }
+    
+    @objc func theDatedismissPicker() {
+        let dateFormatted = DateFormatter()
+        dateFormatted.dateFormat = "yyyy-MM-dd"
+        theDate.text = dateFormatted.string(from: theDatePicker.date)
+        recieptDocument?.the_Date = dateFormatted.string(from: theDatePicker.date) + "T00:00:00.0263+03:00"
+        PUTReceiptDocument()
+        view.endEditing(true)
+    }
+    
+    @objc func clearReceiptDatedismissPicker() {
+        receiptDate.text = ""
+        recieptDocument?.receipt_Date = nil
+        PUTReceiptDocument()
+        view.endEditing(true)
+    }
+    
+    @objc func clearTheDatedismissPicker() {
+        theDate.text = ""
+        recieptDocument?.the_Date = nil
+        PUTReceiptDocument()
+        view.endEditing(true)
+    }
+    
+    
+    func PUTReceiptDocument () {
+        self.addPreload(start_stop: true)
+        if let Document = recieptDocument {
+            receiptController.PUTReceiptDocument(put: Document, id: receiptId) { (receiptDocument) in
+                self.GETReceiptDocument()
+            }
+        }
+    }
+    
+    func GETReceiptDocument () {
+        if receiptId != "" {
             receiptController.GetReceiptDocument(id: receiptId) { (receiptDocument) in
-                
                 if let receiptDocument = receiptDocument {
                     self.recieptDocument = receiptDocument
                 }
                 DispatchQueue.main.async {
-                   // self.tableView.reloadData()
+                    // self.tableView.reloadData()
                     
                     if let receipts = self.recieptDocument?.receiptList {
                         self.GroupReceiptsList = self.countCostEachreceipt(receipts: receipts)
@@ -156,5 +207,57 @@ class ArrivalInfoViewController: UIViewController, UITableViewDelegate, UITableV
             }
         }
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        let theDateToolBar = UIToolbar().ToolbarPiker(mySelect: #selector(ArrivalInfoViewController.theDatedismissPicker), clear: #selector(ArrivalInfoViewController.clearTheDatedismissPicker))
+        
+        let receiptDateToolBar = UIToolbar().ToolbarPiker(mySelect: #selector(ArrivalInfoViewController.receiptDatedismissPicker), clear: #selector(ArrivalInfoViewController.clearReceiptDatedismissPicker))
+        
+        receiptDate.inputAccessoryView = receiptDateToolBar
+        theDate.inputAccessoryView = theDateToolBar
+        
+        datePicker = UIDatePicker()
+        theDatePicker = UIDatePicker()
+        datePicker?.datePickerMode = .date
+        theDatePicker?.datePickerMode = .date
+        receiptDate.inputView = datePicker
+        theDate.inputView = theDatePicker
+        
+        datePicker?.addTarget(self, action: #selector(ArrivalInfoViewController.dateChanged(dateChanged:)), for: .valueChanged)
+        theDatePicker?.addTarget(self, action: #selector(ArrivalInfoViewController.theDateChanged(dateChanged:)), for: .valueChanged)
+       // let tapGesture = UITapGestureRecognizer(target: self, action: #selector(ArrivalInfoViewController.viewTapped(gestureRecognizer:)))
+       // view.addGestureRecognizer(tapGesture)
+        
+        self.addPreload(start_stop: true)
+        GETReceiptDocument()
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        GETReceiptDocument()
+    }
+}
+
+extension UIToolbar {
+    
+    func ToolbarPiker(mySelect : Selector, clear : Selector) -> UIToolbar {
+        
+        let toolBar = UIToolbar()
+        
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor.black
+        toolBar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.plain, target: self, action: mySelect)
+        let clearButton = UIBarButtonItem(title: "Clear", style: UIBarButtonItem.Style.plain, target: self, action: clear)
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        
+        toolBar.setItems([ clearButton, spaceButton, doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        
+        return toolBar
+    }
+    
 }
 

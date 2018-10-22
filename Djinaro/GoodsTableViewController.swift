@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GoodsTableViewController: UITableViewController {
+class GoodsTableViewController: UITableViewController, UISearchBarDelegate {
 
     var recieptController = ReceiptController()
     
@@ -18,8 +18,11 @@ class GoodsTableViewController: UITableViewController {
     var receipts : [Receipt]?
     var segue = "goodInfo"
     var receipt_Document_Id : Int?
+    var groupReceiptsList = [GroupReceipts]()
     
+    @IBOutlet var searchBar: UISearchBar!
     
+   // let searchController = UISearchController(searchResultsController: nil)
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     
     func addPreload(start_stop: Bool){
@@ -36,27 +39,11 @@ class GoodsTableViewController: UITableViewController {
         
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.addPreload(start_stop: true)
-        
-        recieptController.GetGoods { (listGoods) in
-            if let listGoods = listGoods {
-                print("listReceipt get succes")
-                self.goods = listGoods
-            }
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                self.addPreload(start_stop:  false)
-            }
-        }
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        getGoods()
+        searchBar.delegate = self
     }
 
     // MARK: - Table view data source
@@ -91,7 +78,7 @@ class GoodsTableViewController: UITableViewController {
         tableView.deselectRow(at: indexPath as IndexPath, animated: true)
         goodId = String(goods[indexPath.row].id)
         good = goods[indexPath.row]
-        print(segue)
+        receipts = searchExistGoodInArrival(good: good)
         performSegue(withIdentifier: segue, sender: cell)
     }
 
@@ -104,12 +91,93 @@ class GoodsTableViewController: UITableViewController {
         if segue.identifier == "addGoodToArrival" {
             let controller = segue.destination as! AddGoodsToArrivalViewController
             controller.good = good
-            controller.receipts = receipts!
+            if let receipts = receipts {
+                controller.receipts = receipts
+            }
             controller.receipt_Document_Id = receipt_Document_Id
         }
     }
     
+    func getGoods () {
+        recieptController.GetGoods { (listGoods) in
+            if let listGoods = listGoods {
+                print("listReceipt get succes")
+                self.goods = listGoods
+            }
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.addPreload(start_stop:  false)
+            }
+        }
+    }
+    
+    func searchGoods (search: String) {
+        print("trying search Good")
+        if search != "" {
+            recieptController.GetGoodsSearch(search: search) { (listGoods) in
+                if let listGoods = listGoods {
+                    print("listReceipt get succes")
+                    self.goods = listGoods
+                }
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                    self.addPreload(start_stop:  false)
+                }
+            }
+        }
+    }
+    ///Search bar controller
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true;
+        searchBar.showsScopeBar = true
+        searchBar.sizeToFit()
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        
+        searchBar.text = nil
+        searchBar.showsCancelButton = false;
+        searchBar.showsScopeBar = false
+        searchBar.sizeToFit()
+        
+        addPreload(start_stop: true)
+        getGoods()
+        searchBar.resignFirstResponder()
+    }
+    
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        print(" search Click")
 
+        searchBar.showsCancelButton = false;
+        searchBar.showsScopeBar = false
+        searchBar.sizeToFit()
+        
+        self.addPreload(start_stop: true)
+        searchGoods(search: searchBar.text!)
+        searchBar.resignFirstResponder()
+    }
+    //////
+
+    
+    func searchExistGoodInArrival(good: Goods?) -> [Receipt]? {
+        print("trying to found")
+        if groupReceiptsList.count >= 1  {
+            for i in groupReceiptsList{
+                if i.objectGood.id == good?.id {
+                    receipts = i.objectRaw
+                    return receipts
+                }
+            }
+        }
+        return nil
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
