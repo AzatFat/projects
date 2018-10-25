@@ -430,8 +430,8 @@
                                     <outlet property="delegate" destination="0io-A0-rfx" id="rTF-XB-hpQ"/>
                                 </connections>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Дата создания" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sRX-q7-VDe">
-                                <rect key="frame" x="16" y="153" width="94" height="16"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Дата поступления" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sRX-q7-VDe">
+                                <rect key="frame" x="16" y="153" width="115" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
@@ -491,7 +491,20 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="aaJ-y3-8uw"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Поступление" id="4St-VW-YsK"/>
+                    <navigationItem key="navigationItem" title="Поступление" id="4St-VW-YsK">
+                        <rightBarButtonItems>
+                            <barButtonItem title="Print" id="JNP-Lr-F74">
+                                <connections>
+                                    <action selector="printButton:" destination="0io-A0-rfx" id="hAh-eq-PWS"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Close" id="X0d-vw-gRt">
+                                <connections>
+                                    <action selector="CloseReceiptDocument:" destination="0io-A0-rfx" id="gae-sd-vtd"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
                     <connections>
                         <outlet property="arrivalName" destination="c38-re-4Y0" id="1f1-RC-dmC"/>
                         <outlet property="receiptDate" destination="hOn-DX-yqq" id="BX9-pt-aDO"/>
@@ -649,7 +662,7 @@
             </objects>
             <point key="canvasLocation" x="7598" y="-881"/>
         </scene>
-        <!--Add Receipt To Arrival View Controller-->
+        <!--Title-->
         <scene sceneID="Hbk-SK-f34">
             <objects>
                 <viewController id="U6n-Gk-Qp6" customClass="AddReceiptToArrivalViewController" customModule="Djinaro" customModuleProvider="target" sceneMemberID="viewController">
@@ -658,37 +671,37 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="92t-so-6oG">
-                                <rect key="frame" x="137" y="71" width="167" height="30"/>
+                                <rect key="frame" x="137" y="115" width="167" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bgN-We-dSY">
-                                <rect key="frame" x="137" y="109" width="167" height="30"/>
+                                <rect key="frame" x="137" y="153" width="167" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Количество" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PZB-mv-UNo">
-                                <rect key="frame" x="20" y="114" width="94" height="21"/>
+                                <rect key="frame" x="20" y="158" width="94" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Цена" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cM4-5w-l5j">
-                                <rect key="frame" x="20" y="152" width="42" height="21"/>
+                                <rect key="frame" x="20" y="196" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IAG-c1-UdT">
-                                <rect key="frame" x="137" y="147" width="185" height="30"/>
+                            <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IAG-c1-UdT">
+                                <rect key="frame" x="137" y="191" width="167" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Размер" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="55l-th-U5h">
-                                <rect key="frame" x="20" y="76" width="61" height="21"/>
+                                <rect key="frame" x="20" y="120" width="61" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="61" id="4LG-JR-01z"/>
                                     <constraint firstAttribute="height" constant="21" id="CYE-t4-YUO"/>
@@ -699,7 +712,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eDx-1R-ScH">
-                                <rect key="frame" x="20" y="231" width="284" height="21"/>
+                                <rect key="frame" x="20" y="275" width="284" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="UkM-bC-FqB"/>
                                     <constraint firstAttribute="width" constant="284" id="dE8-qv-P4e"/>
@@ -709,7 +722,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IMX-Up-cIe">
-                                <rect key="frame" x="117" y="193" width="86" height="30"/>
+                                <rect key="frame" x="117" y="237" width="86" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="BSw-WZ-XZK"/>
                                     <constraint firstAttribute="width" constant="86" id="PhT-Cd-0Bq"/>
@@ -746,6 +759,15 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="rzt-wt-58m"/>
                     </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Title" id="1AR-Gu-UiV">
+                        <barButtonItem key="rightBarButtonItem" title="Print" id="mNB-xz-CU9">
+                            <connections>
+                                <action selector="printReceipt:" destination="U6n-Gk-Qp6" id="BN1-z4-J6N"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="addChangeReceipt" destination="IMX-Up-cIe" id="iVt-Wj-vZN"/>
                         <outlet property="errorLable" destination="eDx-1R-ScH" id="tOd-kJ-J3R"/>
@@ -753,7 +775,6 @@
                         <outlet property="goodPrise" destination="IAG-c1-UdT" id="e25-fU-MCN"/>
                         <outlet property="goodSIze" destination="92t-so-6oG" id="670-Tz-Bk9"/>
                         <outlet property="searchDisplayController" destination="5uk-rc-u7z" id="Lvp-CD-CZX"/>
-                        <segue destination="oSb-iK-zvM" kind="show" identifier="backToAddGoods" id="vbU-iJ-9cF"/>
                         <segue destination="2AL-dH-saq" kind="unwind" identifier="unvindToArrivalInfo" unwindAction="unwindToContainerVCWithSegue:" id="8Ma-7e-2bI"/>
                     </connections>
                 </viewController>
@@ -1088,18 +1109,40 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LUw-yK-coM">
+                                <rect key="frame" x="125" y="417" width="70" height="54"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="70" id="EBb-aC-AWN"/>
+                                    <constraint firstAttribute="height" constant="54" id="mWL-G5-F8A"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <state key="normal" title="Light">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleShadowColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="StartStopSpeechRecognition:" destination="PjL-fn-p5u" eventType="touchUpInside" id="qzS-VK-Cxq"/>
+                                    <action selector="lightButton:" destination="POu-4W-TFY" eventType="touchUpInside" id="cNi-nu-8Ll"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="J2o-a8-GtH" firstAttribute="bottom" secondItem="im1-PO-ZSD" secondAttribute="bottom" id="EPS-I7-Uzx"/>
+                            <constraint firstItem="J2o-a8-GtH" firstAttribute="top" secondItem="LUw-yK-coM" secondAttribute="bottom" constant="8" id="Kal-Fc-TXV"/>
                             <constraint firstItem="J2o-a8-GtH" firstAttribute="leading" secondItem="ooS-ni-DVY" secondAttribute="leading" id="QRx-MB-pxO"/>
+                            <constraint firstItem="im1-PO-ZSD" firstAttribute="trailing" secondItem="LUw-yK-coM" secondAttribute="trailing" constant="125" id="X9P-Pg-P7P"/>
                             <constraint firstItem="J2o-a8-GtH" firstAttribute="top" secondItem="im1-PO-ZSD" secondAttribute="top" constant="415" id="nFs-fA-ffe"/>
+                            <constraint firstItem="LUw-yK-coM" firstAttribute="leading" secondItem="im1-PO-ZSD" secondAttribute="leading" constant="125" id="x1n-nI-dYe"/>
                             <constraint firstAttribute="trailing" secondItem="J2o-a8-GtH" secondAttribute="trailing" id="yFu-wq-XD6"/>
+                            <constraint firstItem="LUw-yK-coM" firstAttribute="top" secondItem="im1-PO-ZSD" secondAttribute="top" constant="353" id="zwJ-dg-7hw"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="im1-PO-ZSD"/>
                     </view>
                     <navigationItem key="navigationItem" id="Dy2-Hf-KR7"/>
                     <connections>
+                        <outlet property="lightButton" destination="LUw-yK-coM" id="OS2-mE-HlM"/>
                         <outlet property="messageLabel" destination="J2o-a8-GtH" id="IJ8-c5-OCW"/>
                         <segue destination="l6A-H8-4EZ" kind="show" identifier="BarCodeSearch" id="ur2-6f-m7R"/>
                         <segue destination="0io-A0-rfx" kind="show" identifier="findReceiptInfo" id="49n-Ls-Xae"/>
@@ -1181,11 +1224,11 @@
             </objects>
             <point key="canvasLocation" x="7219" y="135"/>
         </scene>
-        <!--Item-->
+        <!--stock-->
         <scene sceneID="v6p-v9-afF">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="sjh-cO-p5o" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="PRi-a0-vjl"/>
+                    <tabBarItem key="tabBarItem" title="stock" id="PRi-a0-vjl"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Sc8-CK-FlP">
                         <rect key="frame" x="0.0" y="20" width="320" height="44"/>
@@ -1264,8 +1307,8 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="szZ-x4-fzs"/>
-        <segue reference="vbU-iJ-9cF"/>
-        <segue reference="GS7-iv-Ffk"/>
+        <segue reference="ndK-hc-Iu9"/>
+        <segue reference="49n-Ls-Xae"/>
         <segue reference="ur2-6f-m7R"/>
         <segue reference="Vo1-sj-xLV"/>
     </inferredMetricsTieBreakers>

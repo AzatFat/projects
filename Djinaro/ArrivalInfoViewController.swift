@@ -10,6 +10,9 @@ import UIKit
 
 class ArrivalInfoViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    @IBAction func CloseReceiptDocument(_ sender: Any) {
+        closeDocument()
+    }
     @IBAction func addNewGood(_ sender: Any) {
         performSegue(withIdentifier: "GoodsList", sender: nil)
     }
@@ -20,6 +23,9 @@ class ArrivalInfoViewController: UIViewController, UITableViewDelegate, UITableV
     private var datePicker: UIDatePicker!
     private var theDatePicker: UIDatePicker!
     
+    @IBAction func printButton(_ sender: Any) {
+        acceptPrinting()
+    }
     var receiptId = ""
     let receiptController = ReceiptController()
     var recieptDocument: ReceiptDocument?
@@ -208,6 +214,50 @@ class ArrivalInfoViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
+    
+    
+    func CloseReceiptDocument ()  {
+        self.addPreload(start_stop: true)
+        if let recieptDocument = self.recieptDocument {
+            var message = "Ошибка в проведении документа"
+            if recieptDocument.the_Date == nil {
+                receiptController.CLOSEReceiptDocument(post: recieptDocument) { (document) in
+                    if let receiptDocument = document {
+                        self.recieptDocument = receiptDocument
+                        message = "Документ успешно проведен"
+                        
+                    }
+                    DispatchQueue.main.async {
+                        // self.tableView.reloadData()
+                        self.closingDocument(title: message)
+                        if let receipts = self.recieptDocument?.receiptList {
+                            self.GroupReceiptsList = self.countCostEachreceipt(receipts: receipts)
+                            self.tableView.reloadData()
+                        }
+                        self.arrivalName.text = self.recieptDocument?.name
+                        self.receiptDate.text = self.recieptDocument?.receipt_Date?.components(separatedBy: "T")[0]
+                        self.theDate.text = self.recieptDocument?.the_Date?.components(separatedBy: "T")[0]
+                        self.addPreload(start_stop: false)
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    func PrintReceiptDocument() {
+        self.addPreload(start_stop: true)
+        if let recieptPrintDocument = self.recieptDocument {
+            self.receiptController.PRINTReceiptDocument(post: recieptPrintDocument, completion: { (title) in
+                DispatchQueue.main.async {
+                    self.printingDocument(title: title ?? "Произошла ошибка")
+                    self.addPreload(start_stop: false)
+                }
+            })
+            
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -236,6 +286,57 @@ class ArrivalInfoViewController: UIViewController, UITableViewDelegate, UITableV
     override func viewDidAppear(_ animated: Bool) {
         GETReceiptDocument()
     }
+    
+//////// Alert on print
+    func acceptPrinting() {
+        let alert = UIAlertController(title: "Вы действительно хотите распечатать документ поступления?", message: nil, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Да", style: .default, handler: { action in
+            self.PrintReceiptDocument()
+            self.CloseReceiptDocument()
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Нет", style: .cancel, handler: { action in
+            
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    
+    func closeDocument() {
+        let alert = UIAlertController(title: "Вы действительно хотите провести документ поступления?", message: nil, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Да", style: .default, handler: { action in
+            self.addPreload(start_stop: true)
+            self.CloseReceiptDocument()
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Нет", style: .cancel, handler: { action in
+            
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    func closingDocument(title : String) {
+        self.addPreload(start_stop: false)
+        let alert = UIAlertController(title: title, message: nil, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    
+    func printingDocument(title : String) {
+        self.addPreload(start_stop: false)
+        let alert = UIAlertController(title: title, message: nil, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            
+        }))
+
+        self.present(alert, animated: true, completion: nil)
+    }
+    
 }
 
 extension UIToolbar {

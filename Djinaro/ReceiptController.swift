@@ -75,6 +75,37 @@ class ReceiptController {
         }
         task.resume()
     }
+    
+    func CLOSEReceiptDocument (post: ReceiptDocument, completion: @escaping (ReceiptDocument?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("ReceiptDocument/Close/" + String(post.id))
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "POST"
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode(ReceiptDocument.self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode(ReceiptDocument.self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in Post ReceiptsDocument")
+                        print(error)
+                        completion(nil)
+                    }
+                }
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
+    
     func PUTReceiptDocument (put: ReceiptDocument, id: String,completion: @escaping (ReceiptDocument?) -> Void) {
         let PostReceipt = baseURL.appendingPathComponent("ReceiptDocument/" + id)
         let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
@@ -169,6 +200,24 @@ class ReceiptController {
         task.resume()
     }
     
+    
+    func PRINTReceiptDocument (post: ReceiptDocument, completion: @escaping (String?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("ReceiptDocument/PrintLabel/" + String(post.id))
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "POST"
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            if let data = data{
+                let answer = String(data: data, encoding: String.Encoding.utf8)
+                    completion(answer ?? "Неизвестная ошибка")
+            } else {
+                completion("Не успех")
+            }
+        }
+        task.resume()
+    }
     
     func GetReceipts(completion: @escaping ([Receipt]?) -> Void) {
         let GetReceipt = baseURL.appendingPathComponent("Receipt")
@@ -302,6 +351,25 @@ class ReceiptController {
         task.resume()
     }
 
+    func PRINTReceipt (post: Receipt,count: String, completion: @escaping (String?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("Receipt/PrintLabel/" + String(post.id) + "/" + count)
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "POST"
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            if let data = data{
+                let answer = String(data: data, encoding: String.Encoding.utf8)
+                completion(answer ?? "Неизвестная ошибка")
+            } else {
+                completion("Не успех")
+            }
+        }
+        task.resume()
+    }
+    
+    
     
     func GetGoods(completion: @escaping ([Goods]?) -> Void) {
         let GetReceipt = baseURL.appendingPathComponent("Goods/")

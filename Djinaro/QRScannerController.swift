@@ -25,13 +25,25 @@ struct QRReceiptDocument: Codable {
 
 class QRScannerController: UIViewController {
 
+    @IBAction func lightButton(_ sender: Any) {
+        if togleON {
+            toggleTorch(on: false)
+            togleON = false
+        } else {
+            toggleTorch(on: true)
+            togleON = true
+        }
+        
+    }
     @IBOutlet var messageLabel: UILabel!
+    @IBOutlet var lightButton: UIButton!
     
     var captureSession = AVCaptureSession()
     var found_bar = 0
     var found_text = ""
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     var qrCodeFrameView: UIView?
+    var togleON = false
     
     var qrReceiptDocument: QRReceiptDocument?
     
@@ -51,14 +63,12 @@ class QRScannerController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         found_bar = 0
-        toggleTorch(on: true)
     }
     override func viewDidDisappear(_ animated: Bool) {
         toggleTorch(on: false)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        toggleTorch(on: true)
         // Get the back-facing camera for capturing videos
         let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType.video, position: .back)
         
@@ -100,6 +110,7 @@ class QRScannerController: UIViewController {
         
         // Move the message label and top bar to the front
         view.bringSubviewToFront(messageLabel)
+        view.bringSubviewToFront(lightButton)
       //  view.bringSubviewToFront(topbar)
         
         // Initialize QR Code Frame to highlight the QR code
@@ -169,6 +180,9 @@ class QRScannerController: UIViewController {
             controller.receiptId = found_text
         }
     }
+    
+    
+    //// фонарик
     func toggleTorch(on: Bool) {
         guard let device = AVCaptureDevice.default(for: .video) else { return }
         

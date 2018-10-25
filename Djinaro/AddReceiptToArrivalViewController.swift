@@ -16,6 +16,12 @@ class AddReceiptToArrivalViewController: UIViewController {
     @IBOutlet var goodPrise: UITextField!
     @IBOutlet var addChangeReceipt: UIButton!
     
+
+    @IBAction func printReceipt(_ sender: Any) {
+        acceptPrinting()
+    }
+    
+    
     var PostOrPut = false
     @IBAction func addChangeReceiptAction(_ sender: Any) {
         if PostOrPut {
@@ -189,4 +195,45 @@ class AddReceiptToArrivalViewController: UIViewController {
             }
         }
     }
+    
+    func acceptPrinting() {
+        let alert = UIAlertController(title: "Вы действительно хотите распечатать поступление?", message: nil, preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addTextField(configurationHandler: { textField in
+            textField.keyboardType = .decimalPad
+            textField.placeholder = "Количество этикеток"
+        })
+        
+        alert.addAction(UIAlertAction(title: "Да", style: .default, handler: { action in
+            let textField = alert.textFields![0]
+            if textField.text != "" {
+                if let recieptPrint = self.receipt {
+                    self.addPreload(start_stop: true)
+                    self.receiptController.PRINTReceipt(post: recieptPrint, count: textField.text! ,completion: { (title) in
+                        DispatchQueue.main.async {
+                            self.printingDocument(title: title ?? "Произошла ошибка")
+                        }
+                    })
+                }
+            }
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Нет", style: .cancel, handler: { action in
+            
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func printingDocument(title : String) {
+        self.addPreload(start_stop: false)
+        let alert = UIAlertController(title: title, message: nil, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    
 }
