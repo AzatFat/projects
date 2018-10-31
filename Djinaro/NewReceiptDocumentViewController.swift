@@ -15,12 +15,14 @@ class NewReceiptDocumentViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var NumberReceiptDocument: UITextField!
     var receiptDocument: ReceiptDocument?
     var receiptController = ReceiptController()
+    let defaults = UserDefaults.standard
+    var token = ""
     
     @IBAction func AddReceiptDocumentAction(_ sender: Any) {
         if NumberReceiptDocument.text != "" {
             let POSTreceiptDocument = ReceiptDocument.init(id: 1, employees_Id: 1, name: NumberReceiptDocument.text, create_Date: nil, receipt_Date: nil, the_Date: nil, employees: nil, receiptList: nil, totalCost: nil)
             
-            receiptController.POSTReceiptDocument(post: POSTreceiptDocument) { (receiptDocument) in
+            receiptController.POSTReceiptDocument(token: token, post: POSTreceiptDocument) { (receiptDocument) in
                 if let receiptDocument = receiptDocument {
                     self.receiptDocument = receiptDocument
                 }
@@ -37,6 +39,7 @@ class NewReceiptDocumentViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         NumberReceiptDocument.delegate = self
+        token = defaults.object(forKey:"token") as? String ?? ""
         // Do any additional setup after loading the view.
     }
     
@@ -56,15 +59,5 @@ class NewReceiptDocumentViewController: UIViewController, UITextFieldDelegate {
         return false
     }
     
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

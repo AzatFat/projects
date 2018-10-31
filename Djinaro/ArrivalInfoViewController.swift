@@ -33,7 +33,8 @@ class ArrivalInfoViewController: UIViewController, UITableViewDelegate, UITableV
     var receiptsToAddNewGoodsController =  [Receipt]()
     var receiptsnameToAddNewGoodsController: Goods?
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
-    
+    let defaults = UserDefaults.standard
+    var token = ""
     
     var GroupReceiptsList = [GroupReceipts]()
     
@@ -186,7 +187,7 @@ class ArrivalInfoViewController: UIViewController, UITableViewDelegate, UITableV
     func PUTReceiptDocument () {
         self.addPreload(start_stop: true)
         if let Document = recieptDocument {
-            receiptController.PUTReceiptDocument(put: Document, id: receiptId) { (receiptDocument) in
+            receiptController.PUTReceiptDocument(token: token, put: Document, id: receiptId) { (receiptDocument) in
                 self.GETReceiptDocument()
             }
         }
@@ -194,7 +195,7 @@ class ArrivalInfoViewController: UIViewController, UITableViewDelegate, UITableV
     
     func GETReceiptDocument () {
         if receiptId != "" {
-            receiptController.GetReceiptDocument(id: receiptId) { (receiptDocument) in
+            receiptController.GetReceiptDocument(token: token, id: receiptId) { (receiptDocument) in
                 if let receiptDocument = receiptDocument {
                     self.recieptDocument = receiptDocument
                 }
@@ -221,7 +222,7 @@ class ArrivalInfoViewController: UIViewController, UITableViewDelegate, UITableV
         if let recieptDocument = self.recieptDocument {
             var message = "Ошибка в проведении документа"
             if recieptDocument.the_Date == nil {
-                receiptController.CLOSEReceiptDocument(post: recieptDocument) { (document) in
+                receiptController.CLOSEReceiptDocument(token: token, post: recieptDocument) { (document) in
                     if let receiptDocument = document {
                         self.recieptDocument = receiptDocument
                         message = "Документ успешно проведен"
@@ -248,7 +249,7 @@ class ArrivalInfoViewController: UIViewController, UITableViewDelegate, UITableV
     func PrintReceiptDocument() {
         self.addPreload(start_stop: true)
         if let recieptPrintDocument = self.recieptDocument {
-            self.receiptController.PRINTReceiptDocument(post: recieptPrintDocument, completion: { (title) in
+            self.receiptController.PRINTReceiptDocument(token: token, post: recieptPrintDocument, completion: { (title) in
                 DispatchQueue.main.async {
                     self.printingDocument(title: title ?? "Произошла ошибка")
                     self.addPreload(start_stop: false)
@@ -260,6 +261,8 @@ class ArrivalInfoViewController: UIViewController, UITableViewDelegate, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        token = defaults.object(forKey:"token") as? String ?? ""
         
         let theDateToolBar = UIToolbar().ToolbarPiker(mySelect: #selector(ArrivalInfoViewController.theDatedismissPicker), clear: #selector(ArrivalInfoViewController.clearTheDatedismissPicker))
         

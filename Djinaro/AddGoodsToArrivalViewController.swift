@@ -29,9 +29,13 @@ class AddGoodsToArrivalViewController: UIViewController, UITableViewDelegate, UI
     var receipt : Receipt?
     var sizes: [Sizes]?
     var receiptController = ReceiptController()
+    let defaults = UserDefaults.standard
+    var token = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        receiptController.GetSizes { (sizes) in
+        token = defaults.object(forKey:"token") as? String ?? ""
+        receiptController.GetSizes(token: token) { (sizes) in
             if let sizes = sizes{
                 self.sizes = sizes
             }
@@ -101,7 +105,7 @@ class AddGoodsToArrivalViewController: UIViewController, UITableViewDelegate, UI
         if editingStyle == .delete {
             // Delete the row from the data source
             let receipt = receipts[indexPath.row]
-            receiptController.DELETEReceipt(id: String(receipt.id)) { (receipt) in
+            receiptController.DELETEReceipt(token: token, id: String(receipt.id)) { (receipt) in
                 DispatchQueue.main.async {
                     self.receipts.remove(at: indexPath.row)
                     tableView.deleteRows(at: [indexPath], with: .fade)

@@ -8,12 +8,52 @@
 
 import Foundation
 
+/// Access token
+struct Token: Codable {
+    var access_token : String
+    var token_type: String
+    var expires_in: Int?
+    var userName: String
+    var issued: String?
+    var expires: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case access_token = "access_token"
+        case token_type = "token_type"
+        case expires_in = "expires_in"
+        case userName = "userName"
+        case issued = ".issued"
+        case expires = ".expires"
+    }
+}
+
+struct DenyInAuthorisation: Codable {
+    var Message : String?
+    enum CodingKeys: String, CodingKey {
+        case Message = "Message"
+    }
+}
+
+
+//User Info
+
+struct UserInfo: Codable {
+    var Email : String?
+    var HasRegistered: Bool?
+    var LoginProvider: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case Email = "Email"
+        case HasRegistered = "HasRegistered"
+        case LoginProvider = "LoginProvider"
+    }
+}
+
 // Список поступлений
 struct ListReceipt: Codable {
     
     let ListReceipt: [Receipt]
 }
-
 
 
 //  Поступление
@@ -77,6 +117,8 @@ struct Goods: Codable {
     var location: String?
     var vendor_Code: String?
     var groupGoods: GroupGoods?
+    var available_sizes:  [Available_sizes]?
+    
     
     enum CodingKeys: String, CodingKey {
         case id = "Id"
@@ -87,8 +129,21 @@ struct Goods: Codable {
         case location = "Location"
         case vendor_Code = "Vendor_Code"
         case groupGoods = "GroupGoods"
+        case available_sizes = "Available_sizes"
     }
 
+}
+
+struct Available_sizes: Codable {
+    var sizes: Sizes?
+    var count: Int?
+    var cost: Decimal?
+    
+    enum CodingKeys: String, CodingKey {
+        case sizes = "Sizes"
+        case count = "Count"
+        case cost = "Cost"
+    }
 }
 
 struct GoodsSearch: Codable {

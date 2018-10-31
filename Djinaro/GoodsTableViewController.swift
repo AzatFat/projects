@@ -19,6 +19,9 @@ class GoodsTableViewController: UITableViewController, UISearchBarDelegate {
     var segue = "goodInfo"
     var receipt_Document_Id : Int?
     var groupReceiptsList = [GroupReceipts]()
+    let defaults = UserDefaults.standard
+    var token = ""
+    
     
     @IBOutlet var searchBar: UISearchBar!
     
@@ -41,9 +44,11 @@ class GoodsTableViewController: UITableViewController, UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        token = defaults.object(forKey:"token") as? String ?? ""
         self.addPreload(start_stop: true)
         getGoods()
         searchBar.delegate = self
+        
     }
 
     // MARK: - Table view data source
@@ -99,7 +104,7 @@ class GoodsTableViewController: UITableViewController, UISearchBarDelegate {
     }
     
     func getGoods () {
-        recieptController.GetGoods { (listGoods) in
+        recieptController.GetGoods(token: token) { (listGoods) in
             if let listGoods = listGoods {
                 print("listReceipt get succes")
                 self.goods = listGoods
@@ -114,7 +119,7 @@ class GoodsTableViewController: UITableViewController, UISearchBarDelegate {
     func searchGoods (search: String) {
         print("trying search Good")
         if search != "" {
-            recieptController.GetGoodsSearch(search: search) { (listGoods) in
+            recieptController.GetGoodsSearch(token: token, search: search) { (listGoods) in
                 if let listGoods = listGoods {
                     print("listReceipt get succes")
                     self.goods = listGoods

@@ -21,6 +21,9 @@ class GoodsArrivalTableViewController: UITableViewController, UISearchBarDelegat
     var recieptDocumentList = [ReceiptDocument]()
     var recieptDocumentId = ""
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
+    let defaults = UserDefaults.standard
+    var token = ""
+    
     
     struct Objects {
         
@@ -53,7 +56,8 @@ class GoodsArrivalTableViewController: UITableViewController, UISearchBarDelegat
     }
     
     func getReceiptDocuments() {
-        recieptController.GetReceiptDocuments { (listReceipt) in
+        print("token when function work \(token)")
+        recieptController.GetReceiptDocuments(token: token) { (listReceipt) in
             if let listReceipt = listReceipt {
                 print("GetReceiptDocuments get succes")
                 self.recieptDocumentList = listReceipt
@@ -89,6 +93,8 @@ class GoodsArrivalTableViewController: UITableViewController, UISearchBarDelegat
     }
     
     override func viewDidLoad() {
+        token = defaults.object(forKey:"token") as? String ?? ""
+        print("token when load view \(token)")
         self.addPreload(start_stop: true)
         getReceiptDocuments()
         super.viewDidLoad()
@@ -98,6 +104,7 @@ class GoodsArrivalTableViewController: UITableViewController, UISearchBarDelegat
     }
 
     override func viewDidAppear(_ animated: Bool) {
+        token = defaults.object(forKey:"token") as? String ?? ""
         self.addPreload(start_stop: true)
         getReceiptDocuments()
     }
@@ -189,7 +196,7 @@ class GoodsArrivalTableViewController: UITableViewController, UISearchBarDelegat
         if editingStyle == .delete {
             let receiptDocument = objectArray[indexPath.section].sectionObjects[indexPath.row]
             // Delete the row from the data source
-            recieptController.DELETEReceiptDocument(id: String(receiptDocument.id)) { (receiptDocument) in
+            recieptController.DELETEReceiptDocument(token: token, id: String(receiptDocument.id)) { (receiptDocument) in
                 DispatchQueue.main.async {
                     self.objectArray[indexPath.section].sectionObjects.remove(at: indexPath.row)
                     tableView.deleteRows(at: [indexPath], with: .fade)

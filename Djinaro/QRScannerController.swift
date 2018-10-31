@@ -44,8 +44,10 @@ class QRScannerController: UIViewController {
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     var qrCodeFrameView: UIView?
     var togleON = false
-    
+    var receiptController = ReceiptController()
     var qrReceiptDocument: QRReceiptDocument?
+    var token = ""
+    let defaults = UserDefaults.standard
     
     private let supportedCodeTypes = [AVMetadataObject.ObjectType.upce,
                                       AVMetadataObject.ObjectType.code39,
@@ -68,6 +70,9 @@ class QRScannerController: UIViewController {
         toggleTorch(on: false)
     }
     override func viewDidLoad() {
+        
+        token = defaults.object(forKey:"token") as? String ?? ""
+        
         super.viewDidLoad()
         // Get the back-facing camera for capturing videos
         let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType.video, position: .back)
@@ -161,7 +166,16 @@ class QRScannerController: UIViewController {
     func segueToItemList(decodedString: String, searchType: String ) {
         if searchType == "ReceiptDocument" {
             performSegue(withIdentifier: "findReceiptInfo", sender: nil)
-        } else {
+        } else if searchType == "findGood" {
+            receiptController.GetReceipt(token: token, id: found_text) { (receipt) in
+                if let receipt = receipt {
+                    DispatchQueue.main.async {
+                        self.found_text = String(receipt.goods_Id!)
+                        self.performSegue(withIdentifier: "findGood", sender: nil)
+                    }
+                }
+            }
+        }    else {
             performSegue(withIdentifier: "BarCodeSearch", sender: nil)
         }
         
@@ -169,7 +183,6 @@ class QRScannerController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "BarCodeSearch" {
-            
             let controller = segue.destination as! ItemsInfoTableViewController
             controller.id = found_text
             controller.type = "1"
@@ -178,6 +191,11 @@ class QRScannerController: UIViewController {
         if segue.identifier == "findReceiptInfo" {
             let controller = segue.destination as! ArrivalInfoViewController
             controller.receiptId = found_text
+        }
+        
+        if segue.identifier == "findGood" {
+            let controller = segue.destination as! GoodViewController
+            controller.goodId = found_text
         }
     }
     
@@ -233,23 +251,30 @@ extension QRScannerController: AVCaptureMetadataOutputObjectsDelegate {
              //   launchApp(decodedURL: metadataObj.stringValue!)
                 
                 found_text = metadataObj.stringValue!
-                print(found_text)
-                let documentReceiptId = found_text.data(using: .utf8)
+////// Working with segue type
+                let urlText = found_text.components(separatedBy: "/")
                 var searchType = ""
-                if let data = documentReceiptId {
-                    do {
-                        let decoder = JSONDecoder()
-                        let product = try decoder.decode(QRReceiptDocument.self, from: data)
-                        found_text = String(product.id)
-                        searchType = "ReceiptDocument"
-                    } catch let error {
-                        print("error in getting code")
-                        print(error)
-                    }
-                    
+                
+                if urlText[0] == "https:" {
+                    searchType = "findGood"
+                    found_text = urlText[urlText.count - 1]
+                    print(found_text)
+                    print(urlText)
                 } else {
-                    print("data != documentReceiptId")
+                    let documentReceiptId = found_text.data(using: .utf8)
+                    if let data = documentReceiptId {
+                        do {
+                            let decoder = JSONDecoder()
+                            let product = try decoder.decode(QRReceiptDocument.self, from: data)
+                            found_text = String(product.id)
+                            searchType = "ReceiptDocument"
+                        } catch let error {
+                            print("error in getting code")
+                            print(error)
+                        }
+                    }
                 }
+                
                 segueToItemList(decodedString: metadataObj.stringValue!, searchType: searchType)
                 messageLabel.text = metadataObj.stringValue
             }

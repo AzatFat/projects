@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA031E0C218A3E8600818FC9 /* GoodInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA031E0B218A3E8500818FC9 /* GoodInfoViewController.swift */; };
+		AA031E0E218A42CD00818FC9 /* GoodsAvailableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA031E0D218A42CD00818FC9 /* GoodsAvailableTableViewCell.swift */; };
 		AA08A0A3217536A800083C85 /* GoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA08A0A2217536A800083C85 /* GoodViewController.swift */; };
 		AA08A0A5217656D700083C85 /* ArrivalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA08A0A4217656D700083C85 /* ArrivalInfoViewController.swift */; };
 		AA08A0A7217679F700083C85 /* ArrivalInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA08A0A6217679F700083C85 /* ArrivalInfoTableViewCell.swift */; };
@@ -23,6 +25,7 @@
 		AA830C5821557C4400F004B3 /* itemsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA830C5721557C4400F004B3 /* itemsTableViewCell.swift */; };
 		AA830C5C2155862400F004B3 /* itemsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA830C5B2155862400F004B3 /* itemsTableViewController.swift */; };
 		AA830C602157D1D000F004B3 /* QRScannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA830C5F2157D1D000F004B3 /* QRScannerController.swift */; };
+		AAAECDE22187B49D00F426B1 /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAECDE12187B49D00F426B1 /* UserInfoViewController.swift */; };
 		AADB9328216BDFC000AA2C34 /* SpeechViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADB9327216BDFC000AA2C34 /* SpeechViewController.swift */; };
 		AADB932A2171E77900AA2C34 /* GoodsArrivalTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADB93292171E77900AA2C34 /* GoodsArrivalTableViewController.swift */; };
 		AADB932C2171E7DA00AA2C34 /* GoodsArrivalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADB932B2171E7DA00AA2C34 /* GoodsArrivalTableViewCell.swift */; };
@@ -42,6 +45,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AA031E0B218A3E8500818FC9 /* GoodInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodInfoViewController.swift; sourceTree = "<group>"; };
+		AA031E0D218A42CD00818FC9 /* GoodsAvailableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsAvailableTableViewCell.swift; sourceTree = "<group>"; };
 		AA08A0A2217536A800083C85 /* GoodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodViewController.swift; sourceTree = "<group>"; };
 		AA08A0A4217656D700083C85 /* ArrivalInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrivalInfoViewController.swift; sourceTree = "<group>"; };
 		AA08A0A6217679F700083C85 /* ArrivalInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrivalInfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -60,6 +65,7 @@
 		AA830C5721557C4400F004B3 /* itemsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = itemsTableViewCell.swift; sourceTree = "<group>"; };
 		AA830C5B2155862400F004B3 /* itemsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = itemsTableViewController.swift; sourceTree = "<group>"; };
 		AA830C5F2157D1D000F004B3 /* QRScannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerController.swift; sourceTree = "<group>"; };
+		AAAECDE12187B49D00F426B1 /* UserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
 		AADB9327216BDFC000AA2C34 /* SpeechViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechViewController.swift; sourceTree = "<group>"; };
 		AADB93292171E77900AA2C34 /* GoodsArrivalTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsArrivalTableViewController.swift; sourceTree = "<group>"; };
 		AADB932B2171E7DA00AA2C34 /* GoodsArrivalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsArrivalTableViewCell.swift; sourceTree = "<group>"; };
@@ -133,6 +139,7 @@
 				AAF92558215C2E78007D7ACE /* GoodsInfoTableViewCell.swift */,
 				AAF9255E215C4E94007D7ACE /* LocationImageViewController.swift */,
 				AA830C49215568C900F004B3 /* Main.storyboard */,
+				AAAECDE12187B49D00F426B1 /* UserInfoViewController.swift */,
 				AADB932D2173311F00AA2C34 /* Receipt.swift */,
 				AADB932F21733B4500AA2C34 /* ReceiptController.swift */,
 				AADB93292171E77900AA2C34 /* GoodsArrivalTableViewController.swift */,
@@ -146,6 +153,8 @@
 				AADB93312173D4E800AA2C34 /* GoodsTableViewController.swift */,
 				AADB93332173D52900AA2C34 /* GoodsTableViewCell.swift */,
 				AA08A0A2217536A800083C85 /* GoodViewController.swift */,
+				AA031E0B218A3E8500818FC9 /* GoodInfoViewController.swift */,
+				AA031E0D218A42CD00818FC9 /* GoodsAvailableTableViewCell.swift */,
 				AA830C4C215568D000F004B3 /* Assets.xcassets */,
 				AA830C4E215568D000F004B3 /* LaunchScreen.storyboard */,
 				AA830C51215568D000F004B3 /* Info.plist */,
@@ -241,11 +250,14 @@
 				AADB932E2173311F00AA2C34 /* Receipt.swift in Sources */,
 				AA169CB4217CAB1E00BF4C51 /* NewReceiptDocumentViewController.swift in Sources */,
 				AA08A0A5217656D700083C85 /* ArrivalInfoViewController.swift in Sources */,
+				AAAECDE22187B49D00F426B1 /* UserInfoViewController.swift in Sources */,
 				AA830C46215568C800F004B3 /* AppDelegate.swift in Sources */,
 				AA830C5C2155862400F004B3 /* itemsTableViewController.swift in Sources */,
 				AADB932A2171E77900AA2C34 /* GoodsArrivalTableViewController.swift in Sources */,
 				AA08A0A3217536A800083C85 /* GoodViewController.swift in Sources */,
 				AAF9254921580500007D7ACE /* ItemsInfoTableViewController.swift in Sources */,
+				AA031E0E218A42CD00818FC9 /* GoodsAvailableTableViewCell.swift in Sources */,
+				AA031E0C218A3E8600818FC9 /* GoodInfoViewController.swift in Sources */,
 				AAF92557215AC4AC007D7ACE /* GoodsItem.swift in Sources */,
 				AA830C602157D1D000F004B3 /* QRScannerController.swift in Sources */,
 				AAF92559215C2E78007D7ACE /* GoodsInfoTableViewCell.swift in Sources */,
