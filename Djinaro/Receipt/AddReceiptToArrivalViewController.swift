@@ -119,7 +119,6 @@ class AddReceiptToArrivalViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "unvindToArrivalInfo" {
             let controller = segue.destination as! AddGoodsToArrivalViewController
-            print(PostOrPut)
             if receipt != nil {
                 if PostOrPut {
                     controller.addReceipt = receipt

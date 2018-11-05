@@ -25,6 +25,11 @@
 		AA830C5821557C4400F004B3 /* itemsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA830C5721557C4400F004B3 /* itemsTableViewCell.swift */; };
 		AA830C5C2155862400F004B3 /* itemsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA830C5B2155862400F004B3 /* itemsTableViewController.swift */; };
 		AA830C602157D1D000F004B3 /* QRScannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA830C5F2157D1D000F004B3 /* QRScannerController.swift */; };
+		AA96D523218F7A09000BB6F8 /* microphone.png in Resources */ = {isa = PBXBuildFile; fileRef = AA96D522218F7A09000BB6F8 /* microphone.png */; };
+		AA96D53021902DBF000BB6F8 /* ChekListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96D52F21902DBF000BB6F8 /* ChekListTableViewController.swift */; };
+		AA96D5322190470C000BB6F8 /* CheckListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96D5312190470C000BB6F8 /* CheckListTableViewCell.swift */; };
+		AA96D53521905171000BB6F8 /* CheckRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96D53421905171000BB6F8 /* CheckRecordViewController.swift */; };
+		AA96D53721905F54000BB6F8 /* CheckRecordsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96D53621905F54000BB6F8 /* CheckRecordsTableViewCell.swift */; };
 		AAAECDE22187B49D00F426B1 /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAECDE12187B49D00F426B1 /* UserInfoViewController.swift */; };
 		AADB9328216BDFC000AA2C34 /* SpeechViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADB9327216BDFC000AA2C34 /* SpeechViewController.swift */; };
 		AADB932A2171E77900AA2C34 /* GoodsArrivalTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADB93292171E77900AA2C34 /* GoodsArrivalTableViewController.swift */; };
@@ -65,6 +70,11 @@
 		AA830C5721557C4400F004B3 /* itemsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = itemsTableViewCell.swift; sourceTree = "<group>"; };
 		AA830C5B2155862400F004B3 /* itemsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = itemsTableViewController.swift; sourceTree = "<group>"; };
 		AA830C5F2157D1D000F004B3 /* QRScannerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerController.swift; sourceTree = "<group>"; };
+		AA96D522218F7A09000BB6F8 /* microphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = microphone.png; sourceTree = "<group>"; };
+		AA96D52F21902DBF000BB6F8 /* ChekListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChekListTableViewController.swift; sourceTree = "<group>"; };
+		AA96D5312190470C000BB6F8 /* CheckListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListTableViewCell.swift; sourceTree = "<group>"; };
+		AA96D53421905171000BB6F8 /* CheckRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckRecordViewController.swift; sourceTree = "<group>"; };
+		AA96D53621905F54000BB6F8 /* CheckRecordsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckRecordsTableViewCell.swift; sourceTree = "<group>"; };
 		AAAECDE12187B49D00F426B1 /* UserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
 		AADB9327216BDFC000AA2C34 /* SpeechViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechViewController.swift; sourceTree = "<group>"; };
 		AADB93292171E77900AA2C34 /* GoodsArrivalTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsArrivalTableViewController.swift; sourceTree = "<group>"; };
@@ -110,6 +120,7 @@
 				AAF9254A21582DE4007D7ACE /* Camera-03.png */,
 				AAF9254C21582DED007D7ACE /* Camera-03.svg */,
 				AAF9254E21583199007D7ACE /* djinaro.jpg */,
+				AA96D522218F7A09000BB6F8 /* microphone.png */,
 				AAF9255221583666007D7ACE /* backGround.jpg */,
 				AA24C48E215ED95E009938CC /* slippers.jpg */,
 				AA350BBA2162C23900AF4460 /* Frameworks */,
@@ -128,38 +139,114 @@
 			isa = PBXGroup;
 			children = (
 				AA830C45215568C800F004B3 /* AppDelegate.swift */,
-				AAF92556215AC4AC007D7ACE /* GoodsItem.swift */,
-				AAF92554215AC1E0007D7ACE /* GoodsController.swift */,
-				AA830C47215568C800F004B3 /* ViewController.swift */,
-				AA830C5721557C4400F004B3 /* itemsTableViewCell.swift */,
-				AA830C5B2155862400F004B3 /* itemsTableViewController.swift */,
-				AA830C5F2157D1D000F004B3 /* QRScannerController.swift */,
-				AADB9327216BDFC000AA2C34 /* SpeechViewController.swift */,
-				AAF9254821580500007D7ACE /* ItemsInfoTableViewController.swift */,
-				AAF92558215C2E78007D7ACE /* GoodsInfoTableViewCell.swift */,
-				AAF9255E215C4E94007D7ACE /* LocationImageViewController.swift */,
+				AA96D524218F7E81000BB6F8 /* Old1CApp */,
+				AA96D52A218F81CC000BB6F8 /* QRCODE */,
 				AA830C49215568C900F004B3 /* Main.storyboard */,
-				AAAECDE12187B49D00F426B1 /* UserInfoViewController.swift */,
-				AADB932D2173311F00AA2C34 /* Receipt.swift */,
-				AADB932F21733B4500AA2C34 /* ReceiptController.swift */,
-				AADB93292171E77900AA2C34 /* GoodsArrivalTableViewController.swift */,
-				AADB932B2171E7DA00AA2C34 /* GoodsArrivalTableViewCell.swift */,
-				AA169CB3217CAB1E00BF4C51 /* NewReceiptDocumentViewController.swift */,
-				AA08A0A4217656D700083C85 /* ArrivalInfoViewController.swift */,
-				AA08A0A6217679F700083C85 /* ArrivalInfoTableViewCell.swift */,
-				AA08A0A82177E4A600083C85 /* AddGoodsToArrivalViewController.swift */,
-				AA08A0AA2177E4E000083C85 /* AddGoodsToArrivalTableViewCell.swift */,
-				AA169CB1217A6A3F00BF4C51 /* AddReceiptToArrivalViewController.swift */,
-				AADB93312173D4E800AA2C34 /* GoodsTableViewController.swift */,
-				AADB93332173D52900AA2C34 /* GoodsTableViewCell.swift */,
-				AA08A0A2217536A800083C85 /* GoodViewController.swift */,
-				AA031E0B218A3E8500818FC9 /* GoodInfoViewController.swift */,
-				AA031E0D218A42CD00818FC9 /* GoodsAvailableTableViewCell.swift */,
+				AA96D529218F8010000BB6F8 /* Receipts Controllers */,
+				AA96D525218F7ECE000BB6F8 /* User info */,
+				AA96D526218F7EE3000BB6F8 /* ReceiptDocument */,
+				AA96D527218F7F7C000BB6F8 /* Receipt */,
+				AA96D528218F7FA3000BB6F8 /* Goods */,
+				AA96D52B218F81DE000BB6F8 /* Chek */,
+				AA96D533219050EB000BB6F8 /* CheckRecords */,
 				AA830C4C215568D000F004B3 /* Assets.xcassets */,
 				AA830C4E215568D000F004B3 /* LaunchScreen.storyboard */,
 				AA830C51215568D000F004B3 /* Info.plist */,
 			);
 			path = Djinaro;
+			sourceTree = "<group>";
+		};
+		AA96D524218F7E81000BB6F8 /* Old1CApp */ = {
+			isa = PBXGroup;
+			children = (
+				AAF92556215AC4AC007D7ACE /* GoodsItem.swift */,
+				AAF92554215AC1E0007D7ACE /* GoodsController.swift */,
+				AA830C47215568C800F004B3 /* ViewController.swift */,
+				AA830C5721557C4400F004B3 /* itemsTableViewCell.swift */,
+				AA830C5B2155862400F004B3 /* itemsTableViewController.swift */,
+				AADB9327216BDFC000AA2C34 /* SpeechViewController.swift */,
+				AAF9254821580500007D7ACE /* ItemsInfoTableViewController.swift */,
+				AAF92558215C2E78007D7ACE /* GoodsInfoTableViewCell.swift */,
+				AAF9255E215C4E94007D7ACE /* LocationImageViewController.swift */,
+			);
+			path = Old1CApp;
+			sourceTree = "<group>";
+		};
+		AA96D525218F7ECE000BB6F8 /* User info */ = {
+			isa = PBXGroup;
+			children = (
+				AAAECDE12187B49D00F426B1 /* UserInfoViewController.swift */,
+			);
+			path = "User info";
+			sourceTree = "<group>";
+		};
+		AA96D526218F7EE3000BB6F8 /* ReceiptDocument */ = {
+			isa = PBXGroup;
+			children = (
+				AADB93292171E77900AA2C34 /* GoodsArrivalTableViewController.swift */,
+				AADB932B2171E7DA00AA2C34 /* GoodsArrivalTableViewCell.swift */,
+				AA169CB3217CAB1E00BF4C51 /* NewReceiptDocumentViewController.swift */,
+				AA08A0A4217656D700083C85 /* ArrivalInfoViewController.swift */,
+				AA08A0A6217679F700083C85 /* ArrivalInfoTableViewCell.swift */,
+			);
+			path = ReceiptDocument;
+			sourceTree = "<group>";
+		};
+		AA96D527218F7F7C000BB6F8 /* Receipt */ = {
+			isa = PBXGroup;
+			children = (
+				AA08A0AA2177E4E000083C85 /* AddGoodsToArrivalTableViewCell.swift */,
+				AA08A0A82177E4A600083C85 /* AddGoodsToArrivalViewController.swift */,
+				AA169CB1217A6A3F00BF4C51 /* AddReceiptToArrivalViewController.swift */,
+			);
+			path = Receipt;
+			sourceTree = "<group>";
+		};
+		AA96D528218F7FA3000BB6F8 /* Goods */ = {
+			isa = PBXGroup;
+			children = (
+				AADB93312173D4E800AA2C34 /* GoodsTableViewController.swift */,
+				AADB93332173D52900AA2C34 /* GoodsTableViewCell.swift */,
+				AA08A0A2217536A800083C85 /* GoodViewController.swift */,
+				AA031E0B218A3E8500818FC9 /* GoodInfoViewController.swift */,
+				AA031E0D218A42CD00818FC9 /* GoodsAvailableTableViewCell.swift */,
+			);
+			path = Goods;
+			sourceTree = "<group>";
+		};
+		AA96D529218F8010000BB6F8 /* Receipts Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				AADB932D2173311F00AA2C34 /* Receipt.swift */,
+				AADB932F21733B4500AA2C34 /* ReceiptController.swift */,
+			);
+			path = "Receipts Controllers";
+			sourceTree = "<group>";
+		};
+		AA96D52A218F81CC000BB6F8 /* QRCODE */ = {
+			isa = PBXGroup;
+			children = (
+				AA830C5F2157D1D000F004B3 /* QRScannerController.swift */,
+			);
+			path = QRCODE;
+			sourceTree = "<group>";
+		};
+		AA96D52B218F81DE000BB6F8 /* Chek */ = {
+			isa = PBXGroup;
+			children = (
+				AA96D52F21902DBF000BB6F8 /* ChekListTableViewController.swift */,
+				AA96D5312190470C000BB6F8 /* CheckListTableViewCell.swift */,
+			);
+			path = Chek;
+			sourceTree = "<group>";
+		};
+		AA96D533219050EB000BB6F8 /* CheckRecords */ = {
+			isa = PBXGroup;
+			children = (
+				AA96D53421905171000BB6F8 /* CheckRecordViewController.swift */,
+				AA96D53621905F54000BB6F8 /* CheckRecordsTableViewCell.swift */,
+			);
+			path = CheckRecords;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -228,6 +315,7 @@
 				AA830C50215568D000F004B3 /* LaunchScreen.storyboard in Resources */,
 				AAF9254B21582DE5007D7ACE /* Camera-03.png in Resources */,
 				AAF9254D21582DED007D7ACE /* Camera-03.svg in Resources */,
+				AA96D523218F7A09000BB6F8 /* microphone.png in Resources */,
 				AAF9255321583666007D7ACE /* backGround.jpg in Resources */,
 				AA830C4D215568D000F004B3 /* Assets.xcassets in Resources */,
 				AA24C48F215ED95E009938CC /* slippers.jpg in Resources */,
@@ -245,6 +333,7 @@
 			files = (
 				AADB933021733B4500AA2C34 /* ReceiptController.swift in Sources */,
 				AA08A0A7217679F700083C85 /* ArrivalInfoTableViewCell.swift in Sources */,
+				AA96D53721905F54000BB6F8 /* CheckRecordsTableViewCell.swift in Sources */,
 				AA830C48215568C800F004B3 /* ViewController.swift in Sources */,
 				AA830C5821557C4400F004B3 /* itemsTableViewCell.swift in Sources */,
 				AADB932E2173311F00AA2C34 /* Receipt.swift in Sources */,
@@ -265,6 +354,9 @@
 				AA08A0AB2177E4E000083C85 /* AddGoodsToArrivalTableViewCell.swift in Sources */,
 				AA169CB2217A6A3F00BF4C51 /* AddReceiptToArrivalViewController.swift in Sources */,
 				AAF92555215AC1E0007D7ACE /* GoodsController.swift in Sources */,
+				AA96D53021902DBF000BB6F8 /* ChekListTableViewController.swift in Sources */,
+				AA96D5322190470C000BB6F8 /* CheckListTableViewCell.swift in Sources */,
+				AA96D53521905171000BB6F8 /* CheckRecordViewController.swift in Sources */,
 				AADB93322173D4E800AA2C34 /* GoodsTableViewController.swift in Sources */,
 				AAF9255F215C4E94007D7ACE /* LocationImageViewController.swift in Sources */,
 				AADB93342173D52900AA2C34 /* GoodsTableViewCell.swift in Sources */,

@@ -39,6 +39,7 @@ class QRScannerController: UIViewController {
     @IBOutlet var lightButton: UIButton!
     
     var captureSession = AVCaptureSession()
+    var checkRecord: CheckRecord?
     var found_bar = 0
     var found_text = ""
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
@@ -72,7 +73,7 @@ class QRScannerController: UIViewController {
     override func viewDidLoad() {
         
         token = defaults.object(forKey:"token") as? String ?? ""
-        
+        print(checkRecord)
         super.viewDidLoad()
         // Get the back-facing camera for capturing videos
         let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType.video, position: .back)
@@ -166,7 +167,7 @@ class QRScannerController: UIViewController {
     func segueToItemList(decodedString: String, searchType: String ) {
         if searchType == "ReceiptDocument" {
             performSegue(withIdentifier: "findReceiptInfo", sender: nil)
-        } else if searchType == "findGood" {
+        } else if searchType == "findGood"  {
             receiptController.GetReceipt(token: token, id: found_text) { (receipt) in
                 if let receipt = receipt {
                     DispatchQueue.main.async {
@@ -175,7 +176,31 @@ class QRScannerController: UIViewController {
                     }
                 }
             }
-        }    else {
+        }else if searchType == "addCheckRecordToCheck" {
+            receiptController.GetReceipt(token: token, id: found_text) { (receipt) in
+                if let receipt = receipt {
+                    // let checkRecord = CheckRecord.init(id: 1, check_Id: check.id, goods_Id: nil, sizes_Id: nil, employees_Id: Int(userId), customer_Id: 0, count: 1, cost: nil, discount: nil, total_Cost: nil, stockRemainsCount: nil, check: nil, goods: nil, sizes: nil, employees: nil, customer: nil)
+                    
+                    self.checkRecord?.goods_Id = receipt.goods_Id
+                    self.checkRecord?.sizes_Id = receipt.sizes_Id
+                    self.checkRecord?.cost = receipt.cost
+                    self.checkRecord?.discount = 0
+                    self.checkRecord?.total_Cost = receipt.cost
+                    
+                    self.receiptController.POSTCheckRecord(token: self.token, post: self.checkRecord!) { (checkRecord) in
+                        if let checkRecord = checkRecord {
+                            print("added checkRecord is \(checkRecord)")
+                            DispatchQueue.main.async {
+                                self.performSegue(withIdentifier: "addCheckRecordToCheck", sender: self)
+                            }
+                        } else {
+                            print("error in add checkRecord \(checkRecord)")
+                        }
+                    }
+                }
+            }
+            
+        } else {
             performSegue(withIdentifier: "BarCodeSearch", sender: nil)
         }
         
@@ -196,6 +221,11 @@ class QRScannerController: UIViewController {
         if segue.identifier == "findGood" {
             let controller = segue.destination as! GoodViewController
             controller.goodId = found_text
+        }
+        
+        if segue.identifier == "addCheckRecordToCheck" {
+            let controller = segue.destination as! CheckRecordViewController
+            controller.checkId = checkRecord?.check_Id
         }
     }
     
@@ -254,12 +284,13 @@ extension QRScannerController: AVCaptureMetadataOutputObjectsDelegate {
 ////// Working with segue type
                 let urlText = found_text.components(separatedBy: "/")
                 var searchType = ""
-                
-                if urlText[0] == "https:" {
+
+                if urlText[0] == "https:" && checkRecord == nil{
                     searchType = "findGood"
                     found_text = urlText[urlText.count - 1]
-                    print(found_text)
-                    print(urlText)
+                }else if urlText[0] == "https:" && checkRecord != nil{
+                    searchType = "addCheckRecordToCheck"
+                    found_text = urlText[urlText.count - 1]
                 } else {
                     let documentReceiptId = found_text.data(using: .utf8)
                     if let data = documentReceiptId {

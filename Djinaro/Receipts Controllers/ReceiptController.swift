@@ -431,7 +431,6 @@ class ReceiptController : UIViewController {
             } else {
                 completion(nil)
             }
-            
         }
         task.resume()
     }
@@ -699,6 +698,245 @@ class ReceiptController : UIViewController {
             }
         }
         
+        task.resume()
+    }
+    
+    
+    // Чеки (список чеков)
+    func GetCheckList(token: String, completion: @escaping ([Check]?) -> Void) {
+        let GetGood = baseURL.appendingPathComponent("/api/check/New")
+        let components = URLComponents(url: GetGood, resolvingAgainstBaseURL: true)!
+        let GoodURL = components.url!
+        var request = URLRequest(url: GoodURL)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode([Check].self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode([Check].self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in getting Check")
+                        print(error)
+                        self.denyAuthorisation(data: data)
+                        completion(nil)
+                    }
+                }
+                
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
+    // Чеки (один чек)
+    func GetCheck(id: String,  token: String, completion: @escaping (Check?) -> Void) {
+        let GetGood = baseURL.appendingPathComponent("/api/check/" + id)
+        let components = URLComponents(url: GetGood, resolvingAgainstBaseURL: true)!
+        let GoodURL = components.url!
+        var request = URLRequest(url: GoodURL)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode(Check.self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode(Check.self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in getting Check")
+                        print(error)
+                        self.denyAuthorisation(data: data)
+                        completion(nil)
+                    }
+                }
+                
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
+    // Создание чека
+    func POSTCheck (token: String, post: Check, completion: @escaping (Check?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("/api/check/")
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        let jsonEcoder = JSONEncoder()
+        let jsonData = try? jsonEcoder.encode(post)
+        request.httpBody = jsonData
+        print(request)
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode(Check.self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode(Check.self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in Post Receipts")
+                        print(error)
+                        self.denyAuthorisation(data: data)
+                        completion(nil)
+                    }
+                }
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
+    // Удаление чека
+    func DELETECheck (token: String, id: String, completion: @escaping (Check?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("api/Check/" + id)
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.httpMethod = "DELETE"
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode(Check.self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode(Check.self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in Post ReceiptsDOcument")
+                        print(error)
+                        self.denyAuthorisation(data: data)
+                        completion(nil)
+                    }
+                }
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
+    
+    // Добавление товара к чеку
+    func POSTCheckRecord (token: String, post: CheckRecord, completion: @escaping (CheckRecord?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("api/CheckRecord")
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        let jsonEcoder = JSONEncoder()
+        let jsonData = try? jsonEcoder.encode(post)
+        request.httpBody = jsonData
+        print(request)
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode(CheckRecord.self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode(CheckRecord.self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in Post Receipts")
+                        print(error)
+                        self.denyAuthorisation(data: data)
+                        completion(nil)
+                    }
+                }
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
+    // Удаление товара из чека
+    func DELETECheckRecord (token: String, id: String, completion: @escaping (CheckRecord?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("api/Check/" + id)
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.httpMethod = "DELETE"
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode(CheckRecord.self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode(CheckRecord.self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in Post ReceiptsDOcument")
+                        print(error)
+                        self.denyAuthorisation(data: data)
+                        completion(nil)
+                    }
+                }
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
+    
+    
+    //Получение последней смены
+    func GetLastShift(token: String, completion: @escaping (Shift?) -> Void) {
+        let GetGood = baseURL.appendingPathComponent("api/shift/Last")
+        let components = URLComponents(url: GetGood, resolvingAgainstBaseURL: true)!
+        let GoodURL = components.url!
+        var request = URLRequest(url: GoodURL)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode(Shift.self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode(Shift.self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in getting Check")
+                        print(error)
+                        self.denyAuthorisation(data: data)
+                        completion(nil)
+                    }
+                }
+                
+            } else {
+                completion(nil)
+            }
+        }
         task.resume()
     }
 }

@@ -11,6 +11,7 @@ import Foundation
 /// Access token
 struct Token: Codable {
     var access_token : String
+    var user_id: String
     var token_type: String
     var expires_in: Int?
     var userName: String
@@ -19,6 +20,7 @@ struct Token: Codable {
     
     enum CodingKeys: String, CodingKey {
         case access_token = "access_token"
+        case user_id = "Id" 
         case token_type = "token_type"
         case expires_in = "expires_in"
         case userName = "userName"
@@ -230,4 +232,164 @@ struct GroupReceipts {
     var objectGood : Goods!
     var objectRaw : [Receipt]!
     var objectCost : String!
+}
+
+// Чеки
+struct Check: Codable {
+    var id: Int
+    var customer_Id: Int?
+    var employees_Id: Int?
+    var shift_Id: Int?
+    var check_Type_Id: Int?
+    var payment_Type_Id: Int?
+    var cash: Decimal?
+    var card: Decimal?
+    var is_Deferred: Bool?
+    var is_Cancelled: Bool?
+    var create_Date: String?
+    var the_Date: String?
+    var customer: Customer?
+    var checkType: CheckType?
+    var employees: Employees?
+    var shift: Shift?
+    var checkRecordList: [CheckRecord]?
+    var payment: Payment?
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "Id"
+        case customer_Id = "Customer_Id"
+        case employees_Id = "Employees_Id"
+        case shift_Id = "Shift_Id"
+        case check_Type_Id = "Check_Type_Id"
+        case payment_Type_Id = "Payment_Type_Id"
+        case cash = "Cash"
+        case card = "Card"
+        case is_Deferred = "Is_Deferred"
+        case is_Cancelled = "Is_Cancelled"
+        case create_Date = "Create_Date"
+        case the_Date = "The_Date"
+        case customer = "Customer"
+        case checkType = "CheckType"
+        case employees = "Employees"
+        case shift = "Shift"
+        case checkRecordList = "CheckRecordList"
+        case payment = "Payment"
+    }
+}
+
+/// Клиент
+struct Customer: Codable {
+    var id: Int
+    var surname: String?
+    var name: String?
+    var middle_Name: String?
+    var birth_Date: String?
+    var phone: String?
+    var email: String?
+    var vK_Link: String?
+    var iNSTA_Link: String?
+    var is_Archive: Bool?
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "Id"
+        case surname = "Surname"
+        case name = "Name"
+        case middle_Name = "Middle_Name"
+        case birth_Date = "Birth_Date"
+        case phone = "Phone"
+        case email = "Email"
+        case vK_Link = "VK_Link"
+        case iNSTA_Link = "INSTA_Link"
+        case is_Archive = "Is_Archive"
+    }
+}
+
+
+/// Тип чека
+struct CheckType: Codable {
+    var id: Int
+    var name: String
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "Id"
+        case name = "Name"
+    }
+}
+
+// Смена
+struct Shift: Codable {
+    var id: Int
+    var employees_Id: Int?
+    var open_Date: String?
+    var close_Date: String?
+    var employees: Employees?
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "Id"
+        case employees_Id = "Employees_Id"
+        case open_Date = "Open_Date"
+        case close_Date = "Close_Date"
+        case employees = "Employees"
+    }
+}
+
+
+// Товар в чеке
+struct CheckRecord: Codable {
+    var id: Int
+    var check_Id: Int?
+    var goods_Id: Int?
+    var sizes_Id: Int?
+    var employees_Id: Int?
+    var customer_Id: Int?
+    var count: Int?
+    var cost: Decimal?
+    var discount: Decimal?
+    var total_Cost: Decimal?
+    var stockRemainsCount: Int?
+    var check: Check?
+    var goods: Goods?
+    var sizes: Sizes?
+    var employees: Employees?
+    var customer: Customer?
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "Id"
+        case check_Id = "Check_Id"
+        case goods_Id = "Goods_Id"
+        case sizes_Id = "Sizes_Id"
+        case employees_Id = "Employees_Id"
+        case customer_Id = "Customer_Id"
+        case count = "Count"
+        case cost = "Cost"
+        case discount = "Discount"
+        case total_Cost = "Total_Cost"
+        case stockRemainsCount = "StockRemainsCount"
+        case check = "Check"
+        case goods = "Goods"
+        case sizes = "Sizes"
+        case employees = "Employees"
+        case customer = "Customers"
+    }
+}
+
+//оплата
+struct Payment: Codable{
+    var Id: Int
+    var Payment_Type_Id: Int?
+    var Check_Id: Int?
+    var Cost: Decimal?
+    var PaymentType: PaymentType?
+    //var Check: Check
+}
+
+// Тип оплаты
+struct PaymentType: Codable {
+    var id: Int
+    var name: String
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "Id"
+        case name = "Name"
+    }
 }

@@ -43,7 +43,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         let userName = defaults.object(forKey:"userName") as? String
         let password = defaults.object(forKey:"password") as? String
-        print(userName, password)
+        //let userId = defaults.object(forKey:"userId") as? String
+
         if userName != nil && password != nil {
             signIn(userName: userName ?? "", password: password ?? "", NeedErrorMessage: false)
         }
@@ -75,6 +76,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
             if let token = token {
                 self.defaults.set(userName, forKey: "userName")
                 self.defaults.set(password, forKey: "password")
+                self.defaults.set(token.user_id, forKey: "userId")
                 self.defaults.set(token.access_token, forKey: "token")
                 DispatchQueue.main.async {
                     self.performSegue(withIdentifier: "LogIn", sender: nil)

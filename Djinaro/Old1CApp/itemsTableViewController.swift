@@ -29,9 +29,7 @@ class itemsTableViewController: UITableViewController,UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        
+        search.setImage(UIImage(named: "microphone.png"), for: .bookmark, state: .normal)
         tableView.delegate = self
         tableView.dataSource = self
         search.delegate = self
@@ -42,7 +40,7 @@ class itemsTableViewController: UITableViewController,UISearchBarDelegate {
     override func viewDidAppear(_ animated: Bool) {
         token = defaults.object(forKey:"token") as? String ?? ""
         receiptController.GetReceiptDocuments(token: token) { (receiptD) in
-            if let receiptD = receiptD {
+            if receiptD != nil {
                 print("user active")
             } else {
                 DispatchQueue.main.async {
@@ -76,6 +74,7 @@ class itemsTableViewController: UITableViewController,UISearchBarDelegate {
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = true;
+        
         searchBar.showsScopeBar = true
         searchBar.scopeButtonTitles = ["Наименование", "Рамер"]
         searchBar.sizeToFit()
@@ -83,6 +82,11 @@ class itemsTableViewController: UITableViewController,UISearchBarDelegate {
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
+    }
+    
+    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
+        print("bar button clicked")
+        performSegue(withIdentifier: "voiceSearch", sender: nil)
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
@@ -143,7 +147,6 @@ class itemsTableViewController: UITableViewController,UISearchBarDelegate {
         }
         searchBar.resignFirstResponder()
     }
-    
     
     
     
@@ -226,6 +229,10 @@ class itemsTableViewController: UITableViewController,UISearchBarDelegate {
             controller.id = id
             controller.type = "0"
             controller.title = name
+            
+        }
+        
+        if segue.identifier == "voiceSearch" {
             
         }
     }
