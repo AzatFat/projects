@@ -32,24 +32,25 @@ class ChekListTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        addPreload(start_stop: true)
        // self.title = "Мои открытые чеки"
         token = defaults.object(forKey:"token") as? String ?? ""
         userId = defaults.object(forKey:"userId") as? String ?? ""
-        recieptController.GetCheckList(token: token) { (chekList) in
+        recieptController.GetCheckList(userId: userId, token: token) { (chekList) in
             if let chekList = chekList {
                 self.checkList = chekList
             }
             DispatchQueue.main.async {
+                self.addPreload(start_stop: false)
                 self.tableView.reloadData()
             }
         }
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        recieptController.GetCheckList(token: token) { (chekList) in
+        recieptController.GetCheckList(userId: userId,token: token) { (chekList) in
             if let chekList = chekList {
                 self.checkList = chekList
-                print(self.checkList)
             }
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -114,7 +115,7 @@ class ChekListTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let check = checkList[indexPath.row]
-            recieptController.DELETEReceipt(token: token, id: String(check.id)) { (receipt) in
+            recieptController.DELETECheck(token: token, id: String(check.id)) { (receipt) in
                 DispatchQueue.main.async {
                     self.checkList.remove(at: indexPath.row)
                     tableView.deleteRows(at: [indexPath], with: .fade)

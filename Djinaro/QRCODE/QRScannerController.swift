@@ -48,6 +48,7 @@ class QRScannerController: UIViewController {
     var receiptController = ReceiptController()
     var qrReceiptDocument: QRReceiptDocument?
     var token = ""
+    var userId = ""
     let defaults = UserDefaults.standard
     
     private let supportedCodeTypes = [AVMetadataObject.ObjectType.upce,
@@ -73,7 +74,8 @@ class QRScannerController: UIViewController {
     override func viewDidLoad() {
         
         token = defaults.object(forKey:"token") as? String ?? ""
-        print(checkRecord)
+        userId = defaults.object(forKey:"userId") as? String ?? ""
+        
         super.viewDidLoad()
         // Get the back-facing camera for capturing videos
         let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType.video, position: .back)
@@ -179,7 +181,6 @@ class QRScannerController: UIViewController {
         }else if searchType == "addCheckRecordToCheck" {
             receiptController.GetReceipt(token: token, id: found_text) { (receipt) in
                 if let receipt = receipt {
-                    // let checkRecord = CheckRecord.init(id: 1, check_Id: check.id, goods_Id: nil, sizes_Id: nil, employees_Id: Int(userId), customer_Id: 0, count: 1, cost: nil, discount: nil, total_Cost: nil, stockRemainsCount: nil, check: nil, goods: nil, sizes: nil, employees: nil, customer: nil)
                     
                     self.checkRecord?.goods_Id = receipt.goods_Id
                     self.checkRecord?.sizes_Id = receipt.sizes_Id
@@ -194,12 +195,40 @@ class QRScannerController: UIViewController {
                                 self.performSegue(withIdentifier: "addCheckRecordToCheck", sender: self)
                             }
                         } else {
-                            print("error in add checkRecord \(checkRecord)")
+                            print("error in add checkRecord \(String(describing: checkRecord))")
                         }
                     }
                 }
             }
-            
+        } else if searchType == "addCustomerToCheck" {
+            if let checkRecord = checkRecord, let checkId = checkRecord.check_Id {
+                receiptController.POSTCustomerToCheck(token: token, checkId: String(checkId), customerId: found_text) { (check) in
+                    DispatchQueue.main.async {
+                        self.performSegue(withIdentifier: "addCheckRecordToCheck", sender: self)
+                    }
+                }
+            }
+        } else if searchType == "addCheckRecordToCheckFromBarCode" {
+            receiptController.GetBarCodeFind(barcode: found_text, token: token) { (barCode) in
+                if let barCode = barCode {
+                    self.checkRecord?.goods_Id = barCode.goods_id
+                    self.checkRecord?.sizes_Id = barCode.sizes_id
+                    self.checkRecord?.cost = barCode.receipt?.cost
+                    self.checkRecord?.discount = 0
+                    self.checkRecord?.total_Cost = barCode.receipt?.cost
+                    
+                    self.receiptController.POSTCheckRecord(token: self.token, post: self.checkRecord!) { (checkRecord) in
+                        if let checkRecord = checkRecord {
+                            print("added checkRecord is \(checkRecord)")
+                            DispatchQueue.main.async {
+                                self.performSegue(withIdentifier: "addCheckRecordToCheck", sender: self)
+                            }
+                        } else {
+                            print("error in add checkRecord \(String(describing: checkRecord))")
+                        }
+                    }
+                }
+            }
         } else {
             performSegue(withIdentifier: "BarCodeSearch", sender: nil)
         }
@@ -281,6 +310,7 @@ extension QRScannerController: AVCaptureMetadataOutputObjectsDelegate {
              //   launchApp(decodedURL: metadataObj.stringValue!)
                 
                 found_text = metadataObj.stringValue!
+                print("found_text is \(found_text)")
 ////// Working with segue type
                 let urlText = found_text.components(separatedBy: "/")
                 var searchType = ""
@@ -288,9 +318,14 @@ extension QRScannerController: AVCaptureMetadataOutputObjectsDelegate {
                 if urlText[0] == "https:" && checkRecord == nil{
                     searchType = "findGood"
                     found_text = urlText[urlText.count - 1]
-                }else if urlText[0] == "https:" && checkRecord != nil{
+                }else if urlText[0] == "https:" && checkRecord != nil && urlText[urlText.count - 2] == "receipt"{
                     searchType = "addCheckRecordToCheck"
                     found_text = urlText[urlText.count - 1]
+                }else if (urlText[0] == "http:" || urlText[0] == "http:") && checkRecord != nil && urlText[urlText.count - 2] == "Customer"{
+                    searchType = "addCustomerToCheck"
+                    found_text = urlText[urlText.count - 1]
+                } else if checkRecord != nil {
+                    searchType = "addCheckRecordToCheckFromBarCode"
                 } else {
                     let documentReceiptId = found_text.data(using: .utf8)
                     if let data = documentReceiptId {
@@ -305,18 +340,15 @@ extension QRScannerController: AVCaptureMetadataOutputObjectsDelegate {
                         }
                     }
                 }
-                
                 segueToItemList(decodedString: metadataObj.stringValue!, searchType: searchType)
                 messageLabel.text = metadataObj.stringValue
             }
         }
     }
+    
     private func updatePreviewLayer(layer: AVCaptureConnection, orientation: AVCaptureVideoOrientation) {
-        
         layer.videoOrientation = orientation
-        
         videoPreviewLayer?.frame = self.view.bounds
-        
     }
     
     override func viewDidLayoutSubviews() {

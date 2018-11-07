@@ -1555,10 +1555,10 @@
             </objects>
             <point key="canvasLocation" x="4666.875" y="2175"/>
         </scene>
-        <!--Title-->
+        <!--Клиенты-->
         <scene sceneID="Odd-CG-q6o">
             <objects>
-                <tableViewController id="rrC-g4-gKN" sceneMemberID="viewController">
+                <tableViewController id="rrC-g4-gKN" customClass="CustomerTableViewController" customModule="Djinaro" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="wcn-3W-OFu">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1569,13 +1569,60 @@
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="TpV-7v-jf3">
-                                <rect key="frame" x="0.0" y="72" width="320" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CustomerCell" rowHeight="78" id="TpV-7v-jf3" customClass="CustomerTableViewCell" customModule="Djinaro" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="320" height="78"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TpV-7v-jf3" id="mBs-JK-pak">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="77.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1sF-ju-cLh">
+                                            <rect key="frame" x="16" y="11" width="288" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="J5g-t0-gdb"/>
+                                                <constraint firstAttribute="width" constant="288" id="tiA-4M-7JS"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="89655929346" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6sd-sw-P4V">
+                                            <rect key="frame" x="16" y="40" width="96" height="17"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="17" id="QjJ-sL-Gs8"/>
+                                                <constraint firstAttribute="width" constant="96" id="rhY-ds-Eze"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" red="0.12941176469999999" green="0.45098039220000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="vitfat@gmail.comdldlsdf" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EtC-6N-xEJ">
+                                            <rect key="frame" x="147" y="40" width="157" height="17"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="157" id="j31-mb-9TC"/>
+                                                <constraint firstAttribute="height" constant="17" id="oFG-Zx-hB0"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" red="0.12941176469999999" green="0.45098039220000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="EtC-6N-xEJ" firstAttribute="leading" secondItem="6sd-sw-P4V" secondAttribute="trailing" constant="35" id="68s-1e-cK3"/>
+                                        <constraint firstItem="1sF-ju-cLh" firstAttribute="trailing" secondItem="mBs-JK-pak" secondAttribute="trailingMargin" id="Cpy-tN-8H6"/>
+                                        <constraint firstItem="1sF-ju-cLh" firstAttribute="leading" secondItem="mBs-JK-pak" secondAttribute="leadingMargin" id="DWT-zf-iRq"/>
+                                        <constraint firstItem="EtC-6N-xEJ" firstAttribute="trailing" secondItem="mBs-JK-pak" secondAttribute="trailingMargin" id="E5y-Zq-JSm"/>
+                                        <constraint firstItem="EtC-6N-xEJ" firstAttribute="top" secondItem="1sF-ju-cLh" secondAttribute="bottom" constant="8" id="hJH-ms-AyX"/>
+                                        <constraint firstItem="6sd-sw-P4V" firstAttribute="leading" secondItem="mBs-JK-pak" secondAttribute="leadingMargin" id="qfu-Vb-Xr0"/>
+                                        <constraint firstItem="6sd-sw-P4V" firstAttribute="top" secondItem="1sF-ju-cLh" secondAttribute="bottom" constant="8" id="s3d-gG-uO0"/>
+                                        <constraint firstItem="1sF-ju-cLh" firstAttribute="top" secondItem="mBs-JK-pak" secondAttribute="topMargin" id="wLt-nA-7MW"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="customerEmail" destination="EtC-6N-xEJ" id="KD4-dN-FoH"/>
+                                    <outlet property="customerName" destination="1sF-ju-cLh" id="khh-lr-QFa"/>
+                                    <outlet property="customerPhone" destination="6sd-sw-P4V" id="b4t-JT-23d"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -1583,16 +1630,23 @@
                             <outlet property="delegate" destination="rrC-g4-gKN" id="nIV-yv-bem"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Title" id="Zis-Pq-1Vb">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="gYU-Al-W8M"/>
+                    <navigationItem key="navigationItem" title="Клиенты" id="Zis-Pq-1Vb">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="gYU-Al-W8M">
+                            <connections>
+                                <action selector="addCustomer:" destination="rrC-g4-gKN" id="Ttk-bj-cKa"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="searchBar" destination="PuO-KQ-Iew" id="0tn-Lb-qkr"/>
                         <segue destination="6bm-Mo-vjV" kind="show" identifier="CreateClient" id="yQs-Nk-UZ6"/>
+                        <segue destination="eD9-Z1-7IR" kind="unwind" identifier="addCustomerToCheck" unwindAction="unwindToContainerVCWithSegue:" id="sfi-jb-A9i"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HfX-LL-8xh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="eD9-Z1-7IR" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="7646" y="1888"/>
+            <point key="canvasLocation" x="7644.375" y="1887.6760563380283"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="XJQ-Dk-3xc">

@@ -703,8 +703,8 @@ class ReceiptController : UIViewController {
     
     
     // Чеки (список чеков)
-    func GetCheckList(token: String, completion: @escaping ([Check]?) -> Void) {
-        let GetGood = baseURL.appendingPathComponent("/api/check/New")
+    func GetCheckList(userId: String, token: String, completion: @escaping ([Check]?) -> Void) {
+        let GetGood = baseURL.appendingPathComponent("/api/check/New/" + userId)
         let components = URLComponents(url: GetGood, resolvingAgainstBaseURL: true)!
         let GoodURL = components.url!
         var request = URLRequest(url: GoodURL)
@@ -805,7 +805,7 @@ class ReceiptController : UIViewController {
     }
     // Удаление чека
     func DELETECheck (token: String, id: String, completion: @escaping (Check?) -> Void) {
-        let PostReceipt = baseURL.appendingPathComponent("api/Check/" + id)
+        let PostReceipt = baseURL.appendingPathComponent("/api/Check/" + id)
         let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
         let ReceiptURL = components.url!
         var request = URLRequest(url: ReceiptURL)
@@ -838,7 +838,7 @@ class ReceiptController : UIViewController {
     
     // Добавление товара к чеку
     func POSTCheckRecord (token: String, post: CheckRecord, completion: @escaping (CheckRecord?) -> Void) {
-        let PostReceipt = baseURL.appendingPathComponent("api/CheckRecord")
+        let PostReceipt = baseURL.appendingPathComponent("/api/CheckRecord/")
         let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
         let ReceiptURL = components.url!
         var request = URLRequest(url: ReceiptURL)
@@ -873,9 +873,45 @@ class ReceiptController : UIViewController {
         }
         task.resume()
     }
+    
+    // Нахожение товара для добавления к чеку по BarCode
+    func GetBarCodeFind(barcode: String, token: String, completion: @escaping (BarCodeFind?) -> Void) {
+        let GetGood = baseURL.appendingPathComponent("api/barcode/Find/" + barcode)
+        let components = URLComponents(url: GetGood, resolvingAgainstBaseURL: true)!
+        let GoodURL = components.url!
+        var request = URLRequest(url: GoodURL)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode(BarCodeFind.self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode(BarCodeFind.self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in getting BarCodeFind")
+                        print(error)
+                        self.denyAuthorisation(data: data)
+                        completion(nil)
+                    }
+                }
+                
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
+
+    
+    
     // Удаление товара из чека
     func DELETECheckRecord (token: String, id: String, completion: @escaping (CheckRecord?) -> Void) {
-        let PostReceipt = baseURL.appendingPathComponent("api/Check/" + id)
+        let PostReceipt = baseURL.appendingPathComponent("/api/CheckRecord/" + id)
         let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
         let ReceiptURL = components.url!
         var request = URLRequest(url: ReceiptURL)
@@ -893,7 +929,7 @@ class ReceiptController : UIViewController {
                         let product = try decoder.decode(CheckRecord.self, from: data)
                         completion(product)
                     } catch let error {
-                        print("error in Post ReceiptsDOcument")
+                        print("error in delete CheckRecord")
                         print(error)
                         self.denyAuthorisation(data: data)
                         completion(nil)
@@ -909,7 +945,7 @@ class ReceiptController : UIViewController {
     
     //Получение последней смены
     func GetLastShift(token: String, completion: @escaping (Shift?) -> Void) {
-        let GetGood = baseURL.appendingPathComponent("api/shift/Last")
+        let GetGood = baseURL.appendingPathComponent("/api/shift/Last")
         let components = URLComponents(url: GetGood, resolvingAgainstBaseURL: true)!
         let GoodURL = components.url!
         var request = URLRequest(url: GoodURL)
@@ -937,6 +973,113 @@ class ReceiptController : UIViewController {
                 completion(nil)
             }
         }
+        task.resume()
+    }
+    
+    // Добавление клиента в чек
+    func POSTCustomerToCheck (token: String, checkId: String, customerId: String, completion: @escaping (Check?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("/api/check/" + checkId + "/SetCustomer/" + customerId)
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "POST"
+        //request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        //let jsonEcoder = JSONEncoder()
+        //let jsonData = try? jsonEcoder.encode(post)
+        //request.httpBody = jsonData
+        print(request)
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode(Check.self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode(Check.self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in Post Receipts")
+                        print(error)
+                        self.denyAuthorisation(data: data)
+                        completion(nil)
+                    }
+                }
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
+    
+    //Получение списка клиентов
+    func GetCustomerList(token: String, completion: @escaping ([Customer]?) -> Void) {
+        let GetGood = baseURL.appendingPathComponent("/api/Customer")
+        let components = URLComponents(url: GetGood, resolvingAgainstBaseURL: true)!
+        let GoodURL = components.url!
+        var request = URLRequest(url: GoodURL)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode([Customer].self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode([Customer].self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in getting Check")
+                        print(error)
+                        self.denyAuthorisation(data: data)
+                        completion(nil)
+                    }
+                }
+                
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
+    
+//Поиск клиентов
+
+    func GetCustomerSearch(token: String, search:String, completion: @escaping ([Customer]?) -> Void) {
+        let GetReceipt = baseURL.appendingPathComponent("api/customer/Search")
+        var components = URLComponents(url: GetReceipt, resolvingAgainstBaseURL: true)!
+        components.queryItems = [URLQueryItem(name: "start", value: "0"), URLQueryItem(name: "length", value: "100"),URLQueryItem(name: "search", value: search)]
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode(CustomerSearch.self, from: data) {
+                    completion(list.data)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode(CustomerSearch.self, from: data)
+                        completion(product.data)
+                    } catch let error {
+                        print("error in getting Customer List")
+                        print(error)
+                        self.denyAuthorisation(data: data)
+                        completion(nil)
+                    }
+                }
+                
+            } else {
+                completion(nil)
+            }
+        }
+        
         task.resume()
     }
 }

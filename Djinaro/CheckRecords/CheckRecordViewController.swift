@@ -15,6 +15,7 @@ class CheckRecordViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet var tableView: UITableView!
     @IBOutlet var Client: UILabel!
     @IBAction func AddClient(_ sender: Any) {
+        performSegue(withIdentifier: "showClients", sender: nil)
     }
     
     @IBAction func AddChekRecord(_ sender: Any) {
@@ -85,7 +86,7 @@ class CheckRecordViewController: UIViewController, UITableViewDelegate, UITableV
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let checkRecord = check!.checkRecordList![indexPath.row]
-            recieptController.DELETEReceipt(token: token, id: String(checkRecord.id)) { (receipt) in
+            recieptController.DELETECheckRecord(token: token, id: String(checkRecord.id)) { (receipt) in
                 DispatchQueue.main.async {
                     self.check!.checkRecordList!.remove(at: indexPath.row)
                     tableView.deleteRows(at: [indexPath], with: .fade)
@@ -107,6 +108,14 @@ class CheckRecordViewController: UIViewController, UITableViewDelegate, UITableV
                 controller.checkRecord = checkRecord
             }
         }
+        if segue.identifier == "showClients" {
+            let controller = segue.destination as! CustomerTableViewController
+            if let check = check {
+                let checkRecord = CheckRecord.init(id: 1, check_Id: check.id, goods_Id: nil, sizes_Id: nil, employees_Id: Int(userId), customer_Id: 0, count: 1, cost: nil, discount: nil, total_Cost: nil, stockRemainsCount: nil, check: nil, goods: nil, sizes: nil, employees: nil, customer: nil)
+                print("checkRecord in chekRecordCOntroller is \(checkRecord)")
+                controller.checkRecord = checkRecord
+            }
+        }
     }
     
     func checkAppear() {
@@ -121,12 +130,21 @@ class CheckRecordViewController: UIViewController, UITableViewDelegate, UITableV
                             for checkRecord in recordList {
                                 chekTotalCost += checkRecord.total_Cost ?? 0
                             }
+                            if recordList.count > 0 {
+                                let customerName = recordList[0].customer?.name ?? ""
+                                let customerSurname = recordList[0].customer?.middle_Name ?? ""
+                                let customerFullNAme = customerName + " " + customerSurname
+                                self.Client.text = customerFullNAme
+                                
+                            }
                         }
+                        
                         self.TotalCost.text = chekTotalCost.formattedAmount
-                        let customerName = check.customer?.name ?? ""
-                        let customerSurname = check.customer?.middle_Name ?? ""
-                        let customerFullNAme = customerName + " " + customerSurname
-                        self.Client.text = customerFullNAme
+                        
+                        //let customerName = check.customer?.name ?? ""
+                        //let customerSurname = check.customer?.middle_Name ?? ""
+                        // let customerFullNAme = customerName + " " + customerSurname
+                        //self.Client.text = customerFullNAme
                         self.tableView.reloadData()
                     }
                 }

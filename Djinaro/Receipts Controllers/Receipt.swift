@@ -303,7 +303,17 @@ struct Customer: Codable {
         case is_Archive = "Is_Archive"
     }
 }
-
+// Лист поиска клиентов
+struct CustomerSearch: Codable {
+    var recordsTotal: Int
+    var recordsFiltered: Int
+    var data: [Customer]
+    enum CodingKeys: String, CodingKey {
+        case recordsTotal = "recordsTotal"
+        case recordsFiltered = "recordsFiltered"
+        case data = "data"
+    }
+}
 
 /// Тип чека
 struct CheckType: Codable {
@@ -369,7 +379,7 @@ struct CheckRecord: Codable {
         case goods = "Goods"
         case sizes = "Sizes"
         case employees = "Employees"
-        case customer = "Customers"
+        case customer = "Customer"
     }
 }
 
@@ -393,3 +403,58 @@ struct PaymentType: Codable {
         case name = "Name"
     }
 }
+
+struct BarCodeFind: Codable {
+    var id: Int
+    var goods_id: Int?
+    var sizes_id: Int?
+    var code: Decimal?
+    var goods: Goods?
+    var sizes: Sizes?
+    var receipt: Receipt?
+    enum CodingKeys: String, CodingKey {
+        case id = "Id"
+        case goods_id = "Goods_Id"
+        case sizes_id = "Sizes_Id"
+        case code = "Code"
+        case goods = "Goods"
+        case sizes = "Sizes"
+        case receipt = "Receipt"
+    }
+}
+/*
+ {
+ "Id": 34038,
+ "Goods_Id": 19190,
+ "Sizes_Id": 103,
+ "Code": 2200000290847.0,
+ "Goods": {
+ "Id": 19190,
+ "Group_Goods_Id": 367,
+ "Name": "NB 574 Winter All Black ",
+ "Code": null,
+ "Description": null,
+ "Location": "B 533 A 1032                                      ",
+ "Vendor_Code": null,
+ "GroupGoods": null,
+ "TypeGoods": null,
+ "Available_sizes": null
+ },
+ "Sizes": {
+ "Id": 103,
+ "Name": "44"
+ },
+ "Receipt": {
+ "Id": 2040,
+ "Receipt_Document_Id": 64,
+ "Goods_Id": 19190,
+ "Sizes_Id": 103,
+ "Cost": 2600.0,
+ "Count": 1,
+ "ReceiptDocument": null,
+ "Sizes": null,
+ "Goods": null,
+ "StockRemains": null
+ }
+ }
+ */

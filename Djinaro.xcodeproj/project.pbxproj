@@ -30,6 +30,8 @@
 		AA96D5322190470C000BB6F8 /* CheckListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96D5312190470C000BB6F8 /* CheckListTableViewCell.swift */; };
 		AA96D53521905171000BB6F8 /* CheckRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96D53421905171000BB6F8 /* CheckRecordViewController.swift */; };
 		AA96D53721905F54000BB6F8 /* CheckRecordsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96D53621905F54000BB6F8 /* CheckRecordsTableViewCell.swift */; };
+		AA96D53A21923381000BB6F8 /* CustomerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96D53921923381000BB6F8 /* CustomerTableViewController.swift */; };
+		AA96D53C21923395000BB6F8 /* CustomerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96D53B21923395000BB6F8 /* CustomerTableViewCell.swift */; };
 		AAAECDE22187B49D00F426B1 /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAECDE12187B49D00F426B1 /* UserInfoViewController.swift */; };
 		AADB9328216BDFC000AA2C34 /* SpeechViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADB9327216BDFC000AA2C34 /* SpeechViewController.swift */; };
 		AADB932A2171E77900AA2C34 /* GoodsArrivalTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADB93292171E77900AA2C34 /* GoodsArrivalTableViewController.swift */; };
@@ -75,6 +77,8 @@
 		AA96D5312190470C000BB6F8 /* CheckListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckListTableViewCell.swift; sourceTree = "<group>"; };
 		AA96D53421905171000BB6F8 /* CheckRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckRecordViewController.swift; sourceTree = "<group>"; };
 		AA96D53621905F54000BB6F8 /* CheckRecordsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckRecordsTableViewCell.swift; sourceTree = "<group>"; };
+		AA96D53921923381000BB6F8 /* CustomerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerTableViewController.swift; sourceTree = "<group>"; };
+		AA96D53B21923395000BB6F8 /* CustomerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerTableViewCell.swift; sourceTree = "<group>"; };
 		AAAECDE12187B49D00F426B1 /* UserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
 		AADB9327216BDFC000AA2C34 /* SpeechViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechViewController.swift; sourceTree = "<group>"; };
 		AADB93292171E77900AA2C34 /* GoodsArrivalTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsArrivalTableViewController.swift; sourceTree = "<group>"; };
@@ -149,6 +153,7 @@
 				AA96D528218F7FA3000BB6F8 /* Goods */,
 				AA96D52B218F81DE000BB6F8 /* Chek */,
 				AA96D533219050EB000BB6F8 /* CheckRecords */,
+				AA96D53821923143000BB6F8 /* Client */,
 				AA830C4C215568D000F004B3 /* Assets.xcassets */,
 				AA830C4E215568D000F004B3 /* LaunchScreen.storyboard */,
 				AA830C51215568D000F004B3 /* Info.plist */,
@@ -247,6 +252,15 @@
 				AA96D53621905F54000BB6F8 /* CheckRecordsTableViewCell.swift */,
 			);
 			path = CheckRecords;
+			sourceTree = "<group>";
+		};
+		AA96D53821923143000BB6F8 /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				AA96D53921923381000BB6F8 /* CustomerTableViewController.swift */,
+				AA96D53B21923395000BB6F8 /* CustomerTableViewCell.swift */,
+			);
+			path = Client;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -348,6 +362,7 @@
 				AA031E0E218A42CD00818FC9 /* GoodsAvailableTableViewCell.swift in Sources */,
 				AA031E0C218A3E8600818FC9 /* GoodInfoViewController.swift in Sources */,
 				AAF92557215AC4AC007D7ACE /* GoodsItem.swift in Sources */,
+				AA96D53C21923395000BB6F8 /* CustomerTableViewCell.swift in Sources */,
 				AA830C602157D1D000F004B3 /* QRScannerController.swift in Sources */,
 				AAF92559215C2E78007D7ACE /* GoodsInfoTableViewCell.swift in Sources */,
 				AA08A0A92177E4A600083C85 /* AddGoodsToArrivalViewController.swift in Sources */,
@@ -362,6 +377,7 @@
 				AADB93342173D52900AA2C34 /* GoodsTableViewCell.swift in Sources */,
 				AADB932C2171E7DA00AA2C34 /* GoodsArrivalTableViewCell.swift in Sources */,
 				AADB9328216BDFC000AA2C34 /* SpeechViewController.swift in Sources */,
+				AA96D53A21923381000BB6F8 /* CustomerTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -164,7 +164,9 @@ class GoodsTableViewController: UITableViewController, UISearchBarDelegate {
         searchBar.sizeToFit()
         
         self.addPreload(start_stop: true)
-        searchGoods(search: searchBar.text!)
+        if searchBar.text != "" {
+            searchGoods(search: searchBar.text!)
+        }
         searchBar.resignFirstResponder()
     }
     //////
