@@ -11,13 +11,15 @@ import UIKit
 class CustomerTableViewController: UITableViewController, UISearchBarDelegate {
 
     @IBOutlet var searchBar: UISearchBar!
+    
     @IBAction func addCustomer(_ sender: Any) {
-        
+        performSegue(withIdentifier: "CreateClient", sender: nil)
     }
+    
     var checkRecord: CheckRecord?
     var recieptController = ReceiptController()
     var customerList = [Customer]()
-    
+    var customer : Customer?
     let defaults = UserDefaults.standard
     var token = ""
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
@@ -110,12 +112,25 @@ class CustomerTableViewController: UITableViewController, UISearchBarDelegate {
         if let checkRecord = checkRecord, let checkId = checkRecord.check_Id {
             let customerId = customerList[indexPath.row].id
             addCustomerToCheck(checkId: String(checkId), customerId: String(customerId))
-        }
+        } 
     }
+    
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 77.5
     }
+    
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let ViewCustomer = UITableViewRowAction(style: .normal, title: "Редактировать") { (action, indexPath) in
+            self.customer = self.customerList[indexPath.row]
+            self.performSegue(withIdentifier: "CreateClient", sender: nil)
+        }
+        ViewCustomer.backgroundColor = UIColor.blue
+        
+        return [ViewCustomer]
+    }
+    
+    
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = true;
@@ -173,6 +188,12 @@ class CustomerTableViewController: UITableViewController, UISearchBarDelegate {
         if segue.identifier == "addCustomerToCheck" {
             let controller = segue.destination as! CheckRecordViewController
             controller.checkId = checkRecord?.check_Id
+        }
+        
+        if segue.identifier == "CreateClient" {
+            let controller = segue.destination as! CustomerInfoViewController
+            controller.customer = customer
+            controller.checkRecord = checkRecord
         }
     }
 }

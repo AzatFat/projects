@@ -1001,7 +1001,7 @@ class ReceiptController : UIViewController {
                         let product = try decoder.decode(Check.self, from: data)
                         completion(product)
                     } catch let error {
-                        print("error in Post Receipts")
+                        print("error in add Client to check")
                         print(error)
                         self.denyAuthorisation(data: data)
                         completion(nil)
@@ -1080,6 +1080,70 @@ class ReceiptController : UIViewController {
             }
         }
         
+        task.resume()
+    }
+    
+    // Создание клиента
+    func POSTCustomer (token: String, post: Customer, completion: @escaping (String?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("/api/Customer")
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        let jsonEcoder = JSONEncoder()
+        let jsonData = try? jsonEcoder.encode(post)
+        request.httpBody = jsonData
+        print(request)
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            if let data = data{
+                let answer = String(data: data, encoding: String.Encoding.utf8)
+                print(answer)
+                completion(answer ?? "Неизвестная ошибка")
+            } else {
+                completion("Неизвестная ошибка")
+            }
+        }
+        task.resume()
+    }
+    
+    // Редактирование клиента
+    func  PUTCustomer (token: String, post: Customer, completion: @escaping (Customer?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("/api/Customer/" + String(post.id))
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "PUT"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        let jsonEcoder = JSONEncoder()
+        let jsonData = try? jsonEcoder.encode(post)
+        request.httpBody = jsonData
+        print(request)
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode(Customer.self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode(Customer.self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in Put Customer")
+                        print(error)
+                        self.denyAuthorisation(data: data)
+                        completion(nil)
+                    }
+                }
+            } else {
+                completion(nil)
+            }
+        }
         task.resume()
     }
 }

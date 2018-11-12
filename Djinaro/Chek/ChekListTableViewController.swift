@@ -172,6 +172,7 @@ class ChekListTableViewController: UITableViewController {
                 let newCheck = Check.init(id: 1, customer_Id: 0, employees_Id: Int(self.userId), shift_Id: self.lastShiftId, check_Type_Id: 1, payment_Type_Id: nil, cash: nil, card: nil, is_Deferred: nil, is_Cancelled: nil, create_Date: nil, the_Date: nil, customer: nil, checkType: nil, employees: nil, shift: nil, checkRecordList: nil, payment: nil)
                 self.recieptController.POSTCheck(token: self.token, post: newCheck) { (check) in
                     if let check = check {
+                        print(check)
                         self.check = check
                         DispatchQueue.main.async {
                             self.performSegue(withIdentifier: "CheckInfo", sender: nil)

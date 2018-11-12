@@ -19,6 +19,7 @@ class CheckRecordViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     @IBAction func AddChekRecord(_ sender: Any) {
+        performSegue(withIdentifier: "addGoodsFromSearch", sender: nil)
     }
     
     @IBAction func Camera(_ sender: Any) {
@@ -116,6 +117,15 @@ class CheckRecordViewController: UIViewController, UITableViewDelegate, UITableV
                 controller.checkRecord = checkRecord
             }
         }
+        
+        if segue.identifier == "addGoodsFromSearch" {
+            let controller = segue.destination as! GoodsTableViewController
+            if let check = check {
+                let checkRecord = CheckRecord.init(id: 1, check_Id: check.id, goods_Id: nil, sizes_Id: nil, employees_Id: Int(userId), customer_Id: 0, count: 1, cost: nil, discount: nil, total_Cost: nil, stockRemainsCount: nil, check: nil, goods: nil, sizes: nil, employees: nil, customer: nil)
+                print("checkRecord in chekRecordCOntroller is \(checkRecord)")
+                controller.checkRecord = checkRecord
+            }
+        }
     }
     
     func checkAppear() {
@@ -140,25 +150,10 @@ class CheckRecordViewController: UIViewController, UITableViewDelegate, UITableV
                         }
                         
                         self.TotalCost.text = chekTotalCost.formattedAmount
-                        
-                        //let customerName = check.customer?.name ?? ""
-                        //let customerSurname = check.customer?.middle_Name ?? ""
-                        // let customerFullNAme = customerName + " " + customerSurname
-                        //self.Client.text = customerFullNAme
                         self.tableView.reloadData()
                     }
                 }
             }
         }
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

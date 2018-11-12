@@ -21,7 +21,7 @@ class GoodsTableViewController: UITableViewController, UISearchBarDelegate {
     var groupReceiptsList = [GroupReceipts]()
     let defaults = UserDefaults.standard
     var token = ""
-    
+    var checkRecord: CheckRecord?
     
     @IBOutlet var searchBar: UISearchBar!
     
@@ -90,7 +90,8 @@ class GoodsTableViewController: UITableViewController, UISearchBarDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goodInfo" {
             let controller = segue.destination as! GoodViewController
-                controller.goodId = goodId
+            controller.goodId = goodId
+            controller.checkRecord = checkRecord
         }
         
         if segue.identifier == "addGoodToArrival" {
