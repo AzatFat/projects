@@ -12,7 +12,9 @@ class GoodViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet var table: UITableView!
     @IBOutlet var doneOutlet: UIBarButtonItem!
-    @IBAction func doneAction(_ sender: Any) {}
+    @IBAction func doneAction(_ sender: Any) {
+        performSegue(withIdentifier: "changeGood", sender: nil)
+    }
     
     var recieptController = ReceiptController()
     var goodsInfoViewController = GoodInfoViewController()
@@ -34,9 +36,19 @@ class GoodViewController: UIViewController, UITableViewDelegate, UITableViewData
         token = defaults.object(forKey:"token") as? String ?? ""
         userId = defaults.object(forKey:"userId") as? String ?? ""
         
+        getGood()
+        // Do any additional setup after loading the view.
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        getGood()
+    }
+    
+    func getGood() {
         recieptController.GetGood(token: token, goodId: goodId) { (good) in
             if let good = good {
                 self.good = good
+                print(good)
                 if let goodName = good.name, let goodLocation = good.location {
                     self.location = goodLocation
                     self.name = goodName
@@ -48,10 +60,7 @@ class GoodViewController: UIViewController, UITableViewDelegate, UITableViewData
                 self.table.reloadData()
             }
         }
-        // Do any additional setup after loading the view.
     }
-
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -90,18 +99,24 @@ class GoodViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let addGoodToCheck = UITableViewRowAction(style: .normal, title: "Добавить в чек") { (action, indexPath) in
             if let checkRecord = self.checkRecord, let good = self.good, let avaliableSizes = self.good!.available_sizes {
-                print(good)
                 self.addGoodTocheck(checkRecord: checkRecord, goodId: good.id, sizes_Id: (avaliableSizes[indexPath.row].sizes!.id), cost: avaliableSizes[indexPath.row].cost!)
             } else if let good = self.good, let avaliableSizes = self.good!.available_sizes{
                 self.addNewCheck(goodId: good.id, sizes_Id: (avaliableSizes[indexPath.row].sizes!.id), cost: avaliableSizes[indexPath.row].cost!)
             }
         }
-        addGoodToCheck.backgroundColor = UIColor.blue
         
-        return [addGoodToCheck]
+        let printLableButton = UITableViewRowAction(style: .normal, title: "Печать") { (action, indexPath) in
+            if let good = self.good, let avaliableSizes = self.good!.available_sizes {
+                self.printLable(goodId: good.id, sizes_Id: avaliableSizes[indexPath.row].sizes!.id)
+            }
+        }
+        
+        addGoodToCheck.backgroundColor = UIColor.blue
+        printLableButton.backgroundColor = UIColor.red
+        
+        return [addGoodToCheck, printLableButton]
     }
 
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let controller = segue.destination as? GoodInfoViewController, segue.identifier == "goodInfo" {
             controller.goodName = location
@@ -112,7 +127,14 @@ class GoodViewController: UIViewController, UITableViewDelegate, UITableViewData
             let controller = segue.destination as! CheckRecordViewController
             controller.checkId = checkRecord?.check_Id
         }
-        
+        if segue.identifier == "addGoodToNewCheck" {
+            let controller = segue.destination as! CheckRecordViewController
+            controller.checkId = checkRecord?.check_Id
+        }
+        if segue.identifier == "changeGood" {
+            let controller = segue.destination as! GoodChangeViewController
+            controller.good = good
+        }
     }
     
     func addPreload(start_stop: Bool){
@@ -168,11 +190,12 @@ class GoodViewController: UIViewController, UITableViewDelegate, UITableViewData
                         POSTCheckRecord.discount = 0
                         POSTCheckRecord.total_Cost = cost
                         
-                        self.recieptController.POSTCheckRecord(token: self.token, post: self.checkRecord!) { (checkRecord) in
+                        self.recieptController.POSTCheckRecord(token: self.token, post: POSTCheckRecord) { (checkRecord) in
                             if let checkRecord = checkRecord {
                                 print("added checkRecord is \(checkRecord)")
                                 DispatchQueue.main.async {
-                                    self.performSegue(withIdentifier: "addGoodToCheck", sender: self)
+                                    self.checkRecord = checkRecord
+                                    self.performSegue(withIdentifier: "addGoodToNewCheck", sender: self)
                                 }
                             } else {
                                 print("error in add checkRecord \(String(describing: checkRecord))")
@@ -182,6 +205,27 @@ class GoodViewController: UIViewController, UITableViewDelegate, UITableViewData
                 }
             }
         }
+    }
+    
+    func printLable(goodId: Int, sizes_Id: Int) {
+        error(title: "Отправлено на печать")
+        recieptController.POSTGoodPrintLable(token: token, goodId: String(goodId), sizeId: String(sizes_Id)) { (answer) in
+            DispatchQueue.main.async {
+                if let answer = answer {
+                    self.error(title: answer)
+                }
+            }
+        }
+    }
+    
+    func error(title : String) {
+        //self.addPreload(start_stop: false)
+        let alert = UIAlertController(title: title, message: nil, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
     }
 /*
     

@@ -8,8 +8,25 @@
 
 import UIKit
 
-class AddGoodsToArrivalViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class AddGoodsToArrivalViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate {
     
+    
+    @IBOutlet var goodLocation: UITextField!
+    @IBAction func ChangeLocation(_ sender: Any) {
+        if let location = goodLocation.text, location != "", good != nil {
+            good?.location = location
+            receiptController.PUTGood(token: token, post: good!) { (good) in
+                if let good = good {
+                    self.goodLocation.text = good.location
+                }
+            }
+            
+            DispatchQueue.main.async {
+                self.error(title: "локация поменялась")
+            }
+        }
+        self.view.endEditing(true)
+    }
     
     @IBOutlet var goodName: UILabel!
     @IBOutlet var tableVIew: UITableView!
@@ -43,8 +60,10 @@ class AddGoodsToArrivalViewController: UIViewController, UITableViewDelegate, UI
                     self.tableVIew.reloadData()
             }
         }
+       // goodLocation.delegate = self
         goodName.text = good?.name
-        // Do any additional setup after loading the view.
+        goodLocation.text = good?.location
+        hideKeyboardWhenTappedAround()
     }
     override func viewDidAppear(_ animated: Bool) {
         tableVIew.reloadData()
@@ -157,4 +176,20 @@ class AddGoodsToArrivalViewController: UIViewController, UITableViewDelegate, UI
             }
         }
     }
+    
+    func error(title : String) {
+        //self.addPreload(start_stop: false)
+        let alert = UIAlertController(title: title, message: nil, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    /*
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return false
+    }*/
+    
 }

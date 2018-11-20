@@ -120,6 +120,7 @@ struct Goods: Codable {
     var vendor_Code: String?
     var groupGoods: GroupGoods?
     var available_sizes:  [Available_sizes]?
+    var price: Decimal?
     
     
     enum CodingKeys: String, CodingKey {
@@ -132,6 +133,7 @@ struct Goods: Codable {
         case vendor_Code = "Vendor_Code"
         case groupGoods = "GroupGoods"
         case available_sizes = "Available_sizes"
+        case price = "Price"
     }
 
 }

@@ -9,8 +9,10 @@
 import Foundation
 import UIKit
 
+
 class ReceiptController : UIViewController {
-    let baseURL = URL(string: "http://91.203.195.74:5001")!
+   // let baseURL = URL(string: "http://91.203.195.74:5001")!
+    let baseURL = URL(string: "http://192.168.88.190")!
     var token : String?
     var tokenType : String?
 
@@ -601,6 +603,7 @@ class ReceiptController : UIViewController {
         var request = URLRequest(url: GoodURL)
         request.httpMethod = "GET"
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        print(request)
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             let jsonDecoder = JSONDecoder()
             if let data = data{
@@ -628,45 +631,109 @@ class ReceiptController : UIViewController {
     }
     
     
-    func postGood(token: String, post: Goods, completion: ((Error?) -> Void)?) {
-        
-        let GoodPostUrl = baseURL.appendingPathComponent("/api/Goods")
-        let components = URLComponents(url: GoodPostUrl, resolvingAgainstBaseURL: true)!
-        let GoodURL = components.url!
-        var request = URLRequest(url: GoodURL)
-        request.httpMethod = "POST"
-        
-        var headers = request.allHTTPHeaderFields ?? [:]
-        headers["Content-Type"] = "application/json"
-        request.allHTTPHeaderFields = headers
-        
-        let encoder = JSONEncoder()
-        do {
-            let jsonData = try encoder.encode(post)
-            // ... and set our request's HTTP body
-            request.httpBody = jsonData
-            print("jsonData: ", String(data: request.httpBody!, encoding: .utf8) ?? "no body data")
-        } catch {
-            completion?(error)
-        }
-        let config = URLSessionConfiguration.default
-        let session = URLSession(configuration: config)
-        let task = session.dataTask(with: request) { (responseData, response, responseError) in
-            guard responseError == nil else {
-                completion?(responseError!)
-                return
-            }
-            
-            // APIs usually respond with the data you just sent in your POST request
-            if let data = responseData, let utf8Representation = String(data: data, encoding: .utf8) {
-                print("response: ", utf8Representation)
+    
+    
+// изменение товара
+    func PUTGood (token: String, post: Goods, completion: @escaping (Goods?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("/api/Goods/" + String(post.id))
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "PUT"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        let jsonEcoder = JSONEncoder()
+        let jsonData = try? jsonEcoder.encode(post)
+        request.httpBody = jsonData
+        print(request)
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode(Goods.self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode(Goods.self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in PUT Goods")
+                        print(error)
+                        self.denyAuthorisation(data: data)
+                        completion(nil)
+                    }
+                }
             } else {
-                print("no readable data received in response")
+                completion(nil)
             }
         }
         task.resume()
     }
     
+    //Печать этикетки товара
+    func POSTGoodPrintLable (token: String, goodId: String, sizeId: String , completion: @escaping (String?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("/api/Goods/PrintLabel/" + goodId + "/" + sizeId)
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+       // let jsonEcoder = JSONEncoder()
+       // let jsonData = try? jsonEcoder.encode(post)
+       // request.httpBody = jsonData
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            if let data = data{
+                let answer = String(data: data, encoding: String.Encoding.utf8)
+                completion(answer ?? "Неизвестная ошибка")
+            } else {
+                completion("Неизвестная ошибка")
+            }
+        }
+        task.resume()
+    }
+    
+    
+    // создание товара
+    func POSTGood (token: String, post: Goods, completion: @escaping (Goods?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("/api/Goods")
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        let jsonEcoder = JSONEncoder()
+        let jsonData = try? jsonEcoder.encode(post)
+        request.httpBody = jsonData
+        print(request)
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode(Goods.self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode(Goods.self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in Post Goods")
+                        print(error)
+                        self.denyAuthorisation(data: data)
+                        completion(nil)
+                    }
+                }
+                
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
     
     func GetSizes(token: String, completion: @escaping ([Sizes]?) -> Void) {
         let GetGood = baseURL.appendingPathComponent("/api/Sizes/")
@@ -700,7 +767,42 @@ class ReceiptController : UIViewController {
         
         task.resume()
     }
+    //
     
+    
+    func GETTypeGoods(token: String, completion: @escaping ([TypeGoods]?) -> Void) {
+        let GetGood = baseURL.appendingPathComponent("/api/TypeGoods/")
+        let components = URLComponents(url: GetGood, resolvingAgainstBaseURL: true)!
+        let GoodURL = components.url!
+        var request = URLRequest(url: GoodURL)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        print(request)
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode([TypeGoods].self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode([TypeGoods].self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in getting Good")
+                        print(error)
+                        self.denyAuthorisation(data: data)
+                        completion(nil)
+                    }
+                }
+                
+            } else {
+                completion(nil)
+            }
+        }
+        
+        task.resume()
+    }
     
     // Чеки (список чеков)
     func GetCheckList(userId: String, token: String, completion: @escaping ([Check]?) -> Void) {
@@ -1146,4 +1248,31 @@ class ReceiptController : UIViewController {
         }
         task.resume()
     }
+    
+    // Инвентаризация добавление товара к общему количеству
+    func POSTInventoryCode (token: String, post: String, completion: @escaping (String?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("/api/Inventory/Enter/" + post)
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        let jsonEcoder = JSONEncoder()
+        let jsonData = try? jsonEcoder.encode(post)
+        request.httpBody = jsonData
+        print(request)
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            if let data = data{
+                let answer = String(data: data, encoding: String.Encoding.utf8)
+                completion(answer ?? "Неизвестная ошибка")
+            } else {
+                completion("Неизвестная ошибка")
+            }
+        }
+        task.resume()
+    }
 }
+
+

@@ -8,7 +8,7 @@
 
 import UIKit
 import AVFoundation
-
+import AudioToolbox
 
 
 struct QRReceiptDocument: Codable {
@@ -37,9 +37,23 @@ class QRScannerController: UIViewController {
     }
     @IBOutlet var messageLabel: UILabel!
     @IBOutlet var lightButton: UIButton!
+    @IBAction func inventotyRegimeButton(_ sender: Any) {
+
+        if needInventory == false {
+            needInventory = true
+            InventoryButtonOutlet.tintColor = .red
+        } else {
+            needInventory = false
+            InventoryButtonOutlet.tintColor = .blue
+        }
+        
+    }
+    
+    @IBOutlet var InventoryButtonOutlet: UIBarButtonItem!
     
     var captureSession = AVCaptureSession()
     var checkRecord: CheckRecord?
+    var needInventory = false
     var found_bar = 0
     var found_text = ""
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
@@ -50,6 +64,9 @@ class QRScannerController: UIViewController {
     var token = ""
     var userId = ""
     let defaults = UserDefaults.standard
+    
+    var objPlayer: AVAudioPlayer?
+    
     
     private let supportedCodeTypes = [AVMetadataObject.ObjectType.upce,
                                       AVMetadataObject.ObjectType.code39,
@@ -66,12 +83,18 @@ class QRScannerController: UIViewController {
                                       AVMetadataObject.ObjectType.qr]
     
     override func viewDidAppear(_ animated: Bool) {
+        captureSession.startRunning()
+        needInventory = false
+        InventoryButtonOutlet.tintColor = .blue
         found_bar = 0
     }
     override func viewDidDisappear(_ animated: Bool) {
+        captureSession.stopRunning()
         toggleTorch(on: false)
     }
     override func viewDidLoad() {
+        
+        self.title = "Camera"
         
         token = defaults.object(forKey:"token") as? String ?? ""
         userId = defaults.object(forKey:"userId") as? String ?? ""
@@ -165,7 +188,7 @@ class QRScannerController: UIViewController {
  
     }
     
-    
+
     func segueToItemList(decodedString: String, searchType: String ) {
         if searchType == "ReceiptDocument" {
             performSegue(withIdentifier: "findReceiptInfo", sender: nil)
@@ -229,8 +252,52 @@ class QRScannerController: UIViewController {
                     }
                 }
             }
-        } else {
-            performSegue(withIdentifier: "BarCodeSearch", sender: nil)
+        } else if searchType == "POSTInventoryCode" {
+         
+            
+            receiptController.POSTInventoryCode(token: token, post: found_text) { (answer) in
+                
+                if answer == answer, answer == "true"{
+                    DispatchQueue.main.async {
+                        self.playOkSound()
+                        // делаем скриншот
+                        let newImage = UIApplication.shared.screenShot
+                        
+                        let newImageView = UIImageView(image: newImage)
+                        newImageView.frame = UIScreen.main.bounds
+                        newImageView.backgroundColor = .black
+                        newImageView.contentMode = .scaleAspectFit
+                        newImageView.isUserInteractionEnabled = true
+                        self.view.addSubview(newImageView)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            //newImageView.removeFromSuperview()
+                            
+                            UIView.animate(withDuration: 0.1, animations: {newImageView.alpha = 0.4},
+                                           completion: {(value: Bool) in
+                                            self.found_bar = 0
+                                            // self.view.removeFromSuperview()
+                                            newImageView.removeFromSuperview()
+                            })
+                            
+                        }
+                    }
+                } else {
+                    self.error(title: "Сканирование не прошло")
+                }
+            }
+        
+        }else {
+            receiptController.GetBarCodeFind(barcode: found_text, token: token) { (barCode) in
+                if let barCode = barCode {
+                    self.found_text = String(barCode.goods_id ?? 0)
+                    DispatchQueue.main.async {
+                        self.performSegue(withIdentifier: "findGood", sender: nil)
+                    }
+                }
+            }
+            
+            
+           // performSegue(withIdentifier: "BarCodeSearch", sender: nil)
         }
         
     }
@@ -256,6 +323,32 @@ class QRScannerController: UIViewController {
             let controller = segue.destination as! CheckRecordViewController
             controller.checkId = checkRecord?.check_Id
         }
+    }
+    func playOkSound() {
+        
+        guard let url = Bundle.main.url(forResource: "ok", withExtension: "mp3") else { return }
+        
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+            try AVAudioSession.sharedInstance().setActive(true)
+            objPlayer = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
+
+            guard let aPlayer = objPlayer else { return }
+            aPlayer.play()
+            
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+    
+    func error(title : String) {
+        //self.addPreload(start_stop: false)
+        let alert = UIAlertController(title: title, message: nil, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            self.found_bar = 0
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
     
@@ -315,18 +408,31 @@ extension QRScannerController: AVCaptureMetadataOutputObjectsDelegate {
                 let urlText = found_text.components(separatedBy: "/")
                 var searchType = ""
 
-                if urlText[0] == "https:" && checkRecord == nil{
+                if needInventory == true {
+                    found_text = (urlText[0] == "https:" || urlText[0] == "http:") ? urlText[urlText.count - 1] : found_text
+                    searchType = "POSTInventoryCode"
+                    
+                } else if urlText[0] == "https:" && checkRecord == nil{
+                    
                     searchType = "findGood"
                     found_text = urlText[urlText.count - 1]
+                    
                 }else if urlText[0] == "https:" && checkRecord != nil && urlText[urlText.count - 2] == "receipt"{
+                    
                     searchType = "addCheckRecordToCheck"
                     found_text = urlText[urlText.count - 1]
-                }else if (urlText[0] == "http:" || urlText[0] == "http:") && checkRecord != nil && urlText[urlText.count - 2] == "Customer"{
+                
+                }else if (urlText[0] == "https:" || urlText[0] == "http:") && checkRecord != nil && urlText[urlText.count - 2] == "Customer"{
+                    
                     searchType = "addCustomerToCheck"
                     found_text = urlText[urlText.count - 1]
+                    
                 } else if checkRecord != nil {
+                    
                     searchType = "addCheckRecordToCheckFromBarCode"
-                } else {
+                    
+                }  else {
+                    
                     let documentReceiptId = found_text.data(using: .utf8)
                     if let data = documentReceiptId {
                         do {
@@ -339,6 +445,7 @@ extension QRScannerController: AVCaptureMetadataOutputObjectsDelegate {
                             print(error)
                         }
                     }
+                    
                 }
                 segueToItemList(decodedString: metadataObj.stringValue!, searchType: searchType)
                 messageLabel.text = metadataObj.stringValue
@@ -387,5 +494,27 @@ extension QRScannerController: AVCaptureMetadataOutputObjectsDelegate {
                 }
             }
         }
+    }
+}
+
+extension UIApplication {
+    
+    var screenShot: UIImage?  {
+        return keyWindow?.layer.screenShot
+    }
+}
+
+extension CALayer {
+    
+    var screenShot: UIImage?  {
+        let scale = UIScreen.main.scale
+        UIGraphicsBeginImageContextWithOptions(frame.size, false, scale)
+        if let context = UIGraphicsGetCurrentContext() {
+            render(in: context)
+            let screenshot = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            return screenshot
+        }
+        return nil
     }
 }
