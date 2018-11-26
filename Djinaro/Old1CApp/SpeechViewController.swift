@@ -40,7 +40,8 @@ class SpeechViewController: UIViewController, SFSpeechRecognizerDelegate {
             }
             witchSpeech = "goodSearch"
             if searchString != "" {
-                performSegue(withIdentifier: "speachSearch", sender: nil)
+                //performSegue(withIdentifier: "speachSearch", sender: nil)
+                performSegue(withIdentifier: "backToGoodsVC", sender: nil)
             }
 
         }
@@ -91,7 +92,7 @@ class SpeechViewController: UIViewController, SFSpeechRecognizerDelegate {
                 let bestString = result.bestTranscription.formattedString
                 self.SpeecToText.text = bestString
                 print(bestString)
-                self.checkSearch(resultString: bestString)
+                //self.checkSearch(resultString: bestString)
             } else if let error = error {
                 print(error)
             }
@@ -155,6 +156,13 @@ class SpeechViewController: UIViewController, SFSpeechRecognizerDelegate {
             controller.search.text = searchString
             speechToTextOutlet.setTitle("Запись", for: UIControl.State.normal)
             
+        }
+        
+        if segue.identifier == "backToGoodsVC" {
+            let controller = segue.destination as! GoodsTableViewController
+            controller.searchGoods(search: searchString, sizes: "")
+            controller.searchBar.text = searchString
+            speechToTextOutlet.setTitle("Запись", for: UIControl.State.normal)
         }
     }
 

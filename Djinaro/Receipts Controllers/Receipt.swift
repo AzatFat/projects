@@ -119,6 +119,8 @@ struct Goods: Codable {
     var location: String?
     var vendor_Code: String?
     var groupGoods: GroupGoods?
+    var type_Goods_Id: Int?
+    var type_Goods: TypeGoods?
     var available_sizes:  [Available_sizes]?
     var price: Decimal?
     
@@ -132,6 +134,8 @@ struct Goods: Codable {
         case location = "Location"
         case vendor_Code = "Vendor_Code"
         case groupGoods = "GroupGoods"
+        case type_Goods = "Type_Goods"
+        case type_Goods_Id = "Type_Goods_Id"
         case available_sizes = "Available_sizes"
         case price = "Price"
     }
@@ -168,14 +172,14 @@ struct GroupGoods: Codable {
     var type_Goods_Id: Int?
     var name: String?
     var code: String?
-    var typeGoods: TypeGoods?
+ //   var typeGoods: TypeGoods?
     
     enum CodingKeys: String, CodingKey {
         case id = "Id"
         case type_Goods_Id = "Type_Goods_Id"
         case name = "Name"
         case code = "Code"
-        case typeGoods = "TypeGoods"
+ //       case typeGoods = "TypeGoods"
         
     }
     
@@ -424,39 +428,56 @@ struct BarCodeFind: Codable {
         case receipt = "Receipt"
     }
 }
+
+//Режим инвентаризации
+
+struct InventoryCode: Codable {
+    var code: String?
+
+    enum CodingKeys: String, CodingKey {
+        case code = "code"
+    }
+}
+
+
+struct InventoryFrontShop: Codable {
+    var goods_id: Int
+    var min_size_id: Int?
+    var scan_size_id: Int?
+    var cnt: Int?
+    var status: Int?
+    var location: String?
+    var type_goods_id: Int?
+    var g_nm: String?
+    var s_min_nm: String?
+    var s_scan_nm: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case goods_id = "goods_id"
+        case min_size_id = "min_size_id"
+        case scan_size_id = "scan_size_id"
+        case cnt = "cnt"
+        case status = "status"
+        case location = "location"
+        case type_goods_id = "type_goods_id"
+        case g_nm = "g_nm"
+        case s_min_nm = "s_min_nm"
+        case s_scan_nm = "s_scan_nm"
+    }
+}
+
+
 /*
  {
- "Id": 34038,
- "Goods_Id": 19190,
- "Sizes_Id": 103,
- "Code": 2200000290847.0,
- "Goods": {
- "Id": 19190,
- "Group_Goods_Id": 367,
- "Name": "NB 574 Winter All Black ",
- "Code": null,
- "Description": null,
- "Location": "B 533 A 1032                                      ",
- "Vendor_Code": null,
- "GroupGoods": null,
- "TypeGoods": null,
- "Available_sizes": null
- },
- "Sizes": {
- "Id": 103,
- "Name": "44"
- },
- "Receipt": {
- "Id": 2040,
- "Receipt_Document_Id": 64,
- "Goods_Id": 19190,
- "Sizes_Id": 103,
- "Cost": 2600.0,
- "Count": 1,
- "ReceiptDocument": null,
- "Sizes": null,
- "Goods": null,
- "StockRemains": null
- }
+ "goods_id": 19503,
+ "min_size_id": 83,
+ "scan_size_id": null,
+ "cnt": null,
+ "status": 3,
+ "location": "C 29",
+ "type_goods_id": 9,
+ "g_nm": "Свитшот Lacoste Вельвет Серый",
+ "s_min_nm": "S",
+ "s_scan_nm": null
  }
  */

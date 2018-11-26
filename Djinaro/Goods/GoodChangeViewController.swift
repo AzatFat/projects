@@ -43,18 +43,17 @@ class GoodChangeViewController: UIViewController {
             good.name = name
             good.location = location
             good.price = Decimal(string: price)
-            print(good.price)
-            good.group_Goods_Id = goodGroupid != 0 ? goodGroupid: good.group_Goods_Id
+            good.type_Goods_Id = typeGoodId != 0 ? typeGoodId: good.type_Goods_Id
+            
             changeGood(good: good)
         } else {
-            createGood(good: Goods.init(id: 1, group_Goods_Id: goodGroupid, name: name, code: nil, description: nil, location: location, vendor_Code: nil, groupGoods: nil, available_sizes: nil, price: Decimal(string: price)))
+         let newGood = Goods.init(id: 1, group_Goods_Id: nil, name: name, code: nil, description: nil, location: location, vendor_Code: nil, groupGoods: nil, type_Goods_Id: typeGoodId, type_Goods: nil, available_sizes: nil, price: Decimal(string: price))
+           createGood(good:newGood)
         }
-        
-        
     }
     
     var good: Goods?
-    var goodGroupid = 0
+    var typeGoodId = 0
     private let pickerView = ToolbarPickerView()
     var pickerData: [TypeGoods] = []
     
@@ -68,7 +67,7 @@ class GoodChangeViewController: UIViewController {
                 GoodPrice.text = price.formattedAmount
                 GoodPrice.text = GoodPrice.text == ",00" ? "" : GoodPrice.text
             }
-            GoodType.text = good?.groupGoods?.name
+            GoodType.text = good?.type_Goods?.name
             
             saveButton.setTitle("Изменить товар", for: .normal)
         } else {
@@ -109,13 +108,14 @@ class GoodChangeViewController: UIViewController {
         let token = defaults.object(forKey:"token") as? String ?? ""
         receiptController.POSTGood(token: token, post: good) { (good) in
             if let good = good {
-                self.GoodName.text = good.name
-                self.GoodLocation.text = good.location
-                if let price = good.price {
-                    self.GoodPrice.text = price.formattedAmount
-                }
                 DispatchQueue.main.async {
+                    self.GoodName.text = good.name
+                    self.GoodLocation.text = good.location
+                    if let price = good.price {
+                        self.GoodPrice.text = price.formattedAmount
+                    }
                     self.error(title: "Товар успешно создан")
+                    self.saveButton.setTitle("Изменить товар", for: .normal)
                 }
             } else {
                 DispatchQueue.main.async {
@@ -136,7 +136,7 @@ class GoodChangeViewController: UIViewController {
                     self.pickerView.reloadAllComponents()
                     if self.good != nil {
                         for i in typeGoods {
-                            if self.good?.group_Goods_Id == i.id {
+                            if self.good?.type_Goods_Id == i.id {
                                 self.GoodType.text = i.name
                                 break
                             }
@@ -177,7 +177,7 @@ extension GoodChangeViewController: UIPickerViewDataSource, UIPickerViewDelegate
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.GoodType.text = self.pickerData[row].name
-        self.goodGroupid = self.pickerData[row].id
+        self.typeGoodId = self.pickerData[row].id
     }
 }
 

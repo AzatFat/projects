@@ -56,6 +56,7 @@ class QRScannerController: UIViewController {
     var needInventory = false
     var found_bar = 0
     var found_text = ""
+    var full_found_text = "'"
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     var qrCodeFrameView: UIView?
     var togleON = false
@@ -167,7 +168,7 @@ class QRScannerController: UIViewController {
         if presentedViewController != nil {
             return
         }
-        performSegue(withIdentifier: "BarCodeSearch", sender: nil)
+       //performSegue(withIdentifier: "BarCodeSearch", sender: nil)
         
         let alertPrompt = UIAlertController(title: "Open App", message: "You're going to open \(decodedURL)", preferredStyle: .actionSheet)
         let confirmAction = UIAlertAction(title: "Confirm", style: UIAlertAction.Style.default, handler: { (action) -> Void in
@@ -187,16 +188,24 @@ class QRScannerController: UIViewController {
         present(alertPrompt, animated: true, completion: nil)
  
     }
-    
 
     func segueToItemList(decodedString: String, searchType: String ) {
         if searchType == "ReceiptDocument" {
             performSegue(withIdentifier: "findReceiptInfo", sender: nil)
         } else if searchType == "findGood"  {
-            receiptController.GetReceipt(token: token, id: found_text) { (receipt) in
+          /*  receiptController.GetReceipt(token: token, id: found_text) { (receipt) in
                 if let receipt = receipt {
                     DispatchQueue.main.async {
                         self.found_text = String(receipt.goods_Id!)
+                        self.performSegue(withIdentifier: "findGood", sender: nil)
+                    }
+                }
+            }*/
+            let inventoryCode = InventoryCode.init(code: full_found_text)
+            receiptController.POSTSearchGoods(token: token, post: inventoryCode) { (good) in
+                if let good = good {
+                    DispatchQueue.main.async {
+                        self.found_text = String(good.id)
                         self.performSegue(withIdentifier: "findGood", sender: nil)
                     }
                 }
@@ -253,10 +262,9 @@ class QRScannerController: UIViewController {
                 }
             }
         } else if searchType == "POSTInventoryCode" {
-         
-            
-            receiptController.POSTInventoryCode(token: token, post: found_text) { (answer) in
-                
+            let inventoryCode = InventoryCode.init(code: full_found_text)
+            print(inventoryCode)
+            receiptController.POSTInventoryCode(token: token,  code: found_text, post: inventoryCode) { (answer) in
                 if answer == answer, answer == "true"{
                     DispatchQueue.main.async {
                         self.playOkSound()
@@ -287,27 +295,35 @@ class QRScannerController: UIViewController {
             }
         
         }else {
-            receiptController.GetBarCodeFind(barcode: found_text, token: token) { (barCode) in
+           /* receiptController.GetBarCodeFind(barcode: found_text, token: token) { (barCode) in
                 if let barCode = barCode {
                     self.found_text = String(barCode.goods_id ?? 0)
                     DispatchQueue.main.async {
                         self.performSegue(withIdentifier: "findGood", sender: nil)
                     }
                 }
+            }*/
+            let inventoryCode = InventoryCode.init(code: full_found_text)
+            receiptController.POSTSearchGoods(token: token, post: inventoryCode) { (good) in
+                if let good = good {
+                    DispatchQueue.main.async {
+                        self.found_text = String(good.id)
+                        self.performSegue(withIdentifier: "findGood", sender: nil)
+                    }
+                }
             }
-            
-            
            // performSegue(withIdentifier: "BarCodeSearch", sender: nil)
         }
         
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "BarCodeSearch" {
+       /* страя версия поиска товара по 1С
+            if segue.identifier == "BarCodeSearch" {
             let controller = segue.destination as! ItemsInfoTableViewController
             controller.id = found_text
             controller.type = "1"
-        }
+        }*/
         
         if segue.identifier == "findReceiptInfo" {
             let controller = segue.destination as! ArrivalInfoViewController
@@ -403,6 +419,7 @@ extension QRScannerController: AVCaptureMetadataOutputObjectsDelegate {
              //   launchApp(decodedURL: metadataObj.stringValue!)
                 
                 found_text = metadataObj.stringValue!
+                full_found_text = found_text
                 print("found_text is \(found_text)")
 ////// Working with segue type
                 let urlText = found_text.components(separatedBy: "/")

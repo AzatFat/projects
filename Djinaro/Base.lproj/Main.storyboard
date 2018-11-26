@@ -118,7 +118,6 @@
                         <outlet property="search" destination="MSO-Eo-7a4" id="C7s-ey-o5a"/>
                         <outlet property="searchDisplayController" destination="Ir4-WY-Q0W" id="dw6-XV-3W3"/>
                         <segue destination="l6A-H8-4EZ" kind="show" identifier="ItemInfo" id="0gY-wi-gwG"/>
-                        <segue destination="PjL-fn-p5u" kind="show" identifier="voiceSearch" id="zzi-VA-FXQ"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UTN-1T-LWv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -131,7 +130,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="5620.289855072464" y="618.75"/>
+            <point key="canvasLocation" x="10164" y="1248"/>
         </scene>
         <!--Items Info Table View Controller-->
         <scene sceneID="tcy-wV-Fnq">
@@ -234,7 +233,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OxU-9l-VCA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6615" y="616.90140845070425"/>
+            <point key="canvasLocation" x="11456" y="1248"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="CfY-5D-Mup">
@@ -268,7 +267,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oTx-tv-con">
-                                <rect key="frame" x="16" y="172" width="288" height="172"/>
+                                <rect key="frame" x="16" y="128" width="288" height="172"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="172" id="vKy-6w-QQ3"/>
                                 </constraints>
@@ -277,14 +276,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VGj-x1-TVz">
-                                <rect key="frame" x="16" y="104" width="288" height="60"/>
+                                <rect key="frame" x="16" y="60" width="288" height="60"/>
                                 <string key="text">Для поиска по размеру от 36 до 46 перечислите их и закончите фразу словом "размер".  Для поиска по наименованию назовите ключевую фразу  и нажмите нажмите "Поиск".</string>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="10"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" alpha="0.94999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PS0-P9-2Sn">
-                                <rect key="frame" x="110" y="412" width="100" height="91"/>
+                                <rect key="frame" x="110" y="368" width="100" height="91"/>
                                 <color key="backgroundColor" red="0.20318505167961121" green="0.85557115077972412" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="PS0-P9-2Sn" secondAttribute="height" multiplier="100:91" id="i2n-0D-JLD"/>
@@ -318,11 +317,13 @@
                         <outlet property="SpeecToText" destination="oTx-tv-con" id="WBO-g2-Rgf"/>
                         <outlet property="speechToTextOutlet" destination="PS0-P9-2Sn" id="SgP-5T-ptX"/>
                         <segue destination="8vS-Zx-9gc" kind="show" identifier="speachSearch" id="Vo1-sj-xLV"/>
+                        <segue destination="wfY-NL-urc" kind="unwind" identifier="backToGoodsVC" unwindAction="unwindToGoodsTableVCWithSegue:" id="UmR-O6-wBo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2uG-Ya-kv8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="wfY-NL-urc" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="6616.8000000000002" y="1396.5517241379312"/>
+            <point key="canvasLocation" x="10164" y="2176"/>
         </scene>
         <!--Поступления-->
         <scene sceneID="xvF-H3-J8k">
@@ -419,49 +420,49 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Дата поступления" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sRX-q7-VDe">
-                                <rect key="frame" x="16" y="153" width="115" height="16"/>
+                                <rect key="frame" x="16" y="109" width="115" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Дата проведения" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="47f-ev-sLS">
-                                <rect key="frame" x="16" y="184" width="110" height="16"/>
+                                <rect key="frame" x="16" y="140" width="110" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hOn-DX-yqq">
-                                <rect key="frame" x="167" y="139" width="82" height="30"/>
+                                <rect key="frame" x="167" y="95" width="82" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Oxc-Sm-cTo">
-                                <rect key="frame" x="167" y="177" width="82" height="30"/>
+                                <rect key="frame" x="167" y="133" width="82" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Наименование" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dM3-pz-dJV">
-                                <rect key="frame" x="16" y="75" width="53" height="18"/>
+                                <rect key="frame" x="16" y="31" width="53" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Товары" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NSH-J7-5Rm">
-                                <rect key="frame" x="16" y="224" width="53" height="18"/>
+                                <rect key="frame" x="16" y="180" width="53" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c38-re-4Y0">
-                                <rect key="frame" x="16" y="101" width="233" height="21"/>
+                                <rect key="frame" x="16" y="57" width="233" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WRl-ge-lvT">
-                                <rect key="frame" x="0.0" y="256" width="320" height="263"/>
+                                <rect key="frame" x="0.0" y="212" width="320" height="356"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="arrivalInfoCell" rowHeight="59" id="ShY-mU-Gec" customClass="ArrivalInfoTableViewCell" customModule="Djinaro" customModuleProvider="target">
@@ -506,7 +507,7 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vay-VD-Co0">
-                                <rect key="frame" x="87" y="218" width="69" height="30"/>
+                                <rect key="frame" x="87" y="174" width="69" height="30"/>
                                 <state key="normal" title="Добавить"/>
                                 <connections>
                                     <action selector="addNewGood:" destination="0io-A0-rfx" eventType="touchUpInside" id="MXA-A7-CUT"/>
@@ -754,7 +755,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Размер" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="92t-so-6oG">
-                                <rect key="frame" x="16" y="68" width="288" height="30"/>
+                                <rect key="frame" x="16" y="112" width="288" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="92t-so-6oG" secondAttribute="height" multiplier="48:5" id="UMl-aj-4EK"/>
                                 </constraints>
@@ -763,16 +764,16 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Цена" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IAG-c1-UdT">
-                                <rect key="frame" x="17" y="162" width="286" height="30"/>
+                                <rect key="frame" x="17" y="206" width="286" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="IAG-c1-UdT" secondAttribute="height" multiplier="143:15" id="bXs-8F-PFd"/>
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IMX-Up-cIe">
-                                <rect key="frame" x="125.5" y="257" width="69" height="30"/>
+                                <rect key="frame" x="125.5" y="254.5" width="69" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="IMX-Up-cIe" secondAttribute="height" multiplier="23:10" id="c8z-GX-qpy"/>
                                 </constraints>
@@ -782,7 +783,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eDx-1R-ScH">
-                                <rect key="frame" x="16" y="301.5" width="288" height="30.5"/>
+                                <rect key="frame" x="16" y="299" width="288" height="30.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="eDx-1R-ScH" secondAttribute="height" multiplier="142:15" id="8q2-Ce-A5f"/>
                                 </constraints>
@@ -791,7 +792,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Количество" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bgN-We-dSY">
-                                <rect key="frame" x="16" y="115" width="288" height="30"/>
+                                <rect key="frame" x="16" y="159" width="288" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="bgN-We-dSY" secondAttribute="height" multiplier="48:5" id="67K-Pq-z31"/>
                                 </constraints>
@@ -913,7 +914,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" id="g8S-As-bVT">
+                        <searchBar key="tableHeaderView" contentMode="redraw" text="" showsBookmarkButton="YES" id="g8S-As-bVT">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
@@ -953,18 +954,21 @@
                     <navigationItem key="navigationItem" title="Товары" id="zZX-Co-lU1">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="h1K-gH-tRt">
                             <connections>
-                                <segue destination="FlH-sn-2Zc" kind="show" identifier="goodInfo" id="nPF-bh-Tqg"/>
+                                <action selector="createGoods:" destination="wLf-e3-VaI" id="ENi-mx-VJ7"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="searchBar" destination="g8S-As-bVT" id="y5g-tA-MVv"/>
                         <segue destination="oSb-iK-zvM" kind="show" identifier="addGoodToArrival" id="EtZ-8j-68u"/>
+                        <segue destination="PjL-fn-p5u" kind="show" identifier="voiceSearch" id="aW7-M0-LSb"/>
+                        <segue destination="Qyr-oV-VD5" kind="show" identifier="createGoods" id="w2u-V5-dke"/>
+                        <segue destination="FlH-sn-2Zc" kind="show" identifier="goodInfo" id="4NM-PB-4qr"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G81-rz-vML" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6585" y="-201"/>
+            <point key="canvasLocation" x="6514" y="385"/>
         </scene>
         <!--Good View Controller-->
         <scene sceneID="b15-Fy-pFE">
@@ -1105,7 +1109,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eog-rf-bLu" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="d8V-qx-Laq" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="7705.6000000000004" y="-202.39880059970017"/>
+            <point key="canvasLocation" x="8083" y="25"/>
         </scene>
         <!--Good Info View Controller-->
         <scene sceneID="6gN-hH-13C">
@@ -1152,7 +1156,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mjd-Y6-HCZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8526" y="-431"/>
+            <point key="canvasLocation" x="8910" y="-202"/>
         </scene>
         <!--Good Change View Controller-->
         <scene sceneID="hse-Zd-TIa">
@@ -1227,7 +1231,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DeN-uG-tRm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="9518" y="-202"/>
+            <point key="canvasLocation" x="8081" y="844"/>
         </scene>
         <!--Title-->
         <scene sceneID="xo8-i9-UVV">
@@ -1238,14 +1242,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.60000002384185791" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No QR code is detected" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J2o-a8-GtH">
-                                <rect key="frame" x="0.0" y="479" width="320" height="40"/>
+                                <rect key="frame" x="0.0" y="435" width="320" height="133"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LUw-yK-coM">
-                                <rect key="frame" x="125" y="417" width="70" height="54"/>
+                                <rect key="frame" x="125" y="373" width="70" height="54"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <state key="normal" title="Light">
@@ -1282,7 +1286,6 @@
                         <outlet property="InventoryButtonOutlet" destination="w80-GV-FGq" id="NcV-lb-isE"/>
                         <outlet property="lightButton" destination="LUw-yK-coM" id="OS2-mE-HlM"/>
                         <outlet property="messageLabel" destination="J2o-a8-GtH" id="IJ8-c5-OCW"/>
-                        <segue destination="l6A-H8-4EZ" kind="show" identifier="BarCodeSearch" id="ur2-6f-m7R"/>
                         <segue destination="0io-A0-rfx" kind="show" identifier="findReceiptInfo" id="49n-Ls-Xae"/>
                         <segue destination="FlH-sn-2Zc" kind="show" identifier="findGood" id="SGn-z7-F7S"/>
                         <segue destination="ncf-F0-XMP" kind="unwind" identifier="addCheckRecordToCheck" unwindAction="unwindToContainerVCWithSegue:" id="Bf1-1Q-Utv"/>
@@ -1291,7 +1294,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zBQ-9Y-tsR" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="ncf-F0-XMP" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="5621.25" y="-492.25352112676057"/>
+            <point key="canvasLocation" x="5569" y="-432"/>
         </scene>
         <!--Location Image View Controller-->
         <scene sceneID="5Mq-bJ-8hp">
@@ -1356,7 +1359,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YpN-7M-3bd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7489.8550724637689" y="535.71428571428567"/>
+            <point key="canvasLocation" x="12242" y="1285"/>
         </scene>
         <!--Склад-->
         <scene sceneID="v6p-v9-afF">
@@ -1394,7 +1397,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DlW-dj-e6o" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4623.75" y="-492.25352112676057"/>
+            <point key="canvasLocation" x="4624" y="-432"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Mis-fq-FcR">
@@ -1408,7 +1411,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="8vS-Zx-9gc" kind="relationship" relationship="rootViewController" id="fLV-kL-4Cc"/>
+                        <segue destination="wLf-e3-VaI" kind="relationship" relationship="rootViewController" id="6zu-Up-QqZ"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="buq-nV-RZr" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1435,7 +1438,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5I5-jO-bEa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5621" y="1398"/>
+            <point key="canvasLocation" x="3863" y="1645"/>
         </scene>
         <!--ЛК-->
         <scene sceneID="4Wf-Bk-Tzy">
@@ -1454,7 +1457,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QRE-yj-gXK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4667" y="1398"/>
+            <point key="canvasLocation" x="2910" y="1645"/>
         </scene>
         <!--Мои открытые чеки-->
         <scene sceneID="3sL-fe-Nup">
@@ -1525,7 +1528,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gKI-Yu-sGn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5664.375" y="2176.0563380281692"/>
+            <point key="canvasLocation" x="5349" y="1248"/>
         </scene>
         <!--Title-->
         <scene sceneID="8D1-42-W4u">
@@ -1689,7 +1692,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Fb-21-k61" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6615.9420289855079" y="2175"/>
+            <point key="canvasLocation" x="6088" y="1248"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="QnB-e6-A7o">
@@ -1722,7 +1725,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tSe-5W-Sgr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4666.875" y="2175"/>
+            <point key="canvasLocation" x="4624" y="1248"/>
         </scene>
         <!--Клиенты-->
         <scene sceneID="Odd-CG-q6o">
@@ -1812,7 +1815,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HfX-LL-8xh" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="eD9-Z1-7IR" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="7644.375" y="1887.6760563380283"/>
+            <point key="canvasLocation" x="6992" y="1248"/>
         </scene>
         <!--Customer Info View Controller-->
         <scene sceneID="XJQ-Dk-3xc">
@@ -1907,7 +1910,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nlg-R2-FFT" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="1fg-SV-8ub" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="8540" y="1887.7061469265368"/>
+            <point key="canvasLocation" x="8526" y="2175"/>
         </scene>
     </scenes>
     <resources>
@@ -1918,12 +1921,11 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="WSb-tz-bLX"/>
-        <segue reference="gMD-RS-ETL"/>
-        <segue reference="nPF-bh-Tqg"/>
-        <segue reference="MpD-kU-lQt"/>
+        <segue reference="6uX-RN-tr1"/>
+        <segue reference="w2u-V5-dke"/>
+        <segue reference="SGn-z7-F7S"/>
+        <segue reference="szZ-x4-fzs"/>
         <segue reference="EtZ-8j-68u"/>
         <segue reference="49n-Ls-Xae"/>
-        <segue reference="ur2-6f-m7R"/>
-        <segue reference="fLV-kL-4Cc"/>
     </inferredMetricsTieBreakers>
 </document>

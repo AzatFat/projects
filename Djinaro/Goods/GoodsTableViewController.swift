@@ -22,8 +22,18 @@ class GoodsTableViewController: UITableViewController, UISearchBarDelegate {
     let defaults = UserDefaults.standard
     var token = ""
     var checkRecord: CheckRecord?
+    var goodsFrontShop = [InventoryFrontShop]()
     
     @IBOutlet var searchBar: UISearchBar!
+    
+    @IBAction func unwindToGoodsTableVC(segue: UIStoryboardSegue) {
+        
+    }
+
+    @IBAction func createGoods(_ sender: Any) {
+        performSegue(withIdentifier: "createGoods", sender: nil)
+    }
+    
     
    // let searchController = UISearchController(searchResultsController: nil)
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
@@ -45,6 +55,7 @@ class GoodsTableViewController: UITableViewController, UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         token = defaults.object(forKey:"token") as? String ?? ""
+        searchBar.setImage(UIImage(named: "microphone.png"), for: .bookmark, state: .normal)
         self.addPreload(start_stop: true)
         getGoods()
         searchBar.delegate = self
@@ -60,7 +71,7 @@ class GoodsTableViewController: UITableViewController, UISearchBarDelegate {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return goods.count
+         return goods.count
     }
 
     
@@ -69,12 +80,11 @@ class GoodsTableViewController: UITableViewController, UISearchBarDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? GoodsTableViewCell  else {
             fatalError("The dequeued cell is not an instance of GoodsTableViewCell.")
         }
-        // Configure the cell...
+
         let good  = goods[indexPath.row]
         if let goodName = good.name {
             cell.goodName.text  = goodName
         }
-        
         return cell
     }
     
@@ -102,6 +112,10 @@ class GoodsTableViewController: UITableViewController, UISearchBarDelegate {
             }
             controller.receipt_Document_Id = receipt_Document_Id
         }
+        
+        if segue.identifier == "createGood" {
+            let controller = segue.destination as! GoodChangeViewController
+        }
     }
     
     func getGoods () {
@@ -117,18 +131,16 @@ class GoodsTableViewController: UITableViewController, UISearchBarDelegate {
         }
     }
     
-    func searchGoods (search: String) {
+    func searchGoods (search: String, sizes: String) {
         print("trying search Good")
-        if search != "" {
-            recieptController.GetGoodsSearch(token: token, search: search) { (listGoods) in
-                if let listGoods = listGoods {
-                    print("listReceipt get succes")
-                    self.goods = listGoods
-                }
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                    self.addPreload(start_stop:  false)
-                }
+        recieptController.GetGoodsSearch(token: token, search: search, sizes: sizes) { (listGoods) in
+            if let listGoods = listGoods {
+                print("listReceipt get succes")
+                self.goods = listGoods
+            }
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.addPreload(start_stop:  false)
             }
         }
     }
@@ -137,6 +149,7 @@ class GoodsTableViewController: UITableViewController, UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = true;
         searchBar.showsScopeBar = true
+        searchBar.scopeButtonTitles = ["Наименование", "Размер"]
         searchBar.sizeToFit()
     }
     
@@ -150,26 +163,37 @@ class GoodsTableViewController: UITableViewController, UISearchBarDelegate {
         searchBar.showsCancelButton = false;
         searchBar.showsScopeBar = false
         searchBar.sizeToFit()
-        
         addPreload(start_stop: true)
         getGoods()
         searchBar.resignFirstResponder()
     }
     
-    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         print(" search Click")
-
+        guard let scopeString = searchBar.scopeButtonTitles? [searchBar.selectedScopeButtonIndex] else {return }
         searchBar.showsCancelButton = false;
         searchBar.showsScopeBar = false
         searchBar.sizeToFit()
         
         self.addPreload(start_stop: true)
         if searchBar.text != "" {
-            searchGoods(search: searchBar.text!)
+            if scopeString == "Размер"{
+                let searchList_1 = searchBar.text!.replacingOccurrences(of: ", ", with: ",")
+                let searchList = searchList_1.replacingOccurrences(of: " ", with: ",")
+                searchGoods(search: "", sizes: searchList)
+            } else {
+                searchGoods(search: searchBar.text!, sizes: "")
+            }
         }
         searchBar.resignFirstResponder()
     }
+    
+    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
+        
+        print("bar button clicked")
+        performSegue(withIdentifier: "voiceSearch", sender: nil)
+    }
+    
     //////
 
     
@@ -186,49 +210,18 @@ class GoodsTableViewController: UITableViewController, UISearchBarDelegate {
         return nil
     }
     
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    func getFrontInventoryShop() {
+        
+        recieptController.GetFrontInventoryGoods(token: token) { (frontGoods) in
+            if let frontGoods = frontGoods {
+                self.goodsFrontShop = frontGoods
+            }
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.addPreload(start_stop:  false)
+            }
+        }
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
+

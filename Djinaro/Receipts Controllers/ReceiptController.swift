@@ -11,8 +11,8 @@ import UIKit
 
 
 class ReceiptController : UIViewController {
-   // let baseURL = URL(string: "http://91.203.195.74:5001")!
-    let baseURL = URL(string: "http://192.168.88.190")!
+    let baseURL = URL(string: "http://91.203.195.74:5001")!
+   // let baseURL = URL(string: "http://192.168.88.190")!
     var token : String?
     var tokenType : String?
 
@@ -526,7 +526,7 @@ class ReceiptController : UIViewController {
     }
     
     
-    
+    // ПОиск товаров
     func GetGoods(token: String, completion: @escaping ([Goods]?) -> Void) {
         let GetReceipt = baseURL.appendingPathComponent("/api/Goods/")
         let components = URLComponents(url: GetReceipt, resolvingAgainstBaseURL: true)!
@@ -561,14 +561,60 @@ class ReceiptController : UIViewController {
     }
     
     
-    func GetGoodsSearch(token: String, search:String, completion: @escaping ([Goods]?) -> Void) {
+    // Поиск товара через QR код
+    func POSTSearchGoods (token: String, post: InventoryCode, completion: @escaping (Goods?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("/api/goods/scaner/")
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        let jsonEcoder = JSONEncoder()
+        let jsonData = try? jsonEcoder.encode(post)
+        request.httpBody = jsonData
+        print(request)
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode(Goods.self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode(Goods.self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in Post searchGoods by QR")
+                        print(error)
+                        self.denyAuthorisation(data: data)
+                        completion(nil)
+                    }
+                }
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
+    
+    // поиск списка товаров
+    func GetGoodsSearch(token: String, search:String, sizes: String, completion: @escaping ([Goods]?) -> Void) {
         let GetReceipt = baseURL.appendingPathComponent("/api/Goods/Search")
         var components = URLComponents(url: GetReceipt, resolvingAgainstBaseURL: true)!
-        components.queryItems = [URLQueryItem(name: "start", value: "0"), URLQueryItem(name: "length", value: "100"),URLQueryItem(name: "search", value: search)]
+        
+        if search == "" {
+            components.queryItems = [URLQueryItem(name: "start", value: "0"), URLQueryItem(name: "length", value: "100"), URLQueryItem(name: "sizes", value: sizes)]
+        } else if sizes == "" {
+            components.queryItems = [URLQueryItem(name: "start", value: "0"), URLQueryItem(name: "length", value: "100"), URLQueryItem(name: "search", value:  search)]
+        }
+        
         let ReceiptURL = components.url!
         var request = URLRequest(url: ReceiptURL)
         request.httpMethod = "GET"
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        print(request)
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             let jsonDecoder = JSONDecoder()
             if let data = data{
@@ -594,7 +640,7 @@ class ReceiptController : UIViewController {
         
         task.resume()
     }
-    
+    //ПОлучение одного товара
     
     func GetGood(token: String, goodId: String, completion: @escaping (Goods?) -> Void) {
         let GetGood = baseURL.appendingPathComponent("/api/Goods/" + goodId)
@@ -1250,8 +1296,8 @@ class ReceiptController : UIViewController {
     }
     
     // Инвентаризация добавление товара к общему количеству
-    func POSTInventoryCode (token: String, post: String, completion: @escaping (String?) -> Void) {
-        let PostReceipt = baseURL.appendingPathComponent("/api/Inventory/Enter/" + post)
+    func POSTInventoryCode (token: String, code: String, post: InventoryCode, completion: @escaping (String?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("/api/Inventory/Enter/")
         let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
         let ReceiptURL = components.url!
         var request = URLRequest(url: ReceiptURL)
@@ -1273,6 +1319,44 @@ class ReceiptController : UIViewController {
         }
         task.resume()
     }
+    
+  
+    // список просканированных товаров
+    func GetFrontInventoryGoods(token: String, completion: @escaping ([InventoryFrontShop]?) -> Void) {
+        let GetReceipt = baseURL.appendingPathComponent("/api/InventoryFrontShop/View")
+        let components = URLComponents(url: GetReceipt, resolvingAgainstBaseURL: true)!
+//        components.queryItems = [URLQueryItem(name: "start", value: "0"), URLQueryItem(name: "length", value: "100"),URLQueryItem(name: "search", value: search)]
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode([InventoryFrontShop].self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode([InventoryFrontShop].self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in getting Customer List")
+                        print(error)
+                        self.denyAuthorisation(data: data)
+                        completion(nil)
+                    }
+                }
+                
+            } else {
+                completion(nil)
+            }
+        }
+        
+        task.resume()
+    }
+    
+    
 }
 
 
