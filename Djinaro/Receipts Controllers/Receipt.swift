@@ -123,6 +123,7 @@ struct Goods: Codable {
     var type_Goods: TypeGoods?
     var available_sizes:  [Available_sizes]?
     var price: Decimal?
+    var priceReceipt: Decimal?
     
     
     enum CodingKeys: String, CodingKey {
@@ -138,6 +139,7 @@ struct Goods: Codable {
         case type_Goods_Id = "Type_Goods_Id"
         case available_sizes = "Available_sizes"
         case price = "Price"
+        case priceReceipt = "Price_Receipt"
     }
 
 }
@@ -439,7 +441,7 @@ struct InventoryCode: Codable {
     }
 }
 
-
+// Количество товаров на витрине
 struct InventoryFrontShop: Codable {
     var goods_id: Int
     var min_size_id: Int?
@@ -466,18 +468,47 @@ struct InventoryFrontShop: Codable {
     }
 }
 
+// Запись
+struct InventoryFrontShopRow: Codable {
+    var id: Int
+    var goods_Id: Int?
+    var sizes_Id: Int?
+    var cnt: Int?
+    var status: Int?
+    var goods: Int?
+    var sizes: String?
 
-/*
- {
- "goods_id": 19503,
- "min_size_id": 83,
- "scan_size_id": null,
- "cnt": null,
- "status": 3,
- "location": "C 29",
- "type_goods_id": 9,
- "g_nm": "Свитшот Lacoste Вельвет Серый",
- "s_min_nm": "S",
- "s_scan_nm": null
- }
- */
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "Id"
+        case goods_Id = "Goods_Id"
+        case sizes_Id = "Sizes_Id"
+        case status = "Status"
+        case cnt = "Cnt"
+        case goods = "Goods"
+        case sizes = "Sizes"
+    }
+}
+// Достижения продавцов
+
+struct userAchivements: Codable {
+    var name: String
+    var value: Decimal?
+    enum CodingKeys: String, CodingKey {
+        case name = "name"
+        case value = "value"
+    }
+}
+
+// Лист достижений продавцов
+struct userListAchivements: Codable {
+    var day: [userAchivements]
+    var week: [userAchivements]
+    var month: [userAchivements]
+    
+    enum CodingKeys: String, CodingKey {
+        case day = "day"
+        case week = "week"
+        case month = "month"
+    }
+}

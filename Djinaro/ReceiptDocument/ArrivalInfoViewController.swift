@@ -24,7 +24,7 @@ class ArrivalInfoViewController: UIViewController, UITableViewDelegate, UITableV
     private var theDatePicker: UIDatePicker!
     
     @IBAction func printButton(_ sender: Any) {
-        acceptPrinting()
+        acceptPrintingReceiptDocument()
     }
     var receiptId = ""
     let receiptController = ReceiptController()
@@ -116,6 +116,20 @@ class ArrivalInfoViewController: UIViewController, UITableViewDelegate, UITableV
         performSegue(withIdentifier: "addGoodToArrival", sender: cell)
     }
     
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let receiptDocumentId = recieptDocument!.id
+        let goodId = GroupReceiptsList[indexPath.row].objectGood.id
+        let printGoodReceipts = UITableViewRowAction(style: .normal, title: "Печать модели") { (action, indexPath) in
+            self.acceptPrintingAllGoodsReceipts(receiptDocumentId: String(receiptDocumentId), goodId: String(goodId))
+        }
+        
+        printGoodReceipts.backgroundColor = UIColor.blue
+        
+        return [printGoodReceipts]
+    }
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "addGoodToArrival" {
             let controller = segue.destination as! AddGoodsToArrivalViewController
@@ -194,6 +208,7 @@ class ArrivalInfoViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func GETReceiptDocument () {
+        print("try GETReceiptDocument")
         if receiptId != "" {
             receiptController.GetReceiptDocument(token: token, id: receiptId) { (receiptDocument) in
                 if let receiptDocument = receiptDocument {
@@ -212,7 +227,7 @@ class ArrivalInfoViewController: UIViewController, UITableViewDelegate, UITableV
                     self.addPreload(start_stop: false)
                 }
             }
-        }
+        } else {print("try GETReceiptDocument no receipt == null")}
     }
     
     
@@ -230,7 +245,7 @@ class ArrivalInfoViewController: UIViewController, UITableViewDelegate, UITableV
                     }
                     DispatchQueue.main.async {
                         // self.tableView.reloadData()
-                        self.closingDocument(title: message)
+                        self.printingAnswer(title: message)
                         if let receipts = self.recieptDocument?.receiptList {
                             self.GroupReceiptsList = self.countCostEachreceipt(receipts: receipts)
                             self.tableView.reloadData()
@@ -241,6 +256,8 @@ class ArrivalInfoViewController: UIViewController, UITableViewDelegate, UITableV
                         self.addPreload(start_stop: false)
                     }
                 }
+            } else {
+                self.printingAnswer(title: "Документ уже проведен, повторное проведение не возможно")
             }
         }
     }
@@ -251,11 +268,21 @@ class ArrivalInfoViewController: UIViewController, UITableViewDelegate, UITableV
         if let recieptPrintDocument = self.recieptDocument {
             self.receiptController.PRINTReceiptDocument(token: token, post: recieptPrintDocument, completion: { (title) in
                 DispatchQueue.main.async {
-                    self.printingDocument(title: title ?? "Произошла ошибка")
+                    self.printingAnswer(title: title ?? "Произошла ошибка")
                     self.addPreload(start_stop: false)
                 }
             })
             
+        }
+    }
+    
+    func PrintAllGoodsReceipts(receiptDocumentId: String, goodId: String) {
+        self.addPreload(start_stop: true)
+        receiptController.PRINTAllGoodReceiptsInDocument(token: token, receiptDocumentId: receiptDocumentId, goodId: goodId) { (title) in
+            DispatchQueue.main.async {
+                self.printingAnswer(title: title ?? "Произошла ошибка")
+                self.addPreload(start_stop: false)
+            }
         }
     }
     
@@ -291,7 +318,7 @@ class ArrivalInfoViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
 //////// Alert on print
-    func acceptPrinting() {
+    func acceptPrintingReceiptDocument() {
         let alert = UIAlertController(title: "Вы действительно хотите распечатать документ поступления?", message: nil, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Да", style: .default, handler: { action in
             self.PrintReceiptDocument()
@@ -306,6 +333,19 @@ class ArrivalInfoViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     
+    func acceptPrintingAllGoodsReceipts(receiptDocumentId: String, goodId: String) {
+        let alert = UIAlertController(title: "Вы действительно хотите распечатать модель поступления?", message: nil, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Да", style: .default, handler: { action in
+            self.PrintAllGoodsReceipts(receiptDocumentId: receiptDocumentId, goodId: goodId)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Нет", style: .cancel, handler: { action in
+            
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     func closeDocument() {
         let alert = UIAlertController(title: "Вы действительно хотите провести документ поступления?", message: nil, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Да", style: .default, handler: { action in
@@ -319,7 +359,7 @@ class ArrivalInfoViewController: UIViewController, UITableViewDelegate, UITableV
         
         self.present(alert, animated: true, completion: nil)
     }
-    func closingDocument(title : String) {
+/*    func closingDocument(title : String) {
         self.addPreload(start_stop: false)
         let alert = UIAlertController(title: title, message: nil, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
@@ -327,10 +367,10 @@ class ArrivalInfoViewController: UIViewController, UITableViewDelegate, UITableV
         }))
         
         self.present(alert, animated: true, completion: nil)
-    }
+    }*/
     
     
-    func printingDocument(title : String) {
+    func printingAnswer(title : String) {
         self.addPreload(start_stop: false)
         let alert = UIAlertController(title: title, message: nil, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in

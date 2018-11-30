@@ -22,7 +22,6 @@ class GoodsTableViewController: UITableViewController, UISearchBarDelegate {
     let defaults = UserDefaults.standard
     var token = ""
     var checkRecord: CheckRecord?
-    var goodsFrontShop = [InventoryFrontShop]()
     
     @IBOutlet var searchBar: UISearchBar!
     
@@ -184,6 +183,8 @@ class GoodsTableViewController: UITableViewController, UISearchBarDelegate {
             } else {
                 searchGoods(search: searchBar.text!, sizes: "")
             }
+        } else {
+            getGoods()
         }
         searchBar.resignFirstResponder()
     }
@@ -208,20 +209,6 @@ class GoodsTableViewController: UITableViewController, UISearchBarDelegate {
             }
         }
         return nil
-    }
-    
-    
-    func getFrontInventoryShop() {
-        
-        recieptController.GetFrontInventoryGoods(token: token) { (frontGoods) in
-            if let frontGoods = frontGoods {
-                self.goodsFrontShop = frontGoods
-            }
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                self.addPreload(start_stop:  false)
-            }
-        }
     }
 }
 

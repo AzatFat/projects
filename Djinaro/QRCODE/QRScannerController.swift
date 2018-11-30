@@ -22,9 +22,13 @@ struct QRReceiptDocument: Codable {
     
 }
 
+protocol SpyDelegate: class {
+    func getFrontInventoryShop()
+}
 
 class QRScannerController: UIViewController {
 
+   
     @IBAction func lightButton(_ sender: Any) {
         if togleON {
             toggleTorch(on: false)
@@ -38,28 +42,44 @@ class QRScannerController: UIViewController {
     @IBOutlet var messageLabel: UILabel!
     @IBOutlet var lightButton: UIButton!
     @IBAction func inventotyRegimeButton(_ sender: Any) {
-
-        if needInventory == false {
-            needInventory = true
+        
+        
+        if needInventory == false && frontInventory == false {
+            inventoryType(title: "Выберите режим инвентаризации")
             InventoryButtonOutlet.tintColor = .red
         } else {
             needInventory = false
+            frontInventory = false
             InventoryButtonOutlet.tintColor = .blue
+            self.view.sendSubviewToBack(viewGoodsTable)
         }
         
     }
     
     @IBOutlet var InventoryButtonOutlet: UIBarButtonItem!
     
+    
+    @IBOutlet var viewGoodsTable: UIView!
+    
+    
     var captureSession = AVCaptureSession()
     var checkRecord: CheckRecord?
+    
+    // Переменный для инвентаризации
     var needInventory = false
+    var frontInventory = false
+    var tableInventory = InventoryViewController()
+    weak var delegate : SpyDelegate?
+    
+    // Переменные найденного QR илил BAR
     var found_bar = 0
     var found_text = ""
     var full_found_text = "'"
+    
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     var qrCodeFrameView: UIView?
     var togleON = false
+    
     var receiptController = ReceiptController()
     var qrReceiptDocument: QRReceiptDocument?
     var token = ""
@@ -86,7 +106,9 @@ class QRScannerController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         captureSession.startRunning()
         needInventory = false
+         frontInventory = false
         InventoryButtonOutlet.tintColor = .blue
+        self.view.sendSubviewToBack(viewGoodsTable)
         found_bar = 0
     }
     override func viewDidDisappear(_ animated: Bool) {
@@ -136,14 +158,14 @@ class QRScannerController: UIViewController {
         videoPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
         videoPreviewLayer?.frame = view.layer.bounds
         view.layer.addSublayer(videoPreviewLayer!)
-        
+        //delegate = self
         // Start video capture.
         captureSession.startRunning()
         
         // Move the message label and top bar to the front
         view.bringSubviewToFront(messageLabel)
+        //view.bringSubviewToFront(viewGoodsTable)
         view.bringSubviewToFront(lightButton)
-      //  view.bringSubviewToFront(topbar)
         
         // Initialize QR Code Frame to highlight the QR code
         qrCodeFrameView = UIView()
@@ -190,131 +212,176 @@ class QRScannerController: UIViewController {
     }
 
     func segueToItemList(decodedString: String, searchType: String ) {
-        if searchType == "ReceiptDocument" {
-            performSegue(withIdentifier: "findReceiptInfo", sender: nil)
-        } else if searchType == "findGood"  {
-          /*  receiptController.GetReceipt(token: token, id: found_text) { (receipt) in
-                if let receipt = receipt {
-                    DispatchQueue.main.async {
-                        self.found_text = String(receipt.goods_Id!)
-                        self.performSegue(withIdentifier: "findGood", sender: nil)
-                    }
-                }
-            }*/
-            let inventoryCode = InventoryCode.init(code: full_found_text)
-            receiptController.POSTSearchGoods(token: token, post: inventoryCode) { (good) in
-                if let good = good {
-                    DispatchQueue.main.async {
-                        self.found_text = String(good.id)
-                        self.performSegue(withIdentifier: "findGood", sender: nil)
-                    }
-                }
-            }
-        }else if searchType == "addCheckRecordToCheck" {
-            receiptController.GetReceipt(token: token, id: found_text) { (receipt) in
-                if let receipt = receipt {
-                    
-                    self.checkRecord?.goods_Id = receipt.goods_Id
-                    self.checkRecord?.sizes_Id = receipt.sizes_Id
-                    self.checkRecord?.cost = receipt.cost
-                    self.checkRecord?.discount = 0
-                    self.checkRecord?.total_Cost = receipt.cost
-                    
-                    self.receiptController.POSTCheckRecord(token: self.token, post: self.checkRecord!) { (checkRecord) in
-                        if let checkRecord = checkRecord {
-                            print("added checkRecord is \(checkRecord)")
-                            DispatchQueue.main.async {
-                                self.performSegue(withIdentifier: "addCheckRecordToCheck", sender: self)
-                            }
-                        } else {
-                            print("error in add checkRecord \(String(describing: checkRecord))")
-                        }
-                    }
-                }
-            }
-        } else if searchType == "addCustomerToCheck" {
-            if let checkRecord = checkRecord, let checkId = checkRecord.check_Id {
-                receiptController.POSTCustomerToCheck(token: token, checkId: String(checkId), customerId: found_text) { (check) in
-                    DispatchQueue.main.async {
-                        self.performSegue(withIdentifier: "addCheckRecordToCheck", sender: self)
-                    }
-                }
-            }
-        } else if searchType == "addCheckRecordToCheckFromBarCode" {
-            receiptController.GetBarCodeFind(barcode: found_text, token: token) { (barCode) in
-                if let barCode = barCode {
-                    self.checkRecord?.goods_Id = barCode.goods_id
-                    self.checkRecord?.sizes_Id = barCode.sizes_id
-                    self.checkRecord?.cost = barCode.receipt?.cost
-                    self.checkRecord?.discount = 0
-                    self.checkRecord?.total_Cost = barCode.receipt?.cost
-                    
-                    self.receiptController.POSTCheckRecord(token: self.token, post: self.checkRecord!) { (checkRecord) in
-                        if let checkRecord = checkRecord {
-                            print("added checkRecord is \(checkRecord)")
-                            DispatchQueue.main.async {
-                                self.performSegue(withIdentifier: "addCheckRecordToCheck", sender: self)
-                            }
-                        } else {
-                            print("error in add checkRecord \(String(describing: checkRecord))")
-                        }
-                    }
-                }
-            }
-        } else if searchType == "POSTInventoryCode" {
-            let inventoryCode = InventoryCode.init(code: full_found_text)
-            print(inventoryCode)
-            receiptController.POSTInventoryCode(token: token,  code: found_text, post: inventoryCode) { (answer) in
-                if answer == answer, answer == "true"{
-                    DispatchQueue.main.async {
-                        self.playOkSound()
-                        // делаем скриншот
-                        let newImage = UIApplication.shared.screenShot
-                        
-                        let newImageView = UIImageView(image: newImage)
-                        newImageView.frame = UIScreen.main.bounds
-                        newImageView.backgroundColor = .black
-                        newImageView.contentMode = .scaleAspectFit
-                        newImageView.isUserInteractionEnabled = true
-                        self.view.addSubview(newImageView)
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            //newImageView.removeFromSuperview()
-                            
-                            UIView.animate(withDuration: 0.1, animations: {newImageView.alpha = 0.4},
-                                           completion: {(value: Bool) in
-                                            self.found_bar = 0
-                                            // self.view.removeFromSuperview()
-                                            newImageView.removeFromSuperview()
-                            })
-                            
-                        }
-                    }
-                } else {
-                    self.error(title: "Сканирование не прошло")
-                }
-            }
         
-        }else {
-           /* receiptController.GetBarCodeFind(barcode: found_text, token: token) { (barCode) in
-                if let barCode = barCode {
-                    self.found_text = String(barCode.goods_id ?? 0)
-                    DispatchQueue.main.async {
-                        self.performSegue(withIdentifier: "findGood", sender: nil)
-                    }
-                }
-            }*/
-            let inventoryCode = InventoryCode.init(code: full_found_text)
-            receiptController.POSTSearchGoods(token: token, post: inventoryCode) { (good) in
-                if let good = good {
-                    DispatchQueue.main.async {
-                        self.found_text = String(good.id)
-                        self.performSegue(withIdentifier: "findGood", sender: nil)
-                    }
-                }
-            }
-           // performSegue(withIdentifier: "BarCodeSearch", sender: nil)
+        switch searchType {
+        case "ReceiptDocument":
+            receiptDocument()
+        case "findGood":
+            findGood()
+        case "addCustomerToCheck":
+            addCustomerToCheck()
+        case "addCheckRecordToCheckFromBarCode":
+            addCheckRecordToCheckFromBarCode()
+        case "POSTInventoryCode":
+            POSTInventoryCode()
+        case "POSTFrontInventoryShop":
+            POSTFrontInventoryShop()
+        default:
+            findGood()
         }
-        
+    
+    }
+    
+    func receiptDocument() {
+        performSegue(withIdentifier: "findReceiptInfo", sender: nil)
+    }
+    
+    func POSTFrontInventoryShop() {
+        let inventoryCode = InventoryCode.init(code: full_found_text)
+        print(inventoryCode)
+        receiptController.POSTInventoryEnter(token: token,  code: found_text, post: inventoryCode) { (answer) in
+            print("answer is  \(answer)")
+            if answer == answer, answer != "-1" {
+                
+                DispatchQueue.main.async {
+                    self.playOkSound()
+                    // делаем скриншот
+                    let newImage = UIApplication.shared.screenShot
+                    
+                    let newImageView = UIImageView(image: newImage)
+                    newImageView.frame = UIScreen.main.bounds
+                    newImageView.backgroundColor = .black
+                    newImageView.contentMode = .scaleAspectFit
+                    newImageView.isUserInteractionEnabled = true
+                    self.view.addSubview(newImageView)
+                    
+
+                    if self.delegate != nil {
+                        self.delegate?.getFrontInventoryShop()
+                    } else {
+                        print("Delegate is null")
+                    }
+                    self.tableInventory.getFrontInventoryShop()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        //newImageView.removeFromSuperview()
+                        
+                        UIView.animate(withDuration: 0.1, animations: {newImageView.alpha = 0.4},
+                                       completion: {(value: Bool) in
+                                        self.found_bar = 0
+                                        // self.view.removeFromSuperview()
+                                        newImageView.removeFromSuperview()
+                        })
+                        
+                    }
+                }
+            } else {
+                self.error(title: "Сканирование не прошло")
+            }
+        }
+    }
+    
+    func findGood() {
+        let inventoryCode = InventoryCode.init(code: full_found_text)
+        receiptController.POSTSearchGoods(token: token, post: inventoryCode) { (good) in
+            if let good = good {
+                DispatchQueue.main.async {
+                    self.found_text = String(good.id)
+                    self.performSegue(withIdentifier: "findGood", sender: nil)
+                }
+            }
+        }
+    }
+    
+    func addCheckRecordToCheck() {
+        receiptController.GetReceipt(token: token, id: found_text) { (receipt) in
+            if let receipt = receipt {
+                self.checkRecord?.goods_Id = receipt.goods_Id
+                self.checkRecord?.sizes_Id = receipt.sizes_Id
+                self.checkRecord?.cost = receipt.cost
+                self.checkRecord?.discount = 0
+                self.checkRecord?.total_Cost = receipt.cost
+                
+                self.receiptController.POSTCheckRecord(token: self.token, post: self.checkRecord!) { (checkRecord) in
+                    if let checkRecord = checkRecord {
+                        print("added checkRecord is \(checkRecord)")
+                        DispatchQueue.main.async {
+                            self.performSegue(withIdentifier: "addCheckRecordToCheck", sender: self)
+                        }
+                    } else {
+                        print("error in add checkRecord \(String(describing: checkRecord))")
+                    }
+                }
+            }
+        }
+    }
+    
+    func addCustomerToCheck() {
+        if let checkRecord = checkRecord, let checkId = checkRecord.check_Id {
+            receiptController.POSTCustomerToCheck(token: token, checkId: String(checkId), customerId: found_text) { (check) in
+                DispatchQueue.main.async {
+                    self.performSegue(withIdentifier: "addCheckRecordToCheck", sender: self)
+                }
+            }
+        }
+    }
+
+
+    
+    func POSTInventoryCode() {
+        let inventoryCode = InventoryCode.init(code: full_found_text)
+        print(inventoryCode)
+        receiptController.POSTInventoryCode(token: token,  code: found_text, post: inventoryCode) { (answer) in
+            if answer == answer, answer == "true"{
+                DispatchQueue.main.async {
+                    self.playOkSound()
+                    // делаем скриншот
+                    let newImage = UIApplication.shared.screenShot
+                    
+                    let newImageView = UIImageView(image: newImage)
+                    newImageView.frame = UIScreen.main.bounds
+                    newImageView.backgroundColor = .black
+                    newImageView.contentMode = .scaleAspectFit
+                    newImageView.isUserInteractionEnabled = true
+                    self.view.addSubview(newImageView)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        //newImageView.removeFromSuperview()
+                        
+                        UIView.animate(withDuration: 0.1, animations: {newImageView.alpha = 0.4},
+                                       completion: {(value: Bool) in
+                                        self.found_bar = 0
+                                        // self.view.removeFromSuperview()
+                                        newImageView.removeFromSuperview()
+                        })
+                        
+                    }
+                }
+            } else {
+                self.error(title: "Сканирование не прошло")
+            }
+        }
+    }
+    
+    func addCheckRecordToCheckFromBarCode() {
+        receiptController.GetBarCodeFind(barcode: found_text, token: token) { (barCode) in
+            if let barCode = barCode {
+                self.checkRecord?.goods_Id = barCode.goods_id
+                self.checkRecord?.sizes_Id = barCode.sizes_id
+                self.checkRecord?.cost = barCode.receipt?.cost
+                self.checkRecord?.discount = 0
+                self.checkRecord?.total_Cost = barCode.receipt?.cost
+                
+                self.receiptController.POSTCheckRecord(token: self.token, post: self.checkRecord!) { (checkRecord) in
+                    if let checkRecord = checkRecord {
+                        print("added checkRecord is \(checkRecord)")
+                        DispatchQueue.main.async {
+                            self.performSegue(withIdentifier: "addCheckRecordToCheck", sender: self)
+                        }
+                    } else {
+                        print("error in add checkRecord \(String(describing: checkRecord))")
+                    }
+                }
+            }
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -339,6 +406,12 @@ class QRScannerController: UIViewController {
             let controller = segue.destination as! CheckRecordViewController
             controller.checkId = checkRecord?.check_Id
         }
+    
+        if let controller = segue.destination as? InventoryViewController, segue.identifier == "GoodList" {
+            self.tableInventory = controller
+            //controller.labelString = self.stringToPass
+        }
+        
     }
     func playOkSound() {
         
@@ -367,7 +440,22 @@ class QRScannerController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    
+    func inventoryType(title : String) {
+        //self.addPreload(start_stop: false)
+        let alert = UIAlertController(title: title, message: nil, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Склад", style: .default, handler: { action in
+            //self.found_bar = 0
+            self.needInventory = true
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Витрина", style: .default, handler: { action in
+            //self.found_bar = 0
+            self.frontInventory = true
+            self.view.bringSubviewToFront(self.viewGoodsTable)
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
     //// фонарик
     func toggleTorch(on: Bool) {
         guard let device = AVCaptureDevice.default(for: .video) else { return }
@@ -428,6 +516,10 @@ extension QRScannerController: AVCaptureMetadataOutputObjectsDelegate {
                 if needInventory == true {
                     found_text = (urlText[0] == "https:" || urlText[0] == "http:") ? urlText[urlText.count - 1] : found_text
                     searchType = "POSTInventoryCode"
+                    
+                }else if frontInventory == true {
+                    found_text = (urlText[0] == "https:" || urlText[0] == "http:") ? urlText[urlText.count - 1] : found_text
+                    searchType = "POSTFrontInventoryShop"
                     
                 } else if urlText[0] == "https:" && checkRecord == nil{
                     

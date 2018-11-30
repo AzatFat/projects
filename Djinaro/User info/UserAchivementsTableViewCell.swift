@@ -1,18 +1,17 @@
 //
-//  GoodsInfoTableViewCell.swift
+//  UserAchivementsTableViewCell.swift
 //  Djinaro
 //
-//  Created by Azat on 27.09.2018.
+//  Created by Azat on 30.11.2018.
 //  Copyright © 2018 Azat. All rights reserved.
 //
 
 import UIKit
 
-class GoodsInfoTableViewCell: UITableViewCell {
+class UserAchivementsTableViewCell: UITableViewCell {
 
-    @IBOutlet var size: UILabel!
-    @IBOutlet var count: UILabel!
-    @IBOutlet var prise: UILabel!
+    @IBOutlet var name: UILabel!
+    @IBOutlet var value: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

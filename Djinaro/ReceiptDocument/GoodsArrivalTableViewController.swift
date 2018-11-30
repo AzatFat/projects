@@ -71,7 +71,6 @@ class GoodsArrivalTableViewController: UITableViewController, UISearchBarDelegat
         }
     }
     
-    
     func addPreload(start_stop: Bool){
         if start_stop {
             activityIndicator.center = self.view.center

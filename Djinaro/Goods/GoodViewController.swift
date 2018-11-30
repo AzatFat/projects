@@ -16,6 +16,10 @@ class GoodViewController: UIViewController, UITableViewDelegate, UITableViewData
         performSegue(withIdentifier: "changeGood", sender: nil)
     }
     
+    
+    
+    
+    
     var recieptController = ReceiptController()
     var goodsInfoViewController = GoodInfoViewController()
     

@@ -145,18 +145,6 @@ class SpeechViewController: UIViewController, SFSpeechRecognizerDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "speachSearch" {
-            
-            let controller = segue.destination as! itemsTableViewController
-            if witchSpeech == "sizeSearch" {
-                controller.spechSizeSearch(search: searchString)
-            } else if witchSpeech == "goodSearch" {
-                controller.spechGoodSearch(search: searchString)
-            }
-            controller.search.text = searchString
-            speechToTextOutlet.setTitle("Запись", for: UIControl.State.normal)
-            
-        }
         
         if segue.identifier == "backToGoodsVC" {
             let controller = segue.destination as! GoodsTableViewController

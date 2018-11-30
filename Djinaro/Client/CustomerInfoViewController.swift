@@ -75,7 +75,7 @@ class CustomerInfoViewController: UIViewController, UITextFieldDelegate {
             CreateCustomer.setTitle("Редактировать клиента", for: .normal)
         }
         
-        hideKeyboardWhenTappedAround()
+        hideKeyboardWhenTappedAround() 
         
         let theDateToolBar = UIToolbar().ToolbarPiker(mySelect: #selector(CustomerInfoViewController.receiptDatedismissPicker), clear: #selector(CustomerInfoViewController.clearTheDatedismissPicker))
         CustomerDateBirth.inputAccessoryView = theDateToolBar

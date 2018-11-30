@@ -11,8 +11,8 @@ import UIKit
 
 
 class ReceiptController : UIViewController {
-    let baseURL = URL(string: "http://91.203.195.74:5001")!
-   // let baseURL = URL(string: "http://192.168.88.190")!
+    //let baseURL = URL(string: "http://91.203.195.74:5001")!
+    let baseURL = URL(string: "http://192.168.88.190")!
     var token : String?
     var tokenType : String?
 
@@ -177,7 +177,7 @@ class ReceiptController : UIViewController {
         }
         task.resume()
     }
-    
+    // Проведение документа поступления
     func CLOSEReceiptDocument (token: String, post: ReceiptDocument, completion: @escaping (ReceiptDocument?) -> Void) {
         let PostReceipt = baseURL.appendingPathComponent("/api/ReceiptDocument/Close/" + String(post.id))
         let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
@@ -209,7 +209,7 @@ class ReceiptController : UIViewController {
         }
         task.resume()
     }
-    
+    // Изменение документа поступления
     func PUTReceiptDocument (token: String, put: ReceiptDocument, id: String,completion: @escaping (ReceiptDocument?) -> Void) {
         let PostReceipt = baseURL.appendingPathComponent("/api/ReceiptDocument/" + id)
         let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
@@ -246,7 +246,7 @@ class ReceiptController : UIViewController {
         task.resume()
     }
     
-    
+    // Получение документа поступления
     func GetReceiptDocument(token: String, id: String,completion: @escaping (ReceiptDocument?) -> Void) {
         let GetReceipt = baseURL.appendingPathComponent("/api/ReceiptDocument/" + id)
         let components = URLComponents(url: GetReceipt, resolvingAgainstBaseURL: true)!
@@ -279,7 +279,7 @@ class ReceiptController : UIViewController {
         
         task.resume()
     }
-    
+    //Удаление документа поступления
     func DELETEReceiptDocument (token: String,id: String,completion: @escaping (ReceiptDocument?) -> Void) {
         let PostReceipt = baseURL.appendingPathComponent("/api/ReceiptDocument/" + id)
         let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
@@ -312,7 +312,7 @@ class ReceiptController : UIViewController {
         task.resume()
     }
     
-    
+    // Печать документа поступления
     func PRINTReceiptDocument (token: String,post: ReceiptDocument, completion: @escaping (String?) -> Void) {
         let PostReceipt = baseURL.appendingPathComponent("/api/ReceiptDocument/PrintLabel/" + String(post.id))
         let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
@@ -331,7 +331,27 @@ class ReceiptController : UIViewController {
         }
         task.resume()
     }
+    // Печать модели поступления
+    func PRINTAllGoodReceiptsInDocument (token: String,receiptDocumentId: String, goodId: String, completion: @escaping (String?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("/api/Receipt/PrintLabelModel/" + receiptDocumentId + "/" + goodId)
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "POST"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            if let data = data{
+                let answer = String(data: data, encoding: String.Encoding.utf8)
+                completion(answer ?? "Неизвестная ошибка")
+            } else {
+                completion("Не успех")
+            }
+        }
+        task.resume()
+    }
     
+    // Получение списка поступлений
     func GetReceipts(token: String,completion: @escaping ([Receipt]?) -> Void) {
         let GetReceipt = baseURL.appendingPathComponent("/api/Receipt")
         let components = URLComponents(url: GetReceipt, resolvingAgainstBaseURL: true)!
@@ -506,6 +526,8 @@ class ReceiptController : UIViewController {
         task.resume()
     }
 
+    
+    // Печать поступления
     func PRINTReceipt (token: String, post: Receipt,count: String, completion: @escaping (String?) -> Void) {
         let PostReceipt = baseURL.appendingPathComponent("/api/Receipt/PrintLabel/" + String(post.id) + "/" + count)
         let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
@@ -741,6 +763,30 @@ class ReceiptController : UIViewController {
         task.resume()
     }
     
+    //
+    func POSTGoodPrintShopLabel (token: String, goodId: String, completion: @escaping (String?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("api/goods/PrintLabelShop/" + goodId)
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        print(request)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        // let jsonEcoder = JSONEncoder()
+        // let jsonData = try? jsonEcoder.encode(post)
+        // request.httpBody = jsonData
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            if let data = data{
+                let answer = String(data: data, encoding: String.Encoding.utf8)
+                completion(answer ?? "Неизвестная ошибка")
+            } else {
+                completion("Неизвестная ошибка")
+            }
+        }
+        task.resume()
+    }
     
     // создание товара
     func POSTGood (token: String, post: Goods, completion: @escaping (Goods?) -> Void) {
@@ -813,6 +859,42 @@ class ReceiptController : UIViewController {
         
         task.resume()
     }
+    // Размеры по типу
+    func GetSizesByType(token: String, type: String ,completion: @escaping ([Sizes]?) -> Void) {
+        let GetGood = baseURL.appendingPathComponent("/api/Sizes/Type/" + type)
+        let components = URLComponents(url: GetGood, resolvingAgainstBaseURL: true)!
+        let GoodURL = components.url!
+        var request = URLRequest(url: GoodURL)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode([Sizes].self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode([Sizes].self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in getting Good")
+                        print(error)
+                        self.denyAuthorisation(data: data)
+                        completion(nil)
+                    }
+                }
+                
+            } else {
+                completion(nil)
+            }
+        }
+        
+        task.resume()
+    }
+    
+    
+    
     //
     
     
@@ -1294,7 +1376,7 @@ class ReceiptController : UIViewController {
         }
         task.resume()
     }
-    
+    // Складская инвентаризация
     // Инвентаризация добавление товара к общему количеству
     func POSTInventoryCode (token: String, code: String, post: InventoryCode, completion: @escaping (String?) -> Void) {
         let PostReceipt = baseURL.appendingPathComponent("/api/Inventory/Enter/")
@@ -1320,7 +1402,7 @@ class ReceiptController : UIViewController {
         task.resume()
     }
     
-  
+    // Витринная инвентаризация
     // список просканированных товаров
     func GetFrontInventoryGoods(token: String, completion: @escaping ([InventoryFrontShop]?) -> Void) {
         let GetReceipt = baseURL.appendingPathComponent("/api/InventoryFrontShop/View")
@@ -1352,11 +1434,99 @@ class ReceiptController : UIViewController {
                 completion(nil)
             }
         }
-        
+        task.resume()
+    }
+    // Скан товара витринной инвентаризации
+
+    func POSTInventoryEnter (token: String, code: String, post: InventoryCode, completion: @escaping (String?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("api/InventoryFrontShop/Enter")
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        let jsonEcoder = JSONEncoder()
+        let jsonData = try? jsonEcoder.encode(post)
+        request.httpBody = jsonData
+        print(request)
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            if let data = data{
+                let answer = String(data: data, encoding: String.Encoding.utf8)
+                completion(answer ?? "Неизвестная ошибка")
+            } else {
+                completion("Неизвестная ошибка")
+            }
+        }
+        task.resume()
+    }
+    // Проверка записи
+    func GetInventoryFrontShopRow(token: String, rawId: String, completion: @escaping (InventoryFrontShopRow?) -> Void) {
+        let GetReceipt = baseURL.appendingPathComponent("/api/InventoryFrontShop/" + rawId)
+        let components = URLComponents(url: GetReceipt, resolvingAgainstBaseURL: true)!
+        //        components.queryItems = [URLQueryItem(name: "start", value: "0"), URLQueryItem(name: "length", value: "100"),URLQueryItem(name: "search", value: search)]
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode(InventoryFrontShopRow.self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode(InventoryFrontShopRow.self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in getting Customer List")
+                        print(error)
+                        self.denyAuthorisation(data: data)
+                        completion(nil)
+                    }
+                }
+            } else {
+                completion(nil)
+            }
+        }
         task.resume()
     }
     
     
+    // Достижения продавцов
+    func GetReportPersonal(token: String, completion: @escaping ([userListAchivements]?) -> Void) {
+        let GetReceipt = baseURL.appendingPathComponent("/api/report/Personal")
+        let components = URLComponents(url: GetReceipt, resolvingAgainstBaseURL: true)!
+        //        components.queryItems = [URLQueryItem(name: "start", value: "0"), URLQueryItem(name: "length", value: "100"),URLQueryItem(name: "search", value: search)]
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode([userListAchivements].self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode([userListAchivements].self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in getting [userListAchivements] List")
+                        print(error)
+                        self.denyAuthorisation(data: data)
+                        completion(nil)
+                    }
+                }
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
 }
 
 

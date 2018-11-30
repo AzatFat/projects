@@ -8,18 +8,32 @@
 
 import UIKit
 
-class AddReceiptToArrivalViewController: UIViewController {
+class AddReceiptToArrivalViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+
+    
     let receiptController = ReceiptController()
     @IBOutlet var errorLable: UILabel!
     @IBOutlet var goodSIze: UITextField!
     @IBOutlet var goodCount: UITextField!
     @IBOutlet var goodPrise: UITextField!
     @IBOutlet var addChangeReceipt: UIButton!
+    @IBOutlet var tableView: UITableView!
+    
     let defaults = UserDefaults.standard
     var token = ""
 
+    @IBOutlet var printOrSetReceipt: UIBarButtonItem!
     @IBAction func printReceipt(_ sender: Any) {
-        acceptPrinting()
+        if PostOrPut {
+            acceptPrinting()
+            
+        }else {
+            dismissKeyboard()
+            POSTReceipts()
+            
+            //print(postReceipts)
+            
+        }
     }
     
     
@@ -32,17 +46,51 @@ class AddReceiptToArrivalViewController: UIViewController {
         }
     }
  
+    @IBOutlet var receiptInput: UISegmentedControl!
+    @IBAction func receiptInputType(_ sender: Any) {
+        switch receiptInput.selectedSegmentIndex
+        {
+        case 0:
+            goodSIze.isHidden = false
+            goodCount.isHidden = false
+            goodPrise.isHidden = false
+            addChangeReceipt.isHidden = false
+            tableView.isHidden = true
+            self.navigationItem.rightBarButtonItem = nil
+            print("First Segment Selected")
+        case 1:
+            goodSIze.isHidden = true
+            goodCount.isHidden = true
+            goodPrise.isHidden = true
+            addChangeReceipt.isHidden = true
+            tableView.isHidden = false
+            tableView.frame = CGRect(x: 0, y: 120, width: self.view.frame.width, height: self.view.frame.height - 120)
+            printOrSetReceipt.title = "Create"
+            self.navigationItem.rightBarButtonItem = self.printOrSetReceipt
+            print("Second Segment Selected")
+        default:
+            break
+        }
+    }
+    
     
     var receipt : Receipt?
     var receiptId = ""
     var receipt_Document_Id: Int?
-    var goods_Id: Int?
+   // var goods_Id: Int?
+    var postReceipts: [Receipt]?
+    var succesPostReceipts: [Receipt] = []
+    var good : Goods?
     var sizes_id: Int?
     var sizes_name: String?
     var cost: Decimal?
     var count: Int?
     var sizes: [Sizes]?
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
+    
+    private let pickerView = ToolbarPickerView()
+    var pickerData: [Sizes] = []
+    var sizeId = 0
     
     func addPreload(start_stop: Bool){
         if start_stop {
@@ -62,17 +110,38 @@ class AddReceiptToArrivalViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        token = defaults.object(forKey:"token") as? String ?? ""
+        self.navigationItem.rightBarButtonItem = nil
         
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+
+        
+        token = defaults.object(forKey:"token") as? String ?? ""
+        tableView.isHidden = true
+        
+        if good?.type_Goods_Id == 8 {
+            goodSIze.isHidden = true
+            goodSIze.text = "БЕЗ РАЗМЕРА"
+            sizeId = 118
+        }
+        
+        getSizesType(type: String(good!.type_Goods_Id!))
+        /*
         receiptController.GetSizes(token: token) { (sizes) in
             if let sizes = sizes{
                 self.sizes = sizes
             }
-        }
+        }*/
+        
         if let receipt = receipt {
             PostOrPut = true
+            printOrSetReceipt.title = "Print"
+            self.navigationItem.rightBarButtonItem = self.printOrSetReceipt
+            receiptInput.isHidden = true
+            tableView.isHidden = true
             addValuesToFields(receipt: receipt)
         } else {
+            goodPrise.text = cost?.formattedAmount
             receiptController.GetReceipt(token: token, id: receiptId) { (receipt) in
                 if let receipt = receipt {
                     DispatchQueue.main.async {
@@ -82,7 +151,16 @@ class AddReceiptToArrivalViewController: UIViewController {
             }
         }
 
-        hideKeyboardWhenTappedAround()
+        
+        self.goodSIze.inputView = self.pickerView
+        self.goodSIze.inputAccessoryView = self.pickerView.toolbar
+        
+        
+        self.pickerView.dataSource = self as? UIPickerViewDataSource
+        self.pickerView.delegate = self as? UIPickerViewDelegate
+        self.pickerView.toolbarDelegate = self as? ToolbarPickerViewDelegate
+        
+        hideKeyboardWhenTappedAround() 
         // Do any additional setup after loading the view.
     }
     func addValuesToFields(receipt: Receipt) {
@@ -91,8 +169,41 @@ class AddReceiptToArrivalViewController: UIViewController {
         goodPrise.text = receipt.cost!.formattedAmount
         addChangeReceipt.setTitle("Изменить", for: .normal)
         self.title = receipt.goods?.name
+        goodPrise.text = goodPrise.text == ",00" ? "" : goodPrise.text
     }
 
+    
+    func getSizesType(type: String) {
+        let receiptController = ReceiptController()
+        let defaults = UserDefaults.standard
+        let token = defaults.object(forKey:"token") as? String ?? ""
+        receiptController.GetSizesByType(token: token, type: type) { (sizes) in
+            if let sizes = sizes {
+                self.pickerData = sizes
+                self.postReceipts = Array(repeating: Receipt.init(id: 1, receipt_Document_Id: self.receipt_Document_Id, goods_Id: self.good?.id, sizes_Id: 1, cost: self.cost, count: 0, receiptDocument: nil, goods: nil, sizes: nil), count: sizes.count)
+                for (i, size) in sizes.enumerated() {
+                    self.postReceipts?[i].sizes_Id = size.id
+                }
+               // print(self.postReceipts)
+                DispatchQueue.main.async {
+                    if self.PostOrPut {
+                 //       print(self.postReceipts)
+                        self.tableView.reloadData()
+                    }
+                    self.pickerView.reloadAllComponents()
+                    if self.good != nil {
+                        for i in sizes {
+                            if self.good?.type_Goods_Id == i.id {
+                                self.goodSIze.text = i.name
+                                break
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     func getSizes(text: String) -> Int? {
         let searchtext = text.uppercased()
         if let sizes = sizes {
@@ -118,13 +229,22 @@ class AddReceiptToArrivalViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "unvindToArrivalInfo" {
+            print("succesPostReceipts before segue \(succesPostReceipts)" )
+            print("receipt before segue \(receipt)")
+            
             let controller = segue.destination as! AddGoodsToArrivalViewController
             if receipt != nil {
+                print("Receipts is \(succesPostReceipts)" )
                 if PostOrPut {
                     controller.addReceipt = receipt
                     controller.changeReceipt()
                 } else {
                     controller.receipts.append(receipt!)
+                }
+            } else if succesPostReceipts.count > 0 {
+                print("succesPostReceipts is \(succesPostReceipts)" )
+                for receipt in succesPostReceipts {
+                    controller.receipts.append(receipt)
                 }
             }
         }
@@ -133,7 +253,8 @@ class AddReceiptToArrivalViewController: UIViewController {
     func PostReceipt () {
         var needPost = true
         if goodSIze.text != "" {
-            sizes_id = getSizes(text: goodSIze.text!)
+            sizes_id = sizeId
+            // sizes_id = getSizes(text: goodSIze.text!)
         } else {
             errorLable.text = "Размер не найден"
             needPost = false
@@ -154,10 +275,9 @@ class AddReceiptToArrivalViewController: UIViewController {
             needPost = false
 
         }
-        addPreload(start_stop: true)
         if needPost {
-            let PostReceipt = Receipt.init(id: 1, receipt_Document_Id: receipt_Document_Id, goods_Id: goods_Id, sizes_Id: sizes_id, cost: cost, count: count, receiptDocument: nil, goods: nil, sizes: nil)
-            
+            let PostReceipt = Receipt.init(id: 1, receipt_Document_Id: receipt_Document_Id, goods_Id: good!.id, sizes_Id: sizes_id, cost: cost, count: count, receiptDocument: nil, goods: nil, sizes: nil)
+            addPreload(start_stop: true)
             receiptController.POSTReceipt(token: token, post: PostReceipt) { (receipt) in
                 if let receipt = receipt {
                     self.receipt = receipt
@@ -181,7 +301,8 @@ class AddReceiptToArrivalViewController: UIViewController {
         print("trying to put")
         var needPut = true
         if goodSIze.text != "" {
-            receipt?.sizes_Id = getSizes(text: goodSIze.text!)
+            receipt?.sizes_Id = sizeId != 0 ? sizeId : receipt?.sizes_Id
+            //receipt?.sizes_Id = getSizes(text: goodSIze.text!)
         } else {
             errorLable.text = "Размер не найден"
             needPut = false
@@ -252,15 +373,159 @@ class AddReceiptToArrivalViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
+    func POSTReceipts() {
+        var unsuccessReceipt : [Receipt]?
+        var countSuccessReceipt = 0
+        let myGroup = DispatchGroup()
+        
+        if let receipts = postReceipts {
+            addPreload(start_stop: true)
+            for receipt in receipts {
+                myGroup.enter()
+                
+                if let cost = receipt.cost, let count = receipt.count, count > 0, cost > Decimal(floatLiteral: 0.0) {
+                    receiptController.POSTReceipt(token: token, post: receipt) { (successReceipt) in
+                        if let createdReceipt = successReceipt {
+                            
+                            countSuccessReceipt += 1
+                            self.succesPostReceipts.append(createdReceipt)
+                            print("receipt is created \(self.succesPostReceipts)")
+                        } else {
+                            print("receipt is not created")
+                            unsuccessReceipt?.append(receipt)
+                        }
+                        myGroup.leave()
+                    }
+                } else {
+                    myGroup.leave()
+                }
+            }
+            myGroup.notify(queue: .main) {
+                if unsuccessReceipt == nil {
+                    self.successPostReceipts(title: "Все поступления в количестве \(countSuccessReceipt) успешно созданы")
+                } else {
+                    self.successPostReceipts(title: "Создано \(countSuccessReceipt) поступлений")
+                }
+                self.addPreload(start_stop: false)
+            }
+        }
+    }
+    
+    
+    func successPostReceipts (title : String) {
+        self.addPreload(start_stop: false)
+        let alert = UIAlertController(title: title, message: nil, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            self.performSegue(withIdentifier: "unvindToArrivalInfo", sender: self)
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     func error(title : String) {
         self.addPreload(start_stop: false)
         let alert = UIAlertController(title: title, message: nil, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-            
+          
         }))
         
         self.present(alert, animated: true, completion: nil)
     }
     
     
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return pickerData.count
+    }
+    
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cellIdentifier = "addReceiptToArrival"
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? AddReceiptToArrivalTableViewCell  else {
+            fatalError("The dequeued cell is not an instance of GoodsArrivalTableViewCell.")
+        }
+
+        if let goodCost = postReceipts?[indexPath.row].cost?.formattedAmount {
+            cell.goodCost.text = goodCost == ",00" ? "" : String(goodCost)
+        } else {
+            cell.goodCost.text = ""
+        }
+        
+        if let goodCount = postReceipts?[indexPath.row].count {
+            cell.goodCount.text = String(goodCount) == "0" ? "" : String(goodCount)
+        } else {
+            cell.goodCount.text = ""
+        }
+        
+        cell.goodSize.text = pickerData[indexPath.row].name
+        
+        cell.returnValueForCost = { value in
+            print(value)
+            self.postReceipts?[indexPath.row].cost = Decimal(string: value)
+            cell.goodCost.text = value
+            //cell.goodCount.text = self.pickerData[indexPath.row].name
+        }
+        cell.returnValueForCount = { value in
+            print(value)
+            cell.goodCount.text = value
+            self.postReceipts?[indexPath.row].count = Int(value)
+            //cell.goodCount.text = self.pickerData[indexPath.row].name
+        }
+
+        
+        return cell
+    }
+    
+    @objc func keyboardWillShow(notification:Notification) {
+        
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
+        }
+    }
+    @objc func keyboardWillHide(notification:Notification) {
+        
+        if ((notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue) != nil {
+            tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        }
+    }
+    
+}
+
+extension AddReceiptToArrivalViewController: UIPickerViewDataSource, UIPickerViewDelegate {
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return self.pickerData.count
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return self.pickerData[row].name
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        self.goodSIze.text = self.pickerData[row].name
+        self.sizeId = self.pickerData[row].id
+    }
+}
+
+extension AddReceiptToArrivalViewController: ToolbarPickerViewDelegate {    
+    func didTapDone() {
+        let row = self.pickerView.selectedRow(inComponent: 0)
+        self.pickerView.selectRow(row, inComponent: 0, animated: false)
+        self.goodSIze.text = self.pickerData[row].name
+        self.goodSIze.resignFirstResponder()
+    }
+    
+    func didTapCancel() {
+        self.goodSIze.text = nil
+        self.goodSIze.resignFirstResponder()
+    }
 }

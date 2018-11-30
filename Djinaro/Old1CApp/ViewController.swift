@@ -11,7 +11,7 @@ import UIKit
 
 class ViewController: UIViewController, UITextFieldDelegate {
 
-    let goodsController = GoodsController()
+
     let receiptController = ReceiptController()
     let defaults = UserDefaults.standard
     
@@ -107,5 +107,17 @@ extension UIImageView
         
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight] // for supporting device rotation
         self.addSubview(blurEffectView)
+    }
+}
+
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }

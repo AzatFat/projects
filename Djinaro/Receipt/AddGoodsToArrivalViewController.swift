@@ -10,29 +10,40 @@ import UIKit
 
 class AddGoodsToArrivalViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate {
     
+    @IBOutlet var goodPrise: UITextField!
     
+    @IBAction func changePrise(_ sender: Any) {
+        if let prise = goodPrise.text, prise != "", good != nil {
+            good?.price = Decimal(string: prise)
+            addPreload(start_stop: true)
+            changeGood(good: good!, message: "цена изменена")
+        }
+        self.view.endEditing(true)
+    }
     @IBOutlet var goodLocation: UITextField!
     @IBAction func ChangeLocation(_ sender: Any) {
         if let location = goodLocation.text, location != "", good != nil {
             good?.location = location
-            receiptController.PUTGood(token: token, post: good!) { (good) in
-                if let good = good {
-                    self.goodLocation.text = good.location
-                }
-            }
-            
-            DispatchQueue.main.async {
-                self.error(title: "локация поменялась")
-            }
+            addPreload(start_stop: true)
+            changeGood(good: good!, message: "локация поменялась")
+        }
+        self.view.endEditing(true)
+    }
+    @IBOutlet var goodName: UITextField!
+    
+    @IBAction func changeName(_ sender: Any) {
+        if let goodName = goodName.text, goodName != "", good != nil {
+            good?.name = goodName
+            addPreload(start_stop: true)
+            changeGood(good: good!, message: "имя изменено")
         }
         self.view.endEditing(true)
     }
     
-    @IBOutlet var goodName: UILabel!
+    
     @IBOutlet var tableVIew: UITableView!
-    @IBAction func unwindToContainerVC(segue: UIStoryboardSegue) {
-        
-    }
+    @IBAction func unwindToContainerVC(segue: UIStoryboardSegue) {}
+    
     @IBAction func addGood(_ sender: Any) {
         
         receipt = nil
@@ -48,6 +59,7 @@ class AddGoodsToArrivalViewController: UIViewController, UITableViewDelegate, UI
     var receiptController = ReceiptController()
     let defaults = UserDefaults.standard
     var token = ""
+    let activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,6 +75,16 @@ class AddGoodsToArrivalViewController: UIViewController, UITableViewDelegate, UI
        // goodLocation.delegate = self
         goodName.text = good?.name
         goodLocation.text = good?.location
+        goodPrise.text = good?.price?.formattedAmount
+        var priceReceipt = good?.priceReceipt?.formattedAmount
+        if goodPrise.text == ",00" {
+            goodPrise.text = "" /*
+            if priceReceipt != ",00" {
+                goodPrise.text = ""
+            } else {
+                goodPrise.text = ""
+            }*/
+        }
         hideKeyboardWhenTappedAround()
     }
     override func viewDidAppear(_ animated: Bool) {
@@ -77,12 +99,25 @@ class AddGoodsToArrivalViewController: UIViewController, UITableViewDelegate, UI
         tableVIew.reloadData()
     }*/
     
+    func changeGood(good: Goods, message: String) {
+        receiptController.PUTGood(token: token, post: good) { (good) in
+            if let good = good {
+                self.goodName.text = good.location
+            }
+            DispatchQueue.main.async {
+                self.error(title: message)
+                self.addPreload(start_stop: false)
+            }
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "addReceipt" {
             let controller = segue.destination as! AddReceiptToArrivalViewController
             controller.receipt = receipt
             controller.sizes_name = getSize(sizeId: receipt?.sizes_Id)
-            controller.goods_Id = good?.id
+            controller.good = good
+            controller.cost = good?.price
             controller.receipt_Document_Id = receipt_Document_Id
             controller.title = good?.name
         }
@@ -137,6 +172,8 @@ class AddGoodsToArrivalViewController: UIViewController, UITableViewDelegate, UI
     }
     
     
+    
+    
     func getSize(sizeId: Int?) -> String? {
         if sizeId == nil {
             return ""
@@ -178,7 +215,7 @@ class AddGoodsToArrivalViewController: UIViewController, UITableViewDelegate, UI
     }
     
     func error(title : String) {
-        //self.addPreload(start_stop: false)
+        addPreload(start_stop: false)
         let alert = UIAlertController(title: title, message: nil, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
             
@@ -191,5 +228,17 @@ class AddGoodsToArrivalViewController: UIViewController, UITableViewDelegate, UI
         self.view.endEditing(true)
         return false
     }*/
-    
+    func addPreload(start_stop: Bool){
+        if start_stop {
+            activityIndicator.center = self.view.center
+            activityIndicator.hidesWhenStopped = true
+            activityIndicator.style = UIActivityIndicatorView.Style.gray
+            view.addSubview(activityIndicator)
+            activityIndicator.startAnimating()
+        } else {
+            activityIndicator.stopAnimating()
+            UIApplication.shared.endIgnoringInteractionEvents()
+        }
+        
+    }
 }
