@@ -84,7 +84,6 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
     var typeGoodId = 0
     private let pickerView = ToolbarPickerView()
     var pickerData: [TypeGoods] = []
-    
     let imagePicker = UIImagePickerController()
 
     
@@ -278,17 +277,12 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
     
     
     func takeImage() {
-       // let imagePicker = UIImagePickerController()
-       // imagePicker.delegate = self
+
         imagePicker.allowsEditing = false
         imagePicker.sourceType = .photoLibrary
-       /* present(imagePicker, animated: true, completion: nil)*/
         let alertController = UIAlertController(title: "выберите фото", message: nil, preferredStyle: .actionSheet)
-        
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        
         alertController.addAction(cancelAction)
-        
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
             let photoLibraryAction = UIAlertAction(title: "Photo library", style: .default) { (action) in
                 self.imagePicker.sourceType = .photoLibrary
@@ -301,36 +295,41 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
     }
     @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let image = (info[UIImagePickerController.InfoKey.originalImage] as? UIImage)!
-        //uiImages.append(image)
-        //goodsImagesCollection.reloadData()
+ 
+        picker.dismiss(animated:true,completion:nil)
         if let good = good {
             uploadImagetoGood(image: image, good: good)
         }
-        picker.dismiss(animated:true,completion:nil)
     }
     @objc func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         
          picker.dismiss(animated:true,completion:nil)
     }
+    
     func uploadImagetoGood(image: UIImage, good: Goods) {
-        if let imageBase64 = image.toBase64() {
-            let base64image = postImage.init(base64: imageBase64)
-            let receiptController = ReceiptController()
-            let defaults = UserDefaults.standard
-            let token = defaults.object(forKey:"token") as? String ?? ""
-            receiptController.POSTGoodImage(token: token, base64: base64image, good: good) { (postedImage) in
-                if let posted = postedImage {
-                    DispatchQueue.main.async {
-                         self.goodUIImagesDict.append(goodUIimages.init(id: String(posted.id), image: image))
-                         self.goodsImagesCollection.reloadData()
-                        self.error(title: "товар добавлен")
-                    }
-                    print("sucess post image \(posted)")
+        addPreload(start_stop: true)
+        let receiptController = ReceiptController()
+        let defaults = UserDefaults.standard
+        let token = defaults.object(forKey:"token") as? String ?? ""
+        receiptController.POSTGoodImageAsData(token: token, image: image, good: good) { (postedImage) in
+            if let posted = postedImage {
+                DispatchQueue.main.async {
+                    self.goodUIImagesDict.append(goodUIimages.init(id: String(posted.id), image: image))
+                    self.goodsImagesCollection.reloadData()
+                    self.addPreload(start_stop: false)
+                    self.error(title: "товар добавлен")
+                }
+                print("sucess post image \(posted)")
+            } else {
+                DispatchQueue.main.async {
+                    self.addPreload(start_stop: false)
+                    self.error(title: "Товар не добавлен")
                 }
             }
         }
     }
     
+
     func deleteGoodImage(imageId: String, index: Int) {
         let receiptController = ReceiptController()
         let defaults = UserDefaults.standard
@@ -373,6 +372,22 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
                 self.goodsImagesCollection.reloadData()
             }
         }
+    }
+    
+    
+    var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
+    func addPreload(start_stop: Bool){
+        if start_stop {
+            activityIndicator.center = self.view.center
+            activityIndicator.hidesWhenStopped = true
+            activityIndicator.style = UIActivityIndicatorView.Style.gray
+            view.addSubview(activityIndicator)
+            activityIndicator.startAnimating()
+        } else {
+            activityIndicator.stopAnimating()
+            UIApplication.shared.endIgnoringInteractionEvents()
+        }
+        
     }
 }
 

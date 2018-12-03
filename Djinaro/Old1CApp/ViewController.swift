@@ -12,7 +12,7 @@ import UIKit
 class ViewController: UIViewController, UITextFieldDelegate {
 
 
-    let receiptController = ReceiptController()
+    let receiptController = ReceiptController(useMultiUrl: true)
     let defaults = UserDefaults.standard
     
     
@@ -25,6 +25,26 @@ class ViewController: UIViewController, UITextFieldDelegate {
             signError()
         }
     }
+    
+    @IBOutlet var inOutOutlet: UISegmentedControl!
+    
+    @IBAction func inOutAction(_ sender: Any) {
+        switch inOutOutlet.selectedSegmentIndex
+        {
+        case 0:
+            print("First Segment Selected")
+            self.defaults.set("http://192.168.88.190", forKey: "baseUrl")
+        case 1:
+
+            print("Second Segment Selected")
+            self.defaults.set("http://87.117.180.87:7000", forKey: "baseUrl")
+        default:
+            break
+        }
+    }
+    
+    
+    
     override func viewDidLoad() {
         if let cookies = HTTPCookieStorage.shared.cookies {
             for cookie in cookies {
@@ -43,9 +63,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         let userName = defaults.object(forKey:"userName") as? String
         let password = defaults.object(forKey:"password") as? String
+        let baseUrl = defaults.object(forKey:"baseUrl") as? String
         //let userId = defaults.object(forKey:"userId") as? String
 
-        if userName != nil && password != nil {
+        if userName != nil && password != nil && baseUrl != nil{
             signIn(userName: userName ?? "", password: password ?? "", NeedErrorMessage: false)
         }
         self.UserName.delegate = self

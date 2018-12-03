@@ -10,13 +10,29 @@ import Foundation
 import UIKit
 
 
-class ReceiptController : UIViewController {
+
+
+class ReceiptController {
     //let baseURL = URL(string: "http://91.203.195.74:5001")!
-    let baseURL = URL(string: "http://192.168.88.190")!
+    var baseURL = URL(string: "http://192.168.88.190")!
+    let defaults = UserDefaults.standard
     var token : String?
     var tokenType : String?
-
-// Token
+    
+    init () {
+        
+    }
+    
+    init(useMultiUrl: Bool) {
+        if useMultiUrl == true {
+            if let udrl = defaults.object(forKey:"baseUrl") as? String {
+                self.baseURL = URL(string: udrl)!
+            }
+        }
+    }
+    
+    
+    // Token
     
     func POSTToken (username: String, password: String, completion: @escaping (Token?) -> Void) {
         let PostReceipt = baseURL.appendingPathComponent("/Token")
@@ -59,9 +75,9 @@ class ReceiptController : UIViewController {
             let product = try decoder.decode(DenyInAuthorisation.self, from: data)
             if product.Message == "Для этого запроса отказано в авторизации." {
                 print("trying change view")
-                let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                let newViewController = storyBoard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
-                self.present(newViewController, animated: true, completion: nil)
+               // let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+               // let newViewController = storyBoard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+               // self.present(newViewController, animated: true, completion: nil)
             }
             
         } catch let error {
@@ -834,7 +850,7 @@ class ReceiptController : UIViewController {
         task.resume()
     }
     
-    // Прикрепление изображения к товара
+    // Прикрепление изображения к товару
     func POSTGoodImage (token: String, base64: postImage, good: Goods, completion: @escaping (goodsImages?) -> Void) {
         let PostReceipt = baseURL.appendingPathComponent("/api/GoodImage/Create/" + String(good.id))
         let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
@@ -861,6 +877,7 @@ class ReceiptController : UIViewController {
                     } catch let error {
                         print("error in Post goodsImages")
                         print(error)
+                        print(response)
                         self.denyAuthorisation(data: data)
                         completion(nil)
                     }
@@ -872,6 +889,71 @@ class ReceiptController : UIViewController {
         }
         task.resume()
     }
+    
+    func POSTGoodImageAsData (token: String, image: UIImage, good: Goods, completion: @escaping (goodsImages?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("/api/GoodImage/Create/" + String(good.id))
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "POST"
+        let boundary = generateBoundaryString()
+        
+        
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        
+        let image_data = image.pngData()
+        
+        let body = NSMutableData()
+        let fname = "image.png"
+        let mimetype = "image/png"
+        
+        body.append("--\(boundary)\r\n".data(using: String.Encoding.utf8)!)
+        body.append("Content-Disposition:form-data; name=\"image\"\r\n\r\n".data(using: String.Encoding.utf8)!)
+        body.append("hi\r\n".data(using: String.Encoding.utf8)!)
+        body.append("--\(boundary)\r\n".data(using: String.Encoding.utf8)!)
+        body.append("Content-Disposition:form-data; name=\"image\"; filename=\"\(fname)\"\r\n".data(using: String.Encoding.utf8)!)
+        body.append("Content-Type: \(mimetype)\r\n\r\n".data(using: String.Encoding.utf8)!)
+        body.append(image_data!)
+        body.append("\r\n".data(using: String.Encoding.utf8)!)
+        body.append("--\(boundary)--\r\n".data(using: String.Encoding.utf8)!)
+        request.httpBody = body as Data
+
+        print(request)
+        print("data send image")
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode(goodsImages.self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode(goodsImages.self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in Post goodsImages")
+                        print(error)
+                        print(response)
+                        print(String(data: data, encoding: String.Encoding.utf8))
+                        self.denyAuthorisation(data: data)
+                        completion(nil)
+                    }
+                }
+                
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
+    
+    func generateBoundaryString() -> String
+    {
+        return "Boundary-\(NSUUID().uuidString)"
+    }
+    
     // Получение изображения товара
     func getGoodImage(url: String, completion: @escaping (UIImage?) -> Void) {
         let GetImageGood = baseURL.appendingPathComponent(url)

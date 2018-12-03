@@ -29,6 +29,7 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
     @IBAction func logOut(_ sender: Any) {
         signOut()
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         getUserAchivements()

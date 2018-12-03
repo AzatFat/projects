@@ -222,6 +222,8 @@ class QRScannerController: UIViewController {
             addCustomerToCheck()
         case "addCheckRecordToCheckFromBarCode":
             addCheckRecordToCheckFromBarCode()
+        case "addCheckRecordToCheck":
+            addCheckRecordToCheck()
         case "POSTInventoryCode":
             POSTInventoryCode()
         case "POSTFrontInventoryShop":
@@ -526,7 +528,7 @@ extension QRScannerController: AVCaptureMetadataOutputObjectsDelegate {
                     searchType = "findGood"
                     found_text = urlText[urlText.count - 1]
                     
-                }else if urlText[0] == "https:" && checkRecord != nil && urlText[urlText.count - 2] == "receipt"{
+                }else if (urlText[0] == "https:" || urlText[0] == "http:") && checkRecord != nil && urlText[urlText.count - 2] == "receipt"{
                     
                     searchType = "addCheckRecordToCheck"
                     found_text = urlText[urlText.count - 1]
@@ -556,6 +558,7 @@ extension QRScannerController: AVCaptureMetadataOutputObjectsDelegate {
                     }
                     
                 }
+                print(searchType)
                 segueToItemList(decodedString: metadataObj.stringValue!, searchType: searchType)
                 messageLabel.text = metadataObj.stringValue
             }
