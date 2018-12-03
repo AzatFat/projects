@@ -21,7 +21,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>1.5.6</string>
+	<string>1.5.7</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>textreader</string>
@@ -39,6 +39,8 @@
 	<string>We need to access your camera for scanning QR code</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>To Use Item Search</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>For upload images</string>
 	<key>NSPrefPaneIconFile</key>
 	<string></string>
 	<key>NSSpeechRecognitionUsageDescription</key>

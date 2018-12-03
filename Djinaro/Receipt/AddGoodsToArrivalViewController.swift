@@ -89,6 +89,7 @@ class AddGoodsToArrivalViewController: UIViewController, UITableViewDelegate, UI
     }
     override func viewDidAppear(_ animated: Bool) {
         tableVIew.reloadData()
+        goodPrise.text = good?.price?.formattedAmount
     }
     /*
     

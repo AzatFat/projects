@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA01186721B2E0AC00D44DE6 /* GoodsImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01186621B2E0AC00D44DE6 /* GoodsImageCollectionViewCell.swift */; };
 		AA031E0C218A3E8600818FC9 /* GoodInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA031E0B218A3E8500818FC9 /* GoodInfoViewController.swift */; };
 		AA031E0E218A42CD00818FC9 /* GoodsAvailableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA031E0D218A42CD00818FC9 /* GoodsAvailableTableViewCell.swift */; };
 		AA08A0A3217536A800083C85 /* GoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA08A0A2217536A800083C85 /* GoodViewController.swift */; };
@@ -53,6 +54,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AA01186621B2E0AC00D44DE6 /* GoodsImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		AA031E0B218A3E8500818FC9 /* GoodInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodInfoViewController.swift; sourceTree = "<group>"; };
 		AA031E0D218A42CD00818FC9 /* GoodsAvailableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsAvailableTableViewCell.swift; sourceTree = "<group>"; };
 		AA08A0A2217536A800083C85 /* GoodViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodViewController.swift; sourceTree = "<group>"; };
@@ -123,8 +125,8 @@
 			children = (
 				AA830C44215568C800F004B3 /* Djinaro */,
 				AA830C43215568C800F004B3 /* Products */,
-				AAF9254A21582DE4007D7ACE /* Camera-03.png */,
 				AAF9254C21582DED007D7ACE /* Camera-03.svg */,
+				AAF9254A21582DE4007D7ACE /* Camera-03.png */,
 				AAF9254E21583199007D7ACE /* djinaro.jpg */,
 				AA96D522218F7A09000BB6F8 /* microphone.png */,
 				AAF9255221583666007D7ACE /* backGround.jpg */,
@@ -217,6 +219,7 @@
 				AA031E0D218A42CD00818FC9 /* GoodsAvailableTableViewCell.swift */,
 				AA7A0C5C21A49F6F0067FB37 /* GoodChangeViewController.swift */,
 				AA7A0C5E21A4BCBD0067FB37 /* GoodsPickerViewType.swift */,
+				AA01186621B2E0AC00D44DE6 /* GoodsImageCollectionViewCell.swift */,
 			);
 			path = Goods;
 			sourceTree = "<group>";
@@ -356,6 +359,7 @@
 				AA7A0C5D21A49F6F0067FB37 /* GoodChangeViewController.swift in Sources */,
 				AA5756C52196C1FF00E561F6 /* CustomerInfoViewController.swift in Sources */,
 				AADB932E2173311F00AA2C34 /* Receipt.swift in Sources */,
+				AA01186721B2E0AC00D44DE6 /* GoodsImageCollectionViewCell.swift in Sources */,
 				AAB2984321AD344F00B9F96E /* InventoryViewController.swift in Sources */,
 				AA169CB4217CAB1E00BF4C51 /* NewReceiptDocumentViewController.swift in Sources */,
 				AA08A0A5217656D700083C85 /* ArrivalInfoViewController.swift in Sources */,

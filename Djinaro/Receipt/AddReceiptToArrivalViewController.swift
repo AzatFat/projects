@@ -126,6 +126,9 @@ class AddReceiptToArrivalViewController: UIViewController, UITableViewDelegate, 
         }
         
         getSizesType(type: String(good!.type_Goods_Id!))
+        
+        
+        
         /*
         receiptController.GetSizes(token: token) { (sizes) in
             if let sizes = sizes{
@@ -142,13 +145,19 @@ class AddReceiptToArrivalViewController: UIViewController, UITableViewDelegate, 
             addValuesToFields(receipt: receipt)
         } else {
             goodPrise.text = cost?.formattedAmount
-            receiptController.GetReceipt(token: token, id: receiptId) { (receipt) in
+     /*       if goodPrise.text == ",00" {
+                goodPrise.text = good?.priceReceipt?.formattedAmount
+                goodPrise.backgroundColor = UIColor.yellow
+            }*/
+            goodPrise.text = goodPrise.text == ",00" ? "" : goodPrise.text
+            //pastLastReceiptPrice()
+            /*receiptController.GetReceipt(token: token, id: receiptId) { (receipt) in
                 if let receipt = receipt {
                     DispatchQueue.main.async {
                         self.addValuesToFields(receipt: receipt)
                     }
                 }
-            }
+            }*/
         }
 
         
@@ -168,8 +177,10 @@ class AddReceiptToArrivalViewController: UIViewController, UITableViewDelegate, 
         goodCount.text = String(receipt.count!)
         goodPrise.text = receipt.cost!.formattedAmount
         addChangeReceipt.setTitle("Изменить", for: .normal)
+        sizeId = receipt.sizes_Id!
         self.title = receipt.goods?.name
         goodPrise.text = goodPrise.text == ",00" ? "" : goodPrise.text
+      //  pastLastReceiptPrice()
     }
 
     
@@ -186,8 +197,11 @@ class AddReceiptToArrivalViewController: UIViewController, UITableViewDelegate, 
                 }
                // print(self.postReceipts)
                 DispatchQueue.main.async {
-                    if self.PostOrPut {
+                    
+                    if self.PostOrPut  == false{
                  //       print(self.postReceipts)
+                        print("pastLastReceiptPrice")
+                        self.pastLastReceiptPrice()
                         self.tableView.reloadData()
                     }
                     self.pickerView.reloadAllComponents()
@@ -203,6 +217,8 @@ class AddReceiptToArrivalViewController: UIViewController, UITableViewDelegate, 
             }
         }
     }
+    
+    
     
     func getSizes(text: String) -> Int? {
         let searchtext = text.uppercased()
@@ -229,9 +245,6 @@ class AddReceiptToArrivalViewController: UIViewController, UITableViewDelegate, 
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "unvindToArrivalInfo" {
-            print("succesPostReceipts before segue \(succesPostReceipts)" )
-            print("receipt before segue \(receipt)")
-            
             let controller = segue.destination as! AddGoodsToArrivalViewController
             if receipt != nil {
                 print("Receipts is \(succesPostReceipts)" )
@@ -247,6 +260,7 @@ class AddReceiptToArrivalViewController: UIViewController, UITableViewDelegate, 
                     controller.receipts.append(receipt)
                 }
             }
+            controller.good = good
         }
     }
     
@@ -283,7 +297,8 @@ class AddReceiptToArrivalViewController: UIViewController, UITableViewDelegate, 
                     self.receipt = receipt
                     DispatchQueue.main.async {
                         self.addPreload(start_stop: false)
-                        self.performSegue(withIdentifier: "unvindToArrivalInfo", sender: self)
+                        self.changePriseAfterPostorPutReceipt()
+                       // self.performSegue(withIdentifier: "unvindToArrivalInfo", sender: self)
                         //self.performSegue(withIdentifier: "backToAddGoods", sender: nil)
                     }
                 } else {
@@ -297,11 +312,12 @@ class AddReceiptToArrivalViewController: UIViewController, UITableViewDelegate, 
         }
     }
     
+    
     func PUTReceipt () {
         print("trying to put")
         var needPut = true
         if goodSIze.text != "" {
-            receipt?.sizes_Id = sizeId != 0 ? sizeId : receipt?.sizes_Id
+            receipt?.sizes_Id = sizeId != 0 ? sizeId : receipt!.sizes_Id
             //receipt?.sizes_Id = getSizes(text: goodSIze.text!)
         } else {
             errorLable.text = "Размер не найден"
@@ -310,7 +326,8 @@ class AddReceiptToArrivalViewController: UIViewController, UITableViewDelegate, 
         if goodPrise.text != "" {
             var prize = goodPrise.text!.replacingOccurrences(of: ",", with: ".")
             prize = prize.replacingOccurrences(of: " ", with: "")
-            receipt?.cost = Decimal(string: prize)
+            cost = Decimal(string: prize)
+            receipt?.cost = cost
         } else {
             errorLable.text = "Цена указана не верно"
             needPut = false
@@ -327,7 +344,7 @@ class AddReceiptToArrivalViewController: UIViewController, UITableViewDelegate, 
             receiptController.PUTReceipt(token: token, put: receipt!, id: String(receipt!.id)) { (receipt) in
                 DispatchQueue.main.async {
                     self.addPreload(start_stop: false)
-                    self.performSegue(withIdentifier: "unvindToArrivalInfo", sender: self)
+                    self.changePriseAfterPostorPutReceipt()
                     //self.performSegue(withIdentifier: "backToAddGoods", sender: nil)
                 }
             }
@@ -367,9 +384,7 @@ class AddReceiptToArrivalViewController: UIViewController, UITableViewDelegate, 
         self.addPreload(start_stop: false)
         let alert = UIAlertController(title: title, message: nil, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-            
         }))
-        
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -386,7 +401,6 @@ class AddReceiptToArrivalViewController: UIViewController, UITableViewDelegate, 
                 if let cost = receipt.cost, let count = receipt.count, count > 0, cost > Decimal(floatLiteral: 0.0) {
                     receiptController.POSTReceipt(token: token, post: receipt) { (successReceipt) in
                         if let createdReceipt = successReceipt {
-                            
                             countSuccessReceipt += 1
                             self.succesPostReceipts.append(createdReceipt)
                             print("receipt is created \(self.succesPostReceipts)")
@@ -412,13 +426,76 @@ class AddReceiptToArrivalViewController: UIViewController, UITableViewDelegate, 
     }
     
     
+    func changePriseAfterPostorPutReceipt() {
+        if good?.price != cost {
+            let alert = UIAlertController(title: "Цена поступления не равна цене товара, изменить цену товара?", message: nil, preferredStyle: UIAlertController.Style.alert)
+            
+            alert.addAction(UIAlertAction(title: "Да", style: .default, handler: { action in
+                self.good?.price = self.cost
+                self.addPreload(start_stop: true)
+                self.receiptController.PUTGood(token: self.token, post: self.good!, completion: { (good) in
+                    DispatchQueue.main.async {
+                        self.addPreload(start_stop: false)
+                        let alert = UIAlertController(title: "Цена товара изменена", message: nil, preferredStyle: UIAlertController.Style.alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+                            self.performSegue(withIdentifier: "unvindToArrivalInfo", sender: self)
+                        }))
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                })
+            }))
+            
+            alert.addAction(UIAlertAction(title: "Нет", style: .cancel, handler: { action in
+                print("No")
+                self.performSegue(withIdentifier: "unvindToArrivalInfo", sender: self)
+            }))
+            
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            self.performSegue(withIdentifier: "unvindToArrivalInfo", sender: self)
+        }
+    }
+    
+    func pastLastReceiptPrice() {
+        print("pastLastReceiptPrice called")
+        
+        receiptController.GetGood(token: token, goodId: String(good!.id)) { (good) in
+            if let good = good {
+                DispatchQueue.main.async {
+                    print(good.price, good.priceReceipt, Decimal(integerLiteral: 0))
+                    if good.price == Decimal(integerLiteral: 0), good.priceReceipt != Decimal(integerLiteral: 0) {
+                        let alert = UIAlertController(title: "Цена товара не указана. Желаете поставить последнюю цену поступления \(good.priceReceipt)", message: nil, preferredStyle: UIAlertController.Style.alert)
+                        
+                        alert.addAction(UIAlertAction(title: "Да", style: .default, handler: { action in
+                            self.cost = good.priceReceipt
+                            self.goodPrise.text = self.cost?.formattedAmount
+                            if let count = self.postReceipts?.count {
+                                print("start chnage price in postReceipts?")
+                                for i in 0 ..< count {
+                                    self.postReceipts![i].cost = self.cost
+                                }
+                                self.tableView.reloadData()
+                            }
+                        }))
+                        
+                        alert.addAction(UIAlertAction(title: "Нет", style: .cancel, handler: { action in
+                            
+                        }))
+                        
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                }
+            }
+        }
+    }
+    
     func successPostReceipts (title : String) {
         self.addPreload(start_stop: false)
         let alert = UIAlertController(title: title, message: nil, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
-            self.performSegue(withIdentifier: "unvindToArrivalInfo", sender: self)
+            self.changePriseAfterPostorPutReceipt()
+            //self.performSegue(withIdentifier: "unvindToArrivalInfo", sender: self)
         }))
-        
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -428,10 +505,8 @@ class AddReceiptToArrivalViewController: UIViewController, UITableViewDelegate, 
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
           
         }))
-        
         self.present(alert, animated: true, completion: nil)
     }
-    
     
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -441,8 +516,6 @@ class AddReceiptToArrivalViewController: UIViewController, UITableViewDelegate, 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return pickerData.count
     }
-    
-    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifier = "addReceiptToArrival"
@@ -476,8 +549,6 @@ class AddReceiptToArrivalViewController: UIViewController, UITableViewDelegate, 
             self.postReceipts?[indexPath.row].count = Int(value)
             //cell.goodCount.text = self.pickerData[indexPath.row].name
         }
-
-        
         return cell
     }
     
@@ -493,7 +564,6 @@ class AddReceiptToArrivalViewController: UIViewController, UITableViewDelegate, 
             tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         }
     }
-    
 }
 
 extension AddReceiptToArrivalViewController: UIPickerViewDataSource, UIPickerViewDelegate {

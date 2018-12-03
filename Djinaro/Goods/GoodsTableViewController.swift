@@ -118,7 +118,25 @@ class GoodsTableViewController: UITableViewController, UISearchBarDelegate {
     }
     
     func getGoods () {
+        /*
         recieptController.GetGoods(token: token) { (listGoods) in
+            if let listGoods = listGoods {
+                print("listReceipt get succes")
+                self.goods = listGoods
+            }
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.addPreload(start_stop:  false)
+            }
+        }*/
+        var is_remains = ""
+        var is_archive = ""
+        /*
+        if receipt_Document_Id == nil {
+            is_remains = "true"
+            is_archive = "false"
+        }*/
+        recieptController.GetGoodsSearch(token: token, search: "", sizes: "", is_remains: is_remains,is_archive: is_archive) { (listGoods) in
             if let listGoods = listGoods {
                 print("listReceipt get succes")
                 self.goods = listGoods
@@ -132,7 +150,15 @@ class GoodsTableViewController: UITableViewController, UISearchBarDelegate {
     
     func searchGoods (search: String, sizes: String) {
         print("trying search Good")
-        recieptController.GetGoodsSearch(token: token, search: search, sizes: sizes) { (listGoods) in
+        var is_remains = ""
+        var is_archive = ""
+        /*
+        if receipt_Document_Id == nil {
+            is_remains = "true"
+            is_archive = "false"
+        }*/
+        
+        recieptController.GetGoodsSearch(token: token, search: search, sizes: sizes, is_remains: is_remains,is_archive: is_archive) { (listGoods) in
             if let listGoods = listGoods {
                 print("listReceipt get succes")
                 self.goods = listGoods

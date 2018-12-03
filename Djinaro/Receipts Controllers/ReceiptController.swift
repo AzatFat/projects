@@ -622,18 +622,28 @@ class ReceiptController : UIViewController {
     }
     
     // поиск списка товаров
-    func GetGoodsSearch(token: String, search:String, sizes: String, completion: @escaping ([Goods]?) -> Void) {
+    func GetGoodsSearch(token: String, search:String, sizes: String, is_remains: String, is_archive: String, completion: @escaping ([Goods]?) -> Void) {
         let GetReceipt = baseURL.appendingPathComponent("/api/Goods/Search")
         var components = URLComponents(url: GetReceipt, resolvingAgainstBaseURL: true)!
+        components.queryItems = [URLQueryItem(name: "start", value: "0"), URLQueryItem(name: "length", value: "1000")]
+        if sizes != "" {
+            components.queryItems?.append(URLQueryItem(name: "sizes", value: sizes))
+        } else if search != "" {
+            components.queryItems?.append(URLQueryItem(name: "search", value:  search))
+        }
         
-        if search == "" {
-            components.queryItems = [URLQueryItem(name: "start", value: "0"), URLQueryItem(name: "length", value: "100"), URLQueryItem(name: "sizes", value: sizes)]
-        } else if sizes == "" {
-            components.queryItems = [URLQueryItem(name: "start", value: "0"), URLQueryItem(name: "length", value: "100"), URLQueryItem(name: "search", value:  search)]
+        if is_remains != "" {
+            components.queryItems?.append(URLQueryItem(name: "is_remains", value: is_remains))
+        }
+        
+        if is_archive != "" {
+            components.queryItems?.append(URLQueryItem(name: "is_archive", value: is_archive))
         }
         
         let ReceiptURL = components.url!
         var request = URLRequest(url: ReceiptURL)
+        print(request)
+        
         request.httpMethod = "GET"
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         print(request)
@@ -697,9 +707,6 @@ class ReceiptController : UIViewController {
         
         task.resume()
     }
-    
-    
-    
     
 // изменение товара
     func PUTGood (token: String, post: Goods, completion: @escaping (Goods?) -> Void) {
@@ -827,6 +834,98 @@ class ReceiptController : UIViewController {
         task.resume()
     }
     
+    // Прикрепление изображения к товара
+    func POSTGoodImage (token: String, base64: postImage, good: Goods, completion: @escaping (goodsImages?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("/api/GoodImage/Create/" + String(good.id))
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        let jsonEcoder = JSONEncoder()
+        let jsonData = try? jsonEcoder.encode(base64)
+        request.httpBody = jsonData
+        print(request)
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode(goodsImages.self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode(goodsImages.self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in Post goodsImages")
+                        print(error)
+                        self.denyAuthorisation(data: data)
+                        completion(nil)
+                    }
+                }
+                
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
+    // Получение изображения товара
+    func getGoodImage(url: String, completion: @escaping (UIImage?) -> Void) {
+        let GetImageGood = baseURL.appendingPathComponent(url)
+        let components = URLComponents(url: GetImageGood, resolvingAgainstBaseURL: true)!
+        let GoodURL = components.url!
+        let request = URLRequest(url: GoodURL)
+        print("request is \(request)")
+        let task = URLSession.shared.dataTask(with: request) {(data, response, error) in
+            if let data = data, let image = UIImage(data: data) {
+                print("success image get")
+                completion(image)
+                
+            } else {
+                print("success image error")
+                print(response)
+                print(error)
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
+    // Удаление изображения
+    func DELETEGoodsImage (token: String, imageId: String , completion: @escaping (String?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("/api/GoodImage/" + imageId)
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "DELETE"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        print(request)
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            if let httpResponse = response as? HTTPURLResponse {
+                print("statusCode: \(httpResponse.statusCode)")
+                if httpResponse.statusCode == 200 || httpResponse.statusCode == 204 {
+                    print("responsee 200")
+                    completion("Товар удален")
+                }
+            }
+            
+            if let data = data{
+                let answer = String(data: data, encoding: String.Encoding.utf8)
+                print(answer)
+                completion(answer ?? "Неизвестная ошибка")
+            } else {
+                completion("Неизвестная ошибка")
+            }
+        }
+        task.resume()
+    }
+    
+    
+    // Получение размеров
     func GetSizes(token: String, completion: @escaping ([Sizes]?) -> Void) {
         let GetGood = baseURL.appendingPathComponent("/api/Sizes/")
         let components = URLComponents(url: GetGood, resolvingAgainstBaseURL: true)!

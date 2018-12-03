@@ -51,8 +51,8 @@ class GoodViewController: UIViewController, UITableViewDelegate, UITableViewData
     func getGood() {
         recieptController.GetGood(token: token, goodId: goodId) { (good) in
             if let good = good {
-                self.good = good
                 print(good)
+                self.good = good
                 if let goodName = good.name, let goodLocation = good.location {
                     self.location = goodLocation
                     self.name = goodName

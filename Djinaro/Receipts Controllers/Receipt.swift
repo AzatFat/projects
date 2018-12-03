@@ -124,6 +124,7 @@ struct Goods: Codable {
     var available_sizes:  [Available_sizes]?
     var price: Decimal?
     var priceReceipt: Decimal?
+    var images: [goodsImages]?
     
     
     enum CodingKeys: String, CodingKey {
@@ -140,6 +141,7 @@ struct Goods: Codable {
         case available_sizes = "Available_sizes"
         case price = "Price"
         case priceReceipt = "Price_Receipt"
+        case images = "Images"
     }
 
 }
@@ -512,3 +514,40 @@ struct userListAchivements: Codable {
         case month = "month"
     }
 }
+
+// ИЗображения товаров
+
+struct goodsImages: Codable {
+    var id: Int
+    var name: String?
+    var goodsId: Int?
+    var base64: String?
+    var url: imageURLpath?
+    
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "Id"
+        case name = "Name"
+        case goodsId = "Goods_Id"
+        case base64 = "Base64"
+        case url = "Url"
+    }
+}
+// Отправление картинки товара
+struct postImage: Codable {
+    var base64: String
+    enum CodingKeys: String, CodingKey {
+        case base64 = "base64"
+    }
+}
+//  URL goods
+struct imageURLpath: Codable {
+    var min: String
+    var main: String
+    
+    enum CodingKeys: String, CodingKey {
+        case min = "min"
+        case main = "main"
+    }
+}
+
