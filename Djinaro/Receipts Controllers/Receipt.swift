@@ -128,6 +128,7 @@ struct Goods: Codable {
     var price: Decimal?
     var priceReceipt: Decimal?
     var images: [goodsImages]?
+    var image: String?
     
     
     enum CodingKeys: String, CodingKey {
@@ -145,6 +146,7 @@ struct Goods: Codable {
         case price = "Price"
         case priceReceipt = "Price_Receipt"
         case images = "Images"
+        case image = "Image"
     }
 
 }

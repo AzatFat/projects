@@ -10,6 +10,7 @@ import UIKit
 
 class GoodsTableViewCell: UITableViewCell {
     @IBOutlet var goodName: UILabel!
+    @IBOutlet var goodId: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

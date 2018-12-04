@@ -28,6 +28,7 @@ class GoodViewController: UIViewController, UITableViewDelegate, UITableViewData
     var receipt_Document_Id : Int?
     var location = ""
     var name = ""
+    var mainImageUrl = ""
     let defaults = UserDefaults.standard
     var token = ""
     var userId = ""
@@ -51,12 +52,16 @@ class GoodViewController: UIViewController, UITableViewDelegate, UITableViewData
     func getGood() {
         recieptController.GetGood(token: token, goodId: goodId) { (good) in
             if let good = good {
-                print(good)
                 self.good = good
                 if let goodName = good.name, let goodLocation = good.location {
                     self.location = goodLocation
                     self.name = goodName
-                    self.goodsInfoViewController.changeLocation(goodName:  self.name, goodLocation:  self.location)
+                    
+                    if let goodImage = good.image {
+                        self.mainImageUrl = "/ImageStorage/" + self.goodId + "/320_240/" + goodImage
+                    }
+                    
+                    self.goodsInfoViewController.changeLocation(goodName:  self.name, goodLocation:  self.location, goodImageUrl: self.mainImageUrl)
                 }
             }
             DispatchQueue.main.async {
@@ -125,6 +130,7 @@ class GoodViewController: UIViewController, UITableViewDelegate, UITableViewData
         if let controller = segue.destination as? GoodInfoViewController, segue.identifier == "goodInfo" {
             controller.goodName = location
             controller.goodLocation = name
+            controller.goodImageUrl = mainImageUrl
             self.goodsInfoViewController = controller
         }
         if segue.identifier == "addGoodToCheck" {

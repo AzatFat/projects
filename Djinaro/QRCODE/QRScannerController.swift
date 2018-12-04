@@ -538,7 +538,7 @@ extension QRScannerController: AVCaptureMetadataOutputObjectsDelegate {
                     searchType = "addCustomerToCheck"
                     found_text = urlText[urlText.count - 1]
                     
-                } else if checkRecord != nil {
+                }else if checkRecord != nil {
                     
                     searchType = "addCheckRecordToCheckFromBarCode"
                     

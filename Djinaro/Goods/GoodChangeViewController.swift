@@ -54,7 +54,7 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
             good.type_Goods_Id = typeGoodId != 0 ? typeGoodId: good.type_Goods_Id
             changeGood(good: good)
         } else {
-            let newGood = Goods.init(id: 1, group_Goods_Id: nil, name: name, code: nil, description: nil, location: location, vendor_Code: nil, groupGoods: nil, type_Goods_Id: typeGoodId, type_Goods: nil, available_sizes: nil, price: Decimal(string: price), priceReceipt: nil, images: nil)
+            let newGood = Goods.init(id: 1, group_Goods_Id: nil, name: name, code: nil, description: nil, location: location, vendor_Code: nil, groupGoods: nil, type_Goods_Id: typeGoodId, type_Goods: nil, available_sizes: nil, price: Decimal(string: price), priceReceipt: nil, images: nil, image: nil)
            createGood(good:newGood)
         }
     }

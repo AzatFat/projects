@@ -83,7 +83,9 @@ class GoodsTableViewController: UITableViewController, UISearchBarDelegate {
         let good  = goods[indexPath.row]
         if let goodName = good.name {
             cell.goodName.text  = goodName
+            
         }
+        cell.goodId.text = String(good.id)
         return cell
     }
     
@@ -100,6 +102,7 @@ class GoodsTableViewController: UITableViewController, UISearchBarDelegate {
         if segue.identifier == "goodInfo" {
             let controller = segue.destination as! GoodViewController
             controller.goodId = goodId
+            controller.title = String(goodId)
             controller.checkRecord = checkRecord
         }
         
