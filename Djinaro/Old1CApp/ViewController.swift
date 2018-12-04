@@ -12,8 +12,11 @@ import UIKit
 class ViewController: UIViewController, UITextFieldDelegate {
 
 
-    let receiptController = ReceiptController(useMultiUrl: true)
     let defaults = UserDefaults.standard
+    //var prod = "http://91.203.195.74:5001"
+    var prod = "http://192.168.88.190"
+    var outProd = "http://87.117.180.87:7000"
+  
     
     
     @IBOutlet var UserName: UITextField!
@@ -33,17 +36,16 @@ class ViewController: UIViewController, UITextFieldDelegate {
         {
         case 0:
             print("First Segment Selected")
-            self.defaults.set("http://192.168.88.190", forKey: "baseUrl")
+            self.defaults.set(prod, forKey: "baseUrl")
+          //  self.defaults.set("http://192.168.88.190", forKey: "baseUrl")
         case 1:
 
             print("Second Segment Selected")
-            self.defaults.set("http://87.117.180.87:7000", forKey: "baseUrl")
+            self.defaults.set(outProd, forKey: "baseUrl")
         default:
             break
         }
     }
-    
-    
     
     override func viewDidLoad() {
         if let cookies = HTTPCookieStorage.shared.cookies {
@@ -67,7 +69,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         //let userId = defaults.object(forKey:"userId") as? String
 
         if userName != nil && password != nil && baseUrl != nil{
-            signIn(userName: userName ?? "", password: password ?? "", NeedErrorMessage: false)
+            signIn(userName: userName ?? "", password: password ?? "", NeedErrorMessage: true)
         }
         self.UserName.delegate = self
         self.Password.delegate = self
@@ -92,6 +94,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     func signIn(userName: String, password: String, NeedErrorMessage: Bool)  {
         print("caling signIn function")
+        let receiptController = ReceiptController(useMultiUrl: true)
         receiptController.POSTToken(username: userName, password: password) { (token) in
             print("Post Token function")
             if let token = token {
@@ -99,9 +102,22 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 self.defaults.set(password, forKey: "password")
                 self.defaults.set(token.user_id, forKey: "userId")
                 self.defaults.set(token.access_token, forKey: "token")
-                DispatchQueue.main.async {
-                    self.performSegue(withIdentifier: "LogIn", sender: nil)
+                if self.defaults.object(forKey:"baseUrl") as? String == "http://192.168.88.190" {
+                    DispatchQueue.main.async {
+                        self.performSegue(withIdentifier: "LogIn", sender: nil)
+                    }
+                } else if token.is_Admin == "True" {
+                    DispatchQueue.main.async {
+                        self.performSegue(withIdentifier: "LogIn", sender: nil)
+                    }
+                } else {
+                    if NeedErrorMessage {
+                        DispatchQueue.main.async {
+                            self.signError()
+                        }
+                    }
                 }
+               
             } else {
                 if NeedErrorMessage {
                     DispatchQueue.main.async {

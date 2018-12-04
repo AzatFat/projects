@@ -11,7 +11,7 @@ import UIKit
 class AddReceiptToArrivalViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     
-    let receiptController = ReceiptController()
+    let receiptController = ReceiptController(useMultiUrl: true)
     @IBOutlet var errorLable: UILabel!
     @IBOutlet var goodSIze: UITextField!
     @IBOutlet var goodCount: UITextField!
@@ -185,7 +185,7 @@ class AddReceiptToArrivalViewController: UIViewController, UITableViewDelegate, 
 
     
     func getSizesType(type: String) {
-        let receiptController = ReceiptController()
+        let receiptController = ReceiptController(useMultiUrl: true)
         let defaults = UserDefaults.standard
         let token = defaults.object(forKey:"token") as? String ?? ""
         receiptController.GetSizesByType(token: token, type: type) { (sizes) in

@@ -16,8 +16,7 @@ class ChekListTableViewController: UITableViewController {
     // Preloader
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     // URL
-    var recieptController = ReceiptController()
-    
+    var recieptController = ReceiptController(useMultiUrl: true)
     var checkList = [Check]()
     var checkTotalCostList = [String]()
     

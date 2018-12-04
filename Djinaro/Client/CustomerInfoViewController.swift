@@ -113,7 +113,7 @@ class CustomerInfoViewController: UIViewController, UITextFieldDelegate {
     
     
     func POSTCustomer(customer: Customer) {
-        let receiptController = ReceiptController()
+        let receiptController = ReceiptController(useMultiUrl: true)
         let defaults = UserDefaults.standard
         let token = defaults.object(forKey:"token") as? String ?? ""
         receiptController.POSTCustomer(token: token, post: customer) { (customerId) in
@@ -126,7 +126,7 @@ class CustomerInfoViewController: UIViewController, UITextFieldDelegate {
     }
     
     func PUTCustomer(customer: Customer) {
-        let receiptController = ReceiptController()
+        let receiptController = ReceiptController(useMultiUrl: true)
         let defaults = UserDefaults.standard
         let token = defaults.object(forKey:"token") as? String ?? ""
         receiptController.PUTCustomer(token: token, post: customer) { (customer) in
@@ -137,7 +137,7 @@ class CustomerInfoViewController: UIViewController, UITextFieldDelegate {
     }
     
     func addCustomerToCheck(checkId: String, customerId: String) {
-        let recieptController = ReceiptController()
+        let recieptController = ReceiptController(useMultiUrl: true)
         let defaults = UserDefaults.standard
         let token = defaults.object(forKey:"token") as? String ?? ""
         recieptController.POSTCustomerToCheck(token: token, checkId: checkId, customerId: customerId) { (check) in

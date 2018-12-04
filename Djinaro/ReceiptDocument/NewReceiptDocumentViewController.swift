@@ -14,7 +14,7 @@ class NewReceiptDocumentViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var addNewReceiptDocument: UIButton!
     @IBOutlet var NumberReceiptDocument: UITextField!
     var receiptDocument: ReceiptDocument?
-    var receiptController = ReceiptController()
+    var receiptController = ReceiptController(useMultiUrl: true)
     let defaults = UserDefaults.standard
     var token = ""
     

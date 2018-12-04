@@ -17,7 +17,7 @@ class CustomerTableViewController: UITableViewController, UISearchBarDelegate {
     }
     
     var checkRecord: CheckRecord?
-    var recieptController = ReceiptController()
+    var recieptController = ReceiptController(useMultiUrl: true)
     var customerList = [Customer]()
     var customer : Customer?
     let defaults = UserDefaults.standard

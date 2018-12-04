@@ -17,7 +17,7 @@ class GoodsArrivalTableViewController: UITableViewController, UISearchBarDelegat
     @IBAction func addArrival(_ sender: Any) {
     }
     let searchController = UISearchController(searchResultsController: nil)
-    var recieptController = ReceiptController()
+    var recieptController = ReceiptController(useMultiUrl: true)
     var recieptDocumentList = [ReceiptDocument]()
     var recieptDocumentId = ""
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()

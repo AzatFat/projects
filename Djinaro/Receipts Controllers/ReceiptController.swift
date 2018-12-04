@@ -13,14 +13,16 @@ import UIKit
 
 
 class ReceiptController {
-    //let baseURL = URL(string: "http://91.203.195.74:5001")!
+   // var baseURL = URL(string: "http://91.203.195.74:5001")!
     var baseURL = URL(string: "http://192.168.88.190")!
     let defaults = UserDefaults.standard
     var token : String?
     var tokenType : String?
     
     init () {
-        
+        if let udrl = defaults.object(forKey:"baseUrl") as? String {
+            self.baseURL = URL(string: udrl)!
+        }
     }
     
     init(useMultiUrl: Bool) {
@@ -43,6 +45,7 @@ class ReceiptController {
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         let params = "grant_type=password&username=\(username)&password=\(password)"
         request.httpBody = params.data(using: String.Encoding.utf8)
+        print("token request is \(request)")
         let task = URLSession.shared.dataTask(with: request){
             (data, response, error) in
             let jsonDecoder = JSONDecoder()
@@ -572,6 +575,7 @@ class ReceiptController {
         var request = URLRequest(url: ReceiptURL)
         request.httpMethod = "GET"
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        print("token request is \(request)")
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             let jsonDecoder = JSONDecoder()
             if let data = data{
@@ -851,45 +855,6 @@ class ReceiptController {
     }
     
     // Прикрепление изображения к товару
-    func POSTGoodImage (token: String, base64: postImage, good: Goods, completion: @escaping (goodsImages?) -> Void) {
-        let PostReceipt = baseURL.appendingPathComponent("/api/GoodImage/Create/" + String(good.id))
-        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
-        let ReceiptURL = components.url!
-        var request = URLRequest(url: ReceiptURL)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        let jsonEcoder = JSONEncoder()
-        let jsonData = try? jsonEcoder.encode(base64)
-        request.httpBody = jsonData
-        print(request)
-        let task = URLSession.shared.dataTask(with: request){
-            (data, response, error) in
-            let jsonDecoder = JSONDecoder()
-            if let data = data{
-                if let list = try? jsonDecoder.decode(goodsImages.self, from: data) {
-                    completion(list)
-                } else {
-                    do {
-                        let decoder = JSONDecoder()
-                        let product = try decoder.decode(goodsImages.self, from: data)
-                        completion(product)
-                    } catch let error {
-                        print("error in Post goodsImages")
-                        print(error)
-                        print(response)
-                        self.denyAuthorisation(data: data)
-                        completion(nil)
-                    }
-                }
-                
-            } else {
-                completion(nil)
-            }
-        }
-        task.resume()
-    }
-    
     func POSTGoodImageAsData (token: String, image: UIImage, good: Goods, completion: @escaping (goodsImages?) -> Void) {
         let PostReceipt = baseURL.appendingPathComponent("/api/GoodImage/Create/" + String(good.id))
         let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
@@ -953,6 +918,37 @@ class ReceiptController {
     {
         return "Boundary-\(NSUUID().uuidString)"
     }
+    // Сделать изображение главным
+    func MakeGoodsImageMain (token: String, imageId: String , completion: @escaping (String?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("/api/GoodImage/Main/" + imageId)
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        print(request)
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            if let httpResponse = response as? HTTPURLResponse {
+                print("statusCode: \(httpResponse.statusCode)")
+                if httpResponse.statusCode == 200 || httpResponse.statusCode == 204 {
+                    print("responsee 200")
+                    completion("Товар изменен")
+                }
+            }
+            
+            if let data = data{
+                let answer = String(data: data, encoding: String.Encoding.utf8)
+                print(answer)
+                completion(answer ?? "Неизвестная ошибка")
+            } else {
+                completion("Неизвестная ошибка")
+            }
+        }
+        task.resume()
+    }
+    
     
     // Получение изображения товара
     func getGoodImage(url: String, completion: @escaping (UIImage?) -> Void) {

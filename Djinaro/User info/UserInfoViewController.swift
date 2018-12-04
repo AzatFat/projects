@@ -53,6 +53,9 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
         self.defaults.set(nil, forKey: "userName")
         self.defaults.set(nil, forKey: "password")
         self.defaults.set(nil, forKey: "token")
+        
+        let initial = ViewController()
+        self.defaults.set(initial.prod, forKey: "baseUrl")
         let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
         let appDel:AppDelegate = UIApplication.shared.delegate as! AppDelegate
         appDel.window?.rootViewController = loginVC
@@ -65,7 +68,7 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     @objc func getUserAchivements() {
-        let receiptController =  ReceiptController()
+        let receiptController = ReceiptController(useMultiUrl: true)
         let token = self.defaults.object(forKey:"token") as? String ?? ""
         receiptController.GetReportPersonal(token: token) { (userListAchivemnts) in
             

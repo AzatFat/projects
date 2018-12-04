@@ -27,7 +27,7 @@ class ArrivalInfoViewController: UIViewController, UITableViewDelegate, UITableV
         acceptPrintingReceiptDocument()
     }
     var receiptId = ""
-    let receiptController = ReceiptController()
+    let receiptController = ReceiptController(useMultiUrl: true)
     var recieptDocument: ReceiptDocument?
     var receipts: [Receipt]?
     var receiptsToAddNewGoodsController =  [Receipt]()

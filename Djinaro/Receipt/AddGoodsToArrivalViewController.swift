@@ -56,7 +56,7 @@ class AddGoodsToArrivalViewController: UIViewController, UITableViewDelegate, UI
     var good : Goods?
     var receipt : Receipt?
     var sizes: [Sizes]?
-    var receiptController = ReceiptController()
+    var receiptController = ReceiptController(useMultiUrl: true)
     let defaults = UserDefaults.standard
     var token = ""
     let activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()

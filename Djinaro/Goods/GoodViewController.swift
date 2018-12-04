@@ -20,7 +20,7 @@ class GoodViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     
     
-    var recieptController = ReceiptController()
+    var recieptController = ReceiptController(useMultiUrl: true)
     var goodsInfoViewController = GoodInfoViewController()
     
     var goodId = ""

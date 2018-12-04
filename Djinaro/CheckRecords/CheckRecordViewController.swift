@@ -31,7 +31,7 @@ class CheckRecordViewController: UIViewController, UITableViewDelegate, UITableV
     
     
     
-    var recieptController = ReceiptController()
+    var recieptController = ReceiptController(useMultiUrl: true)
     let defaults = UserDefaults.standard
     var token = ""
     var userId = ""

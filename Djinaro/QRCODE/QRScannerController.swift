@@ -80,7 +80,7 @@ class QRScannerController: UIViewController {
     var qrCodeFrameView: UIView?
     var togleON = false
     
-    var receiptController = ReceiptController()
+    var receiptController = ReceiptController(useMultiUrl: true)
     var qrReceiptDocument: QRReceiptDocument?
     var token = ""
     var userId = ""

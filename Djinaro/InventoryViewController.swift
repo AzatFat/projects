@@ -64,8 +64,8 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
         print("table reloaded")
         let defaults = UserDefaults.standard
         let token = defaults.object(forKey:"token") as? String ?? ""
-        let recieptController = ReceiptController()
-        recieptController.GetFrontInventoryGoods(token: token) { (frontGoods) in
+        let receiptController = ReceiptController(useMultiUrl: true)
+        receiptController.GetFrontInventoryGoods(token: token) { (frontGoods) in
             if let frontGoods = frontGoods {
                self.goodsFrontShop = frontGoods
             }

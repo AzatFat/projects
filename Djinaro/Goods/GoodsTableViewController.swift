@@ -10,7 +10,7 @@ import UIKit
 
 class GoodsTableViewController: UITableViewController, UISearchBarDelegate {
 
-    var recieptController = ReceiptController()
+    var recieptController = ReceiptController(useMultiUrl: true)
     
     var goods = [Goods]()
     var goodId = ""
@@ -131,11 +131,11 @@ class GoodsTableViewController: UITableViewController, UISearchBarDelegate {
         }*/
         var is_remains = ""
         var is_archive = ""
-        /*
+        
         if receipt_Document_Id == nil {
             is_remains = "true"
             is_archive = "false"
-        }*/
+        }
         recieptController.GetGoodsSearch(token: token, search: "", sizes: "", is_remains: is_remains,is_archive: is_archive) { (listGoods) in
             if let listGoods = listGoods {
                 print("listReceipt get succes")
@@ -152,11 +152,11 @@ class GoodsTableViewController: UITableViewController, UISearchBarDelegate {
         print("trying search Good")
         var is_remains = ""
         var is_archive = ""
-        /*
+        
         if receipt_Document_Id == nil {
             is_remains = "true"
             is_archive = "false"
-        }*/
+        }
         
         recieptController.GetGoodsSearch(token: token, search: search, sizes: sizes, is_remains: is_remains,is_archive: is_archive) { (listGoods) in
             if let listGoods = listGoods {

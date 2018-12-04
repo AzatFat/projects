@@ -36,9 +36,11 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="o4T-ys-KMP">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="o4T-ys-KMP">
                                 <rect key="frame" x="100" y="37" width="121" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="121" id="N3R-Jz-v4I"/>
+                                </constraints>
                                 <segments>
                                     <segment title=" In"/>
                                     <segment title="Out"/>
@@ -53,11 +55,14 @@
                             <constraint firstItem="9SA-wd-rBY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="73" id="8H6-MY-kgd"/>
                             <constraint firstItem="Xxn-Bb-2rF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="73" id="ELf-YE-ufY"/>
                             <constraint firstItem="XcX-E7-vgr" firstAttribute="top" secondItem="Xxn-Bb-2rF" secondAttribute="bottom" constant="31" id="OOj-7h-B73"/>
+                            <constraint firstItem="o4T-ys-KMP" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="17" id="X5W-Ol-dEp"/>
                             <constraint firstItem="XcX-E7-vgr" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="aCD-R6-iym"/>
                             <constraint firstItem="Xxn-Bb-2rF" firstAttribute="top" secondItem="9SA-wd-rBY" secondAttribute="bottom" constant="28" id="aKf-67-ooN"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="9SA-wd-rBY" secondAttribute="trailing" constant="73" id="b9X-5c-lbh"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Xxn-Bb-2rF" secondAttribute="trailing" constant="73" id="bL6-U0-EOb"/>
                             <constraint firstItem="XcX-E7-vgr" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="dgG-M7-cRu"/>
+                            <constraint firstItem="o4T-ys-KMP" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="h3r-9V-AtP"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="o4T-ys-KMP" secondAttribute="trailing" constant="99" id="wwu-Be-UuB"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

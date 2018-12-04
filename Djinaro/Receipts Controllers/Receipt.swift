@@ -17,6 +17,7 @@ struct Token: Codable {
     var userName: String
     var issued: String?
     var expires: String?
+    var is_Admin: String?
     
     enum CodingKeys: String, CodingKey {
         case access_token = "access_token"
@@ -26,6 +27,7 @@ struct Token: Codable {
         case userName = "userName"
         case issued = ".issued"
         case expires = ".expires"
+        case is_Admin = "Is_Admin"
     }
 }
 
@@ -43,11 +45,12 @@ struct UserInfo: Codable {
     var Email : String?
     var HasRegistered: Bool?
     var LoginProvider: String?
-    
+    var Is_Admin: Bool?
     enum CodingKeys: String, CodingKey {
         case Email = "Email"
         case HasRegistered = "HasRegistered"
         case LoginProvider = "LoginProvider"
+        case Is_Admin = "Is_Admin"
     }
 }
 
@@ -522,6 +525,7 @@ struct goodsImages: Codable {
     var name: String?
     var goodsId: Int?
     var base64: String?
+    var is_Main: Bool?
     var url: imageURLpath?
     
     
@@ -531,6 +535,7 @@ struct goodsImages: Codable {
         case goodsId = "Goods_Id"
         case base64 = "Base64"
         case url = "Url"
+        case is_Main = "Is_Main"
     }
 }
 // Отправление картинки товара

@@ -60,7 +60,7 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
     }
     
     @IBAction func printGoodsLableShop(_ sender: Any) {
-        let receiptController = ReceiptController()
+        let receiptController = ReceiptController(useMultiUrl: true)
         let defaults = UserDefaults.standard
         let token = defaults.object(forKey:"token") as? String ?? ""
         if let good_id = good?.id,  good?.price != 0, good?.price != nil, GoodPrice.text != "" {
@@ -129,7 +129,7 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
     
     
     func changeGood(good: Goods) {
-        let receiptController = ReceiptController()
+        let receiptController = ReceiptController(useMultiUrl: true)
         let defaults = UserDefaults.standard
         let token = defaults.object(forKey:"token") as? String ?? ""
         receiptController.PUTGood(token: token, post: good) { (answer) in
@@ -141,7 +141,7 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
     }
     
     func createGood(good: Goods) {
-        let receiptController = ReceiptController()
+        let receiptController = ReceiptController(useMultiUrl: true)
         let defaults = UserDefaults.standard
         let token = defaults.object(forKey:"token") as? String ?? ""
         receiptController.POSTGood(token: token, post: good) { (good) in
@@ -165,7 +165,7 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
     }
     
     func getGoodsType () {
-        let receiptController = ReceiptController()
+        let receiptController = ReceiptController(useMultiUrl: true)
         let defaults = UserDefaults.standard
         let token = defaults.object(forKey:"token") as? String ?? ""
         receiptController.GETTypeGoods(token: token) { (typeGoods) in
@@ -227,6 +227,15 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
         cell.layer.insertSublayer(gradient(frame: cell.bounds, left: UIColor.white.cgColor, right: UIColor.init(red: 49.0/255.0, green: 49.0/255.0, blue: 49.0/255.0, alpha: 1.0).cgColor), at:0)
         applyRoundCorner(cell)
         
+        if goodUIImagesDict[indexPath.row].main == true {
+            print(goodUIImagesDict[indexPath.row].main, indexPath.row)
+            cell.layer.borderWidth = 2.0
+            cell.layer.borderColor = UIColor.red.cgColor
+        } else {
+            cell.layer.borderWidth = 0
+            cell.layer.borderColor = UIColor.white.cgColor
+        }
+        
         return cell
     }
     
@@ -236,14 +245,24 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
         if indexPath.row == 0 {
             takeImage()
         } else {
-            let alertController = UIAlertController(title: "Фото", message: nil, preferredStyle: .actionSheet)
+            let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
             let deleteAction = UIAlertAction(title: "Delete", style: .default) { (action) in
                print("delete")
                 self.deleteGoodImage(imageId: self.goodUIImagesDict[indexPath.row].id, index: indexPath.row)
             }
+            
+            let makeMainAction = UIAlertAction(title: "Сделать главной", style: .default) { (action) in
+                self.makeGoodImageMain(imageId: self.goodUIImagesDict[indexPath.row].id, index: indexPath.row)
+            }
+            
+            let image = goodUIImagesDict[indexPath.row].image
+            alertController.addImage(image: image)
+            
+
             alertController.addAction(cancelAction)
+            alertController.addAction(makeMainAction)
             alertController.addAction(deleteAction)
             present(alertController, animated: true, completion: nil)
         }
@@ -272,12 +291,11 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
     struct goodUIimages {
         var id: String
         var image: UIImage
+        var main: Bool
     }
-    var goodUIImagesDict = [goodUIimages.init(id: "main", image: UIImage(named: "addPhoto")!)]
-    
+    var goodUIImagesDict = [goodUIimages.init(id: "main", image: UIImage(named: "addPhoto")!, main: false)]
     
     func takeImage() {
-
         imagePicker.allowsEditing = false
         imagePicker.sourceType = .photoLibrary
         let alertController = UIAlertController(title: "выберите фото", message: nil, preferredStyle: .actionSheet)
@@ -290,31 +308,30 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
             }
             alertController.addAction(photoLibraryAction)
         }
-        
         present(alertController, animated: true, completion: nil)
     }
+    
     @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let image = (info[UIImagePickerController.InfoKey.originalImage] as? UIImage)!
- 
         picker.dismiss(animated:true,completion:nil)
         if let good = good {
             uploadImagetoGood(image: image, good: good)
         }
     }
+    
     @objc func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        
          picker.dismiss(animated:true,completion:nil)
     }
     
     func uploadImagetoGood(image: UIImage, good: Goods) {
         addPreload(start_stop: true)
-        let receiptController = ReceiptController()
+        let receiptController = ReceiptController(useMultiUrl: true)
         let defaults = UserDefaults.standard
         let token = defaults.object(forKey:"token") as? String ?? ""
         receiptController.POSTGoodImageAsData(token: token, image: image, good: good) { (postedImage) in
             if let posted = postedImage {
                 DispatchQueue.main.async {
-                    self.goodUIImagesDict.append(goodUIimages.init(id: String(posted.id), image: image))
+                    self.goodUIImagesDict.append(goodUIimages.init(id: String(posted.id), image: image, main: false))
                     self.goodsImagesCollection.reloadData()
                     self.addPreload(start_stop: false)
                     self.error(title: "товар добавлен")
@@ -331,7 +348,7 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
     
 
     func deleteGoodImage(imageId: String, index: Int) {
-        let receiptController = ReceiptController()
+        let receiptController = ReceiptController(useMultiUrl: true)
         let defaults = UserDefaults.standard
         let token = defaults.object(forKey:"token") as? String ?? ""
         receiptController.DELETEGoodsImage(token: token, imageId: imageId) { (answer) in
@@ -348,17 +365,16 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
     }
     
     func getGoodImage() {
-        let receiptController = ReceiptController()
+        let receiptController = ReceiptController(useMultiUrl: true)
         if let goodImages = good?.images {
             let myGroup = DispatchGroup()
             for images in goodImages {
                 myGroup.enter()
-                if let imageUrl = images.url?.min {
+                if let imageUrl = images.url?.main {
                     receiptController.getGoodImage(url: imageUrl) { (image) in
                         if let image = image {
                             print("full success get image")
-                            //self.uiImages.append(image)
-                            self.goodUIImagesDict.append(goodUIimages.init(id: String(images.id), image: image))
+                            self.goodUIImagesDict.append(goodUIimages.init(id: String(images.id), image: image, main: images.is_Main ?? false))
                             myGroup.leave()
                         }else {
                             myGroup.leave()
@@ -370,6 +386,29 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
             }
             myGroup.notify(queue: .main) {
                 self.goodsImagesCollection.reloadData()
+            }
+        }
+    }
+    
+    func makeGoodImageMain(imageId: String, index: Int) {
+        let receiptController = ReceiptController(useMultiUrl: true)
+        let defaults = UserDefaults.standard
+        let token = defaults.object(forKey:"token") as? String ?? ""
+        receiptController.MakeGoodsImageMain(token: token, imageId: imageId) { (answer) in
+            if let answer = answer {
+                if answer == "Товар изменен" {
+                    DispatchQueue.main.async {
+                        for (i, n) in self.goodUIImagesDict.enumerated() {
+                            if n.main {
+                                self.goodUIImagesDict[i].main = false
+                                break
+                            }
+                        }
+                        self.goodUIImagesDict[index].main = true
+                        self.goodsImagesCollection.reloadData()
+                        self.error(title: "Товар  сделан главным")
+                    }
+                }
             }
         }
     }
@@ -431,5 +470,54 @@ extension UIImage {
     func toBase64() -> String? {
         guard let imageData = self.pngData() else { return nil }
         return imageData.base64EncodedString(options: Data.Base64EncodingOptions.lineLength64Characters)
+    }
+}
+
+
+extension UIAlertController {
+    func addImage(image: UIImage) {
+        let maxSize = CGSize(width: 290, height: 360)
+        let imageSize = image.size
+        print(image.size)
+        
+        var ratio: CGFloat!
+        if imageSize.width > imageSize.height {
+            ratio = maxSize.width / imageSize.width
+        } else {
+            ratio = maxSize.height / imageSize.height
+        }
+        
+        ratio = ratio > 1 ? 1 : ratio
+        
+        let scaledSize = CGSize(width: imageSize.width * ratio, height: imageSize.height * ratio)
+        let resizedImage = image.resizeImage(targetSize: scaledSize)
+        
+        let alertViewPadding: CGFloat = 19.0 //Adjust this as per your need
+        let left = -self.view.frame.size.width / 2 + resizedImage.size.width/2 + alertViewPadding
+        
+        print(self.view.frame.size.width, resizedImage.size.width, left)
+        
+        resizedImage.withAlignmentRectInsets(UIEdgeInsets(top: 0, left:  0, bottom: 0, right: left))
+        let imgAction = UIAlertAction(title: "", style: .default, handler: nil)
+        imgAction.isEnabled = false
+        imgAction.setValue(resizedImage.withAlignmentRectInsets(UIEdgeInsets(top: 0, left:  left, bottom: 0, right: 0)).withRenderingMode(.alwaysOriginal), forKey: "image")
+        self.addAction(imgAction)
+    }
+}
+
+extension UIImage {
+    func resizeImage(targetSize: CGSize) -> UIImage {
+        let size = self.size
+        let widthRatio  = targetSize.width  / size.width
+        let heightRatio = targetSize.height / size.height
+        let newSize = widthRatio > heightRatio ?  CGSize(width: size.width * heightRatio, height: size.height * heightRatio) : CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
+        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+        
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        self.draw(in: rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        //print(newImage!.size)
+        return newImage!
     }
 }
