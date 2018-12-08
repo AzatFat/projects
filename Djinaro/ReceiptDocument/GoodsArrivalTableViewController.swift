@@ -134,7 +134,7 @@ class GoodsArrivalTableViewController: UITableViewController, UISearchBarDelegat
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
-        guard let scopeString = searchBar.scopeButtonTitles? [searchBar.selectedScopeButtonIndex] else {return }
+        guard (searchBar.scopeButtonTitles? [searchBar.selectedScopeButtonIndex]) != nil else {return }
         searchBar.showsCancelButton = false;
         searchBar.showsScopeBar = false
         searchBar.sizeToFit()

@@ -108,7 +108,7 @@ class ReceiptController {
                         let product = try decoder.decode(UserInfo.self, from: data)
                         print(product)
                         completion(product)
-                    } catch let error {
+                    } catch _ {
                         print("error in getting User Info")
                         self.denyAuthorisation(data: data)
                         completion(nil)
@@ -897,11 +897,11 @@ class ReceiptController {
                         let decoder = JSONDecoder()
                         let product = try decoder.decode(goodsImages.self, from: data)
                         completion(product)
-                    } catch let error {
+                    } catch _ {
                         print("error in Post goodsImages")
-                        print(error)
-                        print(response)
-                        print(String(data: data, encoding: String.Encoding.utf8))
+                        //print(error)
+                        //print(response)
+                        //print(String(data: data, encoding: String.Encoding.utf8))
                         self.denyAuthorisation(data: data)
                         completion(nil)
                     }
@@ -940,7 +940,7 @@ class ReceiptController {
             
             if let data = data{
                 let answer = String(data: data, encoding: String.Encoding.utf8)
-                print(answer)
+                //print(answer)
                 completion(answer ?? "Неизвестная ошибка")
             } else {
                 completion("Неизвестная ошибка")
@@ -964,8 +964,8 @@ class ReceiptController {
                 
             } else {
                 print("success image error")
-                print(response)
-                print(error)
+               // print(response)
+               // print(error)
                 completion(nil)
             }
         }
@@ -993,7 +993,7 @@ class ReceiptController {
             
             if let data = data{
                 let answer = String(data: data, encoding: String.Encoding.utf8)
-                print(answer)
+               // print(answer)
                 completion(answer ?? "Неизвестная ошибка")
             } else {
                 completion("Неизвестная ошибка")
@@ -1507,7 +1507,7 @@ class ReceiptController {
             (data, response, error) in
             if let data = data{
                 let answer = String(data: data, encoding: String.Encoding.utf8)
-                print(answer)
+               // print(answer)
                 completion(answer ?? "Неизвестная ошибка")
             } else {
                 completion("Неизвестная ошибка")

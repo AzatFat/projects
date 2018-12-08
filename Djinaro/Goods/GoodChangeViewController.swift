@@ -105,16 +105,16 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
         
         hideKeyboardWhenTappedAround()
         
-        if let goodType = good?.type_Goods_Id, goodType != 6 {
+        if let goodType = good?.type_Goods_Id, goodType != 6 && goodType != 10 {
             self.navigationItem.rightBarButtonItem = nil
         }
         
         self.GoodType.inputView = self.pickerView
         self.GoodType.inputAccessoryView = self.pickerView.toolbar
         
-        self.pickerView.dataSource = self as? UIPickerViewDataSource
-        self.pickerView.delegate = self as? UIPickerViewDelegate
-        self.pickerView.toolbarDelegate = self as? ToolbarPickerViewDelegate
+        self.pickerView.dataSource = self as UIPickerViewDataSource
+        self.pickerView.delegate = self as UIPickerViewDelegate
+        self.pickerView.toolbarDelegate = self as ToolbarPickerViewDelegate
         
      //   goodsImagesCollection.layer.insertSublayer(gradient(frame: goodsImagesCollection.backgroundView, left: UIColor.init(red: 49.0/255.0, green: 49.0/255.0, blue: 49.0/255.0, alpha: 1.0).cgColor, right: UIColor.init(red: 49.0/255.0, green: 49.0/255.0, blue: 49.0/255.0, alpha: 1.0).cgColor), at:0)
         goodsImagesCollection.backgroundColor = UIColor.init(red: 211.0/255.0, green: 211.0/255.0, blue: 211.0/255.0, alpha: 1.0)

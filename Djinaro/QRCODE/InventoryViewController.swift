@@ -8,11 +8,14 @@
 
 import UIKit
 
-
+protocol InventoryCellTapped: class {
+    func segueToItemList(decodedString: String, searchType: String )
+}
 
 class InventoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, SpyDelegate {
     
     var goodsFrontShop = [InventoryFrontShop]()
+    var delegate: InventoryCellTapped!
     
     @IBOutlet var tableView: UITableView!
     
@@ -60,6 +63,17 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("trying to perform segue")
+        //let cell = tableView.cellForRow(at: indexPath as IndexPath)
+        tableView.deselectRow(at: indexPath as IndexPath, animated: true)
+        if(delegate != nil) {
+            self.delegate.segueToItemList(decodedString: String(goodsFrontShop[indexPath.row].goods_id), searchType: "findGoodFromInventory")
+        } else {
+            print("delegate is nil")
+        }
+    }
+    
     func getFrontInventoryShop() {
         print("table reloaded")
         let defaults = UserDefaults.standard
@@ -79,6 +93,7 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
 
+    
     
  /*   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.

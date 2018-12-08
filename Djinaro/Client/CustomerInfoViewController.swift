@@ -43,7 +43,7 @@ class CustomerInfoViewController: UIViewController, UITextFieldDelegate {
         let phone = CustomerPhone.text
         let email = CustomerEmail.text
         print("customerBirthDate is \(customerBirthDate)")
-        print("customer is \(customer)")
+        //print("customer is \(customer)")
         if customer != nil {
             let putCustomer = Customer.init(id: customer!.id, surname: customerSecondName, name: name, middle_Name: middle_Name, birth_Date: customerBirthDate, phone: phone, email: email, vK_Link: nil, iNSTA_Link: nil, is_Archive: nil)
             PUTCustomer(customer: putCustomer)

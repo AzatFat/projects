@@ -76,7 +76,7 @@ class AddGoodsToArrivalViewController: UIViewController, UITableViewDelegate, UI
         goodName.text = good?.name
         goodLocation.text = good?.location
         goodPrise.text = good?.price?.formattedAmount
-        var priceReceipt = good?.priceReceipt?.formattedAmount
+        //var priceReceipt = good?.priceReceipt?.formattedAmount
         if goodPrise.text == ",00" {
             goodPrise.text = "" /*
             if priceReceipt != ",00" {

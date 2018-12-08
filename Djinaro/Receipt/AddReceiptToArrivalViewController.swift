@@ -164,10 +164,9 @@ class AddReceiptToArrivalViewController: UIViewController, UITableViewDelegate, 
         self.goodSIze.inputView = self.pickerView
         self.goodSIze.inputAccessoryView = self.pickerView.toolbar
         
-        
-        self.pickerView.dataSource = self as? UIPickerViewDataSource
-        self.pickerView.delegate = self as? UIPickerViewDelegate
-        self.pickerView.toolbarDelegate = self as? ToolbarPickerViewDelegate
+        self.pickerView.dataSource = self as UIPickerViewDataSource
+        self.pickerView.delegate = self as UIPickerViewDelegate
+        self.pickerView.toolbarDelegate = self as ToolbarPickerViewDelegate
         
         hideKeyboardWhenTappedAround() 
         // Do any additional setup after loading the view.
@@ -462,9 +461,9 @@ class AddReceiptToArrivalViewController: UIViewController, UITableViewDelegate, 
         receiptController.GetGood(token: token, goodId: String(good!.id)) { (good) in
             if let good = good {
                 DispatchQueue.main.async {
-                    print(good.price, good.priceReceipt, Decimal(integerLiteral: 0))
+                    //print(good.price, good.priceReceipt, Decimal(integerLiteral: 0))
                     if good.price == Decimal(integerLiteral: 0), good.priceReceipt != Decimal(integerLiteral: 0) {
-                        let alert = UIAlertController(title: "Цена товара не указана. Желаете поставить последнюю цену поступления \(good.priceReceipt)", message: nil, preferredStyle: UIAlertController.Style.alert)
+                        let alert = UIAlertController(title: "Цена товара не указана. Желаете поставить последнюю цену поступления \(String(describing: good.priceReceipt))", message: nil, preferredStyle: UIAlertController.Style.alert)
                         
                         alert.addAction(UIAlertAction(title: "Да", style: .default, handler: { action in
                             self.cost = good.priceReceipt

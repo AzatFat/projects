@@ -150,8 +150,6 @@
 				AA96D524218F7E81000BB6F8 /* Old1CApp */,
 				AA96D52A218F81CC000BB6F8 /* QRCODE */,
 				AA830C49215568C900F004B3 /* Main.storyboard */,
-				AAB2984221AD344F00B9F96E /* InventoryViewController.swift */,
-				AAB2984421AD367A00B9F96E /* InventoryTableViewCell.swift */,
 				AA96D529218F8010000BB6F8 /* Receipts Controllers */,
 				AA96D525218F7ECE000BB6F8 /* User info */,
 				AA96D526218F7EE3000BB6F8 /* ReceiptDocument */,
@@ -237,6 +235,8 @@
 			isa = PBXGroup;
 			children = (
 				AA830C5F2157D1D000F004B3 /* QRScannerController.swift */,
+				AAB2984221AD344F00B9F96E /* InventoryViewController.swift */,
+				AAB2984421AD367A00B9F96E /* InventoryTableViewCell.swift */,
 			);
 			path = QRCODE;
 			sourceTree = "<group>";

@@ -17,8 +17,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
     var prod = "http://192.168.88.190"
     var outProd = "http://87.117.180.87:7000"
   
-    
-    
     @IBOutlet var UserName: UITextField!
     @IBOutlet var Password: UITextField!
     @IBAction func LogIn(_ sender: Any) {
@@ -93,7 +91,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     func signIn(userName: String, password: String, NeedErrorMessage: Bool)  {
-        print("caling signIn function")
+        print("calling signIn function")
         let receiptController = ReceiptController(useMultiUrl: true)
         receiptController.POSTToken(username: userName, password: password) { (token) in
             print("Post Token function")

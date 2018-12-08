@@ -116,7 +116,7 @@ class GoodsTableViewController: UITableViewController, UISearchBarDelegate {
         }
         
         if segue.identifier == "createGood" {
-            let controller = segue.destination as! GoodChangeViewController
+           // let controller = segue.destination as! GoodChangeViewController
         }
     }
     

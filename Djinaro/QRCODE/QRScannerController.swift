@@ -26,7 +26,9 @@ protocol SpyDelegate: class {
     func getFrontInventoryShop()
 }
 
-class QRScannerController: UIViewController {
+
+
+class QRScannerController: UIViewController, InventoryCellTapped {
 
    
     @IBAction func lightButton(_ sender: Any) {
@@ -57,15 +59,13 @@ class QRScannerController: UIViewController {
     }
     
     @IBOutlet var InventoryButtonOutlet: UIBarButtonItem!
-    
-    
     @IBOutlet var viewGoodsTable: UIView!
     
     
     var captureSession = AVCaptureSession()
     var checkRecord: CheckRecord?
     
-    // Переменный для инвентаризации
+    // Переменные для инвентаризации
     var needInventory = false
     var frontInventory = false
     var tableInventory = InventoryViewController()
@@ -106,9 +106,9 @@ class QRScannerController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         captureSession.startRunning()
         needInventory = false
-         frontInventory = false
-        InventoryButtonOutlet.tintColor = .blue
-        self.view.sendSubviewToBack(viewGoodsTable)
+        //frontInventory = false
+        //InventoryButtonOutlet.tintColor = .blue
+        //self.view.sendSubviewToBack(viewGoodsTable)
         found_bar = 0
     }
     override func viewDidDisappear(_ animated: Bool) {
@@ -118,11 +118,13 @@ class QRScannerController: UIViewController {
     override func viewDidLoad() {
         
         self.title = "Camera"
+        tableInventory.delegate = self
         
         token = defaults.object(forKey:"token") as? String ?? ""
         userId = defaults.object(forKey:"userId") as? String ?? ""
         
         super.viewDidLoad()
+        
         // Get the back-facing camera for capturing videos
         let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType.video, position: .back)
         
@@ -228,6 +230,8 @@ class QRScannerController: UIViewController {
             POSTInventoryCode()
         case "POSTFrontInventoryShop":
             POSTFrontInventoryShop()
+        case "findGoodFromInventory":
+            findGoodFromInventory(goodId: decodedString)
         default:
             findGood()
         }
@@ -242,7 +246,7 @@ class QRScannerController: UIViewController {
         let inventoryCode = InventoryCode.init(code: full_found_text)
         print(inventoryCode)
         receiptController.POSTInventoryEnter(token: token,  code: found_text, post: inventoryCode) { (answer) in
-            print("answer is  \(answer)")
+            //print("answer is  \(answer)")
             if answer == answer, answer != "-1" {
                 
                 DispatchQueue.main.async {
@@ -384,6 +388,12 @@ class QRScannerController: UIViewController {
                 }
             }
         }
+    }
+    
+    
+    func findGoodFromInventory(goodId: String) {
+        found_text = goodId
+        performSegue(withIdentifier: "findGood", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

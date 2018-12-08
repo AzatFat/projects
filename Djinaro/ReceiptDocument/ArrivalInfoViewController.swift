@@ -109,7 +109,7 @@ class ArrivalInfoViewController: UIViewController, UITableViewDelegate, UITableV
         let cell = tableView.cellForRow(at: indexPath as IndexPath)
         tableView.deselectRow(at: indexPath as IndexPath, animated: true)
         if let receipts = GroupReceiptsList[indexPath.row].objectRaw {
-            receiptsToAddNewGoodsController = receipts
+            receiptsToAddNewGoodsController = receipts.sorted(by: {$0.sizes!.name! < $1.sizes!.name! })
             receiptsnameToAddNewGoodsController = GroupReceiptsList[indexPath.row].objectGood
         }
         
