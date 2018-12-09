@@ -23,14 +23,13 @@ struct QRReceiptDocument: Codable {
 }
 
 protocol SpyDelegate: class {
-    func getFrontInventoryShop()
+    func getFrontInventoryShop(url: String)
 }
 
 
 
 class QRScannerController: UIViewController, InventoryCellTapped {
 
-   
     @IBAction func lightButton(_ sender: Any) {
         if togleON {
             toggleTorch(on: false)
@@ -68,6 +67,7 @@ class QRScannerController: UIViewController, InventoryCellTapped {
     // Переменные для инвентаризации
     var needInventory = false
     var frontInventory = false
+    var frontURL = ""
     var tableInventory = InventoryViewController()
     weak var delegate : SpyDelegate?
     
@@ -229,9 +229,11 @@ class QRScannerController: UIViewController, InventoryCellTapped {
         case "POSTInventoryCode":
             POSTInventoryCode()
         case "POSTFrontInventoryShop":
-            POSTFrontInventoryShop()
+            POSTFrontInventoryShop(url: frontURL)
         case "findGoodFromInventory":
             findGoodFromInventory(goodId: decodedString)
+        case "POSTsalesFontInventoryShop":
+            POSTsalesFontInventoryShop()
         default:
             findGood()
         }
@@ -242,10 +244,15 @@ class QRScannerController: UIViewController, InventoryCellTapped {
         performSegue(withIdentifier: "findReceiptInfo", sender: nil)
     }
     
-    func POSTFrontInventoryShop() {
+    func POSTsalesFontInventoryShop() {
+        
+    }
+    
+    
+    func POSTFrontInventoryShop(url: String) {
         let inventoryCode = InventoryCode.init(code: full_found_text)
         print(inventoryCode)
-        receiptController.POSTInventoryEnter(token: token,  code: found_text, post: inventoryCode) { (answer) in
+        receiptController.POSTInventoryEnter(url: url, token: token,  code: found_text, post: inventoryCode) { (answer) in
             //print("answer is  \(answer)")
             if answer == answer, answer != "-1" {
                 
@@ -262,12 +269,12 @@ class QRScannerController: UIViewController, InventoryCellTapped {
                     self.view.addSubview(newImageView)
                     
 
-                    if self.delegate != nil {
-                        self.delegate?.getFrontInventoryShop()
+                /*    if self.delegate != nil {
+                        self.delegate?.getFrontInventoryShop(url: )
                     } else {
                         print("Delegate is null")
-                    }
-                    self.tableInventory.getFrontInventoryShop()
+                    }*/
+                    self.tableInventory.getFrontInventoryShop(url: url)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         //newImageView.removeFromSuperview()
                         
@@ -462,6 +469,18 @@ class QRScannerController: UIViewController, InventoryCellTapped {
         
         alert.addAction(UIAlertAction(title: "Витрина", style: .default, handler: { action in
             //self.found_bar = 0
+            self.frontURL = "InventoryFrontShop"
+            self.tableInventory.getFrontInventoryShop(url: self.frontURL)
+            self.frontInventory = true
+            self.view.bringSubviewToFront(self.viewGoodsTable)
+            
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Продажи", style: .default, handler: { action in
+            //self.found_bar = 0
+            //self.frontInventory = true
+            self.frontURL = "InventorySales"
+            self.tableInventory.getFrontInventoryShop(url: self.frontURL)
             self.frontInventory = true
             self.view.bringSubviewToFront(self.viewGoodsTable)
         }))

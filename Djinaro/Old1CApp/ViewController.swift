@@ -100,7 +100,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 self.defaults.set(password, forKey: "password")
                 self.defaults.set(token.user_id, forKey: "userId")
                 self.defaults.set(token.access_token, forKey: "token")
-                if self.defaults.object(forKey:"baseUrl") as? String == "http://192.168.88.190" {
+                if self.defaults.object(forKey:"baseUrl") as? String == "http://192.168.88.190" || self.defaults.object(forKey:"baseUrl") as? String == "http://91.203.195.74:5001" {
                     DispatchQueue.main.async {
                         self.performSegue(withIdentifier: "LogIn", sender: nil)
                     }

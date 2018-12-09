@@ -475,7 +475,7 @@ struct InventoryFrontShop: Codable {
     }
 }
 
-// Запись
+// Запись одного товара в витринной инвентаризации
 struct InventoryFrontShopRow: Codable {
     var id: Int
     var goods_Id: Int?
@@ -496,8 +496,23 @@ struct InventoryFrontShopRow: Codable {
         case sizes = "Sizes"
     }
 }
-// Достижения продавцов
 
+// Лист товаров для витринной инвентаризации
+struct InventoryFrontShopList: Codable {
+    var totalAll: Int
+    var scanned: Int
+    var list: [InventoryFrontShop]
+    
+    enum CodingKeys: String, CodingKey {
+        case totalAll = "TotalAll"
+        case scanned = "Scanned"
+        case list = "List"
+    }
+}
+
+
+
+// Достижения продавцов
 struct userAchivements: Codable {
     var name: String
     var value: Decimal?

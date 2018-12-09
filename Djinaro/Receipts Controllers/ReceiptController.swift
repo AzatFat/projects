@@ -1581,23 +1581,24 @@ class ReceiptController {
     
     // Витринная инвентаризация
     // список просканированных товаров
-    func GetFrontInventoryGoods(token: String, completion: @escaping ([InventoryFrontShop]?) -> Void) {
-        let GetReceipt = baseURL.appendingPathComponent("/api/InventoryFrontShop/View")
+    func GetFrontInventoryGoods(url: String, token: String, completion: @escaping (InventoryFrontShopList?) -> Void) {
+        let GetReceipt = baseURL.appendingPathComponent("/api/\(url)/View")
         let components = URLComponents(url: GetReceipt, resolvingAgainstBaseURL: true)!
 //        components.queryItems = [URLQueryItem(name: "start", value: "0"), URLQueryItem(name: "length", value: "100"),URLQueryItem(name: "search", value: search)]
         let ReceiptURL = components.url!
         var request = URLRequest(url: ReceiptURL)
         request.httpMethod = "GET"
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        print(request)
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             let jsonDecoder = JSONDecoder()
             if let data = data{
-                if let list = try? jsonDecoder.decode([InventoryFrontShop].self, from: data) {
+                if let list = try? jsonDecoder.decode(InventoryFrontShopList.self, from: data) {
                     completion(list)
                 } else {
                     do {
                         let decoder = JSONDecoder()
-                        let product = try decoder.decode([InventoryFrontShop].self, from: data)
+                        let product = try decoder.decode(InventoryFrontShopList.self, from: data)
                         completion(product)
                     } catch let error {
                         print("error in getting Customer List")
@@ -1615,14 +1616,15 @@ class ReceiptController {
     }
     // Скан товара витринной инвентаризации
 
-    func POSTInventoryEnter (token: String, code: String, post: InventoryCode, completion: @escaping (String?) -> Void) {
-        let PostReceipt = baseURL.appendingPathComponent("api/InventoryFrontShop/Enter")
+    func POSTInventoryEnter (url: String, token: String, code: String, post: InventoryCode, completion: @escaping (String?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("api/\(url)/Enter")
         let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
         let ReceiptURL = components.url!
         var request = URLRequest(url: ReceiptURL)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        print(request)
         let jsonEcoder = JSONEncoder()
         let jsonData = try? jsonEcoder.encode(post)
         request.httpBody = jsonData

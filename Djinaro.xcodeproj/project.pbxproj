@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8142E50CC5BE908C4AA28187 /* Pods_Djinaro.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28A6E982B07E5C73F7E3B78E /* Pods_Djinaro.framework */; };
 		AA01186721B2E0AC00D44DE6 /* GoodsImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01186621B2E0AC00D44DE6 /* GoodsImageCollectionViewCell.swift */; };
 		AA031E0C218A3E8600818FC9 /* GoodInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA031E0B218A3E8500818FC9 /* GoodInfoViewController.swift */; };
 		AA031E0E218A42CD00818FC9 /* GoodsAvailableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA031E0D218A42CD00818FC9 /* GoodsAvailableTableViewCell.swift */; };
@@ -54,6 +55,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		28A6E982B07E5C73F7E3B78E /* Pods_Djinaro.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Djinaro.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA01186621B2E0AC00D44DE6 /* GoodsImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		AA031E0B218A3E8500818FC9 /* GoodInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodInfoViewController.swift; sourceTree = "<group>"; };
 		AA031E0D218A42CD00818FC9 /* GoodsAvailableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsAvailableTableViewCell.swift; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 		AA5756C42196C1FF00E561F6 /* CustomerInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerInfoViewController.swift; sourceTree = "<group>"; };
 		AA7A0C5C21A49F6F0067FB37 /* GoodChangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodChangeViewController.swift; sourceTree = "<group>"; };
 		AA7A0C5E21A4BCBD0067FB37 /* GoodsPickerViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsPickerViewType.swift; sourceTree = "<group>"; };
+		AA825EBE21BD2C7E0046E149 /* MBCircularProgressBar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MBCircularProgressBar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA830C42215568C800F004B3 /* Djinaro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Djinaro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA830C45215568C800F004B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AA830C47215568C800F004B3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -100,6 +103,8 @@
 		AAF9254C21582DED007D7ACE /* Camera-03.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "Camera-03.svg"; path = "Djinaro/Camera-03.svg"; sourceTree = "<group>"; };
 		AAF9254E21583199007D7ACE /* djinaro.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = djinaro.jpg; sourceTree = "<group>"; };
 		AAF9255221583666007D7ACE /* backGround.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = backGround.jpg; sourceTree = "<group>"; };
+		CEF7E709290AE60BF07F28FF /* Pods-Djinaro.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Djinaro.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Djinaro/Pods-Djinaro.debug.xcconfig"; sourceTree = "<group>"; };
+		DD620202303EAD3D27405744 /* Pods-Djinaro.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Djinaro.release.xcconfig"; path = "Pods/Target Support Files/Pods-Djinaro/Pods-Djinaro.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,15 +112,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8142E50CC5BE908C4AA28187 /* Pods_Djinaro.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		AA350BBA2162C23900AF4460 /* Frameworks */ = {
+		173880E95B7291F618CA1C58 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
+				CEF7E709290AE60BF07F28FF /* Pods-Djinaro.debug.xcconfig */,
+				DD620202303EAD3D27405744 /* Pods-Djinaro.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		2881050DA81062024ED0881B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AA825EBE21BD2C7E0046E149 /* MBCircularProgressBar.framework */,
+				28A6E982B07E5C73F7E3B78E /* Pods_Djinaro.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -131,7 +148,8 @@
 				AA96D522218F7A09000BB6F8 /* microphone.png */,
 				AAF9255221583666007D7ACE /* backGround.jpg */,
 				AA24C48E215ED95E009938CC /* slippers.jpg */,
-				AA350BBA2162C23900AF4460 /* Frameworks */,
+				2881050DA81062024ED0881B /* Frameworks */,
+				173880E95B7291F618CA1C58 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -276,9 +294,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AA830C54215568D000F004B3 /* Build configuration list for PBXNativeTarget "Djinaro" */;
 			buildPhases = (
+				908686BA36F126B5D25CC74F /* [CP] Check Pods Manifest.lock */,
 				AA830C3E215568C800F004B3 /* Sources */,
 				AA830C3F215568C800F004B3 /* Frameworks */,
 				AA830C40215568C800F004B3 /* Resources */,
+				83337A06D95BDEE8A2D8C209 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -346,6 +366,53 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		83337A06D95BDEE8A2D8C209 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Djinaro/Pods-Djinaro-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/MBCircularProgressBar/MBCircularProgressBar.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBCircularProgressBar.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Djinaro/Pods-Djinaro-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		908686BA36F126B5D25CC74F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Djinaro-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		AA830C3E215568C800F004B3 /* Sources */ = {
@@ -462,7 +529,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -517,7 +584,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -529,12 +596,15 @@
 		};
 		AA830C55215568D000F004B3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CEF7E709290AE60BF07F28FF /* Pods-Djinaro.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 45B5A22726;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Djinaro/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -549,12 +619,15 @@
 		};
 		AA830C56215568D000F004B3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DD620202303EAD3D27405744 /* Pods-Djinaro.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 45B5A22726;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Djinaro/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

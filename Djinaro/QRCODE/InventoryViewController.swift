@@ -23,7 +23,7 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getFrontInventoryShop()
+        //getFrontInventoryShop()
         tableView.backgroundColor = UIColor.clear
         view.backgroundColor = UIColor.clear
     }
@@ -35,7 +35,7 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let countItems = goodsFrontShop.count
-        countLable.text = String(countItems)
+        //countLable.text = String(countItems)
         return countItems
     }
     
@@ -74,14 +74,18 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
-    func getFrontInventoryShop() {
+    func getFrontInventoryShop(url: String) {
         print("table reloaded")
+        countLable.text = "Ждем обновления"
         let defaults = UserDefaults.standard
         let token = defaults.object(forKey:"token") as? String ?? ""
         let receiptController = ReceiptController(useMultiUrl: true)
-        receiptController.GetFrontInventoryGoods(token: token) { (frontGoods) in
+        receiptController.GetFrontInventoryGoods(url: url,token: token) { (frontGoods) in
             if let frontGoods = frontGoods {
-               self.goodsFrontShop = frontGoods
+               self.goodsFrontShop = frontGoods.list
+                DispatchQueue.main.async {
+                    self.countLable.text = "\(String(frontGoods.scanned)) из \(String(frontGoods.totalAll))"
+                }
             }
             DispatchQueue.main.async {
                 self.goodsFrontShop.sort(by: { (lhs: InventoryFrontShop, rhs: InventoryFrontShop) -> Bool in
