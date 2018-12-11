@@ -8,6 +8,11 @@
 
 import UIKit
 
+
+protocol changeGood {
+    func changeGoodInGoodsTable(index: Int, good: Goods)
+}
+
 class AddGoodsToArrivalViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate {
     
     @IBOutlet var goodPrise: UITextField!
@@ -45,7 +50,6 @@ class AddGoodsToArrivalViewController: UIViewController, UITableViewDelegate, UI
     @IBAction func unwindToContainerVC(segue: UIStoryboardSegue) {}
     
     @IBAction func addGood(_ sender: Any) {
-        
         receipt = nil
         performSegue(withIdentifier: "addReceipt", sender: nil)
     }
@@ -54,12 +58,15 @@ class AddGoodsToArrivalViewController: UIViewController, UITableViewDelegate, UI
     var receipts = [Receipt]()
     var addReceipt : Receipt?
     var good : Goods?
+    var goodIndexFromGoodsTableVC: Int?
     var receipt : Receipt?
     var sizes: [Sizes]?
     var receiptController = ReceiptController(useMultiUrl: true)
     let defaults = UserDefaults.standard
     var token = ""
     let activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
+    var delegate:GoodsTableViewController? = nil
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,18 +79,12 @@ class AddGoodsToArrivalViewController: UIViewController, UITableViewDelegate, UI
                     self.tableVIew.reloadData()
             }
         }
-       // goodLocation.delegate = self
+
         goodName.text = good?.name
         goodLocation.text = good?.location
         goodPrise.text = good?.price?.formattedAmount
-        //var priceReceipt = good?.priceReceipt?.formattedAmount
         if goodPrise.text == ",00" {
-            goodPrise.text = "" /*
-            if priceReceipt != ",00" {
-                goodPrise.text = ""
-            } else {
-                goodPrise.text = ""
-            }*/
+            goodPrise.text = ""
         }
         hideKeyboardWhenTappedAround()
     }
@@ -91,19 +92,18 @@ class AddGoodsToArrivalViewController: UIViewController, UITableViewDelegate, UI
         tableVIew.reloadData()
         goodPrise.text = good?.price?.formattedAmount
     }
-    /*
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        print("trying to reload data")
-        print(receipts)
-        tableVIew.reloadData()
-    }*/
     
     func changeGood(good: Goods, message: String) {
         receiptController.PUTGood(token: token, post: good) { (good) in
             if let good = good {
+                print("delegate is NOT nil")
                 self.goodName.text = good.location
+                if self.delegate != nil && self.goodIndexFromGoodsTableVC != nil{
+                    self.delegate?.changeGoodInGoodsTable(index: self.goodIndexFromGoodsTableVC!, good: good)
+                } else {
+                    print("delegate is nil")
+                    print(self.delegate, self.goodIndexFromGoodsTableVC)
+                }
             }
             DispatchQueue.main.async {
                 self.error(title: message)
@@ -140,7 +140,6 @@ class AddGoodsToArrivalViewController: UIViewController, UITableViewDelegate, UI
         }
         if let  sizes = getSize(sizeId: receipts[indexPath.row].sizes_Id) {
             cell.goodSize.text = sizes
-            
         }
         
         cell.goodCount.text = String(receipts[indexPath.row].count!)
@@ -171,9 +170,6 @@ class AddGoodsToArrivalViewController: UIViewController, UITableViewDelegate, UI
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
     }
-    
-    
-    
     
     func getSize(sizeId: Int?) -> String? {
         if sizeId == nil {
@@ -224,11 +220,7 @@ class AddGoodsToArrivalViewController: UIViewController, UITableViewDelegate, UI
         
         self.present(alert, animated: true, completion: nil)
     }
-    /*
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.view.endEditing(true)
-        return false
-    }*/
+
     func addPreload(start_stop: Bool){
         if start_stop {
             activityIndicator.center = self.view.center

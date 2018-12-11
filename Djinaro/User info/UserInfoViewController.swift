@@ -9,14 +9,11 @@
 import UIKit
 
 
-
-
 class UserInfoViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
-    
 
     let defaults = UserDefaults.standard
     var userAchivement : userListAchivements?
+    
     var userSectionAchivements = ["День", "Неделя", "Месяц"]
     var timer = Timer()
     enum TableSection: Int {
@@ -24,7 +21,11 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     var data = [TableSection: [userAchivements]]()
+    var progressBar = ProgressViewController()
     
+    
+    
+    @IBOutlet var timeUIView: UIView!
     @IBOutlet var tableView: UITableView!
     @IBAction func logOut(_ sender: Any) {
         signOut()
@@ -78,9 +79,14 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
                 self.data[.day] = userAchivement[0].day
                 self.data[.week] = userAchivement[0].week
                 self.data[.month] = userAchivement[0].month
+                DispatchQueue.main.async {
+                    
+                    self.progressBar.getMoneyEarned(moneyEarned: userAchivement[0].day[0].value ?? 0.0)
+                    
+                }
             }
             DispatchQueue.main.async {
-                self.tableView.reloadData()
+                    self.tableView.reloadData()
             }
         }
     }
@@ -144,5 +150,11 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
         // print(CostEachreceipt.inn(forKey: indexPath.row))
         return cell
     }
-
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let controller = segue.destination as? ProgressViewController, segue.identifier == "timeSegue" {
+            self.progressBar = controller
+            //controller.labelString = self.stringToPass
+        }
+    }
 }

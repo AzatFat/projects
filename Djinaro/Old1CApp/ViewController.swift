@@ -13,8 +13,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
 
     let defaults = UserDefaults.standard
-    //var prod = "http://91.203.195.74:5001"
-    var prod = "http://192.168.88.190"
+    var prod = "http://91.203.195.74:5001"
+    //var prod = "http://192.168.88.190"
     var outProd = "http://87.117.180.87:7000"
   
     @IBOutlet var UserName: UITextField!

@@ -1706,6 +1706,40 @@ class ReceiptController {
         }
         task.resume()
     }
+    
+    // Оставшееся время
+    
+    func GETtimeRemaning(token: String, completion: @escaping (timeRemaning?) -> Void) {
+        let GetReceipt = baseURL.appendingPathComponent("/api/report/time_remaining")
+        let components = URLComponents(url: GetReceipt, resolvingAgainstBaseURL: true)!
+        //        components.queryItems = [URLQueryItem(name: "start", value: "0"), URLQueryItem(name: "length", value: "100"),URLQueryItem(name: "search", value: search)]
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode(timeRemaning.self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode(timeRemaning.self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in getting [userListAchivements] List")
+                        print(error)
+                        self.denyAuthorisation(data: data)
+                        completion(nil)
+                    }
+                }
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
 }
 
 

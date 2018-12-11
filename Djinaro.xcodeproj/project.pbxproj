@@ -40,6 +40,7 @@
 		AAAECDE22187B49D00F426B1 /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAECDE12187B49D00F426B1 /* UserInfoViewController.swift */; };
 		AAB2984321AD344F00B9F96E /* InventoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB2984221AD344F00B9F96E /* InventoryViewController.swift */; };
 		AAB2984521AD367A00B9F96E /* InventoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB2984421AD367A00B9F96E /* InventoryTableViewCell.swift */; };
+		AABF7BC021BF178D00420783 /* ProgressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABF7BBF21BF178D00420783 /* ProgressViewController.swift */; };
 		AADB9328216BDFC000AA2C34 /* SpeechViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADB9327216BDFC000AA2C34 /* SpeechViewController.swift */; };
 		AADB932A2171E77900AA2C34 /* GoodsArrivalTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADB93292171E77900AA2C34 /* GoodsArrivalTableViewController.swift */; };
 		AADB932C2171E7DA00AA2C34 /* GoodsArrivalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADB932B2171E7DA00AA2C34 /* GoodsArrivalTableViewCell.swift */; };
@@ -91,6 +92,7 @@
 		AAAECDE12187B49D00F426B1 /* UserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
 		AAB2984221AD344F00B9F96E /* InventoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryViewController.swift; sourceTree = "<group>"; };
 		AAB2984421AD367A00B9F96E /* InventoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryTableViewCell.swift; sourceTree = "<group>"; };
+		AABF7BBF21BF178D00420783 /* ProgressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressViewController.swift; sourceTree = "<group>"; };
 		AADB9327216BDFC000AA2C34 /* SpeechViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechViewController.swift; sourceTree = "<group>"; };
 		AADB93292171E77900AA2C34 /* GoodsArrivalTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsArrivalTableViewController.swift; sourceTree = "<group>"; };
 		AADB932B2171E7DA00AA2C34 /* GoodsArrivalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsArrivalTableViewCell.swift; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 			children = (
 				AAAECDE12187B49D00F426B1 /* UserInfoViewController.swift */,
 				AA4544EB21B135D90057C468 /* UserAchivementsTableViewCell.swift */,
+				AABF7BBF21BF178D00420783 /* ProgressViewController.swift */,
 			);
 			path = "User info";
 			sourceTree = "<group>";
@@ -429,6 +432,7 @@
 				AA01186721B2E0AC00D44DE6 /* GoodsImageCollectionViewCell.swift in Sources */,
 				AAB2984321AD344F00B9F96E /* InventoryViewController.swift in Sources */,
 				AA169CB4217CAB1E00BF4C51 /* NewReceiptDocumentViewController.swift in Sources */,
+				AABF7BC021BF178D00420783 /* ProgressViewController.swift in Sources */,
 				AA08A0A5217656D700083C85 /* ArrivalInfoViewController.swift in Sources */,
 				AAAECDE22187B49D00F426B1 /* UserInfoViewController.swift in Sources */,
 				AA830C46215568C800F004B3 /* AppDelegate.swift in Sources */,

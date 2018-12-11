@@ -8,11 +8,12 @@
 
 import UIKit
 
-class GoodsTableViewController: UITableViewController, UISearchBarDelegate {
+class GoodsTableViewController: UITableViewController, UISearchBarDelegate, changeGood {
 
     var recieptController = ReceiptController(useMultiUrl: true)
     
     var goods = [Goods]()
+    var goodIndexInCell : Int?
     var goodId = ""
     var good: Goods?
     var receipts : [Receipt]?
@@ -94,6 +95,7 @@ class GoodsTableViewController: UITableViewController, UISearchBarDelegate {
         tableView.deselectRow(at: indexPath as IndexPath, animated: true)
         goodId = String(goods[indexPath.row].id)
         good = goods[indexPath.row]
+        goodIndexInCell = indexPath.row
         receipts = searchExistGoodInArrival(good: good)
         performSegue(withIdentifier: segue, sender: cell)
     }
@@ -109,6 +111,10 @@ class GoodsTableViewController: UITableViewController, UISearchBarDelegate {
         if segue.identifier == "addGoodToArrival" {
             let controller = segue.destination as! AddGoodsToArrivalViewController
             controller.good = good
+            controller.delegate = self
+            if let goodIndexInCell = goodIndexInCell {
+                controller.goodIndexFromGoodsTableVC = goodIndexInCell
+            }
             if let receipts = receipts {
                 controller.receipts = receipts
             }
@@ -121,17 +127,6 @@ class GoodsTableViewController: UITableViewController, UISearchBarDelegate {
     }
     
     func getGoods () {
-        /*
-        recieptController.GetGoods(token: token) { (listGoods) in
-            if let listGoods = listGoods {
-                print("listReceipt get succes")
-                self.goods = listGoods
-            }
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                self.addPreload(start_stop:  false)
-            }
-        }*/
         var is_remains = ""
         var is_archive = ""
         
@@ -153,6 +148,7 @@ class GoodsTableViewController: UITableViewController, UISearchBarDelegate {
     
     func searchGoods (search: String, sizes: String) {
         print("trying search Good")
+        
         var is_remains = ""
         var is_archive = ""
         
@@ -238,6 +234,10 @@ class GoodsTableViewController: UITableViewController, UISearchBarDelegate {
             }
         }
         return nil
+    }
+    
+    func changeGoodInGoodsTable(index: Int, good: Goods) {
+        goods[index] = good
     }
 }
 

@@ -10,7 +10,6 @@ import UIKit
 
 class AddReceiptToArrivalViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    
     let receiptController = ReceiptController(useMultiUrl: true)
     @IBOutlet var errorLable: UILabel!
     @IBOutlet var goodSIze: UITextField!
@@ -26,16 +25,11 @@ class AddReceiptToArrivalViewController: UIViewController, UITableViewDelegate, 
     @IBAction func printReceipt(_ sender: Any) {
         if PostOrPut {
             acceptPrinting()
-            
         }else {
             dismissKeyboard()
             POSTReceipts()
-            
-            //print(postReceipts)
-            
         }
     }
-    
     
     var PostOrPut = false
     @IBAction func addChangeReceiptAction(_ sender: Any) {
@@ -47,6 +41,7 @@ class AddReceiptToArrivalViewController: UIViewController, UITableViewDelegate, 
     }
  
     @IBOutlet var receiptInput: UISegmentedControl!
+    
     @IBAction func receiptInputType(_ sender: Any) {
         switch receiptInput.selectedSegmentIndex
         {
@@ -77,7 +72,6 @@ class AddReceiptToArrivalViewController: UIViewController, UITableViewDelegate, 
     var receipt : Receipt?
     var receiptId = ""
     var receipt_Document_Id: Int?
-   // var goods_Id: Int?
     var postReceipts: [Receipt]?
     var succesPostReceipts: [Receipt] = []
     var good : Goods?
@@ -128,14 +122,6 @@ class AddReceiptToArrivalViewController: UIViewController, UITableViewDelegate, 
         getSizesType(type: String(good!.type_Goods_Id!))
         
         
-        
-        /*
-        receiptController.GetSizes(token: token) { (sizes) in
-            if let sizes = sizes{
-                self.sizes = sizes
-            }
-        }*/
-        
         if let receipt = receipt {
             PostOrPut = true
             printOrSetReceipt.title = "Print"
@@ -145,19 +131,8 @@ class AddReceiptToArrivalViewController: UIViewController, UITableViewDelegate, 
             addValuesToFields(receipt: receipt)
         } else {
             goodPrise.text = cost?.formattedAmount
-     /*       if goodPrise.text == ",00" {
-                goodPrise.text = good?.priceReceipt?.formattedAmount
-                goodPrise.backgroundColor = UIColor.yellow
-            }*/
             goodPrise.text = goodPrise.text == ",00" ? "" : goodPrise.text
-            //pastLastReceiptPrice()
-            /*receiptController.GetReceipt(token: token, id: receiptId) { (receipt) in
-                if let receipt = receipt {
-                    DispatchQueue.main.async {
-                        self.addValuesToFields(receipt: receipt)
-                    }
-                }
-            }*/
+
         }
 
         

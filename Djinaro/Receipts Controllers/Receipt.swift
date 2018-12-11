@@ -562,7 +562,7 @@ struct postImage: Codable {
         case base64 = "base64"
     }
 }
-//  URL goods
+//  URL goods images path
 struct imageURLpath: Codable {
     var min: String
     var main: String
@@ -573,3 +573,16 @@ struct imageURLpath: Codable {
     }
 }
 
+
+// Оставшееся время 
+struct timeRemaning: Codable {
+    var day_num: Int
+    var day_name: String
+    var remaining_time: String
+    
+    enum CodingKeys: String, CodingKey {
+        case day_num = "day_num"
+        case day_name = "day_name"
+        case remaining_time = "remaining_time"
+    }
+}
