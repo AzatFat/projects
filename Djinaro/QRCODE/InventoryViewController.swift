@@ -52,13 +52,13 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
         switch inventoryGood.status {
             
         case 1:
-            cell.backgroundColor = UIColor.yellow.withAlphaComponent(0.1)
+            cell.backgroundColor = UIColor.yellow.withAlphaComponent(0.2)
         case 2:
-            cell.backgroundColor = UIColor.red.withAlphaComponent(0.1)
+            cell.backgroundColor = UIColor.red.withAlphaComponent(0.2)
         case 3:
-            cell.backgroundColor = UIColor.white.withAlphaComponent(0.1)
+            cell.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         default:
-            cell.backgroundColor = UIColor.white.withAlphaComponent(0.1)
+            cell.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         }
         return cell
     }

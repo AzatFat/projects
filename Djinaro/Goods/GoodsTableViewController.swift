@@ -238,6 +238,7 @@ class GoodsTableViewController: UITableViewController, UISearchBarDelegate, chan
     
     func changeGoodInGoodsTable(index: Int, good: Goods) {
         goods[index] = good
+        tableView.reloadData()
     }
 }
 

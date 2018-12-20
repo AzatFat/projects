@@ -10,8 +10,6 @@ import UIKit
 
 class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
 
-    
-
     @IBOutlet var GoodName: UITextField!
     
     @IBOutlet var GoodLocation: UITextField!
@@ -22,13 +20,15 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
     
     @IBOutlet var saveButton: UIButton!
     
+    @IBOutlet var GoodDiscountPrice: UITextField!
+    
     @IBOutlet var printGoodLableShopOutlet: UIBarButtonItem!
+    
+    @IBOutlet var archiveFlag: UISwitch!
     
     @IBOutlet var goodsImagesCollection: UICollectionView!
     
     @IBAction func saveButtonAction(_ sender: Any) {
-    
-    
         
         guard let name = GoodName.text, name != "" else {
             error(title: "Нименование обязательно")
@@ -47,14 +47,19 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
             return
         }
         
+        let price_Discount = GoodDiscountPrice.text
+        
         if var good = good {
             good.name = name
             good.location = location
             good.price = Decimal(string: price)
             good.type_Goods_Id = typeGoodId != 0 ? typeGoodId: good.type_Goods_Id
+            good.isArchive = archiveFlag.isOn ? false : true
+            good.price_Discount = Decimal(string: price_Discount ?? "0")
+            
             changeGood(good: good)
         } else {
-            let newGood = Goods.init(id: 1, group_Goods_Id: nil, name: name, code: nil, description: nil, location: location, vendor_Code: nil, groupGoods: nil, type_Goods_Id: typeGoodId, type_Goods: nil, available_sizes: nil, price: Decimal(string: price), priceReceipt: nil, images: nil, image: nil)
+            let newGood = Goods.init(id: 1, group_Goods_Id: nil, name: name, code: nil, description: nil, location: location, vendor_Code: nil, groupGoods: nil, type_Goods_Id: typeGoodId, type_Goods: nil, available_sizes: nil, price: Decimal(string: price), priceReceipt: nil, images: nil, image: nil, isArchive: true, price_Discount: Decimal(string: price_Discount ?? "0"))
            createGood(good:newGood)
         }
     }
@@ -76,9 +81,6 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
             error(title: "Цена товара равна нулю. Печать не возможна")
         }
     }
-
-
-    
     
     var good: Goods?
     var typeGoodId = 0
@@ -89,6 +91,7 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         if good != nil {
             GoodName.text = good?.name
             GoodLocation.text = good?.location
@@ -97,6 +100,12 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
                 GoodPrice.text = GoodPrice.text == ",00" ? "" : GoodPrice.text
             }
             GoodType.text = good?.type_Goods?.name
+            archiveFlag.isOn = good?.isArchive ?? true ? false : true
+            if let priceDiscount = good?.price_Discount {
+                GoodDiscountPrice.text = priceDiscount.formattedAmount
+                GoodDiscountPrice.text = GoodDiscountPrice.text == ",00" ? "" : GoodDiscountPrice.text
+            }
+            
             saveButton.setTitle("Изменить товар", for: .normal)
             getGoodImage()
         } else {
@@ -116,15 +125,10 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
         self.pickerView.delegate = self as UIPickerViewDelegate
         self.pickerView.toolbarDelegate = self as ToolbarPickerViewDelegate
         
-     //   goodsImagesCollection.layer.insertSublayer(gradient(frame: goodsImagesCollection.backgroundView, left: UIColor.init(red: 49.0/255.0, green: 49.0/255.0, blue: 49.0/255.0, alpha: 1.0).cgColor, right: UIColor.init(red: 49.0/255.0, green: 49.0/255.0, blue: 49.0/255.0, alpha: 1.0).cgColor), at:0)
         goodsImagesCollection.backgroundColor = UIColor.init(red: 211.0/255.0, green: 211.0/255.0, blue: 211.0/255.0, alpha: 1.0)
-//gradient(frame: goodsImagesCollection.bounds)
-        
+
         imagePicker.delegate = self
         getGoodsType()
-        
-        //self.pickerView.reloadAllComponents()
-        // Do any additional setup after loading the view.
     }
     
     
@@ -346,7 +350,6 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
         }
     }
     
-
     func deleteGoodImage(imageId: String, index: Int) {
         let receiptController = ReceiptController(useMultiUrl: true)
         let defaults = UserDefaults.standard
@@ -406,13 +409,12 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
                         }
                         self.goodUIImagesDict[index].main = true
                         self.goodsImagesCollection.reloadData()
-                        self.error(title: "Товар  сделан главным")
+                        self.error(title: "Изображение сделано главным")
                     }
                 }
             }
         }
     }
-    
     
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     func addPreload(start_stop: Bool){
@@ -464,7 +466,6 @@ extension GoodChangeViewController: ToolbarPickerViewDelegate {
         self.GoodType.resignFirstResponder()
     }
 }
-
 
 extension UIImage {
     func toBase64() -> String? {

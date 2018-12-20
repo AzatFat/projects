@@ -7,5 +7,6 @@ target 'Djinaro' do
 
   # Pods for Djinaro
   pod "MBCircularProgressBar"
+  
 
 end

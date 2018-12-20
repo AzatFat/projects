@@ -231,7 +231,6 @@ class ArrivalInfoViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     
-    
     func CloseReceiptDocument ()  {
         self.addPreload(start_stop: true)
         if let recieptDocument = self.recieptDocument {

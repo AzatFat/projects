@@ -67,7 +67,7 @@ class AddGoodsToArrivalViewController: UIViewController, UITableViewDelegate, UI
     let activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     var delegate:GoodsTableViewController? = nil
     
-    
+     
     override func viewDidLoad() {
         super.viewDidLoad()
         token = defaults.object(forKey:"token") as? String ?? ""
@@ -96,17 +96,19 @@ class AddGoodsToArrivalViewController: UIViewController, UITableViewDelegate, UI
     func changeGood(good: Goods, message: String) {
         receiptController.PUTGood(token: token, post: good) { (good) in
             if let good = good {
-                print("delegate is NOT nil")
                 self.goodName.text = good.location
-                if self.delegate != nil && self.goodIndexFromGoodsTableVC != nil{
-                    self.delegate?.changeGoodInGoodsTable(index: self.goodIndexFromGoodsTableVC!, good: good)
-                } else {
-                    print("delegate is nil")
-                    print(self.delegate, self.goodIndexFromGoodsTableVC)
-                }
             }
             DispatchQueue.main.async {
                 self.error(title: message)
+                
+                if self.delegate != nil && self.goodIndexFromGoodsTableVC != nil{
+                    print("delegate is NOT nil")
+                    self.delegate?.changeGoodInGoodsTable(index: self.goodIndexFromGoodsTableVC!, good: self.good!)
+                } else {
+                    print("delegate is nil")
+                    
+                }
+                
                 self.addPreload(start_stop: false)
             }
         }

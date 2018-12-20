@@ -1070,11 +1070,7 @@ class ReceiptController {
         task.resume()
     }
     
-    
-    
-    //
-    
-    
+    //Получение типов товара
     func GETTypeGoods(token: String, completion: @escaping ([TypeGoods]?) -> Void) {
         let GetGood = baseURL.appendingPathComponent("/api/TypeGoods/")
         let components = URLComponents(url: GetGood, resolvingAgainstBaseURL: true)!
@@ -1094,7 +1090,7 @@ class ReceiptController {
                         let product = try decoder.decode([TypeGoods].self, from: data)
                         completion(product)
                     } catch let error {
-                        print("error in getting Good")
+                        print("error in getting typeGood")
                         print(error)
                         self.denyAuthorisation(data: data)
                         completion(nil)
@@ -1108,7 +1104,39 @@ class ReceiptController {
         
         task.resume()
     }
-    
+    // Получение группы товаров
+    func GETGroupGoods(token: String, completion: @escaping ([GroupGoods]?) -> Void) {
+        let GetGood = baseURL.appendingPathComponent("/api/GroupGoods")
+        let components = URLComponents(url: GetGood, resolvingAgainstBaseURL: true)!
+        let GoodURL = components.url!
+        var request = URLRequest(url: GoodURL)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        print(request)
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode([GroupGoods].self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode([GroupGoods].self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in getting Good")
+                        print(error)
+                        self.denyAuthorisation(data: data)
+                        completion(nil)
+                    }
+                }
+            } else {
+                completion(nil)
+            }
+        }
+        
+        task.resume()
+    }
     // Чеки (список чеков)
     func GetCheckList(userId: String, token: String, completion: @escaping ([Check]?) -> Void) {
         let GetGood = baseURL.appendingPathComponent("/api/check/New/" + userId)
@@ -1740,6 +1768,46 @@ class ReceiptController {
         }
         task.resume()
     }
+    
+    
+    func POSTMainReport (token: String,  post: datesForMainResult, completion: @escaping (mainReport?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("api/report/main_results")
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        print(request)
+        let jsonEcoder = JSONEncoder()
+        let jsonData = try? jsonEcoder.encode(post)
+        request.httpBody = jsonData
+        print(request)
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode(mainReport.self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode(mainReport.self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in get mainREsults to check")
+                        print(error)
+                        self.denyAuthorisation(data: data)
+                        completion(nil)
+                    }
+                }
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
+    
 }
 
 

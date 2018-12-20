@@ -12,6 +12,7 @@ class UserAchivementsTableViewCell: UITableViewCell {
 
     @IBOutlet var name: UILabel!
     @IBOutlet var value: UILabel!
+    @IBOutlet var count: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

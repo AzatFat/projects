@@ -129,7 +129,8 @@ struct Goods: Codable {
     var priceReceipt: Decimal?
     var images: [goodsImages]?
     var image: String?
-    
+    var isArchive: Bool?
+    var price_Discount: Decimal?
     
     enum CodingKeys: String, CodingKey {
         case id = "Id"
@@ -147,8 +148,9 @@ struct Goods: Codable {
         case priceReceipt = "Price_Receipt"
         case images = "Images"
         case image = "Image"
+        case isArchive = "Is_Archive"
+        case price_Discount = "Price_Discount"
     }
-
 }
 
 struct Available_sizes: Codable {
@@ -573,16 +575,52 @@ struct imageURLpath: Codable {
     }
 }
 
-
 // Оставшееся время 
 struct timeRemaning: Codable {
     var day_num: Int
     var day_name: String
     var remaining_time: String
+    var cnt_p: Int
+    var cnt_c: Int
     
     enum CodingKeys: String, CodingKey {
         case day_num = "day_num"
         case day_name = "day_name"
         case remaining_time = "remaining_time"
+        case cnt_p = "cnt_p"
+        case cnt_c = "cnt_c"
     }
 }
+
+// Отчет для админов
+struct mainReport: Codable {
+    var records: [mainResults]
+    enum CodingKeys: String, CodingKey {
+        case records = "records"
+    }
+}
+
+
+struct mainResults: Codable {
+    var check_type_id: Int
+    var name : String
+    var cnt_c : Int
+    var sum_c : Decimal
+    
+    
+    enum CodingKeys: String, CodingKey {
+        case check_type_id = "check_type_id"
+        case name = "name"
+        case cnt_c = "cnt_c"
+        case sum_c = "sum_c"
+    }
+}
+struct datesForMainResult: Codable {
+    var date_from: String
+    var date_to: String
+    enum CodingKeys: String, CodingKey {
+        case date_from = "date_from"
+        case date_to = "date_to"
+    }
+}
+

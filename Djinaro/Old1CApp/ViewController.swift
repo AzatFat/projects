@@ -13,8 +13,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
 
     let defaults = UserDefaults.standard
-    var prod = "http://91.203.195.74:5001"
-    //var prod = "http://192.168.88.190"
+    //var prod = "http://91.203.195.74:5001"
+    var prod = "http://192.168.88.190"
     var outProd = "http://87.117.180.87:7000"
   
     @IBOutlet var UserName: UITextField!
@@ -91,6 +91,19 @@ class ViewController: UIViewController, UITextFieldDelegate {
     }
     
     func signIn(userName: String, password: String, NeedErrorMessage: Bool)  {
+        if let cookies = HTTPCookieStorage.shared.cookies {
+            for cookie in cookies {
+                NSLog("\(cookie)")
+            }
+        }
+        
+        let storage = HTTPCookieStorage.shared
+        for cookie in storage.cookies! {
+            storage.deleteCookie(cookie)
+        }
+        
+        URLCache.shared.removeAllCachedResponses()
+        
         print("calling signIn function")
         let receiptController = ReceiptController(useMultiUrl: true)
         receiptController.POSTToken(username: userName, password: password) { (token) in
