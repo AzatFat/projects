@@ -68,7 +68,46 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
         //let cell = tableView.cellForRow(at: indexPath as IndexPath)
         tableView.deselectRow(at: indexPath as IndexPath, animated: true)
         if(delegate != nil) {
-            self.delegate.segueToItemList(decodedString: String(goodsFrontShop[indexPath.row].goods_id), searchType: "findGoodFromInventory")
+            
+            var message = ""
+            
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = .left
+            
+            let inventoryGood  = goodsFrontShop[indexPath.row]
+            switch inventoryGood.status {
+            case 1:
+                message = "\nПросканирован два раза"
+            case 2:
+                message = "\nПросканирован Не минимальный размер"
+                message += "\n\nминимальный:  \(inventoryGood.s_min_nm ??  "не указано")"
+                message += "\n\nотсканирован: \(inventoryGood.s_scan_nm ??  "не указано")"
+            case 3:
+                message = "\nТовар не просканирован"
+            default:
+                message = "\nТовар не просканирован"
+            }
+            message += "\n\nЛокация:      \(inventoryGood.location ?? "Не указано")"
+            
+            let messageText = NSMutableAttributedString(
+                string: message,
+                attributes: [
+                    NSAttributedString.Key.paragraphStyle: paragraphStyle,
+                    NSAttributedString.Key.foregroundColor: UIColor.black
+                ]
+            )
+            
+            let alertController = UIAlertController(title: inventoryGood.g_nm, message: nil, preferredStyle: .alert)
+            alertController.setValue(messageText, forKey: "attributedMessage")
+            
+            let cancelAction = UIAlertAction(title: "К списку", style: .cancel, handler: nil)
+            let deleteAction = UIAlertAction(title: "Перейти к товару", style: .default) { (action) in
+                self.delegate.segueToItemList(decodedString: String(self.goodsFrontShop[indexPath.row].goods_id), searchType: "findGoodFromInventory")
+                
+            }
+            alertController.addAction(cancelAction)
+            alertController.addAction(deleteAction)
+            present(alertController, animated: true, completion: nil)
         } else {
             print("delegate is nil")
         }

@@ -7,6 +7,6 @@ target 'Djinaro' do
 
   # Pods for Djinaro
   pod "MBCircularProgressBar"
-  
+  pod "BSImagePicker", "~> 2.8"
 
 end

@@ -15,6 +15,14 @@ protocol changeGood {
 
 class AddGoodsToArrivalViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,UITextFieldDelegate {
     
+    @IBOutlet var goodArchive: UISwitch!
+    
+    @IBAction func changeGoodArchiveStatus(_ sender: Any) {
+        good?.isArchive = goodArchive.isOn ? false : true
+        changeGood(good: good!, message: "статус изменен")
+        self.view.endEditing(true)
+    }
+    
     @IBOutlet var goodPrise: UITextField!
     
     @IBAction func changePrise(_ sender: Any) {
@@ -83,6 +91,11 @@ class AddGoodsToArrivalViewController: UIViewController, UITableViewDelegate, UI
         goodName.text = good?.name
         goodLocation.text = good?.location
         goodPrise.text = good?.price?.formattedAmount
+        
+        if let isArchive = good?.isArchive {
+            goodArchive.isOn = isArchive ? false : true
+        }
+        
         if goodPrise.text == ",00" {
             goodPrise.text = ""
         }

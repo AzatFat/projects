@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Photos
+import BSImagePicker
+
 
 class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
 
@@ -59,7 +62,7 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
             
             changeGood(good: good)
         } else {
-            let newGood = Goods.init(id: 1, group_Goods_Id: nil, name: name, code: nil, description: nil, location: location, vendor_Code: nil, groupGoods: nil, type_Goods_Id: typeGoodId, type_Goods: nil, available_sizes: nil, price: Decimal(string: price), priceReceipt: nil, images: nil, image: nil, isArchive: true, price_Discount: Decimal(string: price_Discount ?? "0"))
+            let newGood = Goods.init(id: 1, group_Goods_Id: nil, name: name, code: nil, description: nil, location: location, vendor_Code: nil, groupGoods: nil, type_Goods_Id: typeGoodId, type_Goods: nil, available_sizes: nil, price: Decimal(string: price), priceReceipt: nil, images: nil, image: nil, isArchive: false, price_Discount: Decimal(string: price_Discount ?? "0"))
            createGood(good:newGood)
         }
     }
@@ -247,7 +250,8 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
         print("Selected Cell: \(indexPath.row)")
 
         if indexPath.row == 0 {
-            takeImage()
+           // takeImage()
+           getImageFromPhotoLibrary()
         } else {
             let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             
@@ -319,7 +323,7 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
         let image = (info[UIImagePickerController.InfoKey.originalImage] as? UIImage)!
         picker.dismiss(animated:true,completion:nil)
         if let good = good {
-            uploadImagetoGood(image: image, good: good)
+            uploadImagetoGood(image: image, good: good, isMaxI: true)
         }
     }
     
@@ -327,8 +331,58 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
          picker.dismiss(animated:true,completion:nil)
     }
     
-    func uploadImagetoGood(image: UIImage, good: Goods) {
-        addPreload(start_stop: true)
+    //
+    var SelectedAssets = [PHAsset]()
+    var PhotoArrray = [UIImage]()
+    
+    func getImageFromPhotoLibrary() {
+        let vc = BSImagePickerViewController()
+        self.bs_presentImagePickerController(vc, animated: true, select: { (asset: PHAsset) -> Void in
+        }, deselect: { (asset: PHAsset) -> Void in
+        }, cancel: { (asset: [PHAsset]) -> Void in
+        }, finish: { (asset: [PHAsset]) in
+            for i in 0 ..< asset.count {
+                self.SelectedAssets.append(asset[i])
+            }
+            
+            self.convertAssetToImages()
+            
+            
+        }, completion: nil)
+    }
+    
+    func convertAssetToImages() {
+        DispatchQueue.main.async {
+            self.addPreload(start_stop: true)
+        }
+        if SelectedAssets.count != 0 {
+            for i in 0 ..< SelectedAssets.count {
+                let manager = PHImageManager.default()
+                let option = PHImageRequestOptions()
+               // var thumbnail = UIImage()
+                var data = Data()
+                option.isSynchronous = true
+                /*manager.requestImage(for: SelectedAssets[i], targetSize: CGSize(width: 1000, height: 1000), contentMode: .aspectFit, options: option, resultHandler:  { (result, info)->Void in
+                    thumbnail = result!
+                })*/
+                
+                manager.requestImageData(for: SelectedAssets[i], options: option, resultHandler: { (result, str, orientation, info) -> Void in
+                    data = result!
+                })
+                
+               // let data = thumbnail.jpegData(compressionQuality: 1)
+                let newImage = UIImage(data: data)
+                self.PhotoArrray.append(newImage! as  UIImage)
+                DispatchQueue.main.async {
+                    let isMax = i == self.SelectedAssets.count - 1  ? true : false
+                    self.uploadImagetoGood(image: newImage!, good: self.good!, isMaxI: isMax)
+                }
+            }
+        }
+        
+    }
+    
+    func uploadImagetoGood(image: UIImage, good: Goods, isMaxI: Bool) {
         let receiptController = ReceiptController(useMultiUrl: true)
         let defaults = UserDefaults.standard
         let token = defaults.object(forKey:"token") as? String ?? ""
@@ -336,15 +390,21 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
             if let posted = postedImage {
                 DispatchQueue.main.async {
                     self.goodUIImagesDict.append(goodUIimages.init(id: String(posted.id), image: image, main: false))
-                    self.goodsImagesCollection.reloadData()
-                    self.addPreload(start_stop: false)
-                    self.error(title: "товар добавлен")
+                        self.goodsImagesCollection.reloadData()
+                    if isMaxI {
+                        self.addPreload(start_stop: false)
+                        self.error(title: "изображения добавлены")
+                    }
+                   // self.error(title: "товар добавлен")
                 }
                 print("sucess post image \(posted)")
             } else {
                 DispatchQueue.main.async {
-                    self.addPreload(start_stop: false)
-                    self.error(title: "Товар не добавлен")
+                    if isMaxI {
+                        self.goodsImagesCollection.reloadData()
+                        self.addPreload(start_stop: false)
+                    }
+                    self.error(title: "Одно из изображений не добавлено")
                 }
             }
         }

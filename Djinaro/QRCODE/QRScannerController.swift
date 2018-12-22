@@ -53,6 +53,7 @@ class QRScannerController: UIViewController, InventoryCellTapped {
             frontInventory = false
             InventoryButtonOutlet.tintColor = .blue
             self.view.sendSubviewToBack(viewGoodsTable)
+            getAVCapture(size: CGSize(width: self.view.frame.size.width, height: self.view.frame.size.height))
         }
         
     }
@@ -78,6 +79,7 @@ class QRScannerController: UIViewController, InventoryCellTapped {
     
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     var qrCodeFrameView: UIView?
+    var scanAreaView = UIView()
     var togleON = false
     
     var receiptController = ReceiptController(useMultiUrl: true)
@@ -87,6 +89,7 @@ class QRScannerController: UIViewController, InventoryCellTapped {
     let defaults = UserDefaults.standard
     
     var objPlayer: AVAudioPlayer?
+    
     
     
     private let supportedCodeTypes = [AVMetadataObject.ObjectType.upce,
@@ -115,6 +118,8 @@ class QRScannerController: UIViewController, InventoryCellTapped {
         captureSession.stopRunning()
         toggleTorch(on: false)
     }
+    
+
     override func viewDidLoad() {
         
         self.title = "Camera"
@@ -124,13 +129,63 @@ class QRScannerController: UIViewController, InventoryCellTapped {
         userId = defaults.object(forKey:"userId") as? String ?? ""
         
         super.viewDidLoad()
+        // Start video capture.
+        captureSession.startRunning()
+
+        videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        videoPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
+        videoPreviewLayer?.frame = view.layer.bounds
+        view.layer.addSublayer(videoPreviewLayer!)
+        getAVCapture(size: CGSize(width: self.view.frame.size.width, height: self.view.frame.size.height))
         
-        // Get the back-facing camera for capturing videos
+        // Move the message label and top bar to the front
+        view.bringSubviewToFront(messageLabel)
+        //view.bringSubviewToFront(viewGoodsTable)
+        view.bringSubviewToFront(lightButton)
+        //view.bringSubviewToFront(scanAreaView)
+        // Initialize QR Code Frame to highlight the QR code
+        qrCodeFrameView = UIView()
+        
+        if let qrCodeFrameView = qrCodeFrameView {
+            qrCodeFrameView.layer.borderColor = UIColor.green.cgColor
+            qrCodeFrameView.layer.borderWidth = 2
+            view.addSubview(qrCodeFrameView)
+            view.bringSubviewToFront(qrCodeFrameView)
+        }
+    }
+    
+    func getAVCapture(size: CGSize) {
+        
         let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType.video, position: .back)
         
         guard let captureDevice = deviceDiscoverySession.devices.first else {
             print("Failed to get the camera device")
             return
+        }
+        
+        let height = size.height
+        let width = size.width
+        
+        let scanRect = CGRect(origin: CGPoint(x: 0,y :0), size: CGSize(width: width, height: height))
+        
+        let ramRect = CGRect(origin: CGPoint(x:  0,y : size.height / 3), size: CGSize(width: self.view.frame.size.width, height: size.height / 3))
+        
+        
+        scanAreaView.layer.borderColor = UIColor.cyan.cgColor
+        scanAreaView.layer.borderWidth = 2
+        
+        videoPreviewLayer?.metadataOutputRectConverted(fromLayerRect: scanRect)
+        
+        
+        let inputs = captureSession.inputs
+        print("inputs is \(inputs)")
+        for oldInput:AVCaptureInput in inputs {
+            captureSession.removeInput(oldInput)
+        }
+        let outPuts = captureSession.outputs
+        print("outPuts is \(outPuts)")
+        for oldOutPut: AVCaptureOutput in outPuts {
+            captureSession.removeOutput(oldOutPut)
         }
         
         do {
@@ -142,12 +197,20 @@ class QRScannerController: UIViewController, InventoryCellTapped {
             
             // Initialize a AVCaptureMetadataOutput object and set it as the output device to the capture session.
             let captureMetadataOutput = AVCaptureMetadataOutput()
+            
+            captureMetadataOutput.rectOfInterest =   videoPreviewLayer!.metadataOutputRectConverted(fromLayerRect: scanRect)
+            scanAreaView.frame = ramRect
             captureSession.addOutput(captureMetadataOutput)
             
+            view.addSubview(scanAreaView)
+            scanAreaView.translatesAutoresizingMaskIntoConstraints = true
+            //scanAreaView.center = CGPoint(x: view.bounds.midX, y: view.bounds.midY)
+            scanAreaView.autoresizingMask = [UIView.AutoresizingMask.flexibleLeftMargin, UIView.AutoresizingMask.flexibleRightMargin, UIView.AutoresizingMask.flexibleTopMargin, UIView.AutoresizingMask.flexibleBottomMargin]
             // Set delegate and use the default dispatch queue to execute the call back
             captureMetadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
             captureMetadataOutput.metadataObjectTypes = supportedCodeTypes
             //            captureMetadataOutput.metadataObjectTypes = [AVMetadataObject.ObjectType.qr]
+            
             
         } catch {
             // If any error occurs, simply print it out and don't continue any more.
@@ -155,30 +218,9 @@ class QRScannerController: UIViewController, InventoryCellTapped {
             return
         }
         
-        // Initialize the video preview layer and add it as a sublayer to the viewPreview view's layer.
-        videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        videoPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
-        videoPreviewLayer?.frame = view.layer.bounds
-        view.layer.addSublayer(videoPreviewLayer!)
-        //delegate = self
-        // Start video capture.
-        captureSession.startRunning()
-        
-        // Move the message label and top bar to the front
-        view.bringSubviewToFront(messageLabel)
-        //view.bringSubviewToFront(viewGoodsTable)
-        view.bringSubviewToFront(lightButton)
-        
-        // Initialize QR Code Frame to highlight the QR code
-        qrCodeFrameView = UIView()
-        
-        if let qrCodeFrameView = qrCodeFrameView {
-            qrCodeFrameView.layer.borderColor = UIColor.green.cgColor
-            qrCodeFrameView.layer.borderWidth = 2
-            view.addSubview(qrCodeFrameView)
-            view.bringSubviewToFront(qrCodeFrameView)
-        }
+        view.bringSubviewToFront(scanAreaView)
     }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -468,21 +510,22 @@ class QRScannerController: UIViewController, InventoryCellTapped {
         }))
         
         alert.addAction(UIAlertAction(title: "Витрина", style: .default, handler: { action in
-            //self.found_bar = 0
+           self.getAVCapture(size: CGSize(width: self.view.frame.size.width, height: self.view.frame.size.height * 0.7))
             self.frontURL = "InventoryFrontShop"
             self.tableInventory.getFrontInventoryShop(url: self.frontURL)
             self.frontInventory = true
             self.view.bringSubviewToFront(self.viewGoodsTable)
-            
+            self.view.bringSubviewToFront(self.lightButton)
+
         }))
         
         alert.addAction(UIAlertAction(title: "Продажи", style: .default, handler: { action in
-            //self.found_bar = 0
-            //self.frontInventory = true
+            self.getAVCapture(size: CGSize(width: self.view.frame.size.width, height: self.view.frame.size.height * 0.7))
             self.frontURL = "InventorySales"
             self.tableInventory.getFrontInventoryShop(url: self.frontURL)
             self.frontInventory = true
             self.view.bringSubviewToFront(self.viewGoodsTable)
+            self.view.bringSubviewToFront(self.lightButton)
         }))
         
         self.present(alert, animated: true, completion: nil)
@@ -525,8 +568,11 @@ extension QRScannerController: AVCaptureMetadataOutputObjectsDelegate {
             return
         }
         
+        
+        
         // Get the metadata object.
         let metadataObj = metadataObjects[0] as! AVMetadataMachineReadableCodeObject
+        
         
         if supportedCodeTypes.contains(metadataObj.type) {
             // If the found metadata is equal to the QR code metadata (or barcode) then update the status label's text and set the bounds
