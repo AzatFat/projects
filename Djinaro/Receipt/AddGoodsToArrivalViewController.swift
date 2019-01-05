@@ -70,7 +70,7 @@ class AddGoodsToArrivalViewController: UIViewController, UITableViewDelegate, UI
     var receipt : Receipt?
     var sizes: [Sizes]?
     var receiptController = ReceiptController(useMultiUrl: true)
-    let defaults = UserDefaults.standard
+    let defaults = UserDefaults.init(suiteName: "group.djinaroWidget")
     var token = ""
     let activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     var delegate:GoodsTableViewController? = nil
@@ -78,7 +78,7 @@ class AddGoodsToArrivalViewController: UIViewController, UITableViewDelegate, UI
      
     override func viewDidLoad() {
         super.viewDidLoad()
-        token = defaults.object(forKey:"token") as? String ?? ""
+        token = defaults?.value(forKey:"token") as? String ?? ""
         receiptController.GetSizes(token: token) { (sizes) in
             if let sizes = sizes{
                 self.sizes = sizes

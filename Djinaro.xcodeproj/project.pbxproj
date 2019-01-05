@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8142E50CC5BE908C4AA28187 /* Pods_Djinaro.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28A6E982B07E5C73F7E3B78E /* Pods_Djinaro.framework */; };
+		A3A93242C8D0E33E5875FD35 /* Pods_Djinaro.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D5BAACCF47BAD31B1B6921D /* Pods_Djinaro.framework */; };
 		AA01186721B2E0AC00D44DE6 /* GoodsImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01186621B2E0AC00D44DE6 /* GoodsImageCollectionViewCell.swift */; };
 		AA031E0C218A3E8600818FC9 /* GoodInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA031E0B218A3E8500818FC9 /* GoodInfoViewController.swift */; };
 		AA031E0E218A42CD00818FC9 /* GoodsAvailableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA031E0D218A42CD00818FC9 /* GoodsAvailableTableViewCell.swift */; };
@@ -19,7 +19,6 @@
 		AA08D08D219E0C77009D0CB1 /* ok.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AA08D08C219E0C77009D0CB1 /* ok.mp3 */; };
 		AA169CB2217A6A3F00BF4C51 /* AddReceiptToArrivalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA169CB1217A6A3F00BF4C51 /* AddReceiptToArrivalViewController.swift */; };
 		AA169CB4217CAB1E00BF4C51 /* NewReceiptDocumentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA169CB3217CAB1E00BF4C51 /* NewReceiptDocumentViewController.swift */; };
-		AA24C48F215ED95E009938CC /* slippers.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AA24C48E215ED95E009938CC /* slippers.jpg */; };
 		AA4544EC21B135D90057C468 /* UserAchivementsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA4544EB21B135D90057C468 /* UserAchivementsTableViewCell.swift */; };
 		AA5756C52196C1FF00E561F6 /* CustomerInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5756C42196C1FF00E561F6 /* CustomerInfoViewController.swift */; };
 		AA7A0C5D21A49F6F0067FB37 /* GoodChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7A0C5C21A49F6F0067FB37 /* GoodChangeViewController.swift */; };
@@ -48,15 +47,48 @@
 		AADB933021733B4500AA2C34 /* ReceiptController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADB932F21733B4500AA2C34 /* ReceiptController.swift */; };
 		AADB93322173D4E800AA2C34 /* GoodsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADB93312173D4E800AA2C34 /* GoodsTableViewController.swift */; };
 		AADB93342173D52900AA2C34 /* GoodsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADB93332173D52900AA2C34 /* GoodsTableViewCell.swift */; };
+		AADC70AB21DF544200C97D49 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AADC70AA21DF544200C97D49 /* NotificationCenter.framework */; };
+		AADC70AE21DF544200C97D49 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC70AD21DF544200C97D49 /* TodayViewController.swift */; };
+		AADC70B121DF544200C97D49 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AADC70AF21DF544200C97D49 /* MainInterface.storyboard */; };
+		AADC70B521DF544200C97D49 /* DjinaroExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = AADC70A921DF544200C97D49 /* DjinaroExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		AADC70BC21DF6D8C00C97D49 /* Receipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADB932D2173311F00AA2C34 /* Receipt.swift */; };
+		AADC70BD21DF6D8C00C97D49 /* ReceiptController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADB932F21733B4500AA2C34 /* ReceiptController.swift */; };
+		AADC70BE21DF6D9700C97D49 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA830C47215568C800F004B3 /* ViewController.swift */; };
+		AADC70C021DFA94A00C97D49 /* SalesTOdayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC70BF21DFA94A00C97D49 /* SalesTOdayTableViewCell.swift */; };
+		AADC70C121DFAB3700C97D49 /* SalesTOdayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AADC70BF21DFA94A00C97D49 /* SalesTOdayTableViewCell.swift */; };
 		AAF7366521B00AB600C95949 /* AddReceiptToArrivalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF7366421B00AB600C95949 /* AddReceiptToArrivalTableViewCell.swift */; };
 		AAF9254B21582DE5007D7ACE /* Camera-03.png in Resources */ = {isa = PBXBuildFile; fileRef = AAF9254A21582DE4007D7ACE /* Camera-03.png */; };
 		AAF9254D21582DED007D7ACE /* Camera-03.svg in Resources */ = {isa = PBXBuildFile; fileRef = AAF9254C21582DED007D7ACE /* Camera-03.svg */; };
 		AAF9254F2158319A007D7ACE /* djinaro.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AAF9254E21583199007D7ACE /* djinaro.jpg */; };
-		AAF9255321583666007D7ACE /* backGround.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AAF9255221583666007D7ACE /* backGround.jpg */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		AADC70B321DF544200C97D49 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AA830C3A215568C800F004B3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AADC70A821DF544200C97D49;
+			remoteInfo = DjinaroExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		AADC70B921DF544200C97D49 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				AADC70B521DF544200C97D49 /* DjinaroExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		28A6E982B07E5C73F7E3B78E /* Pods_Djinaro.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Djinaro.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D5BAACCF47BAD31B1B6921D /* Pods_Djinaro.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Djinaro.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A92741A75F43299FF8AC96C /* Pods-Djinaro.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Djinaro.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Djinaro/Pods-Djinaro.debug.xcconfig"; sourceTree = "<group>"; };
 		AA01186621B2E0AC00D44DE6 /* GoodsImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		AA031E0B218A3E8500818FC9 /* GoodInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodInfoViewController.swift; sourceTree = "<group>"; };
 		AA031E0D218A42CD00818FC9 /* GoodsAvailableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsAvailableTableViewCell.swift; sourceTree = "<group>"; };
@@ -68,7 +100,6 @@
 		AA08D08C219E0C77009D0CB1 /* ok.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ok.mp3; sourceTree = "<group>"; };
 		AA169CB1217A6A3F00BF4C51 /* AddReceiptToArrivalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReceiptToArrivalViewController.swift; sourceTree = "<group>"; };
 		AA169CB3217CAB1E00BF4C51 /* NewReceiptDocumentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewReceiptDocumentViewController.swift; sourceTree = "<group>"; };
-		AA24C48E215ED95E009938CC /* slippers.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = slippers.jpg; sourceTree = "<group>"; };
 		AA4544EB21B135D90057C468 /* UserAchivementsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAchivementsTableViewCell.swift; sourceTree = "<group>"; };
 		AA5756C42196C1FF00E561F6 /* CustomerInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerInfoViewController.swift; sourceTree = "<group>"; };
 		AA7A0C5C21A49F6F0067FB37 /* GoodChangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodChangeViewController.swift; sourceTree = "<group>"; };
@@ -100,13 +131,19 @@
 		AADB932F21733B4500AA2C34 /* ReceiptController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiptController.swift; sourceTree = "<group>"; };
 		AADB93312173D4E800AA2C34 /* GoodsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsTableViewController.swift; sourceTree = "<group>"; };
 		AADB93332173D52900AA2C34 /* GoodsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodsTableViewCell.swift; sourceTree = "<group>"; };
+		AADC70A921DF544200C97D49 /* DjinaroExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DjinaroExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		AADC70AA21DF544200C97D49 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		AADC70AD21DF544200C97D49 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		AADC70B021DF544200C97D49 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		AADC70B221DF544200C97D49 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AADC70BA21DF55FD00C97D49 /* Djinaro.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Djinaro.entitlements; sourceTree = "<group>"; };
+		AADC70BB21DF5C3C00C97D49 /* DjinaroExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = DjinaroExtension.entitlements; path = DjinaroExtension/DjinaroExtension.entitlements; sourceTree = "<group>"; };
+		AADC70BF21DFA94A00C97D49 /* SalesTOdayTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesTOdayTableViewCell.swift; sourceTree = "<group>"; };
 		AAF7366421B00AB600C95949 /* AddReceiptToArrivalTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReceiptToArrivalTableViewCell.swift; sourceTree = "<group>"; };
 		AAF9254A21582DE4007D7ACE /* Camera-03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Camera-03.png"; path = "Djinaro/Camera-03.png"; sourceTree = "<group>"; };
 		AAF9254C21582DED007D7ACE /* Camera-03.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "Camera-03.svg"; path = "Djinaro/Camera-03.svg"; sourceTree = "<group>"; };
 		AAF9254E21583199007D7ACE /* djinaro.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = djinaro.jpg; sourceTree = "<group>"; };
-		AAF9255221583666007D7ACE /* backGround.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = backGround.jpg; sourceTree = "<group>"; };
-		CEF7E709290AE60BF07F28FF /* Pods-Djinaro.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Djinaro.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Djinaro/Pods-Djinaro.debug.xcconfig"; sourceTree = "<group>"; };
-		DD620202303EAD3D27405744 /* Pods-Djinaro.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Djinaro.release.xcconfig"; path = "Pods/Target Support Files/Pods-Djinaro/Pods-Djinaro.release.xcconfig"; sourceTree = "<group>"; };
+		EE9339F472C9EADB3313F97F /* Pods-Djinaro.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Djinaro.release.xcconfig"; path = "Pods/Target Support Files/Pods-Djinaro/Pods-Djinaro.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,18 +151,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8142E50CC5BE908C4AA28187 /* Pods_Djinaro.framework in Frameworks */,
+				A3A93242C8D0E33E5875FD35 /* Pods_Djinaro.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AADC70A621DF544200C97D49 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AADC70AB21DF544200C97D49 /* NotificationCenter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		173880E95B7291F618CA1C58 /* Pods */ = {
+		00057AC58E4F9779E92ADDB9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				CEF7E709290AE60BF07F28FF /* Pods-Djinaro.debug.xcconfig */,
-				DD620202303EAD3D27405744 /* Pods-Djinaro.release.xcconfig */,
+				8A92741A75F43299FF8AC96C /* Pods-Djinaro.debug.xcconfig */,
+				EE9339F472C9EADB3313F97F /* Pods-Djinaro.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -134,7 +179,8 @@
 			isa = PBXGroup;
 			children = (
 				AA825EBE21BD2C7E0046E149 /* MBCircularProgressBar.framework */,
-				28A6E982B07E5C73F7E3B78E /* Pods_Djinaro.framework */,
+				6D5BAACCF47BAD31B1B6921D /* Pods_Djinaro.framework */,
+				AADC70AA21DF544200C97D49 /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -142,16 +188,16 @@
 		AA830C39215568C800F004B3 = {
 			isa = PBXGroup;
 			children = (
+				AADC70BB21DF5C3C00C97D49 /* DjinaroExtension.entitlements */,
 				AA830C44215568C800F004B3 /* Djinaro */,
+				AADC70AC21DF544200C97D49 /* Djinaro Screen */,
 				AA830C43215568C800F004B3 /* Products */,
 				AAF9254C21582DED007D7ACE /* Camera-03.svg */,
 				AAF9254A21582DE4007D7ACE /* Camera-03.png */,
 				AAF9254E21583199007D7ACE /* djinaro.jpg */,
 				AA96D522218F7A09000BB6F8 /* microphone.png */,
-				AAF9255221583666007D7ACE /* backGround.jpg */,
-				AA24C48E215ED95E009938CC /* slippers.jpg */,
 				2881050DA81062024ED0881B /* Frameworks */,
-				173880E95B7291F618CA1C58 /* Pods */,
+				00057AC58E4F9779E92ADDB9 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -159,6 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				AA830C42215568C800F004B3 /* Djinaro.app */,
+				AADC70A921DF544200C97D49 /* DjinaroExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -166,6 +213,7 @@
 		AA830C44215568C800F004B3 /* Djinaro */ = {
 			isa = PBXGroup;
 			children = (
+				AADC70BA21DF55FD00C97D49 /* Djinaro.entitlements */,
 				AA830C45215568C800F004B3 /* AppDelegate.swift */,
 				AA96D524218F7E81000BB6F8 /* Old1CApp */,
 				AA96D52A218F81CC000BB6F8 /* QRCODE */,
@@ -290,6 +338,18 @@
 			path = Client;
 			sourceTree = "<group>";
 		};
+		AADC70AC21DF544200C97D49 /* Djinaro Screen */ = {
+			isa = PBXGroup;
+			children = (
+				AADC70AD21DF544200C97D49 /* TodayViewController.swift */,
+				AADC70BF21DFA94A00C97D49 /* SalesTOdayTableViewCell.swift */,
+				AADC70AF21DF544200C97D49 /* MainInterface.storyboard */,
+				AADC70B221DF544200C97D49 /* Info.plist */,
+			);
+			name = "Djinaro Screen";
+			path = DjinaroExtension;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -297,20 +357,39 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AA830C54215568D000F004B3 /* Build configuration list for PBXNativeTarget "Djinaro" */;
 			buildPhases = (
-				908686BA36F126B5D25CC74F /* [CP] Check Pods Manifest.lock */,
+				4D436B1199FB9A2EE4ADA516 /* [CP] Check Pods Manifest.lock */,
 				AA830C3E215568C800F004B3 /* Sources */,
 				AA830C3F215568C800F004B3 /* Frameworks */,
 				AA830C40215568C800F004B3 /* Resources */,
-				83337A06D95BDEE8A2D8C209 /* [CP] Embed Pods Frameworks */,
+				2510E864529F932A2ECCE529 /* [CP] Embed Pods Frameworks */,
+				AADC70B921DF544200C97D49 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				AADC70B421DF544200C97D49 /* PBXTargetDependency */,
 			);
 			name = Djinaro;
 			productName = Djinaro;
 			productReference = AA830C42215568C800F004B3 /* Djinaro.app */;
 			productType = "com.apple.product-type.application";
+		};
+		AADC70A821DF544200C97D49 /* DjinaroExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AADC70B821DF544200C97D49 /* Build configuration list for PBXNativeTarget "DjinaroExtension" */;
+			buildPhases = (
+				AADC70A521DF544200C97D49 /* Sources */,
+				AADC70A621DF544200C97D49 /* Frameworks */,
+				AADC70A721DF544200C97D49 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DjinaroExtension;
+			productName = DjinaroExtension;
+			productReference = AADC70A921DF544200C97D49 /* DjinaroExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -318,15 +397,26 @@
 		AA830C3A215568C800F004B3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1000;
+				LastSwiftUpdateCheck = 1010;
 				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = Azat;
 				TargetAttributes = {
 					AA830C41215568C800F004B3 = {
 						CreatedOnToolsVersion = 10.0;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
 							com.apple.InAppPurchase = {
 								enabled = 0;
+							};
+						};
+					};
+					AADC70A821DF544200C97D49 = {
+						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
 							};
 						};
 					};
@@ -346,6 +436,7 @@
 			projectRoot = "";
 			targets = (
 				AA830C41215568C800F004B3 /* Djinaro */,
+				AADC70A821DF544200C97D49 /* DjinaroExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -360,18 +451,24 @@
 				AAF9254B21582DE5007D7ACE /* Camera-03.png in Resources */,
 				AAF9254D21582DED007D7ACE /* Camera-03.svg in Resources */,
 				AA96D523218F7A09000BB6F8 /* microphone.png in Resources */,
-				AAF9255321583666007D7ACE /* backGround.jpg in Resources */,
 				AA830C4D215568D000F004B3 /* Assets.xcassets in Resources */,
-				AA24C48F215ED95E009938CC /* slippers.jpg in Resources */,
 				AA830C4B215568C900F004B3 /* Main.storyboard in Resources */,
 				AAF9254F2158319A007D7ACE /* djinaro.jpg in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AADC70A721DF544200C97D49 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AADC70B121DF544200C97D49 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		83337A06D95BDEE8A2D8C209 /* [CP] Embed Pods Frameworks */ = {
+		2510E864529F932A2ECCE529 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -399,7 +496,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Djinaro/Pods-Djinaro-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		908686BA36F126B5D25CC74F /* [CP] Check Pods Manifest.lock */ = {
+		4D436B1199FB9A2EE4ADA516 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -428,6 +525,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AADC70C021DFA94A00C97D49 /* SalesTOdayTableViewCell.swift in Sources */,
 				AADB933021733B4500AA2C34 /* ReceiptController.swift in Sources */,
 				AA08A0A7217679F700083C85 /* ArrivalInfoTableViewCell.swift in Sources */,
 				AA96D53721905F54000BB6F8 /* CheckRecordsTableViewCell.swift in Sources */,
@@ -466,7 +564,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AADC70A521DF544200C97D49 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AADC70C121DFAB3700C97D49 /* SalesTOdayTableViewCell.swift in Sources */,
+				AADC70BE21DF6D9700C97D49 /* ViewController.swift in Sources */,
+				AADC70BC21DF6D8C00C97D49 /* Receipt.swift in Sources */,
+				AADC70BD21DF6D8C00C97D49 /* ReceiptController.swift in Sources */,
+				AADC70AE21DF544200C97D49 /* TodayViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AADC70B421DF544200C97D49 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AADC70A821DF544200C97D49 /* DjinaroExtension */;
+			targetProxy = AADC70B321DF544200C97D49 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		AA830C49215568C900F004B3 /* Main.storyboard */ = {
@@ -483,6 +601,14 @@
 				AA830C4F215568D000F004B3 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		AADC70AF21DF544200C97D49 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AADC70B021DF544200C97D49 /* Base */,
+			);
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -606,9 +732,11 @@
 		};
 		AA830C55215568D000F004B3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CEF7E709290AE60BF07F28FF /* Pods-Djinaro.debug.xcconfig */;
+			baseConfigurationReference = 8A92741A75F43299FF8AC96C /* Pods-Djinaro.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Djinaro/Djinaro.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 45B5A22726;
@@ -629,9 +757,11 @@
 		};
 		AA830C56215568D000F004B3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DD620202303EAD3D27405744 /* Pods-Djinaro.release.xcconfig */;
+			baseConfigurationReference = EE9339F472C9EADB3313F97F /* Pods-Djinaro.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Djinaro/Djinaro.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 45B5A22726;
@@ -645,6 +775,48 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Pick-and-Pop.Djinaro-1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		AADC70B621DF544200C97D49 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = DjinaroExtension/DjinaroExtension.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 45B5A22726;
+				INFOPLIST_FILE = DjinaroExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Pick-and-Pop.Djinaro-1.DjinaroExtension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AADC70B721DF544200C97D49 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = DjinaroExtension/DjinaroExtension.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 45B5A22726;
+				INFOPLIST_FILE = DjinaroExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Pick-and-Pop.Djinaro-1.DjinaroExtension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -667,6 +839,15 @@
 			buildConfigurations = (
 				AA830C55215568D000F004B3 /* Debug */,
 				AA830C56215568D000F004B3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AADC70B821DF544200C97D49 /* Build configuration list for PBXNativeTarget "DjinaroExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AADC70B621DF544200C97D49 /* Debug */,
+				AADC70B721DF544200C97D49 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

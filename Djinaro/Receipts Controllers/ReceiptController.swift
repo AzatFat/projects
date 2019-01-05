@@ -15,19 +15,19 @@ import UIKit
 class ReceiptController {
    // var baseURL = URL(string: "http://91.203.195.74:5001")!
     var baseURL = URL(string: "http://192.168.88.190")!
-    let defaults = UserDefaults.standard
+    let defaults = UserDefaults.init(suiteName: "group.djinaroWidget")
     var token : String?
     var tokenType : String?
     
     init () {
-        if let udrl = defaults.object(forKey:"baseUrl") as? String {
+        if let udrl = defaults?.value(forKey:"baseUrl") as? String {
             self.baseURL = URL(string: udrl)!
         }
     }
     
     init(useMultiUrl: Bool) {
         if useMultiUrl == true {
-            if let udrl = defaults.object(forKey:"baseUrl") as? String {
+            if let udrl = defaults?.value(forKey:"baseUrl") as? String {
                 self.baseURL = URL(string: udrl)!
             }
         }
@@ -662,7 +662,6 @@ class ReceiptController {
         
         let ReceiptURL = components.url!
         var request = URLRequest(url: ReceiptURL)
-        print(request)
         
         request.httpMethod = "GET"
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
@@ -1652,7 +1651,6 @@ class ReceiptController {
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        print(request)
         let jsonEcoder = JSONEncoder()
         let jsonData = try? jsonEcoder.encode(post)
         request.httpBody = jsonData
@@ -1808,6 +1806,39 @@ class ReceiptController {
         task.resume()
     }
     
+    
+    // Получение отчета по продажам
+    func GETdaySales(token: String, completion: @escaping ([salesDay]?) -> Void) {
+        let GetReceipt = baseURL.appendingPathComponent("/api/report/Sales")
+        let components = URLComponents(url: GetReceipt, resolvingAgainstBaseURL: true)!
+        //        components.queryItems = [URLQueryItem(name: "start", value: "0"), URLQueryItem(name: "length", value: "100"),URLQueryItem(name: "search", value: search)]
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode([salesDay].self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode([salesDay].self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in getting day sales report")
+                        print(error)
+                        self.denyAuthorisation(data: data)
+                        completion(nil)
+                    }
+                }
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
 }
 
 

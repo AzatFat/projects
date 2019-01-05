@@ -19,7 +19,6 @@ struct QRReceiptDocument: Codable {
         case type = "Type"
         case id = "Id"
     }
-    
 }
 
 protocol SpyDelegate: class {
@@ -44,6 +43,7 @@ class QRScannerController: UIViewController, InventoryCellTapped {
     @IBOutlet var lightButton: UIButton!
     @IBAction func inventotyRegimeButton(_ sender: Any) {
         
+        timer.invalidate()
         
         if needInventory == false && frontInventory == false {
             inventoryType(title: "Выберите режим инвентаризации")
@@ -86,7 +86,7 @@ class QRScannerController: UIViewController, InventoryCellTapped {
     var qrReceiptDocument: QRReceiptDocument?
     var token = ""
     var userId = ""
-    let defaults = UserDefaults.standard
+    let defaults = UserDefaults.init(suiteName: "group.djinaroWidget")
     
     var objPlayer: AVAudioPlayer?
     
@@ -109,6 +109,9 @@ class QRScannerController: UIViewController, InventoryCellTapped {
     override func viewDidAppear(_ animated: Bool) {
         captureSession.startRunning()
         needInventory = false
+        if frontInventory == true {
+            scheduledTimerWithTimeInterval()
+        }
         //frontInventory = false
         //InventoryButtonOutlet.tintColor = .blue
         //self.view.sendSubviewToBack(viewGoodsTable)
@@ -116,7 +119,9 @@ class QRScannerController: UIViewController, InventoryCellTapped {
     }
     override func viewDidDisappear(_ animated: Bool) {
         captureSession.stopRunning()
+        qrCodeFrameView?.frame = CGRect.zero
         toggleTorch(on: false)
+        timer.invalidate()
     }
     
 
@@ -125,8 +130,8 @@ class QRScannerController: UIViewController, InventoryCellTapped {
         self.title = "Camera"
         tableInventory.delegate = self
         
-        token = defaults.object(forKey:"token") as? String ?? ""
-        userId = defaults.object(forKey:"userId") as? String ?? ""
+        token = defaults?.value(forKey:"token") as? String ?? ""
+        userId = defaults?.value(forKey:"userId") as? String ?? ""
         
         super.viewDidLoad()
         // Start video capture.
@@ -247,10 +252,8 @@ class QRScannerController: UIViewController, InventoryCellTapped {
         })
         
         let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil)
-        
         alertPrompt.addAction(confirmAction)
         alertPrompt.addAction(cancelAction)
-        
         present(alertPrompt, animated: true, completion: nil)
  
     }
@@ -290,7 +293,7 @@ class QRScannerController: UIViewController, InventoryCellTapped {
         
     }
     
-    
+    // Витринная и продажная инвентаризаця
     func POSTFrontInventoryShop(url: String) {
         let inventoryCode = InventoryCode.init(code: full_found_text)
         print(inventoryCode)
@@ -310,13 +313,6 @@ class QRScannerController: UIViewController, InventoryCellTapped {
                     newImageView.isUserInteractionEnabled = true
                     self.view.addSubview(newImageView)
                     
-
-                /*    if self.delegate != nil {
-                        self.delegate?.getFrontInventoryShop(url: )
-                    } else {
-                        print("Delegate is null")
-                    }*/
-                    self.tableInventory.getFrontInventoryShop(url: url)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         //newImageView.removeFromSuperview()
                         
@@ -326,7 +322,6 @@ class QRScannerController: UIViewController, InventoryCellTapped {
                                         // self.view.removeFromSuperview()
                                         newImageView.removeFromSuperview()
                         })
-                        
                     }
                 }
             } else {
@@ -379,9 +374,7 @@ class QRScannerController: UIViewController, InventoryCellTapped {
             }
         }
     }
-
-
-    
+    // Складская инвентаризация
     func POSTInventoryCode() {
         let inventoryCode = InventoryCode.init(code: full_found_text)
         print(inventoryCode)
@@ -516,7 +509,7 @@ class QRScannerController: UIViewController, InventoryCellTapped {
             self.frontInventory = true
             self.view.bringSubviewToFront(self.viewGoodsTable)
             self.view.bringSubviewToFront(self.lightButton)
-
+            self.scheduledTimerWithTimeInterval()
         }))
         
         alert.addAction(UIAlertAction(title: "Продажи", style: .default, handler: { action in
@@ -526,6 +519,7 @@ class QRScannerController: UIViewController, InventoryCellTapped {
             self.frontInventory = true
             self.view.bringSubviewToFront(self.viewGoodsTable)
             self.view.bringSubviewToFront(self.lightButton)
+            self.scheduledTimerWithTimeInterval()
         }))
         
         self.present(alert, animated: true, completion: nil)
@@ -553,6 +547,16 @@ class QRScannerController: UIViewController, InventoryCellTapped {
         }
     }
     
+    var timer = Timer()
+    func scheduledTimerWithTimeInterval(){
+        timer.invalidate()
+        // Scheduling timer to Call the function "updateCounting" with the interval of 1 seconds
+        timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(getFrontInventoryShops), userInfo: nil, repeats: true)
+    }
+    
+    @objc func getFrontInventoryShops() {
+        self.tableInventory.getFrontInventoryShop(url: frontURL)
+    }
 }
 
 

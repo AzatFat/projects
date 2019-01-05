@@ -69,8 +69,8 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
     
     @IBAction func printGoodsLableShop(_ sender: Any) {
         let receiptController = ReceiptController(useMultiUrl: true)
-        let defaults = UserDefaults.standard
-        let token = defaults.object(forKey:"token") as? String ?? ""
+        let defaults = UserDefaults.init(suiteName: "group.djinaroWidget")
+        let token = defaults?.value(forKey:"token") as? String ?? ""
         if let good_id = good?.id,  good?.price != 0, good?.price != nil, GoodPrice.text != "" {
             print("print shop label")
             receiptController.POSTGoodPrintShopLabel(token: token, goodId: String(good_id)) { (answer) in
@@ -137,8 +137,8 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
     
     func changeGood(good: Goods) {
         let receiptController = ReceiptController(useMultiUrl: true)
-        let defaults = UserDefaults.standard
-        let token = defaults.object(forKey:"token") as? String ?? ""
+        let defaults = UserDefaults.init(suiteName: "group.djinaroWidget")
+        let token = defaults?.value(forKey:"token") as? String ?? ""
         receiptController.PUTGood(token: token, post: good) { (answer) in
             DispatchQueue.main.async {
                 self.error(title: "Товар успешно изменен")
@@ -149,8 +149,8 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
     
     func createGood(good: Goods) {
         let receiptController = ReceiptController(useMultiUrl: true)
-        let defaults = UserDefaults.standard
-        let token = defaults.object(forKey:"token") as? String ?? ""
+        let defaults = UserDefaults.init(suiteName: "group.djinaroWidget")
+        let token = defaults?.value(forKey:"token") as? String ?? ""
         receiptController.POSTGood(token: token, post: good) { (good) in
             if let good = good {
                 DispatchQueue.main.async {
@@ -173,8 +173,8 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
     
     func getGoodsType () {
         let receiptController = ReceiptController(useMultiUrl: true)
-        let defaults = UserDefaults.standard
-        let token = defaults.object(forKey:"token") as? String ?? ""
+        let defaults = UserDefaults.init(suiteName: "group.djinaroWidget")
+        let token = defaults?.value(forKey:"token") as? String ?? ""
         receiptController.GETTypeGoods(token: token) { (typeGoods) in
             if let typeGoods = typeGoods {
                 self.pickerData = typeGoods
@@ -251,7 +251,8 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
 
         if indexPath.row == 0 {
            // takeImage()
-           getImageFromPhotoLibrary()
+            getImageFromPhotoLibrary()
+           
         } else {
             let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
             
@@ -302,41 +303,42 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
         var main: Bool
     }
     var goodUIImagesDict = [goodUIimages.init(id: "main", image: UIImage(named: "addPhoto")!, main: false)]
-    
-    func takeImage() {
-        imagePicker.allowsEditing = false
-        imagePicker.sourceType = .photoLibrary
-        let alertController = UIAlertController(title: "выберите фото", message: nil, preferredStyle: .actionSheet)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        alertController.addAction(cancelAction)
-        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-            let photoLibraryAction = UIAlertAction(title: "Photo library", style: .default) { (action) in
-                self.imagePicker.sourceType = .photoLibrary
-                self.present(self.imagePicker, animated: true, completion: nil)
-            }
-            alertController.addAction(photoLibraryAction)
-        }
-        present(alertController, animated: true, completion: nil)
-    }
-    
-    @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        let image = (info[UIImagePickerController.InfoKey.originalImage] as? UIImage)!
-        picker.dismiss(animated:true,completion:nil)
-        if let good = good {
-            uploadImagetoGood(image: image, good: good, isMaxI: true)
-        }
-    }
-    
-    @objc func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-         picker.dismiss(animated:true,completion:nil)
-    }
-    
-    //
+
     var SelectedAssets = [PHAsset]()
-    var PhotoArrray = [UIImage]()
+   // var PhotoArrray = [UIImage]()
+    
+    
+    func showImagePickerWithSelectedAssets() {
+        let allAssets = PHAsset.fetchAssets(with: PHAssetMediaType.image, options: nil)
+        var evenAssetIds = [String]()
+        
+        allAssets.enumerateObjects({ (asset, idx, stop) -> Void in
+            if idx % 2 == 0 {
+                evenAssetIds.append(asset.localIdentifier)
+            }
+        })
+        
+        let evenAssets = PHAsset.fetchAssets(withLocalIdentifiers: evenAssetIds, options: nil)
+        
+        let vc = BSImagePickerViewController()
+        vc.defaultSelections = evenAssets
+        
+    
+        bs_presentImagePickerController(vc, animated: true,
+                                        select: { (asset: PHAsset) -> Void in
+                                            print("Selected: \(asset)")
+        }, deselect: { (asset: PHAsset) -> Void in
+            print("Deselected: \(asset)")
+        }, cancel: { (assets: [PHAsset]) -> Void in
+            print("Cancel: \(assets)")
+        }, finish: { (assets: [PHAsset]) -> Void in
+            print("Finish: \(assets)")
+        }, completion: nil)
+    }
     
     func getImageFromPhotoLibrary() {
         let vc = BSImagePickerViewController()
+        
         self.bs_presentImagePickerController(vc, animated: true, select: { (asset: PHAsset) -> Void in
         }, deselect: { (asset: PHAsset) -> Void in
         }, cancel: { (asset: [PHAsset]) -> Void in
@@ -344,7 +346,6 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
             for i in 0 ..< asset.count {
                 self.SelectedAssets.append(asset[i])
             }
-            
             self.convertAssetToImages()
             
             
@@ -362,9 +363,6 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
                // var thumbnail = UIImage()
                 var data = Data()
                 option.isSynchronous = true
-                /*manager.requestImage(for: SelectedAssets[i], targetSize: CGSize(width: 1000, height: 1000), contentMode: .aspectFit, options: option, resultHandler:  { (result, info)->Void in
-                    thumbnail = result!
-                })*/
                 
                 manager.requestImageData(for: SelectedAssets[i], options: option, resultHandler: { (result, str, orientation, info) -> Void in
                     data = result!
@@ -372,20 +370,20 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
                 
                // let data = thumbnail.jpegData(compressionQuality: 1)
                 let newImage = UIImage(data: data)
-                self.PhotoArrray.append(newImage! as  UIImage)
+                //self.PhotoArrray.append(newImage! as  UIImage)
                 DispatchQueue.main.async {
                     let isMax = i == self.SelectedAssets.count - 1  ? true : false
                     self.uploadImagetoGood(image: newImage!, good: self.good!, isMaxI: isMax)
+                    
                 }
             }
         }
-        
     }
     
     func uploadImagetoGood(image: UIImage, good: Goods, isMaxI: Bool) {
         let receiptController = ReceiptController(useMultiUrl: true)
-        let defaults = UserDefaults.standard
-        let token = defaults.object(forKey:"token") as? String ?? ""
+        let defaults = UserDefaults.init(suiteName: "group.djinaroWidget")
+        let token = defaults?.value(forKey:"token") as? String ?? ""
         receiptController.POSTGoodImageAsData(token: token, image: image, good: good) { (postedImage) in
             if let posted = postedImage {
                 DispatchQueue.main.async {
@@ -394,6 +392,7 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
                     if isMaxI {
                         self.addPreload(start_stop: false)
                         self.error(title: "изображения добавлены")
+                        self.SelectedAssets = []
                     }
                    // self.error(title: "товар добавлен")
                 }
@@ -412,8 +411,8 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
     
     func deleteGoodImage(imageId: String, index: Int) {
         let receiptController = ReceiptController(useMultiUrl: true)
-        let defaults = UserDefaults.standard
-        let token = defaults.object(forKey:"token") as? String ?? ""
+        let defaults = UserDefaults.init(suiteName: "group.djinaroWidget")
+        let token = defaults?.value(forKey:"token") as? String ?? ""
         receiptController.DELETEGoodsImage(token: token, imageId: imageId) { (answer) in
             if let answer = answer {
                 if answer == "Товар удален" {
@@ -455,8 +454,8 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
     
     func makeGoodImageMain(imageId: String, index: Int) {
         let receiptController = ReceiptController(useMultiUrl: true)
-        let defaults = UserDefaults.standard
-        let token = defaults.object(forKey:"token") as? String ?? ""
+        let defaults = UserDefaults.init(suiteName: "group.djinaroWidget")
+        let token = defaults?.value(forKey:"token") as? String ?? ""
         receiptController.MakeGoodsImageMain(token: token, imageId: imageId) { (answer) in
             if let answer = answer {
                 if answer == "Товар изменен" {
@@ -582,3 +581,5 @@ extension UIImage {
         return newImage!
     }
 }
+
+

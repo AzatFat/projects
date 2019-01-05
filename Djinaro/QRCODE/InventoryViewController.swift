@@ -116,8 +116,8 @@ class InventoryViewController: UIViewController, UITableViewDelegate, UITableVie
     func getFrontInventoryShop(url: String) {
         print("table reloaded")
         countLable.text = "Ждем обновления"
-        let defaults = UserDefaults.standard
-        let token = defaults.object(forKey:"token") as? String ?? ""
+        let defaults = UserDefaults.init(suiteName: "group.djinaroWidget")
+        let token = defaults?.value(forKey:"token") as? String ?? ""
         let receiptController = ReceiptController(useMultiUrl: true)
         receiptController.GetFrontInventoryGoods(url: url,token: token) { (frontGoods) in
             if let frontGoods = frontGoods {

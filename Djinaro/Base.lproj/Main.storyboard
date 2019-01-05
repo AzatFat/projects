@@ -111,7 +111,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oTx-tv-con">
-                                <rect key="frame" x="16" y="128" width="288" height="172"/>
+                                <rect key="frame" x="16" y="172" width="288" height="172"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="172" id="vKy-6w-QQ3"/>
                                 </constraints>
@@ -120,14 +120,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VGj-x1-TVz">
-                                <rect key="frame" x="16" y="60" width="288" height="60"/>
+                                <rect key="frame" x="16" y="104" width="288" height="60"/>
                                 <string key="text">Для поиска по размеру от 36 до 46 перечислите их и закончите фразу словом "размер".  Для поиска по наименованию назовите ключевую фразу  и нажмите нажмите "Поиск".</string>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="10"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" alpha="0.94999999999999996" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PS0-P9-2Sn">
-                                <rect key="frame" x="110" y="368" width="100" height="91"/>
+                                <rect key="frame" x="110" y="412" width="100" height="91"/>
                                 <color key="backgroundColor" red="0.20318505167961121" green="0.85557115077972412" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="PS0-P9-2Sn" secondAttribute="height" multiplier="100:91" id="i2n-0D-JLD"/>
@@ -264,31 +264,31 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Дата поступления" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sRX-q7-VDe">
-                                <rect key="frame" x="16" y="79" width="115" height="16"/>
+                                <rect key="frame" x="16" y="123" width="115" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hOn-DX-yqq">
-                                <rect key="frame" x="167" y="72" width="137" height="30"/>
+                                <rect key="frame" x="167" y="116" width="137" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Oxc-Sm-cTo">
-                                <rect key="frame" x="167" y="110" width="137" height="30"/>
+                                <rect key="frame" x="167" y="154" width="137" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c38-re-4Y0">
-                                <rect key="frame" x="16" y="31" width="288" height="24"/>
+                                <rect key="frame" x="16" y="75" width="288" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WRl-ge-lvT">
-                                <rect key="frame" x="0.0" y="186" width="320" height="382"/>
+                                <rect key="frame" x="0.0" y="230" width="320" height="245"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="arrivalInfoCell" rowHeight="59" id="ShY-mU-Gec" customClass="ArrivalInfoTableViewCell" customModule="Djinaro" customModuleProvider="target">
@@ -333,13 +333,13 @@
                                 </connections>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Дата проведения" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="47f-ev-sLS">
-                                <rect key="frame" x="16" y="117" width="110" height="16"/>
+                                <rect key="frame" x="16" y="161" width="110" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vay-VD-Co0">
-                                <rect key="frame" x="190" y="148" width="114" height="30"/>
+                                <rect key="frame" x="190" y="192" width="114" height="30"/>
                                 <state key="normal" title="Добавить товар"/>
                                 <connections>
                                     <action selector="addNewGood:" destination="0io-A0-rfx" eventType="touchUpInside" id="MXA-A7-CUT"/>
@@ -407,7 +407,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IYb-Dq-Xvy">
-                                <rect key="frame" x="0.0" y="203" width="320" height="365"/>
+                                <rect key="frame" x="0.0" y="247" width="320" height="228"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GoodsInArrival" rowHeight="63" id="gtZ-Pw-EkW" customClass="AddGoodsToArrivalTableViewCell" customModule="Djinaro" customModuleProvider="target">
@@ -511,7 +511,7 @@
                                 </connections>
                             </tableView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder=" Локация" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aF6-zh-26G">
-                                <rect key="frame" x="13" y="73" width="294" height="30"/>
+                                <rect key="frame" x="13" y="117" width="294" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="aF6-zh-26G" secondAttribute="height" multiplier="293:30" id="Cgi-hp-X7j"/>
                                 </constraints>
@@ -522,7 +522,7 @@
                                 </connections>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder=" Наименование товара" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gk9-sE-fpd">
-                                <rect key="frame" x="13" y="31" width="294" height="30"/>
+                                <rect key="frame" x="13" y="75" width="294" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="gk9-sE-fpd" secondAttribute="height" multiplier="293:30" id="aNU-08-uD6"/>
                                 </constraints>
@@ -533,14 +533,14 @@
                                 </connections>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hr0-dW-7z4">
-                                <rect key="frame" x="181" y="151" width="126" height="30"/>
+                                <rect key="frame" x="181" y="195" width="126" height="30"/>
                                 <state key="normal" title="Добавить размер"/>
                                 <connections>
                                     <action selector="addGood:" destination="oSb-iK-zvM" eventType="touchUpInside" id="kfn-bP-tSJ"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Цена" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vPv-Pv-shv">
-                                <rect key="frame" x="13" y="151" width="127" height="30"/>
+                                <rect key="frame" x="13" y="195" width="127" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="127" id="kxt-4Z-Nd5"/>
                                 </constraints>
@@ -552,19 +552,19 @@
                                 </connections>
                             </textField>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dOQ-r6-VWA">
-                                <rect key="frame" x="135.5" y="115" width="51" height="31"/>
+                                <rect key="frame" x="135.5" y="159" width="51" height="31"/>
                                 <connections>
                                     <action selector="changeGoodArchiveStatus:" destination="oSb-iK-zvM" eventType="valueChanged" id="mMb-gD-Gos"/>
                                 </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Архивный" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Np-ap-UId">
-                                <rect key="frame" x="16" y="121" width="72" height="18"/>
+                                <rect key="frame" x="16" y="165" width="72" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.80357581377029419" green="0.80378061532974243" blue="0.82528215646743774" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Активный" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GuX-8q-oFY">
-                                <rect key="frame" x="235" y="121" width="70" height="18"/>
+                                <rect key="frame" x="235" y="165" width="70" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.81533956527709961" green="0.81554621458053589" blue="0.83704590797424316" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -623,7 +623,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Размер" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="92t-so-6oG">
-                                <rect key="frame" x="16" y="68" width="288" height="30"/>
+                                <rect key="frame" x="16" y="112" width="288" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="92t-so-6oG" secondAttribute="height" multiplier="48:5" id="UMl-aj-4EK"/>
                                 </constraints>
@@ -632,7 +632,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Цена" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IAG-c1-UdT">
-                                <rect key="frame" x="17" y="162" width="286" height="30"/>
+                                <rect key="frame" x="17" y="206" width="286" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="IAG-c1-UdT" secondAttribute="height" multiplier="143:15" id="bXs-8F-PFd"/>
                                 </constraints>
@@ -641,7 +641,7 @@
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IMX-Up-cIe">
-                                <rect key="frame" x="125.5" y="257" width="69" height="30"/>
+                                <rect key="frame" x="125.5" y="254.5" width="69" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="IMX-Up-cIe" secondAttribute="height" multiplier="23:10" id="c8z-GX-qpy"/>
                                 </constraints>
@@ -651,7 +651,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eDx-1R-ScH">
-                                <rect key="frame" x="16" y="301.5" width="288" height="30.5"/>
+                                <rect key="frame" x="16" y="299" width="288" height="30.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="eDx-1R-ScH" secondAttribute="height" multiplier="142:15" id="8q2-Ce-A5f"/>
                                 </constraints>
@@ -660,7 +660,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Количество" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bgN-We-dSY">
-                                <rect key="frame" x="16" y="115" width="288" height="30"/>
+                                <rect key="frame" x="16" y="159" width="288" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="bgN-We-dSY" secondAttribute="height" multiplier="48:5" id="67K-Pq-z31"/>
                                 </constraints>
@@ -732,7 +732,7 @@
                                 </connections>
                             </tableView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="VUC-Ii-kxy">
-                                <rect key="frame" x="60.5" y="25" width="199" height="29"/>
+                                <rect key="frame" x="60.5" y="69" width="199" height="29"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="BCJ-Ft-dz2"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="199" id="udy-DR-T88"/>
@@ -941,13 +941,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RYO-Hc-uQz">
-                                <rect key="frame" x="0.0" y="20" width="320" height="220"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="220"/>
                                 <connections>
                                     <segue destination="RRY-ZH-5fP" kind="embed" identifier="goodInfo" id="vBv-mS-kZL"/>
                                 </connections>
                             </containerView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="heJ-9q-j6e">
-                                <rect key="frame" x="0.0" y="238" width="320" height="330"/>
+                                <rect key="frame" x="0.0" y="282" width="320" height="193"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="avaliableGood" rowHeight="60" id="BJL-Hj-GVD" customClass="GoodsAvailableTableViewCell" customModule="Djinaro" customModuleProvider="target">
@@ -1158,45 +1158,45 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Наименование" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="73t-9q-MON">
-                                <rect key="frame" x="16" y="36" width="288" height="30"/>
+                                <rect key="frame" x="16" y="80" width="288" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <textInputTraits key="textInputTraits" textContentType="name"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Локация" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wfp-5K-kMg">
-                                <rect key="frame" x="16" y="75" width="288" height="30"/>
+                                <rect key="frame" x="16" y="119" width="288" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <textInputTraits key="textInputTraits" textContentType="additional-name"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Cо скидкой" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IKn-iW-Al2">
-                                <rect key="frame" x="172" y="116" width="132" height="30"/>
+                                <rect key="frame" x="172" y="160" width="132" height="30"/>
                                 <color key="backgroundColor" white="0.90188259548611116" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="name"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Вид" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lgg-i4-Wy0">
-                                <rect key="frame" x="16" y="157" width="288" height="30"/>
+                                <rect key="frame" x="16" y="201" width="288" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <textInputTraits key="textInputTraits" textContentType="additional-name"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Группа" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vcc-j9-3hT">
-                                <rect key="frame" x="16" y="198" width="288" height="30"/>
+                                <rect key="frame" x="16" y="242" width="288" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <textInputTraits key="textInputTraits" textContentType="additional-name"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ncA-7F-n2h">
-                                <rect key="frame" x="137" y="294" width="46" height="30"/>
+                                <rect key="frame" x="137" y="338" width="46" height="30"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
                                     <action selector="saveButtonAction:" destination="Qyr-oV-VD5" eventType="touchUpInside" id="qi4-QD-GZH"/>
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="eYn-Gx-tD7">
-                                <rect key="frame" x="0.0" y="447" width="320" height="121"/>
+                                <rect key="frame" x="0.0" y="354" width="320" height="121"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="121" id="x0j-FF-4WF"/>
@@ -1237,28 +1237,28 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Изображения" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4RN-BB-V0S">
-                                <rect key="frame" x="9" y="418" width="131" height="24"/>
+                                <rect key="frame" x="9" y="325" width="131" height="24"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hsl-Qg-pxQ">
-                                <rect key="frame" x="135.5" y="240" width="51" height="31"/>
+                                <rect key="frame" x="135.5" y="284" width="51" height="31"/>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Архивный" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QRR-Vj-69s">
-                                <rect key="frame" x="16" y="244" width="93.5" height="25.5"/>
+                                <rect key="frame" x="16" y="288" width="93.5" height="25.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="21"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Активный" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HHx-g6-IeO">
-                                <rect key="frame" x="212.5" y="244" width="91.5" height="25.5"/>
+                                <rect key="frame" x="212.5" y="288" width="91.5" height="25.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="21"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Цена товара" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CSh-vc-AUj">
-                                <rect key="frame" x="16" y="116" width="142" height="30"/>
+                                <rect key="frame" x="16" y="160" width="142" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="name"/>
@@ -1338,7 +1338,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.60000002384185791" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No QR code is detected" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J2o-a8-GtH">
-                                <rect key="frame" x="0.0" y="547.5" width="320" height="20.5"/>
+                                <rect key="frame" x="0.0" y="454.5" width="320" height="20.5"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20.5" id="cYt-F9-Jra"/>
@@ -1348,7 +1348,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pbo-ZS-tit">
-                                <rect key="frame" x="0.0" y="307" width="320" height="240"/>
+                                <rect key="frame" x="0.0" y="214" width="320" height="240"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="240" id="eSP-b8-Wp3"/>
                                 </constraints>
@@ -1357,7 +1357,7 @@
                                 </connections>
                             </containerView>
                             <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LUw-yK-coM">
-                                <rect key="frame" x="250" y="475" width="70" height="54"/>
+                                <rect key="frame" x="250" y="382" width="70" height="54"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="C9e-XE-c18"/>
@@ -1684,13 +1684,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Клиент не выбран" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I54-rN-bcC">
-                                <rect key="frame" x="10" y="64" width="145.5" height="21"/>
+                                <rect key="frame" x="10" y="108" width="145.5" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Сумма" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RE9-To-rn5">
-                                <rect key="frame" x="10" y="30" width="178" height="21"/>
+                                <rect key="frame" x="10" y="74" width="178" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="RE9-To-rn5" secondAttribute="height" multiplier="178:21" id="wyF-PC-slX"/>
                                 </constraints>
@@ -1699,27 +1699,27 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gaA-tP-Lgw">
-                                <rect key="frame" x="203" y="59" width="65" height="30"/>
+                                <rect key="frame" x="203" y="103" width="65" height="30"/>
                                 <state key="normal" title="+ Клиент"/>
                                 <connections>
                                     <action selector="AddClient:" destination="nym-CQ-eTr" eventType="touchUpInside" id="nzk-fy-InP"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Товары" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yz9-2Q-idm">
-                                <rect key="frame" x="10" y="98" width="59.5" height="21"/>
+                                <rect key="frame" x="10" y="142" width="59.5" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A5f-kp-3l5">
-                                <rect key="frame" x="203" y="93" width="56" height="30"/>
+                                <rect key="frame" x="203" y="137" width="56" height="30"/>
                                 <state key="normal" title="+ Товар"/>
                                 <connections>
                                     <action selector="AddChekRecord:" destination="nym-CQ-eTr" eventType="touchUpInside" id="C3d-pj-vPa"/>
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="chb-GL-g6E">
-                                <rect key="frame" x="0.0" y="131" width="320" height="437"/>
+                                <rect key="frame" x="0.0" y="175" width="320" height="300"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ChekRecordGoods" rowHeight="65" id="Yq6-PU-QnR" customClass="CheckRecordsTableViewCell" customModule="Djinaro" customModuleProvider="target">
@@ -1957,43 +1957,43 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Имя" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dHw-Ns-7Yr">
-                                <rect key="frame" x="16" y="34" width="288" height="21"/>
+                                <rect key="frame" x="16" y="78" width="288" height="21"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" textContentType="name"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Фамилия" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RWj-RK-i4K">
-                                <rect key="frame" x="16" y="72" width="288" height="21"/>
+                                <rect key="frame" x="16" y="116" width="288" height="21"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" textContentType="additional-name"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Отчество" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DSQ-bi-LlO">
-                                <rect key="frame" x="16" y="110" width="288" height="21"/>
+                                <rect key="frame" x="16" y="154" width="288" height="21"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" textContentType="family-name"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="E-mail" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bGR-YE-e8I">
-                                <rect key="frame" x="16" y="148" width="288" height="21"/>
+                                <rect key="frame" x="16" y="192" width="288" height="21"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" textContentType="email"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Телефон" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xsq-Hu-Ps6">
-                                <rect key="frame" x="16" y="186" width="288" height="21"/>
+                                <rect key="frame" x="16" y="230" width="288" height="21"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" textContentType="tel"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Дата рождения" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SSG-2M-CJw">
-                                <rect key="frame" x="16" y="224" width="288" height="21"/>
+                                <rect key="frame" x="16" y="268" width="288" height="21"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YA0-aJ-TLG">
-                                <rect key="frame" x="16" y="270" width="288" height="39"/>
+                                <rect key="frame" x="16" y="314" width="288" height="39"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                 <state key="normal" title="Создать Клиента"/>
                                 <connections>
@@ -2310,9 +2310,9 @@
         <segue reference="WSb-tz-bLX"/>
         <segue reference="6uX-RN-tr1"/>
         <segue reference="w2u-V5-dke"/>
-        <segue reference="SGn-z7-F7S"/>
-        <segue reference="szZ-x4-fzs"/>
+        <segue reference="4NM-PB-4qr"/>
+        <segue reference="4yF-aY-vSq"/>
         <segue reference="EtZ-8j-68u"/>
-        <segue reference="49n-Ls-Xae"/>
+        <segue reference="wHO-wK-dVO"/>
     </inferredMetricsTieBreakers>
 </document>

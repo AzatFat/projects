@@ -12,7 +12,7 @@ import UIKit
 class ViewController: UIViewController, UITextFieldDelegate {
 
 
-    let defaults = UserDefaults.standard
+    let defaults = UserDefaults.init(suiteName: "group.djinaroWidget")
     //var prod = "http://91.203.195.74:5001"
     var prod = "http://192.168.88.190"
     var outProd = "http://87.117.180.87:7000"
@@ -34,12 +34,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
         {
         case 0:
             print("First Segment Selected")
-            self.defaults.set(prod, forKey: "baseUrl")
+            self.defaults?.setValue(prod, forKey: "baseUrl")
           //  self.defaults.set("http://192.168.88.190", forKey: "baseUrl")
         case 1:
 
             print("Second Segment Selected")
-            self.defaults.set(outProd, forKey: "baseUrl")
+            self.defaults?.setValue(outProd, forKey: "baseUrl")
         default:
             break
         }
@@ -61,14 +61,19 @@ class ViewController: UIViewController, UITextFieldDelegate {
         
         super.viewDidLoad()
         
-        let userName = defaults.object(forKey:"userName") as? String
-        let password = defaults.object(forKey:"password") as? String
-        let baseUrl = defaults.object(forKey:"baseUrl") as? String
+        
+        
+        
+        let userName = defaults?.value(forKey:"userName") as? String
+        let password = defaults?.value(forKey:"password") as? String
+        let baseUrl = defaults?.value(forKey:"baseUrl") as? String
         //let userId = defaults.object(forKey:"userId") as? String
-
+        
+       
         if userName != nil && password != nil && baseUrl != nil{
             signIn(userName: userName ?? "", password: password ?? "", NeedErrorMessage: true)
         }
+        
         self.UserName.delegate = self
         self.Password.delegate = self
         
@@ -109,11 +114,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
         receiptController.POSTToken(username: userName, password: password) { (token) in
             print("Post Token function")
             if let token = token {
-                self.defaults.set(userName, forKey: "userName")
-                self.defaults.set(password, forKey: "password")
-                self.defaults.set(token.user_id, forKey: "userId")
-                self.defaults.set(token.access_token, forKey: "token")
-                if self.defaults.object(forKey:"baseUrl") as? String == "http://192.168.88.190" || self.defaults.object(forKey:"baseUrl") as? String == "http://91.203.195.74:5001" {
+                self.defaults?.setValue(userName, forKey: "userName")
+                self.defaults?.setValue(password, forKey: "password")
+                self.defaults?.setValue(token.user_id, forKey: "userId")
+                self.defaults?.setValue(token.access_token, forKey: "token")
+                
+                
+                if self.defaults?.value(forKey:"baseUrl") as? String == "http://192.168.88.190" || self.defaults?.value(forKey:"baseUrl") as? String == "http://91.203.195.74:5001" {
                     DispatchQueue.main.async {
                         self.performSegue(withIdentifier: "LogIn", sender: nil)
                     }

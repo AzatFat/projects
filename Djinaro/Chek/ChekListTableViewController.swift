@@ -10,7 +10,7 @@ import UIKit
 
 class ChekListTableViewController: UITableViewController {
     //Tokens and user unfo
-    let defaults = UserDefaults.standard
+    let defaults = UserDefaults.init(suiteName: "group.djinaroWidget")
     var token = ""
     var userId = ""
     // Preloader
@@ -33,8 +33,8 @@ class ChekListTableViewController: UITableViewController {
         super.viewDidLoad()
         addPreload(start_stop: true)
        // self.title = "Мои открытые чеки"
-        token = defaults.object(forKey:"token") as? String ?? ""
-        userId = defaults.object(forKey:"userId") as? String ?? ""
+        token = defaults?.value(forKey:"token") as? String ?? ""
+        userId = defaults?.value(forKey:"userId") as? String ?? ""
         recieptController.GetCheckList(userId: userId, token: token) { (chekList) in
             if let chekList = chekList {
                 self.checkList = chekList

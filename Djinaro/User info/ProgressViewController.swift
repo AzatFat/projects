@@ -29,7 +29,7 @@ class ProgressViewController: UIViewController {
     var dateFrom: UITextField?
     var dateTo: UITextField?
     
-    let defaults = UserDefaults.standard
+    let defaults = UserDefaults.init(suiteName: "group.djinaroWidget")
     //var userInfoView = UserInfoViewController()
     var timer = Timer()
     
@@ -87,7 +87,7 @@ class ProgressViewController: UIViewController {
 
     @objc func getTimeRemaining() {
         let receiptController = ReceiptController(useMultiUrl: true)
-        let token = self.defaults.object(forKey:"token") as? String ?? ""
+        let token = self.defaults?.value(forKey:"token") as? String ?? ""
         receiptController.GETtimeRemaning(token: token) { (timeRemaining ) in
             if let timeRemaining = timeRemaining {
                 let time = timeRemaining.remaining_time.components(separatedBy: ":")

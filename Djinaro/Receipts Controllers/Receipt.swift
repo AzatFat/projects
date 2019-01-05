@@ -615,6 +615,8 @@ struct mainResults: Codable {
         case sum_c = "sum_c"
     }
 }
+
+
 struct datesForMainResult: Codable {
     var date_from: String
     var date_to: String
@@ -624,3 +626,39 @@ struct datesForMainResult: Codable {
     }
 }
 
+// Общие продажи для виджета
+
+struct salesDay: Codable {
+    var e_nm: String?
+    var e_id: Int?
+    var cnt_ch: Int?
+    var cnt_p: Int?
+    var sum_sls: Int?
+    var sum_rtr: Int?
+    var sum_socks: Int?
+    var sum_goods: Int?
+    var ch_p: String?
+    var sls_rtr: Int?
+    var avg_ch: Int?
+    var avg_goods: Decimal?
+    var zp: Decimal?
+    var sum_zp: String?
+    var avg_ch_goods: String?
+    enum CodingKeys: String, CodingKey {
+        case e_nm = "e_nm"
+        case e_id = "e_id"
+        case cnt_ch = "cnt_ch"
+        case cnt_p = "cnt_p"
+        case sum_sls = "sum_sls"
+        case sum_rtr = "sum_rtr"
+        case sum_socks = "sum_socks"
+        case sum_goods = "sum_goods"
+        case ch_p = "ch_p"
+        case sls_rtr = "sls_rtr"
+        case avg_ch = "avg_ch"
+        case avg_goods = "avg_goods"
+        case zp = "zp"
+        case sum_zp = "sum_zp"
+        case avg_ch_goods = "avg_ch_goods"
+    }
+}

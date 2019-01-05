@@ -29,7 +29,7 @@ class GoodViewController: UIViewController, UITableViewDelegate, UITableViewData
     var location = ""
     var name = ""
     var mainImageUrl = ""
-    let defaults = UserDefaults.standard
+    let defaults = UserDefaults.init(suiteName: "group.djinaroWidget")
     var token = ""
     var userId = ""
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
@@ -38,8 +38,8 @@ class GoodViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         addPreload(start_stop: true)
-        token = defaults.object(forKey:"token") as? String ?? ""
-        userId = defaults.object(forKey:"userId") as? String ?? ""
+        token = defaults?.value(forKey:"token") as? String ?? ""
+        userId = defaults?.value(forKey:"userId") as? String ?? ""
         
         getGood()
         // Do any additional setup after loading the view.
@@ -53,10 +53,10 @@ class GoodViewController: UIViewController, UITableViewDelegate, UITableViewData
         recieptController.GetGood(token: token, goodId: goodId) { (good) in
             if let good = good {
                 self.good = good
+                self.title = String(good.id)
                 if let goodName = good.name, let goodLocation = good.location {
                     self.location = goodLocation
                     self.name = goodName
-                    
                     if let goodImage = good.image {
                         self.mainImageUrl = "/ImageStorage/" + self.goodId + "/320_240/" + goodImage
                     }

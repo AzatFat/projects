@@ -32,7 +32,7 @@ class CheckRecordViewController: UIViewController, UITableViewDelegate, UITableV
     
     
     var recieptController = ReceiptController(useMultiUrl: true)
-    let defaults = UserDefaults.standard
+    let defaults = UserDefaults.init(suiteName: "group.djinaroWidget")
     var token = ""
     var userId = ""
     var check: Check?
@@ -42,8 +42,8 @@ class CheckRecordViewController: UIViewController, UITableViewDelegate, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        token = defaults.object(forKey:"token") as? String ?? ""
-        userId = defaults.object(forKey:"userId") as? String ?? ""
+        token = defaults?.value(forKey:"token") as? String ?? ""
+        userId = defaults?.value(forKey:"userId") as? String ?? ""
         checkAppear()
         // Do any additional setup after loading the view.
     }

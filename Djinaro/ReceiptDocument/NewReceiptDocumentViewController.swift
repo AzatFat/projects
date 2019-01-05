@@ -15,7 +15,7 @@ class NewReceiptDocumentViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet var NumberReceiptDocument: UITextField!
     var receiptDocument: ReceiptDocument?
     var receiptController = ReceiptController(useMultiUrl: true)
-    let defaults = UserDefaults.standard
+    let defaults = UserDefaults.init(suiteName: "group.djinaroWidget")
     var token = ""
     
     @IBAction func AddReceiptDocumentAction(_ sender: Any) {
@@ -39,7 +39,7 @@ class NewReceiptDocumentViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         NumberReceiptDocument.delegate = self
-        token = defaults.object(forKey:"token") as? String ?? ""
+        token = defaults?.value(forKey:"token") as? String ?? ""
         // Do any additional setup after loading the view.
     }
     

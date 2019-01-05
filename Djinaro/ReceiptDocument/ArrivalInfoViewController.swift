@@ -33,7 +33,7 @@ class ArrivalInfoViewController: UIViewController, UITableViewDelegate, UITableV
     var receiptsToAddNewGoodsController =  [Receipt]()
     var receiptsnameToAddNewGoodsController: Goods?
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
-    let defaults = UserDefaults.standard
+    let defaults = UserDefaults.init(suiteName: "group.djinaroWidget")
     var token = ""
     
     var GroupReceiptsList = [GroupReceipts]()
@@ -271,7 +271,6 @@ class ArrivalInfoViewController: UIViewController, UITableViewDelegate, UITableV
                     self.addPreload(start_stop: false)
                 }
             })
-            
         }
     }
     
@@ -288,7 +287,7 @@ class ArrivalInfoViewController: UIViewController, UITableViewDelegate, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        token = defaults.object(forKey:"token") as? String ?? ""
+        token = defaults?.value(forKey:"token") as? String ?? ""
         
         let theDateToolBar = UIToolbar().ToolbarPiker(mySelect: #selector(ArrivalInfoViewController.theDatedismissPicker), clear: #selector(ArrivalInfoViewController.clearTheDatedismissPicker))
         
@@ -321,7 +320,9 @@ class ArrivalInfoViewController: UIViewController, UITableViewDelegate, UITableV
         let alert = UIAlertController(title: "Вы действительно хотите распечатать документ поступления?", message: nil, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Да", style: .default, handler: { action in
             self.PrintReceiptDocument()
-            self.CloseReceiptDocument()
+            if self.recieptDocument?.the_Date == nil {
+                self.CloseReceiptDocument()
+            }
         }))
         
         alert.addAction(UIAlertAction(title: "Нет", style: .cancel, handler: { action in

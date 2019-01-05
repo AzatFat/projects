@@ -20,7 +20,7 @@ class GoodsTableViewController: UITableViewController, UISearchBarDelegate, chan
     var segue = "goodInfo"
     var receipt_Document_Id : Int?
     var groupReceiptsList = [GroupReceipts]()
-    let defaults = UserDefaults.standard
+    let defaults = UserDefaults.init(suiteName: "group.djinaroWidget")
     var token = ""
     var checkRecord: CheckRecord?
     
@@ -54,7 +54,7 @@ class GoodsTableViewController: UITableViewController, UISearchBarDelegate, chan
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        token = defaults.object(forKey:"token") as? String ?? ""
+        token = defaults?.value(forKey:"token") as? String ?? ""
         searchBar.setImage(UIImage(named: "microphone.png"), for: .bookmark, state: .normal)
         self.addPreload(start_stop: true)
         getGoods()
@@ -174,11 +174,13 @@ class GoodsTableViewController: UITableViewController, UISearchBarDelegate, chan
         searchBar.showsCancelButton = true;
         searchBar.showsScopeBar = true
         searchBar.scopeButtonTitles = ["Наименование", "Размер"]
+        tableView.reloadData()
         searchBar.sizeToFit()
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
+        tableView.reloadData()
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {

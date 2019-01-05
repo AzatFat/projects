@@ -20,7 +20,7 @@ class CustomerTableViewController: UITableViewController, UISearchBarDelegate {
     var recieptController = ReceiptController(useMultiUrl: true)
     var customerList = [Customer]()
     var customer : Customer?
-    let defaults = UserDefaults.standard
+    let defaults = UserDefaults.init(suiteName: "group.djinaroWidget")
     var token = ""
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     
@@ -28,7 +28,7 @@ class CustomerTableViewController: UITableViewController, UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        token = defaults.object(forKey:"token") as? String ?? ""
+        token = defaults?.value(forKey:"token") as? String ?? ""
         self.addPreload(start_stop: true)
         GetCustomerList()
         searchBar.delegate = self

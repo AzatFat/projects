@@ -21,7 +21,7 @@ class GoodsArrivalTableViewController: UITableViewController, UISearchBarDelegat
     var recieptDocumentList = [ReceiptDocument]()
     var recieptDocumentId = ""
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
-    let defaults = UserDefaults.standard
+    let defaults = UserDefaults.init(suiteName: "group.djinaroWidget")
     var token = ""
     
     
@@ -92,7 +92,7 @@ class GoodsArrivalTableViewController: UITableViewController, UISearchBarDelegat
     }
     
     override func viewDidLoad() {
-        token = defaults.object(forKey:"token") as? String ?? ""
+        token = defaults?.value(forKey:"token") as? String ?? ""
         print("token when load view \(token)")
         self.addPreload(start_stop: true)
         getReceiptDocuments()
@@ -103,7 +103,7 @@ class GoodsArrivalTableViewController: UITableViewController, UISearchBarDelegat
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        token = defaults.object(forKey:"token") as? String ?? ""
+        token = defaults?.value(forKey:"token") as? String ?? ""
         self.addPreload(start_stop: true)
         getReceiptDocuments()
     }

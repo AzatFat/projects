@@ -18,7 +18,7 @@ class AddReceiptToArrivalViewController: UIViewController, UITableViewDelegate, 
     @IBOutlet var addChangeReceipt: UIButton!
     @IBOutlet var tableView: UITableView!
     
-    let defaults = UserDefaults.standard
+    let defaults = UserDefaults.init(suiteName: "group.djinaroWidget")
     var token = ""
 
     @IBOutlet var printOrSetReceipt: UIBarButtonItem!
@@ -110,7 +110,7 @@ class AddReceiptToArrivalViewController: UIViewController, UITableViewDelegate, 
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
 
         
-        token = defaults.object(forKey:"token") as? String ?? ""
+        token = defaults?.value(forKey:"token") as? String ?? ""
         tableView.isHidden = true
         
         if good?.type_Goods_Id == 8 {
@@ -160,8 +160,8 @@ class AddReceiptToArrivalViewController: UIViewController, UITableViewDelegate, 
     
     func getSizesType(type: String) {
         let receiptController = ReceiptController(useMultiUrl: true)
-        let defaults = UserDefaults.standard
-        let token = defaults.object(forKey:"token") as? String ?? ""
+        let defaults = UserDefaults.init(suiteName: "group.djinaroWidget")
+        let token = defaults?.value(forKey:"token") as? String ?? ""
         receiptController.GetSizesByType(token: token, type: type) { (sizes) in
             if let sizes = sizes {
                 self.pickerData = sizes

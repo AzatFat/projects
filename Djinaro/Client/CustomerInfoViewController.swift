@@ -114,8 +114,8 @@ class CustomerInfoViewController: UIViewController, UITextFieldDelegate {
     
     func POSTCustomer(customer: Customer) {
         let receiptController = ReceiptController(useMultiUrl: true)
-        let defaults = UserDefaults.standard
-        let token = defaults.object(forKey:"token") as? String ?? ""
+        let defaults = UserDefaults.init(suiteName: "group.djinaroWidget")
+        let token = defaults?.value(forKey:"token") as? String ?? ""
         receiptController.POSTCustomer(token: token, post: customer) { (customerId) in
             if let customerId = customerId, let checkRecord = self.checkRecord?.check_Id {
                 DispatchQueue.main.async {
@@ -127,8 +127,8 @@ class CustomerInfoViewController: UIViewController, UITextFieldDelegate {
     
     func PUTCustomer(customer: Customer) {
         let receiptController = ReceiptController(useMultiUrl: true)
-        let defaults = UserDefaults.standard
-        let token = defaults.object(forKey:"token") as? String ?? ""
+        let defaults = UserDefaults.init(suiteName: "group.djinaroWidget")
+        let token = defaults?.value(forKey:"token") as? String ?? ""
         receiptController.PUTCustomer(token: token, post: customer) { (customer) in
             DispatchQueue.main.async {
                 self.error(title: "Клиент отредактирован")
@@ -138,8 +138,8 @@ class CustomerInfoViewController: UIViewController, UITextFieldDelegate {
     
     func addCustomerToCheck(checkId: String, customerId: String) {
         let recieptController = ReceiptController(useMultiUrl: true)
-        let defaults = UserDefaults.standard
-        let token = defaults.object(forKey:"token") as? String ?? ""
+        let defaults = UserDefaults.init(suiteName: "group.djinaroWidget")
+        let token = defaults?.value(forKey:"token") as? String ?? ""
         recieptController.POSTCustomerToCheck(token: token, checkId: checkId, customerId: customerId) { (check) in
             DispatchQueue.main.async {
                 self.performSegue(withIdentifier: "addCustomerToCheck", sender: self)

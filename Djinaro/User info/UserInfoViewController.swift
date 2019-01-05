@@ -11,7 +11,7 @@ import UIKit
 
 class UserInfoViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, GETMainReport  {
 
-    let defaults = UserDefaults.standard
+    let defaults = UserDefaults.init(suiteName: "group.djinaroWidget")
     var userAchivement : userListAchivements?
     
     var userSectionAchivements = ["День", "Неделя", "Месяц"]
@@ -88,7 +88,7 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
         scheduledTimerWithTimeInterval()
      
         
-        let user_id = self.defaults.object(forKey:"userId") as? String ?? ""
+        let user_id = self.defaults?.value(forKey:"userId") as? String ?? ""
         switch user_id {
         case "5", "7":
             chanGeReportTypeOutlet.isHidden = false
@@ -108,12 +108,12 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
     
     
     func signOut() {
-        self.defaults.set(nil, forKey: "userName")
-        self.defaults.set(nil, forKey: "password")
-        self.defaults.set(nil, forKey: "token")
+        self.defaults?.setValue(nil, forKey: "userName")
+        self.defaults?.setValue(nil, forKey: "password")
+        self.defaults?.setValue(nil, forKey: "token")
         
         let initial = ViewController()
-        self.defaults.set(initial.prod, forKey: "baseUrl")
+        self.defaults?.setValue(initial.prod, forKey: "baseUrl")
         let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "ViewController") as! ViewController
         let appDel:AppDelegate = UIApplication.shared.delegate as! AppDelegate
         appDel.window?.rootViewController = loginVC
@@ -128,7 +128,7 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
     
     @objc func getUserAchivements() {
         let receiptController = ReceiptController(useMultiUrl: true)
-        let token = self.defaults.object(forKey:"token") as? String ?? ""
+        let token = self.defaults?.value(forKey:"token") as? String ?? ""
         receiptController.GetReportPersonal(token: token) { (userListAchivemnts) in
             
             if let userAchivement = userListAchivemnts {
@@ -237,7 +237,7 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
     
     func GETMainResult(dates: datesForMainResult) {
         let receiptController = ReceiptController(useMultiUrl: true)
-        let token = self.defaults.object(forKey:"token") as? String ?? ""
+        let token = self.defaults?.value(forKey:"token") as? String ?? ""
         receiptController.POSTMainReport(token: token, post: dates) { (mainResults) in
             if let mainResults = mainResults {
                 print(mainResults)
