@@ -460,6 +460,7 @@ struct InventoryFrontShop: Codable {
     var location: String?
     var type_goods_id: Int?
     var g_nm: String?
+    var g_nm_short: String?
     var s_min_nm: String?
     var s_scan_nm: String?
     
@@ -472,6 +473,7 @@ struct InventoryFrontShop: Codable {
         case location = "location"
         case type_goods_id = "type_goods_id"
         case g_nm = "g_nm"
+        case g_nm_short = "g_nm_short"
         case s_min_nm = "s_min_nm"
         case s_scan_nm = "s_scan_nm"
     }
@@ -487,7 +489,6 @@ struct InventoryFrontShopRow: Codable {
     var goods: Int?
     var sizes: String?
 
-    
     enum CodingKeys: String, CodingKey {
         case id = "Id"
         case goods_Id = "Goods_Id"
@@ -496,6 +497,29 @@ struct InventoryFrontShopRow: Codable {
         case cnt = "Cnt"
         case goods = "Goods"
         case sizes = "Sizes"
+    }
+}
+// Ответ от сканирования товара
+struct ResponseScannedGood: Codable {
+    var id: Int
+    var goods_Id: Int?
+    var sizes_Id: Int?
+    var sizes_Min_Id: Int?
+    var cnt: Int?
+    var goods: Goods?
+    var sizes: Sizes?
+    var sizes_Min: Sizes?
+    var status: Int?
+    enum CodingKeys: String, CodingKey {
+        case id = "Id"
+        case goods_Id = "Goods_Id"
+        case sizes_Id = "Sizes_Id"
+        case sizes_Min_Id = "Sizes_Min_Id"
+        case cnt = "Cnt"
+        case goods = "Goods"
+        case sizes = "Sizes"
+        case sizes_Min = "Sizes_Min"
+        case status = "Status"
     }
 }
 
@@ -660,5 +684,75 @@ struct salesDay: Codable {
         case zp = "zp"
         case sum_zp = "sum_zp"
         case avg_ch_goods = "avg_ch_goods"
+    }
+}
+// Складская инвентаризация
+
+struct stockInventoryView: Codable {
+    var recordsTotal: Int
+    var recordsFiltered : Int?
+    var data : [stockInventoryViewData]?
+    
+    enum CodingKeys: String, CodingKey {
+        case recordsTotal = "recordsTotal"
+        case recordsFiltered = "recordsFiltered"
+        case data = "data"
+    }
+}
+
+struct stockInventoryViewData: Codable {
+    var id: Int
+    var goodId : Int?
+    var sizesId : Int?
+    var remain: Int?
+    var remainFact: Int?
+    var updatedBy: Int?
+    var rFact: Int?
+    var g_nm: String?
+    var location: String?
+    var sizeName: String?
+    var diff: Int?
+    var updated_on: String?
+    var is_approved: Bool?
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "id"
+        case goodId = "goods_id"
+        case sizesId = "sizes_id"
+        case remain = "remain"
+        case remainFact = "remain_fact"
+        case updatedBy = "updated_by"
+        case rFact = "r_fact"
+        case g_nm = "g_nm"
+        case location = "location"
+        case sizeName = "s_nm"
+        case diff = "diff"
+        case updated_on = "updated_on"
+        case is_approved = "is_approved"
+    }
+}
+struct scannedGoodsInStockinventory: Codable {
+    var id : Int
+    var goods_id : Int?
+    var sizes_id : Int?
+    var remain : Int?
+    var remain_fact : Int?
+    var goods: Goods?
+    enum CodingKeys: String, CodingKey {
+        case id = "Id"
+        case goods_id = "Goods_id"
+        case sizes_id = "Sizes_Id"
+        case remain = "Remain"
+        case remain_fact = "Remain_Fact"
+        case goods = "Goods"
+    }
+}
+struct stockInventoryResult: Codable {
+    var records_off_sale: Int?
+    var records_receipts: Int?
+    
+    enum CodingKeys: String, CodingKey {
+        case records_off_sale = "records_off_sale"
+        case records_receipts = "records_receipts"
     }
 }

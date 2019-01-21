@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 import AudioToolbox
-
+import PopMenu
 
 struct QRReceiptDocument: Codable {
     var type: String
@@ -25,8 +25,6 @@ protocol SpyDelegate: class {
     func getFrontInventoryShop(url: String)
 }
 
-
-
 class QRScannerController: UIViewController, InventoryCellTapped {
 
     @IBAction func lightButton(_ sender: Any) {
@@ -39,6 +37,8 @@ class QRScannerController: UIViewController, InventoryCellTapped {
         }
         
     }
+    
+    @IBOutlet var scannedItem: UILabel!
     @IBOutlet var messageLabel: UILabel!
     @IBOutlet var lightButton: UIButton!
     @IBAction func inventotyRegimeButton(_ sender: Any) {
@@ -53,13 +53,114 @@ class QRScannerController: UIViewController, InventoryCellTapped {
             frontInventory = false
             InventoryButtonOutlet.tintColor = .blue
             self.view.sendSubviewToBack(viewGoodsTable)
+            self.view.sendSubviewToBack(scannedItem)
             getAVCapture(size: CGSize(width: self.view.frame.size.width, height: self.view.frame.size.height))
         }
-        
     }
     
     @IBOutlet var InventoryButtonOutlet: UIBarButtonItem!
     @IBOutlet var viewGoodsTable: UIView!
+    
+    @IBOutlet var stockSettingsButton: UIBarButtonItem!
+    @IBAction func stockSettings(_ sender: Any) {
+        presentMenu()
+    }
+    
+    var selectedGoodType = 0
+    var selectedtypeName = "Все товары"
+    @objc private func presentMenu() {
+        
+        // The manual way
+        
+        let actions = [PopMenuDefaultAction(title: "Выбрать тип товара", image: nil,didSelect: { (action) in
+            DispatchQueue.main.async {
+                self.presentTypeMenuForView()
+                self.tableInventory.userId = ""
+            }
+        }),PopMenuDefaultAction(title: "Загрузить данные", image: nil,didSelect: { (action) in
+            DispatchQueue.main.async {
+                self.presentTypeMenuForLoad()
+                self.tableInventory.userId = ""
+            }
+        }), PopMenuDefaultAction(title: "Очистить результаты", image: nil, didSelect: { (action) in
+            DispatchQueue.main.async {
+                self.clearStockInventoryResults()
+                self.tableInventory.userId = ""
+                
+                
+            }
+        }), PopMenuDefaultAction(title: "Провести инвентаризацию", image: nil, didSelect: { (action) in
+            DispatchQueue.main.async {
+                print("finish stock")
+                //self.finishStockInventoryResults()
+                self.GetStockInventoryResult()
+            }
+        }), PopMenuDefaultAction(title: "Отсканированые мной товары", image: nil, didSelect: { (action) in
+            DispatchQueue.main.async {
+                self.tableInventory.getStockInventorybyUser(typeGood: 0, typeName: "Все товары", userId: self.userId)
+                self.tableInventory.userId = self.userId
+            }
+        })]
+        
+        // Pass the UIView in init
+        let menu = PopMenuViewController(sourceView: stockSettingsButton, actions: actions)
+        present(menu, animated: true, completion: nil)
+    }
+
+    
+    @objc private func presentTypeMenuForLoad() {
+        if typeGoods.count > 0 {
+            var actions = [PopMenuDefaultAction(title: "Все товары", image: nil, didSelect: { (action) in
+                self.selectedGoodType = 0
+                self.selectedtypeName = "Все товары"
+                self.loadStockInventoryResults(typeId: 0)
+                self.tableInventory.typeGood = self.selectedGoodType
+                self.tableInventory.typeName = self.selectedtypeName
+                
+            })]
+            for i in typeGoods {
+                if i.id != 0 {
+                    actions.append(PopMenuDefaultAction(title: i.name, image: nil,didSelect: { (action) in
+                        self.selectedGoodType = i.id
+                        self.selectedtypeName = i.name ?? ""
+                        self.loadStockInventoryResults(typeId: i.id)
+                        self.tableInventory.typeGood = self.selectedGoodType
+                        self.tableInventory.typeName = self.selectedtypeName
+                        
+                    }))
+                }
+            }
+            // Pass the UIView in init
+            let menu2 = PopMenuViewController(actions: actions)
+            present(menu2, animated: true, completion: nil)
+        }
+    }
+    
+    @objc private func presentTypeMenuForView() {
+        if typeGoods.count > 0 {
+            var actions = [PopMenuDefaultAction(title: "Все товары", image: nil, didSelect: { (action) in
+                self.selectedGoodType = 0
+                self.selectedtypeName = "Все товары"
+                self.tableInventory.typeGood = self.selectedGoodType
+                self.tableInventory.typeName = self.selectedtypeName
+                self.tableInventory.getStockInventory(typeGood: self.selectedGoodType, typeName: self.selectedtypeName, user_id: "")
+            })]
+            for i in typeGoods {
+                if i.id != 0 {
+                    actions.append(PopMenuDefaultAction(title: i.name, image: nil,didSelect: { (action) in
+                        self.selectedGoodType = i.id
+                        self.selectedtypeName = i.name ?? ""
+                        self.tableInventory.typeGood = self.selectedGoodType
+                        self.tableInventory.typeName = self.selectedtypeName
+                        self.tableInventory.getStockInventory(typeGood: self.selectedGoodType, typeName: self.selectedtypeName, user_id: "")
+                    }))
+                }
+            }
+            // Pass the UIView in init
+            let menu2 = PopMenuViewController(actions: actions)
+            present(menu2, animated: true, completion: nil)
+        }
+    }
     
     
     var captureSession = AVCaptureSession()
@@ -90,7 +191,7 @@ class QRScannerController: UIViewController, InventoryCellTapped {
     
     var objPlayer: AVAudioPlayer?
     
-    
+    var typeGoods = [TypeGoods]()
     
     private let supportedCodeTypes = [AVMetadataObject.ObjectType.upce,
                                       AVMetadataObject.ObjectType.code39,
@@ -108,7 +209,7 @@ class QRScannerController: UIViewController, InventoryCellTapped {
     
     override func viewDidAppear(_ animated: Bool) {
         captureSession.startRunning()
-        needInventory = false
+        //needInventory = false
         if frontInventory == true {
             scheduledTimerWithTimeInterval()
         }
@@ -134,6 +235,10 @@ class QRScannerController: UIViewController, InventoryCellTapped {
         userId = defaults?.value(forKey:"userId") as? String ?? ""
         
         super.viewDidLoad()
+        
+        //Get type Goods to stock Inventory settings
+        getGoodsType()
+        self.navigationItem.leftBarButtonItem = nil
         // Start video capture.
         captureSession.startRunning()
 
@@ -299,8 +404,7 @@ class QRScannerController: UIViewController, InventoryCellTapped {
         print(inventoryCode)
         receiptController.POSTInventoryEnter(url: url, token: token,  code: found_text, post: inventoryCode) { (answer) in
             //print("answer is  \(answer)")
-            if answer == answer, answer != "-1" {
-                
+            if let answer = answer {
                 DispatchQueue.main.async {
                     self.playOkSound()
                     // делаем скриншот
@@ -321,6 +425,13 @@ class QRScannerController: UIViewController, InventoryCellTapped {
                                         self.found_bar = 0
                                         // self.view.removeFromSuperview()
                                         newImageView.removeFromSuperview()
+                                        // выводим последний отсканированный товар
+                                        let cnt = answer.cnt ?? 0
+                                        let size_min = answer.sizes_Min?.name ?? ""
+                                        let size = answer.sizes?.name ?? ""
+                                        let goodName = answer.goods?.name ?? ""
+                                        self.scannedItem.text = "  \(cnt) | \(size_min) | \(size) | \(goodName)"
+                                        self.scannedItem.textColor = UIColor.cyan
                         })
                     }
                 }
@@ -374,12 +485,14 @@ class QRScannerController: UIViewController, InventoryCellTapped {
             }
         }
     }
+    
     // Складская инвентаризация
     func POSTInventoryCode() {
         let inventoryCode = InventoryCode.init(code: full_found_text)
         print(inventoryCode)
         receiptController.POSTInventoryCode(token: token,  code: found_text, post: inventoryCode) { (answer) in
-            if answer == answer, answer == "true"{
+            if let answer = answer{
+                print(answer)
                 DispatchQueue.main.async {
                     self.playOkSound()
                     // делаем скриншот
@@ -393,12 +506,20 @@ class QRScannerController: UIViewController, InventoryCellTapped {
                     self.view.addSubview(newImageView)
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         //newImageView.removeFromSuperview()
-                        
+                        self.tableInventory.getStockInventory(typeGood: self.selectedGoodType, typeName: self.selectedtypeName, user_id: "")
                         UIView.animate(withDuration: 0.1, animations: {newImageView.alpha = 0.4},
                                        completion: {(value: Bool) in
                                         self.found_bar = 0
                                         // self.view.removeFromSuperview()
                                         newImageView.removeFromSuperview()
+                                        let remain = answer.remain
+                                        let remain_fact = answer.remain_fact
+                                        self.scannedItem.text = "\(remain_fact ?? 0) | \(remain ?? 0) \(answer.goods?.name ?? "")"
+                                        if remain_fact == remain {
+                                            self.scannedItem.textColor = UIColor.cyan
+                                        } else {
+                                            self.scannedItem.textColor = UIColor.red
+                                        }
                         })
                         
                     }
@@ -408,6 +529,7 @@ class QRScannerController: UIViewController, InventoryCellTapped {
             }
         }
     }
+    
     
     func addCheckRecordToCheckFromBarCode() {
         receiptController.GetBarCodeFind(barcode: found_text, token: token) { (barCode) in
@@ -439,12 +561,6 @@ class QRScannerController: UIViewController, InventoryCellTapped {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-       /* страя версия поиска товара по 1С
-            if segue.identifier == "BarCodeSearch" {
-            let controller = segue.destination as! ItemsInfoTableViewController
-            controller.id = found_text
-            controller.type = "1"
-        }*/
         
         if segue.identifier == "findReceiptInfo" {
             let controller = segue.destination as! ArrivalInfoViewController
@@ -465,8 +581,8 @@ class QRScannerController: UIViewController, InventoryCellTapped {
             self.tableInventory = controller
             //controller.labelString = self.stringToPass
         }
-        
     }
+    
     func playOkSound() {
         
         guard let url = Bundle.main.url(forResource: "ok", withExtension: "mp3") else { return }
@@ -475,7 +591,7 @@ class QRScannerController: UIViewController, InventoryCellTapped {
             try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
             try AVAudioSession.sharedInstance().setActive(true)
             objPlayer = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
-
+            
             guard let aPlayer = objPlayer else { return }
             aPlayer.play()
             
@@ -499,7 +615,15 @@ class QRScannerController: UIViewController, InventoryCellTapped {
         let alert = UIAlertController(title: title, message: nil, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Склад", style: .default, handler: { action in
             //self.found_bar = 0
+            self.navigationItem.leftBarButtonItem = self.stockSettingsButton
             self.needInventory = true
+             self.getAVCapture(size: CGSize(width: self.view.frame.size.width, height: self.view.frame.size.height * 0.7))
+            self.view.bringSubviewToFront(self.scannedItem)
+            self.view.bringSubviewToFront(self.viewGoodsTable)
+            self.view.bringSubviewToFront(self.lightButton)
+            self.tableInventory.getStockInventory(typeGood: self.selectedGoodType, typeName: self.selectedtypeName, user_id: "")
+            self.tableInventory.typeGood = self.selectedGoodType
+            self.tableInventory.typeName = self.selectedtypeName
         }))
         
         alert.addAction(UIAlertAction(title: "Витрина", style: .default, handler: { action in
@@ -507,6 +631,7 @@ class QRScannerController: UIViewController, InventoryCellTapped {
             self.frontURL = "InventoryFrontShop"
             self.tableInventory.getFrontInventoryShop(url: self.frontURL)
             self.frontInventory = true
+            self.view.bringSubviewToFront(self.scannedItem)
             self.view.bringSubviewToFront(self.viewGoodsTable)
             self.view.bringSubviewToFront(self.lightButton)
             self.scheduledTimerWithTimeInterval()
@@ -517,6 +642,7 @@ class QRScannerController: UIViewController, InventoryCellTapped {
             self.frontURL = "InventorySales"
             self.tableInventory.getFrontInventoryShop(url: self.frontURL)
             self.frontInventory = true
+            self.view.bringSubviewToFront(self.scannedItem)
             self.view.bringSubviewToFront(self.viewGoodsTable)
             self.view.bringSubviewToFront(self.lightButton)
             self.scheduledTimerWithTimeInterval()
@@ -552,6 +678,109 @@ class QRScannerController: UIViewController, InventoryCellTapped {
         timer.invalidate()
         // Scheduling timer to Call the function "updateCounting" with the interval of 1 seconds
         timer = Timer.scheduledTimer(timeInterval: 3, target: self, selector: #selector(getFrontInventoryShops), userInfo: nil, repeats: true)
+    }
+    
+    func getGoodsType () {
+        let receiptController = ReceiptController(useMultiUrl: true)
+        let defaults = UserDefaults.init(suiteName: "group.djinaroWidget")
+        let token = defaults?.value(forKey:"token") as? String ?? ""
+        receiptController.GETTypeGoods(token: token) { (typeGoods) in
+            if let typeGoods = typeGoods {
+                self.typeGoods = typeGoods
+            }
+        }
+    }
+    func clearStockInventoryResults() {
+        let alert = UIAlertController(title: "Вы действительно хотите удалить все данные по отсканированным товарам", message: nil, preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "Да", style: .default, handler: { action in
+            self.receiptController.POSTClearStockInventoryResults(token: self.token) { (answer) in
+                DispatchQueue.main.async {
+                    if let answer = answer {
+                        self.error(title: answer)
+                        self.tableInventory.getStockInventory(typeGood: self.selectedGoodType, typeName: self.selectedtypeName, user_id: "")
+                    }
+                }
+            }
+        }))
+        alert.addAction(UIAlertAction(title: "Нет", style: .default, handler: { action in
+            
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+        
+    }
+    
+    func loadStockInventoryResults(typeId: Int) {
+        
+        receiptController.POSTLoadStockInventoryResults(token: token, typeId: String(typeId) ) { (answer) in
+            DispatchQueue.main.async {
+                if let answer = answer {
+                    self.error(title: answer)
+                    self.tableInventory.getStockInventory(typeGood: self.selectedGoodType, typeName: self.selectedtypeName, user_id: "")
+                }
+            }
+        }
+    }
+    /*
+    func finishStockInventoryResults() {
+        let alert = UIAlertController(title: "Вы действительно хотите создать поступление", message: nil, preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "Да", style: .default, handler: { action in
+            self.receiptController.POSTFinish(token: self.token) { (answer) in
+                DispatchQueue.main.async {
+                    if let answer = answer {
+                        self.error(title: answer)
+                    }
+                }
+            }
+        }))
+        alert.addAction(UIAlertAction(title: "Нет", style: .default, handler: { action in
+            
+        }))
+        
+         self.present(alert, animated: true, completion: nil)
+    }*/
+    
+    func GetStockInventoryResult() {
+        self.receiptController.GetResultInventoryStock(token: self.token) { (answer) in
+            DispatchQueue.main.async {
+                if let answer = answer {
+                    
+                    var message = ""
+                    
+                    let paragraphStyle = NSMutableParagraphStyle()
+                    paragraphStyle.alignment = .left
+                    message = "Будет списано:      \(answer.records_off_sale ?? 0)"
+                    message += "\nБудет добавлено: \(answer.records_receipts ?? 0)"
+                    
+                    let messageText = NSMutableAttributedString(
+                        string: message,
+                        attributes: [
+                            NSAttributedString.Key.paragraphStyle: paragraphStyle,
+                            NSAttributedString.Key.foregroundColor: UIColor.black
+                        ]
+                    )
+    
+                    let alert = UIAlertController(title: "Вы действительно хотите создать поступление", message: nil, preferredStyle: UIAlertController.Style.alert)
+                    alert.setValue(messageText, forKey: "attributedMessage")
+                    alert.addAction(UIAlertAction(title: "Да", style: .default, handler: { action in
+                        self.receiptController.POSTFinish(token: self.token) { (answer) in
+                            DispatchQueue.main.async {
+                                if let answer = answer {
+                                    self.error(title: answer)
+                                }
+                            }
+                        }
+                    }))
+                    alert.addAction(UIAlertAction(title: "Нет", style: .default, handler: { action in
+                        
+                    }))
+                    
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }
+        }
     }
     
     @objc func getFrontInventoryShops() {

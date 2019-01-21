@@ -8,5 +8,6 @@ target 'Djinaro' do
   # Pods for Djinaro
   pod "MBCircularProgressBar"
   pod "BSImagePicker", "~> 2.8"
+  pod 'NewPopMenu', '~> 2.0'
 
 end

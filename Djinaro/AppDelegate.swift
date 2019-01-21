@@ -7,6 +7,12 @@
 //
 
 import UIKit
+import UserNotifications
+
+enum Identifiers {
+    static let viewAction = "VIEW_IDENTIFIER"
+    static let coustomNotification = "NEWS_CATEGORY"
+}
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,6 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        UIApplication.shared.applicationIconBadgeNumber = 0
+        registerForPushNotifications()
+
         // Override point for customization after application launch.
         return true
     }
@@ -40,7 +50,55 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    
+/// Регистрация токена для пуш уведомлений
+    func application(
+        _ application: UIApplication,
+        didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
+        ) {
+        let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
+        let token = tokenParts.joined()
+        print("Device Token: \(token)")
+    }
+    
+    func application(
+        _ application: UIApplication,
+        didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("Failed to register: \(error)")
+    }
 
-
+    func registerForPushNotifications() {
+        UNUserNotificationCenter.current() // 1
+            .requestAuthorization(options: [.alert, .sound, .badge]) { // 2
+                [weak self] granted, error in
+                
+                print("Permission granted: \(granted)")
+                guard granted else { return }
+                // 1
+                let viewAction = UNNotificationAction(
+                    identifier: Identifiers.viewAction, title: "View",
+                    options: [.foreground])
+                
+                // 2
+                let newsCategory = UNNotificationCategory(
+                    identifier: Identifiers.coustomNotification, actions: [viewAction],
+                    intentIdentifiers: [], options: [])
+                
+                // 3
+                UNUserNotificationCenter.current().setNotificationCategories([newsCategory])
+                self?.getNotificationSettings()
+                
+        }
+    }
+    
+    func getNotificationSettings() {
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            print("Notification settings: \(settings)")
+            guard settings.authorizationStatus == .authorized else { return }
+            DispatchQueue.main.async {
+                UIApplication.shared.registerForRemoteNotifications()
+            }
+        }
+    }
 }
 

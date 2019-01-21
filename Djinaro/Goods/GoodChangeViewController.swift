@@ -517,6 +517,7 @@ extension GoodChangeViewController: ToolbarPickerViewDelegate {
         let row = self.pickerView.selectedRow(inComponent: 0)
         self.pickerView.selectRow(row, inComponent: 0, animated: false)
         self.GoodType.text = self.pickerData[row].name
+        self.typeGoodId = self.pickerData[row].id
         self.GoodType.resignFirstResponder()
     }
     

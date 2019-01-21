@@ -7,65 +7,94 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		015A8962E38F27CA4F198CFA8A000F12 /* BSImagePickerSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4186A4F8A244C40D4A3C1EC8BBA1A9C /* BSImagePickerSettings.swift */; };
-		04AEC48D9BF2B31A6F030B305AD4CC68 /* MBCircularProgressBar-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FA4EF74824A0E8F4D2CF521303AB561 /* MBCircularProgressBar-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0A6267D96E1359A34BA1D1986963E59E /* arrow_down@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2F21194AF415D3870ADF1A2D0FE4074F /* arrow_down@3x.png */; };
-		0F4BCD7ABED7037B4BF7F2E378C69BA7 /* ZoomAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9607DCAF5162E9BF727890E4021EEEC7 /* ZoomAnimator.swift */; };
-		11E984F251FD13AF21515044F27084AB /* CameraCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D73B18019AF41E30B8B23E58DECCE0C /* CameraCell.swift */; };
-		122459911DDEE5CB2686CA1B447B92B5 /* BSImagePicker-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 00E5073E5C56B2BF9C05D8D68ED3DEEF /* BSImagePicker-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		15FA1C89DE2833CEAE92A36C4D80D228 /* CameraCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA43C831E5D02EA63362F8EB114382E0 /* CameraCollectionViewDataSource.swift */; };
+		015A8962E38F27CA4F198CFA8A000F12 /* BSImagePickerSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B28D7ADC30C99BCE32BA929CD893165 /* BSImagePickerSettings.swift */; };
+		04AEC48D9BF2B31A6F030B305AD4CC68 /* MBCircularProgressBar-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A51B1B4989B6D146CAE07EE89AC244F5 /* MBCircularProgressBar-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0A6267D96E1359A34BA1D1986963E59E /* arrow_down@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FCD316612CB5BF6EA62133B472401607 /* arrow_down@3x.png */; };
+		0F4BCD7ABED7037B4BF7F2E378C69BA7 /* ZoomAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A974B554293770419F88F1D97371A9 /* ZoomAnimator.swift */; };
+		11E984F251FD13AF21515044F27084AB /* CameraCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7964F8D5D3A365EB1159F441F10AA936 /* CameraCell.swift */; };
+		122459911DDEE5CB2686CA1B447B92B5 /* BSImagePicker-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D4440F47FF28877E0450A512C697196 /* BSImagePicker-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		15FA1C89DE2833CEAE92A36C4D80D228 /* CameraCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CC88AD3456F785843DD4490D1C44DC /* CameraCollectionViewDataSource.swift */; };
 		166007458A708065568FE9FEF0B7000A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3342450A533331F9C482ED6802D9E8B2 /* Foundation.framework */; };
+		1A3DCE1D3E584872F591551E7FCF590D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3342450A533331F9C482ED6802D9E8B2 /* Foundation.framework */; };
+		1AE0F1D53A040B8B772E99187AA04A86 /* Pods-Djinaro-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 32BDE7495F48D2620AC8362C862F5A41 /* Pods-Djinaro-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		281CE8160E7B69B5D2DAD0587B79EEB7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A768AC427895C415E80E4FC8293F177 /* UIKit.framework */; };
-		2F986EED1DBCA2C2A37212A59A5AA29F /* add_photo.png in Resources */ = {isa = PBXBuildFile; fileRef = 54FD77D718BDBE5B59F5F327F3C6896B /* add_photo.png */; };
-		335DF1C11B0221E1159688019990EAD1 /* BSImagePicker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 14FCE1BE051FF826ADC673BA5CF53A4C /* BSImagePicker.bundle */; };
-		39B01A03B722D226720661FA74DC419F /* arrow_down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 371DE99717FD1B3CBE8EE5E89C69C22D /* arrow_down@2x.png */; };
-		3B6F7BD0825F4B15ACB74CBBB0777B66 /* AlbumTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846385337842DF57A5E3324BC413C96A /* AlbumTitleView.swift */; };
+		28E98E4D75B85CFC393DD2AD54FFAE8D /* PopMenuAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72813C0B51154CB27BE747DF82A1BA2C /* PopMenuAppearance.swift */; };
+		2F986EED1DBCA2C2A37212A59A5AA29F /* add_photo.png in Resources */ = {isa = PBXBuildFile; fileRef = 5BC2EA01D130A3EBB3E8716DDF7BEF96 /* add_photo.png */; };
+		335DF1C11B0221E1159688019990EAD1 /* BSImagePicker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5AC2AC2051CEAC5311536910C03A423B /* BSImagePicker.bundle */; };
+		39B01A03B722D226720661FA74DC419F /* arrow_down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FE2901D5F65A9BB4CA22F9BE70EB29F /* arrow_down@2x.png */; };
+		3B2268E89C53E9F6857FFBA2FECDE1CD /* Pods-Djinaro-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EA72A5E4DF5FBEAB1445F5CEFDAFECB /* Pods-Djinaro-dummy.m */; };
+		3B6F7BD0825F4B15ACB74CBBB0777B66 /* AlbumTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233D9728B655D3E5308050FF1A05A740 /* AlbumTitleView.swift */; };
+		3F83D27E9BA1ADE337C01425F52365D8 /* UIColor+Contrast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D442B9C24D0BCA4F69228D07AB1AFA3 /* UIColor+Contrast.swift */; };
 		451DE601FBB133D50DD8465196D727B7 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EAA4419A9D90E7EAA1CA1270222070 /* Photos.framework */; };
-		47DA5BD77D70C3E7CC45799E13EF249B /* SelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1E39C88C9F49F8ACD8DDFBB4DB628C1 /* SelectionView.swift */; };
+		46F4BB52114D41735DAFB54A2643C110 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A768AC427895C415E80E4FC8293F177 /* UIKit.framework */; };
+		47DA5BD77D70C3E7CC45799E13EF249B /* SelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDCD8572F8164C920B2E40ADB90ADD1D /* SelectionView.swift */; };
 		4F5ADD657C340BB4AD7E070F2BCE2B20 /* BSImageView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC98D59EABBF589501DE3988AD017CD3 /* BSImageView.framework */; };
-		50EC3BB73721786DF02657E03A797029 /* PhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 944A6CD8D95BB46AE49BBA2206147F01 /* PhotoCell.xib */; };
-		5D967AF7CE290DA0072D6CDE2FC2B88B /* MBCircularProgressBarView.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D4817A5027F79C37F1BF928DB3AE780 /* MBCircularProgressBarView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5F92736DDCA16A0479D8DB57F70174F8 /* add_photo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 08EC6C3B367CDBA334C9E7A8966B901E /* add_photo@3x.png */; };
-		63B2C9B835592D237A95DBAEB2B37C96 /* add_photo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D4E30035CCBE527652D8242713491926 /* add_photo@2x.png */; };
-		66F6B31C7AF755166279B9A066B3F3DC /* BSGridCollectionViewLayout-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 39A204F20E8DCD93CC3545BDCEE62412 /* BSGridCollectionViewLayout-dummy.m */; };
-		6BAB6797B70ABBE24B20D1BF27AA3694 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DDFADDA4E2BEE8B71586A56714B0371 /* PhotoCell.swift */; };
-		6CC6BBF5F1556B218AA101DB6EDF1DDC /* ImageViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7296CF5BECCC54703073680235E5B1A5 /* ImageViewLayout.swift */; };
-		6D632C2F44C81A0B4B1DBBF8C21288AD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3342450A533331F9C482ED6802D9E8B2 /* Foundation.framework */; };
-		6ECA50776C27FC54C6420E51B7A0CD64 /* CameraCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F1BA93CEF9C426F2AA23795B14D2BFCA /* CameraCell.xib */; };
-		73F6BFC6054A3E1D454BA5385322A106 /* AlbumTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69405EF7F078AE72462E092114AB516F /* AlbumTableViewDataSource.swift */; };
-		7752D97144A81E52A9C59346E9A17959 /* BSImagePicker-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 107BC6503457C93CA34008F1BD92BF1F /* BSImagePicker-dummy.m */; };
-		78401CBF5A5FBD7CD12D00910F7B643F /* AlbumsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE081C2DE4EC5C4DE44971CDFF69588A /* AlbumsViewController.swift */; };
-		791E99C753157757CBA3587E483AAFE0 /* example.png in Resources */ = {isa = PBXBuildFile; fileRef = F24CC1FD92FA579D64E14A4FAF9AEBBF /* example.png */; };
-		7E25C61BC50F7B0FC9D0D812FC53FE85 /* Pods-Djinaro-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EA72A5E4DF5FBEAB1445F5CEFDAFECB /* Pods-Djinaro-dummy.m */; };
-		7ECAC228357D09283016652E54105280 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15BDE9D295C38968213BE051979EA8D /* Settings.swift */; };
+		50EC3BB73721786DF02657E03A797029 /* PhotoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3599E6457D8E9BC88B7B3FD8EFF3589C /* PhotoCell.xib */; };
+		5912A8F894C3A4FEB8AE52804B84C73D /* UIView+Shadows.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A763D20E39F50768AC5FBD742702C17 /* UIView+Shadows.swift */; };
+		5D967AF7CE290DA0072D6CDE2FC2B88B /* MBCircularProgressBarView.h in Headers */ = {isa = PBXBuildFile; fileRef = FFA83E11F224321EB697DAC86B836C6B /* MBCircularProgressBarView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5EB963BE6A1B8082476E115E7567DA67 /* PopMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9FF58303FEE39891AF48F5C9C7A48A /* PopMenuViewController.swift */; };
+		5F92736DDCA16A0479D8DB57F70174F8 /* add_photo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 896453A008EB082072C912836F0A2677 /* add_photo@3x.png */; };
+		63B2C9B835592D237A95DBAEB2B37C96 /* add_photo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 851F50EC738D4901F114B7C6D7B4C57A /* add_photo@2x.png */; };
+		66F6B31C7AF755166279B9A066B3F3DC /* BSGridCollectionViewLayout-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = CEC8DC6B5A68D51514937A7464F8595B /* BSGridCollectionViewLayout-dummy.m */; };
+		6BAB6797B70ABBE24B20D1BF27AA3694 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E113EA42325B94DA0CF9AF5EC635FA /* PhotoCell.swift */; };
+		6CC6BBF5F1556B218AA101DB6EDF1DDC /* ImageViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33EFF8B90D0F3C7A571CF2DF1AC59D54 /* ImageViewLayout.swift */; };
+		6ECA50776C27FC54C6420E51B7A0CD64 /* CameraCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0A1256EB9CEEABEEF3BC8643303E209 /* CameraCell.xib */; };
+		73F6BFC6054A3E1D454BA5385322A106 /* AlbumTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754DBB1338718C855EC6085B34F7C1E9 /* AlbumTableViewDataSource.swift */; };
+		7752D97144A81E52A9C59346E9A17959 /* BSImagePicker-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FCC9847D0A28443D00C406C780EEEE9 /* BSImagePicker-dummy.m */; };
+		78401CBF5A5FBD7CD12D00910F7B643F /* AlbumsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D12DE35B3C42A05A10EC952B257D362 /* AlbumsViewController.swift */; };
+		791E99C753157757CBA3587E483AAFE0 /* example.png in Resources */ = {isa = PBXBuildFile; fileRef = 50826A628830F9942CBBA8294378C13F /* example.png */; };
+		7DF9A5F9DFCE74B7046F13F12C6600D1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3342450A533331F9C482ED6802D9E8B2 /* Foundation.framework */; };
+		7ECAC228357D09283016652E54105280 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC82C46ACF388A6A9D5C1FEA1352BE5 /* Settings.swift */; };
+		8358297F263636F67DB852B1F03AABFE /* PopMenuDismissAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A31DAF05144F6E477B4C700C9803A14 /* PopMenuDismissAnimationController.swift */; };
 		89F0DD3723CD0871A9FFD283EA003BDA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3342450A533331F9C482ED6802D9E8B2 /* Foundation.framework */; };
-		89F27466C9170DAAAEEB5C6601A353DA /* BSImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66FCC167C6FD956B9B197F6D12C5352 /* BSImageView.swift */; };
-		8A20D334C79AB3A4E1BF464A837A7A51 /* MBCircularProgressBar-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F273E20B2432D5C730B15F6B3B0E823F /* MBCircularProgressBar-dummy.m */; };
-		8A842EDF149019C8A4CA514E1D081DA1 /* AlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7761251BB6117E69ED30D959D6DCDA28 /* AlbumCell.swift */; };
-		959B7F8989CFD02F014D4E19DEE6A4AE /* ComposedCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3696A2E0FA14912BA090D6E7B3FF4A01 /* ComposedCollectionViewDataSource.swift */; };
-		9777D73DF5AA95084A0B6BB406AE2BE8 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18BE72DD405E1696E112CCE352B7DBA /* PhotosViewController.swift */; };
+		89F27466C9170DAAAEEB5C6601A353DA /* BSImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A04DF6021E3C93853E82586F35537D76 /* BSImageView.swift */; };
+		8A20D334C79AB3A4E1BF464A837A7A51 /* MBCircularProgressBar-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C8880AF84132EF4320C75F9BEB760EF2 /* MBCircularProgressBar-dummy.m */; };
+		8A842EDF149019C8A4CA514E1D081DA1 /* AlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B19AC5DF28C7A07869C3849AD1BA453 /* AlbumCell.swift */; };
+		959B7F8989CFD02F014D4E19DEE6A4AE /* ComposedCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCD7ABEDAC9AAD2BE59C8ACFD15C803 /* ComposedCollectionViewDataSource.swift */; };
+		9777D73DF5AA95084A0B6BB406AE2BE8 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B773BF85EBA31038A05992AC39CA1368 /* PhotosViewController.swift */; };
+		9B01E64E39C4286FB2E88586C4E0AF82 /* PopMenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABC4B771132E3D7E7DB3C92B21876A46 /* PopMenuManager.swift */; };
 		9F608A9E997B9C3AEB5AF79CE026F405 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3342450A533331F9C482ED6802D9E8B2 /* Foundation.framework */; };
-		A1FDC6A1D9373CC95A680B774C6E015A /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A12B6F714A2E6664D30F27CE6DDEAD1 /* PreviewViewController.swift */; };
-		A366969E41DFEEC51420E7C5EB4FB252 /* MBCircularProgressBarLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = CB09F9EFBC3DFEAA946838910E701CDA /* MBCircularProgressBarLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B615C6FE5BCB6E50D2CA1E47E237D627 /* Pods-Djinaro-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 32BDE7495F48D2620AC8362C862F5A41 /* Pods-Djinaro-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B6A2D67FCDCBCFA9DC380BE5134D25D4 /* MBCircularProgressBar.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 192EFBF69D19906B60070031B11E1D56 /* MBCircularProgressBar.bundle */; };
-		B6FE417160D724E5A8FE19A4B8D13ED5 /* MBCircularProgressBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F02CFB250BE8F2BE63594A7CF17FE79 /* MBCircularProgressBarView.m */; };
-		B99AB869250F191BDD6EE61E483C7E70 /* Albums.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9EA8131AE542F12AA73CE08FF0C8296C /* Albums.storyboard */; };
-		BC9A20912C684ABEA322842D77382F77 /* arrow_down@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 15CE7366EFCEA686243BEE4640C471D2 /* arrow_down@1x.png */; };
-		BE49FB4CD870C71CD2BC98926D6E864E /* UIViewController+BSImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A9F249A036D1BF6E7453BACF1F8ABB /* UIViewController+BSImagePicker.swift */; };
+		A1FDC6A1D9373CC95A680B774C6E015A /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BB82A5F91D6B38F9C5B0A52084C8A0 /* PreviewViewController.swift */; };
+		A366969E41DFEEC51420E7C5EB4FB252 /* MBCircularProgressBarLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 028236794FF334036B8F6548F1369DD0 /* MBCircularProgressBarLayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B6A2D67FCDCBCFA9DC380BE5134D25D4 /* MBCircularProgressBar.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FD5F99695A0C1A63C880253647A0FDD0 /* MBCircularProgressBar.bundle */; };
+		B6FE417160D724E5A8FE19A4B8D13ED5 /* MBCircularProgressBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = D83D43015A85D8E846810905706375C3 /* MBCircularProgressBarView.m */; };
+		B99AB869250F191BDD6EE61E483C7E70 /* Albums.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 61735AB6CB79D84B524B691AECA548E8 /* Albums.storyboard */; };
+		BC9A20912C684ABEA322842D77382F77 /* arrow_down@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = C7ED4915E36A55791E460F695B9B1E33 /* arrow_down@1x.png */; };
+		BE49FB4CD870C71CD2BC98926D6E864E /* UIViewController+BSImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 859141C631712111E021D3A003A38EAF /* UIViewController+BSImagePicker.swift */; };
+		C183BD42255A04935F66B5E1292B1D14 /* PopMenuGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE72AA1ED4C4FE175FAFB55742435A6 /* PopMenuGradientView.swift */; };
 		C1B1F3695E160945CB2D96CA669FAF8F /* BSGridCollectionViewLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 381266AED195453674EFFE93C6D17C49 /* BSGridCollectionViewLayout.framework */; };
-		CEF7A97F12A93F22CF4627567A1276B6 /* GridCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1160FE91BFB359DF34C4B337AC5DC3 /* GridCollectionViewLayout.swift */; };
+		CEF7A97F12A93F22CF4627567A1276B6 /* GridCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53E9458D70C23CA52A5293F7BBD6F29 /* GridCollectionViewLayout.swift */; };
+		D06BE75418956D16F85175D408CC09DB /* PopMenuAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 377BDA35E29ED36C0C74615C317AD018 /* PopMenuAction.swift */; };
 		D232028E4270366DA59C131183818552 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3342450A533331F9C482ED6802D9E8B2 /* Foundation.framework */; };
-		D4484DD6BEB0D9C245E8D3567A2DE6F6 /* PhotoCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E3E8F5E2FC650CC9AA88626B9A2A11 /* PhotoCollectionViewDataSource.swift */; };
-		D6431DEAF28D79926B2607E037D36286 /* BSImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE9A4B7C301EB8A6AAAE8CCE7B7E543 /* BSImagePickerViewController.swift */; };
-		DBF679C97E0E035E0C5DB374AEBC92BF /* BSImageView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 89A3E27FD3D042164B39128C8222BEC8 /* BSImageView-dummy.m */; };
-		DD69898E1C77B447A617C5D83AFDA2B3 /* MBCircularProgressBarLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = A2D82D414E0CA239CFD3E8C1E273DD62 /* MBCircularProgressBarLayer.m */; };
-		EC46EF6A88B0B7CF0C593B1C9A933765 /* BSGridCollectionViewLayout-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D39D315774187647ED349CCE95DE9F27 /* BSGridCollectionViewLayout-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F7283FE0761345CA1E397A5537E154E7 /* BSImageView-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 47657A6958739F56E88F7C2EF65E78D3 /* BSImageView-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FE31098D2B014EE6FD56670A74F56157 /* NSIndexSet+NSIndexPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E8E737F5F1770DFB122CD192CB7783 /* NSIndexSet+NSIndexPath.swift */; };
+		D4484DD6BEB0D9C245E8D3567A2DE6F6 /* PhotoCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E269C508B26A9F0E8ECB8271A2023F4A /* PhotoCollectionViewDataSource.swift */; };
+		D6431DEAF28D79926B2607E037D36286 /* BSImagePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 412443B89964333AA9BFA2E49C0D7EC9 /* BSImagePickerViewController.swift */; };
+		DBF679C97E0E035E0C5DB374AEBC92BF /* BSImageView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = EC3A6A8AED524B054FD961C619FD9EE6 /* BSImageView-dummy.m */; };
+		DD69898E1C77B447A617C5D83AFDA2B3 /* MBCircularProgressBarLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = D25ABAEDED000E288B141D82EBE50236 /* MBCircularProgressBarLayer.m */; };
+		DF3DDBD8DD5317070D06A1F2B5228EDA /* PopMenuPresentAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02761AEC6D04EB87277DE6FDE1E011B /* PopMenuPresentAnimationController.swift */; };
+		E13E55CC7AE054693EDDB19984B45EAD /* NewPopMenu-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D62BE270C7D79283D74D4996F2DF32D /* NewPopMenu-dummy.m */; };
+		E42B052CAE8408EA8360AE3F6E2F6867 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4EF4E3A45D611E010B4758D787B7F67 /* Haptics.swift */; };
+		EC46EF6A88B0B7CF0C593B1C9A933765 /* BSGridCollectionViewLayout-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D81670BC48070425797E708A3D326046 /* BSGridCollectionViewLayout-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F7283FE0761345CA1E397A5537E154E7 /* BSImageView-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 01596A19B74192FC955448C4E4419DE2 /* BSImageView-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FC9A4F7DCCD9305E6CFBA6CF34274EE1 /* PopMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 3761D70E06CDAFEAE03CD76EBEC237D4 /* PopMenu.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FE31098D2B014EE6FD56670A74F56157 /* NSIndexSet+NSIndexPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD91B58DDF26A9942CE9865A98231DF6 /* NSIndexSet+NSIndexPath.swift */; };
+		FF998358CF29253DF75BD67B05C9405F /* NewPopMenu-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = B400FAEF330AB316FD964181C8078121 /* NewPopMenu-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		0557D3AFCE7E780330375FD538879C97 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EDF01DFEBC4074645C585421EDCDC2D5;
+			remoteInfo = MBCircularProgressBar;
+		};
+		0A632C151062FD13C70F95EE5B6BA5DE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 21FB12B4F6A2FBA2800C75DA7C9DA741;
+			remoteInfo = BSImageView;
+		};
 		1405BD445B99D7F780B318613BBDA5CE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
@@ -73,33 +102,26 @@
 			remoteGlobalIDString = E2F02CE399CDEDE49DEAB03367684E0E;
 			remoteInfo = BSGridCollectionViewLayout;
 		};
-		1F154BDD416CE69BFBBD7663A0B88EEA /* PBXContainerItemProxy */ = {
+		304FBFA7E8D305F061450C4D0227988F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 936B69F2BCDEAE4E482677843E2C3776;
 			remoteInfo = BSImagePicker;
 		};
-		6E738EFBC301149722482C6EB0D89724 /* PBXContainerItemProxy */ = {
+		596EC8E05B43D1F7E081E01BDEF87410 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 21FB12B4F6A2FBA2800C75DA7C9DA741;
-			remoteInfo = BSImageView;
+			remoteGlobalIDString = 2984E119D425AD26A0B5DB4F342FEAF4;
+			remoteInfo = NewPopMenu;
 		};
-		73F283F5668FEB9E0038B750A2E86BB3 /* PBXContainerItemProxy */ = {
+		7D1767025D0B2FD25D976730E7C4FB90 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = E2F02CE399CDEDE49DEAB03367684E0E;
 			remoteInfo = BSGridCollectionViewLayout;
-		};
-		8DAFEDD1BBEC36239C08E6174E52135F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = EDF01DFEBC4074645C585421EDCDC2D5;
-			remoteInfo = MBCircularProgressBar;
 		};
 		9620A862FE004D3866C8FEA32E7B44EA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -125,98 +147,125 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00E5073E5C56B2BF9C05D8D68ED3DEEF /* BSImagePicker-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BSImagePicker-umbrella.h"; sourceTree = "<group>"; };
-		0175384712196EBD85145ACBE17E7DF5 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0833B3248C4EAE04C36312F65C3E21BA /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		08EC6C3B367CDBA334C9E7A8966B901E /* add_photo@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "add_photo@3x.png"; path = "Assets/add_photo@3x.png"; sourceTree = "<group>"; };
+		01596A19B74192FC955448C4E4419DE2 /* BSImageView-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BSImageView-umbrella.h"; sourceTree = "<group>"; };
+		028236794FF334036B8F6548F1369DD0 /* MBCircularProgressBarLayer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MBCircularProgressBarLayer.h; path = Pod/Classes/MBCircularProgressBarLayer.h; sourceTree = "<group>"; };
+		09E113EA42325B94DA0CF9AF5EC635FA /* PhotoCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PhotoCell.swift; path = Source/View/PhotoCell.swift; sourceTree = "<group>"; };
+		0A763D20E39F50768AC5FBD742702C17 /* UIView+Shadows.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIView+Shadows.swift"; path = "PopMenu/Classes/Helpers/UIView+Shadows.swift"; sourceTree = "<group>"; };
+		0A873EC69BF777A587C6D419C93FF3ED /* Pods_Djinaro.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Djinaro.framework; path = "Pods-Djinaro.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C38B8392C6D905F37E2407ED891F9C9 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0DDFADDA4E2BEE8B71586A56714B0371 /* PhotoCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PhotoCell.swift; path = Source/View/PhotoCell.swift; sourceTree = "<group>"; };
 		0EA72A5E4DF5FBEAB1445F5CEFDAFECB /* Pods-Djinaro-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Djinaro-dummy.m"; sourceTree = "<group>"; };
-		107BC6503457C93CA34008F1BD92BF1F /* BSImagePicker-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "BSImagePicker-dummy.m"; sourceTree = "<group>"; };
-		10E3E8F5E2FC650CC9AA88626B9A2A11 /* PhotoCollectionViewDataSource.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PhotoCollectionViewDataSource.swift; path = Source/Model/PhotoCollectionViewDataSource.swift; sourceTree = "<group>"; };
-		11FB4CE5775FFAD0E0059FB7AAEE73A8 /* BSImagePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = BSImagePicker.framework; path = BSImagePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		14FCE1BE051FF826ADC673BA5CF53A4C /* BSImagePicker.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = BSImagePicker.bundle; path = "BSImagePicker-BSImagePicker.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
-		15CE7366EFCEA686243BEE4640C471D2 /* arrow_down@1x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "arrow_down@1x.png"; path = "Assets/arrow_down@1x.png"; sourceTree = "<group>"; };
-		17E8E737F5F1770DFB122CD192CB7783 /* NSIndexSet+NSIndexPath.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSIndexSet+NSIndexPath.swift"; path = "Source/Extension/NSIndexSet+NSIndexPath.swift"; sourceTree = "<group>"; };
-		192EFBF69D19906B60070031B11E1D56 /* MBCircularProgressBar.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = MBCircularProgressBar.bundle; path = "MBCircularProgressBar-MBCircularProgressBar.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
-		19D5783CBB09D7F35135D08BAC82EBAE /* ResourceBundle-MBCircularProgressBar-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-MBCircularProgressBar-Info.plist"; sourceTree = "<group>"; };
-		1A12B6F714A2E6664D30F27CE6DDEAD1 /* PreviewViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PreviewViewController.swift; path = Source/Controller/PreviewViewController.swift; sourceTree = "<group>"; };
-		1AF9020441C6B404E0CD8B45EE79270B /* MBCircularProgressBar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = MBCircularProgressBar.framework; path = MBCircularProgressBar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		203130E755F9C1EA06DC185E331F1ACB /* MBCircularProgressBar-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MBCircularProgressBar-prefix.pch"; sourceTree = "<group>"; };
-		223F58BB951A85747A435BC1E1064065 /* BSGridCollectionViewLayout.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = BSGridCollectionViewLayout.modulemap; sourceTree = "<group>"; };
-		23D73590AFFBC787E83FE6ABBF8CD1FF /* BSImageView.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = BSImageView.xcconfig; sourceTree = "<group>"; };
+		131AEC3E65F2A756CF7B83C00E3AEED9 /* BSImageView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = BSImageView.framework; path = BSImageView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1B19AC5DF28C7A07869C3849AD1BA453 /* AlbumCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AlbumCell.swift; path = Source/View/AlbumCell.swift; sourceTree = "<group>"; };
+		1BE72AA1ED4C4FE175FAFB55742435A6 /* PopMenuGradientView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PopMenuGradientView.swift; path = PopMenu/Classes/Helpers/PopMenuGradientView.swift; sourceTree = "<group>"; };
+		1D62BE270C7D79283D74D4996F2DF32D /* NewPopMenu-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NewPopMenu-dummy.m"; sourceTree = "<group>"; };
+		1ECDF8E4A3042C6FFCBEE74A6471DB4A /* BSImagePicker.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = BSImagePicker.modulemap; sourceTree = "<group>"; };
+		1FE2901D5F65A9BB4CA22F9BE70EB29F /* arrow_down@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "arrow_down@2x.png"; path = "Assets/arrow_down@2x.png"; sourceTree = "<group>"; };
+		2308AFBFFD7B05385203102AF12DE255 /* ResourceBundle-MBCircularProgressBar-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-MBCircularProgressBar-Info.plist"; sourceTree = "<group>"; };
+		233D9728B655D3E5308050FF1A05A740 /* AlbumTitleView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AlbumTitleView.swift; path = Source/View/AlbumTitleView.swift; sourceTree = "<group>"; };
+		25056BA68035206EDA5370C2A8CB39CD /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		287249DB02DF043A8F7991285EDCBF0D /* Pods-Djinaro-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Djinaro-frameworks.sh"; sourceTree = "<group>"; };
-		2D73B18019AF41E30B8B23E58DECCE0C /* CameraCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CameraCell.swift; path = Source/View/CameraCell.swift; sourceTree = "<group>"; };
-		2F21194AF415D3870ADF1A2D0FE4074F /* arrow_down@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "arrow_down@3x.png"; path = "Assets/arrow_down@3x.png"; sourceTree = "<group>"; };
+		2A44006026050AFD06CE9E279F0CE0E2 /* BSGridCollectionViewLayout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = BSGridCollectionViewLayout.framework; path = BSGridCollectionViewLayout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2E043889094670AC985D573249A9FB9E /* BSImageView-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BSImageView-prefix.pch"; sourceTree = "<group>"; };
+		2F7487BA6F801BA738045818DB0EC440 /* NewPopMenu.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = NewPopMenu.xcconfig; sourceTree = "<group>"; };
 		32BDE7495F48D2620AC8362C862F5A41 /* Pods-Djinaro-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Djinaro-umbrella.h"; sourceTree = "<group>"; };
 		3342450A533331F9C482ED6802D9E8B2 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		3696A2E0FA14912BA090D6E7B3FF4A01 /* ComposedCollectionViewDataSource.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ComposedCollectionViewDataSource.swift; path = Source/Model/ComposedCollectionViewDataSource.swift; sourceTree = "<group>"; };
-		371DE99717FD1B3CBE8EE5E89C69C22D /* arrow_down@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "arrow_down@2x.png"; path = "Assets/arrow_down@2x.png"; sourceTree = "<group>"; };
+		33EFF8B90D0F3C7A571CF2DF1AC59D54 /* ImageViewLayout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageViewLayout.swift; path = Source/ImageViewLayout.swift; sourceTree = "<group>"; };
+		3599E6457D8E9BC88B7B3FD8EFF3589C /* PhotoCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = PhotoCell.xib; path = Assets/PhotoCell.xib; sourceTree = "<group>"; };
+		3761D70E06CDAFEAE03CD76EBEC237D4 /* PopMenu.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PopMenu.h; path = PopMenu/PopMenu.h; sourceTree = "<group>"; };
+		377BDA35E29ED36C0C74615C317AD018 /* PopMenuAction.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PopMenuAction.swift; path = "PopMenu/View Controller & Views/PopMenuAction.swift"; sourceTree = "<group>"; };
+		37D5E0D21CDC2231DBDBD45CF8C7AFAD /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		381266AED195453674EFFE93C6D17C49 /* BSGridCollectionViewLayout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BSGridCollectionViewLayout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		39A204F20E8DCD93CC3545BDCEE62412 /* BSGridCollectionViewLayout-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "BSGridCollectionViewLayout-dummy.m"; sourceTree = "<group>"; };
-		47657A6958739F56E88F7C2EF65E78D3 /* BSImageView-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BSImageView-umbrella.h"; sourceTree = "<group>"; };
+		38368954FC1857BC83C45BEDC4F84581 /* PopMenu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = PopMenu.framework; path = NewPopMenu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		412443B89964333AA9BFA2E49C0D7EC9 /* BSImagePickerViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BSImagePickerViewController.swift; path = Source/Controller/BSImagePickerViewController.swift; sourceTree = "<group>"; };
 		4A892B6401A47E427BD7EE8C581A8ED0 /* Pods-Djinaro.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Djinaro.modulemap"; sourceTree = "<group>"; };
-		51E5800849E2DBB3D417A6FA86467571 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5374639220A8064F64B5E112382FDE59 /* BSImagePicker.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = BSImagePicker.xcconfig; sourceTree = "<group>"; };
-		53D4D332BF7C592B28B63C09618DB8B9 /* BSImageView-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BSImageView-prefix.pch"; sourceTree = "<group>"; };
-		54FD77D718BDBE5B59F5F327F3C6896B /* add_photo.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = add_photo.png; path = Assets/add_photo.png; sourceTree = "<group>"; };
-		5E8E8CA91C4969E4A46CE2C184CD067A /* BSImageView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = BSImageView.framework; path = BSImageView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		69405EF7F078AE72462E092114AB516F /* AlbumTableViewDataSource.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AlbumTableViewDataSource.swift; path = Source/Model/AlbumTableViewDataSource.swift; sourceTree = "<group>"; };
-		6F02CFB250BE8F2BE63594A7CF17FE79 /* MBCircularProgressBarView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MBCircularProgressBarView.m; path = Pod/Classes/MBCircularProgressBarView.m; sourceTree = "<group>"; };
+		4D4440F47FF28877E0450A512C697196 /* BSImagePicker-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BSImagePicker-umbrella.h"; sourceTree = "<group>"; };
+		50826A628830F9942CBBA8294378C13F /* example.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = example.png; path = Pod/Assets/example.png; sourceTree = "<group>"; };
+		52DE5EF79937BD62E24CA8253C6147E1 /* BSImagePicker.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = BSImagePicker.xcconfig; sourceTree = "<group>"; };
+		5564A8773D252FC4D21C1E04B4DC060D /* BSImageView.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = BSImageView.xcconfig; sourceTree = "<group>"; };
+		5AC2AC2051CEAC5311536910C03A423B /* BSImagePicker.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = BSImagePicker.bundle; path = "BSImagePicker-BSImagePicker.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5BC2EA01D130A3EBB3E8716DDF7BEF96 /* add_photo.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = add_photo.png; path = Assets/add_photo.png; sourceTree = "<group>"; };
+		5D442B9C24D0BCA4F69228D07AB1AFA3 /* UIColor+Contrast.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIColor+Contrast.swift"; path = "PopMenu/Classes/Helpers/UIColor+Contrast.swift"; sourceTree = "<group>"; };
+		61735AB6CB79D84B524B691AECA548E8 /* Albums.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; name = Albums.storyboard; path = Assets/Albums.storyboard; sourceTree = "<group>"; };
+		6A31DAF05144F6E477B4C700C9803A14 /* PopMenuDismissAnimationController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PopMenuDismissAnimationController.swift; path = PopMenu/Transitions/PopMenuDismissAnimationController.swift; sourceTree = "<group>"; };
+		6A821DD7EDAA83E0BB5888DB83897769 /* BSImageView.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = BSImageView.modulemap; sourceTree = "<group>"; };
+		6D12DE35B3C42A05A10EC952B257D362 /* AlbumsViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AlbumsViewController.swift; path = Source/Controller/AlbumsViewController.swift; sourceTree = "<group>"; };
 		704365D2720778800BBAD786AD51BA55 /* Pods-Djinaro.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Djinaro.debug.xcconfig"; sourceTree = "<group>"; };
-		7296CF5BECCC54703073680235E5B1A5 /* ImageViewLayout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ImageViewLayout.swift; path = Source/ImageViewLayout.swift; sourceTree = "<group>"; };
-		739E480EC81FD8B45DEC795704828E30 /* BSImagePicker.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = BSImagePicker.modulemap; sourceTree = "<group>"; };
-		7761251BB6117E69ED30D959D6DCDA28 /* AlbumCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AlbumCell.swift; path = Source/View/AlbumCell.swift; sourceTree = "<group>"; };
-		846385337842DF57A5E3324BC413C96A /* AlbumTitleView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AlbumTitleView.swift; path = Source/View/AlbumTitleView.swift; sourceTree = "<group>"; };
+		72813C0B51154CB27BE747DF82A1BA2C /* PopMenuAppearance.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PopMenuAppearance.swift; path = PopMenu/Classes/PopMenuAppearance.swift; sourceTree = "<group>"; };
+		74CC88AD3456F785843DD4490D1C44DC /* CameraCollectionViewDataSource.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CameraCollectionViewDataSource.swift; path = Source/Model/CameraCollectionViewDataSource.swift; sourceTree = "<group>"; };
+		754DBB1338718C855EC6085B34F7C1E9 /* AlbumTableViewDataSource.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AlbumTableViewDataSource.swift; path = Source/Model/AlbumTableViewDataSource.swift; sourceTree = "<group>"; };
+		78BB82A5F91D6B38F9C5B0A52084C8A0 /* PreviewViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PreviewViewController.swift; path = Source/Controller/PreviewViewController.swift; sourceTree = "<group>"; };
+		7964F8D5D3A365EB1159F441F10AA936 /* CameraCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CameraCell.swift; path = Source/View/CameraCell.swift; sourceTree = "<group>"; };
+		7C9FF58303FEE39891AF48F5C9C7A48A /* PopMenuViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PopMenuViewController.swift; path = "PopMenu/View Controller & Views/PopMenuViewController.swift"; sourceTree = "<group>"; };
+		7CF1A441BA73A5FF3C03ED3F3245AFCB /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7DDC1A27D33E5F33AD9CC26B9A197203 /* BSGridCollectionViewLayout-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BSGridCollectionViewLayout-prefix.pch"; sourceTree = "<group>"; };
 		84EAA4419A9D90E7EAA1CA1270222070 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/Photos.framework; sourceTree = DEVELOPER_DIR; };
-		89A3E27FD3D042164B39128C8222BEC8 /* BSImageView-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "BSImageView-dummy.m"; sourceTree = "<group>"; };
+		851F50EC738D4901F114B7C6D7B4C57A /* add_photo@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "add_photo@2x.png"; path = "Assets/add_photo@2x.png"; sourceTree = "<group>"; };
+		859141C631712111E021D3A003A38EAF /* UIViewController+BSImagePicker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIViewController+BSImagePicker.swift"; path = "Source/Extension/UIViewController+BSImagePicker.swift"; sourceTree = "<group>"; };
+		865A4C4DCA2E045CDE6F550E4EA91111 /* MBCircularProgressBar.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MBCircularProgressBar.xcconfig; sourceTree = "<group>"; };
+		896453A008EB082072C912836F0A2677 /* add_photo@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "add_photo@3x.png"; path = "Assets/add_photo@3x.png"; sourceTree = "<group>"; };
 		8A768AC427895C415E80E4FC8293F177 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS12.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		8FA4EF74824A0E8F4D2CF521303AB561 /* MBCircularProgressBar-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MBCircularProgressBar-umbrella.h"; sourceTree = "<group>"; };
+		8B28D7ADC30C99BCE32BA929CD893165 /* BSImagePickerSettings.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BSImagePickerSettings.swift; path = Source/Protocol/BSImagePickerSettings.swift; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		944A6CD8D95BB46AE49BBA2206147F01 /* PhotoCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = PhotoCell.xib; path = Assets/PhotoCell.xib; sourceTree = "<group>"; };
-		952B0D237BA897FDFDA651894C33C1AE /* BSGridCollectionViewLayout.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = BSGridCollectionViewLayout.framework; path = BSGridCollectionViewLayout.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9607DCAF5162E9BF727890E4021EEEC7 /* ZoomAnimator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ZoomAnimator.swift; path = Source/Controller/ZoomAnimator.swift; sourceTree = "<group>"; };
-		9D1160FE91BFB359DF34C4B337AC5DC3 /* GridCollectionViewLayout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GridCollectionViewLayout.swift; path = Pod/Classes/GridCollectionViewLayout.swift; sourceTree = "<group>"; };
-		9D4817A5027F79C37F1BF928DB3AE780 /* MBCircularProgressBarView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MBCircularProgressBarView.h; path = Pod/Classes/MBCircularProgressBarView.h; sourceTree = "<group>"; };
-		9EA8131AE542F12AA73CE08FF0C8296C /* Albums.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; name = Albums.storyboard; path = Assets/Albums.storyboard; sourceTree = "<group>"; };
-		A2D82D414E0CA239CFD3E8C1E273DD62 /* MBCircularProgressBarLayer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MBCircularProgressBarLayer.m; path = Pod/Classes/MBCircularProgressBarLayer.m; sourceTree = "<group>"; };
-		A8FA8B1F9660C985C978E891EEAB7F95 /* MBCircularProgressBar.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = MBCircularProgressBar.modulemap; sourceTree = "<group>"; };
-		AA43C831E5D02EA63362F8EB114382E0 /* CameraCollectionViewDataSource.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = CameraCollectionViewDataSource.swift; path = Source/Model/CameraCollectionViewDataSource.swift; sourceTree = "<group>"; };
-		B18BE72DD405E1696E112CCE352B7DBA /* PhotosViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PhotosViewController.swift; path = Source/Controller/PhotosViewController.swift; sourceTree = "<group>"; };
-		B7B2482B91C4A272A41C997640ED439D /* BSImagePicker-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BSImagePicker-prefix.pch"; sourceTree = "<group>"; };
-		C1E39C88C9F49F8ACD8DDFBB4DB628C1 /* SelectionView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SelectionView.swift; path = Source/View/SelectionView.swift; sourceTree = "<group>"; };
-		C66FCC167C6FD956B9B197F6D12C5352 /* BSImageView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BSImageView.swift; path = Source/BSImageView.swift; sourceTree = "<group>"; };
-		CB09F9EFBC3DFEAA946838910E701CDA /* MBCircularProgressBarLayer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MBCircularProgressBarLayer.h; path = Pod/Classes/MBCircularProgressBarLayer.h; sourceTree = "<group>"; };
-		CEE41FA7F4231DAD98F882B4C72C9D4C /* BSGridCollectionViewLayout.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = BSGridCollectionViewLayout.xcconfig; sourceTree = "<group>"; };
-		D0FF03EF24E75B4FBDFB86496E802986 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D39D315774187647ED349CCE95DE9F27 /* BSGridCollectionViewLayout-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BSGridCollectionViewLayout-umbrella.h"; sourceTree = "<group>"; };
-		D4B42A846731D277BCA0EF83A7CC88AD /* BSImageView.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = BSImageView.modulemap; sourceTree = "<group>"; };
-		D4E30035CCBE527652D8242713491926 /* add_photo@2x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "add_photo@2x.png"; path = "Assets/add_photo@2x.png"; sourceTree = "<group>"; };
-		D659EFFB8C179E19674C4F316BC8990B /* MBCircularProgressBar.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MBCircularProgressBar.xcconfig; sourceTree = "<group>"; };
-		D710124CF46221C05928CDB453812893 /* BSGridCollectionViewLayout-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BSGridCollectionViewLayout-prefix.pch"; sourceTree = "<group>"; };
-		D74D2B353979B17CDAA27D1E12A76AA4 /* ResourceBundle-BSImagePicker-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-BSImagePicker-Info.plist"; sourceTree = "<group>"; };
+		99B36385E29C554991930B81C5E1C2A5 /* MBCircularProgressBar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = MBCircularProgressBar.framework; path = MBCircularProgressBar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9EEC1631ED2EB74886DB7DBC48B90B75 /* BSGridCollectionViewLayout.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = BSGridCollectionViewLayout.xcconfig; sourceTree = "<group>"; };
+		9FCC9847D0A28443D00C406C780EEEE9 /* BSImagePicker-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "BSImagePicker-dummy.m"; sourceTree = "<group>"; };
+		A04DF6021E3C93853E82586F35537D76 /* BSImageView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BSImageView.swift; path = Source/BSImageView.swift; sourceTree = "<group>"; };
+		A303F98FC282E11B105A7249DD205A7D /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A51B1B4989B6D146CAE07EE89AC244F5 /* MBCircularProgressBar-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MBCircularProgressBar-umbrella.h"; sourceTree = "<group>"; };
+		AB7393759BAC84BEDEB3DE1E98992870 /* MBCircularProgressBar-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MBCircularProgressBar-prefix.pch"; sourceTree = "<group>"; };
+		ABC4B771132E3D7E7DB3C92B21876A46 /* PopMenuManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PopMenuManager.swift; path = PopMenu/Classes/PopMenuManager.swift; sourceTree = "<group>"; };
+		B0A1256EB9CEEABEEF3BC8643303E209 /* CameraCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = CameraCell.xib; path = Assets/CameraCell.xib; sourceTree = "<group>"; };
+		B21F966A8E36F88586B4244C9392F9B7 /* ResourceBundle-BSImagePicker-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-BSImagePicker-Info.plist"; sourceTree = "<group>"; };
+		B375E658DE7C0CED60BB22125ADABB79 /* BSGridCollectionViewLayout.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = BSGridCollectionViewLayout.modulemap; sourceTree = "<group>"; };
+		B400FAEF330AB316FD964181C8078121 /* NewPopMenu-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NewPopMenu-umbrella.h"; sourceTree = "<group>"; };
+		B773BF85EBA31038A05992AC39CA1368 /* PhotosViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PhotosViewController.swift; path = Source/Controller/PhotosViewController.swift; sourceTree = "<group>"; };
+		B909AF950C5CAB41B156BB5935A8D46E /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B9A974B554293770419F88F1D97371A9 /* ZoomAnimator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ZoomAnimator.swift; path = Source/Controller/ZoomAnimator.swift; sourceTree = "<group>"; };
+		C17C60387E56AD1F579DA4BBAF22D6FE /* BSImagePicker-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BSImagePicker-prefix.pch"; sourceTree = "<group>"; };
+		C7ED4915E36A55791E460F695B9B1E33 /* arrow_down@1x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "arrow_down@1x.png"; path = "Assets/arrow_down@1x.png"; sourceTree = "<group>"; };
+		C8880AF84132EF4320C75F9BEB760EF2 /* MBCircularProgressBar-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MBCircularProgressBar-dummy.m"; sourceTree = "<group>"; };
+		CEC8DC6B5A68D51514937A7464F8595B /* BSGridCollectionViewLayout-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "BSGridCollectionViewLayout-dummy.m"; sourceTree = "<group>"; };
+		D02761AEC6D04EB87277DE6FDE1E011B /* PopMenuPresentAnimationController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PopMenuPresentAnimationController.swift; path = PopMenu/Transitions/PopMenuPresentAnimationController.swift; sourceTree = "<group>"; };
+		D25ABAEDED000E288B141D82EBE50236 /* MBCircularProgressBarLayer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MBCircularProgressBarLayer.m; path = Pod/Classes/MBCircularProgressBarLayer.m; sourceTree = "<group>"; };
+		D4EF4E3A45D611E010B4758D787B7F67 /* Haptics.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Haptics.swift; path = PopMenu/Classes/Helpers/Haptics.swift; sourceTree = "<group>"; };
+		D81670BC48070425797E708A3D326046 /* BSGridCollectionViewLayout-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "BSGridCollectionViewLayout-umbrella.h"; sourceTree = "<group>"; };
+		D83D43015A85D8E846810905706375C3 /* MBCircularProgressBarView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MBCircularProgressBarView.m; path = Pod/Classes/MBCircularProgressBarView.m; sourceTree = "<group>"; };
 		D85708C483A089556EDBACEE6979E0CC /* Pods-Djinaro-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Djinaro-resources.sh"; sourceTree = "<group>"; };
-		DE081C2DE4EC5C4DE44971CDFF69588A /* AlbumsViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AlbumsViewController.swift; path = Source/Controller/AlbumsViewController.swift; sourceTree = "<group>"; };
+		DA0C2379299A5F167C05D1F9D0128C10 /* NewPopMenu.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = NewPopMenu.modulemap; sourceTree = "<group>"; };
+		DBC82C46ACF388A6A9D5C1FEA1352BE5 /* Settings.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Settings.swift; path = Source/Model/Settings.swift; sourceTree = "<group>"; };
+		DDC76D2C4C1C320063DC51485B64D6A1 /* BSImagePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = BSImagePicker.framework; path = BSImagePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0C03218E7A2ABE90CCEEC76B0AC1025 /* Pods-Djinaro.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Djinaro.release.xcconfig"; sourceTree = "<group>"; };
-		E15BDE9D295C38968213BE051979EA8D /* Settings.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Settings.swift; path = Source/Model/Settings.swift; sourceTree = "<group>"; };
-		E508FD33360AE2C06F4E463A99A45136 /* Pods_Djinaro.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Djinaro.framework; path = "Pods-Djinaro.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E9A9F249A036D1BF6E7453BACF1F8ABB /* UIViewController+BSImagePicker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "UIViewController+BSImagePicker.swift"; path = "Source/Extension/UIViewController+BSImagePicker.swift"; sourceTree = "<group>"; };
+		E269C508B26A9F0E8ECB8271A2023F4A /* PhotoCollectionViewDataSource.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PhotoCollectionViewDataSource.swift; path = Source/Model/PhotoCollectionViewDataSource.swift; sourceTree = "<group>"; };
+		E53E9458D70C23CA52A5293F7BBD6F29 /* GridCollectionViewLayout.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = GridCollectionViewLayout.swift; path = Pod/Classes/GridCollectionViewLayout.swift; sourceTree = "<group>"; };
+		EC3A6A8AED524B054FD961C619FD9EE6 /* BSImageView-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "BSImageView-dummy.m"; sourceTree = "<group>"; };
 		EC98D59EABBF589501DE3988AD017CD3 /* BSImageView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BSImageView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		EDE9A4B7C301EB8A6AAAE8CCE7B7E543 /* BSImagePickerViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BSImagePickerViewController.swift; path = Source/Controller/BSImagePickerViewController.swift; sourceTree = "<group>"; };
-		F1BA93CEF9C426F2AA23795B14D2BFCA /* CameraCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = CameraCell.xib; path = Assets/CameraCell.xib; sourceTree = "<group>"; };
-		F24CC1FD92FA579D64E14A4FAF9AEBBF /* example.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = example.png; path = Pod/Assets/example.png; sourceTree = "<group>"; };
-		F273E20B2432D5C730B15F6B3B0E823F /* MBCircularProgressBar-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MBCircularProgressBar-dummy.m"; sourceTree = "<group>"; };
-		F4186A4F8A244C40D4A3C1EC8BBA1A9C /* BSImagePickerSettings.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = BSImagePickerSettings.swift; path = Source/Protocol/BSImagePickerSettings.swift; sourceTree = "<group>"; };
+		ECCD7ABEDAC9AAD2BE59C8ACFD15C803 /* ComposedCollectionViewDataSource.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ComposedCollectionViewDataSource.swift; path = Source/Model/ComposedCollectionViewDataSource.swift; sourceTree = "<group>"; };
+		EDCD8572F8164C920B2E40ADB90ADD1D /* SelectionView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SelectionView.swift; path = Source/View/SelectionView.swift; sourceTree = "<group>"; };
 		F7659CFDEC6E3139192495DA47F6EAD2 /* Pods-Djinaro-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Djinaro-acknowledgements.markdown"; sourceTree = "<group>"; };
+		F937DDA7F8353E2D02817EA109D7CD8E /* NewPopMenu-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NewPopMenu-prefix.pch"; sourceTree = "<group>"; };
+		F9DD02EC3A735E7FB99EC9DAB7F5C5B5 /* MBCircularProgressBar.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = MBCircularProgressBar.modulemap; sourceTree = "<group>"; };
+		FCD316612CB5BF6EA62133B472401607 /* arrow_down@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "arrow_down@3x.png"; path = "Assets/arrow_down@3x.png"; sourceTree = "<group>"; };
+		FD5F99695A0C1A63C880253647A0FDD0 /* MBCircularProgressBar.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = MBCircularProgressBar.bundle; path = "MBCircularProgressBar-MBCircularProgressBar.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FD91B58DDF26A9942CE9865A98231DF6 /* NSIndexSet+NSIndexPath.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "NSIndexSet+NSIndexPath.swift"; path = "Source/Extension/NSIndexSet+NSIndexPath.swift"; sourceTree = "<group>"; };
 		FF99D6B732AF1130CEEEF53B4D5936C7 /* Pods-Djinaro-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Djinaro-acknowledgements.plist"; sourceTree = "<group>"; };
+		FFA83E11F224321EB697DAC86B836C6B /* MBCircularProgressBarView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MBCircularProgressBarView.h; path = Pod/Classes/MBCircularProgressBarView.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		36CB0B8AFCD4CA1B941650B29BF59C05 /* Frameworks */ = {
+		0D43DB8237CF52DD575C13522EF07806 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6D632C2F44C81A0B4B1DBBF8C21288AD /* Foundation.framework in Frameworks */,
+				1A3DCE1D3E584872F591551E7FCF590D /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5DFEEDC0F75F3E034A37DD56E7FAA76D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7DF9A5F9DFCE74B7046F13F12C6600D1 /* Foundation.framework in Frameworks */,
+				46F4BB52114D41735DAFB54A2643C110 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,6 +322,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		07BCD104EA75E2DDB9A81E92D379A314 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				A303F98FC282E11B105A7249DD205A7D /* Info.plist */,
+				F9DD02EC3A735E7FB99EC9DAB7F5C5B5 /* MBCircularProgressBar.modulemap */,
+				865A4C4DCA2E045CDE6F550E4EA91111 /* MBCircularProgressBar.xcconfig */,
+				C8880AF84132EF4320C75F9BEB760EF2 /* MBCircularProgressBar-dummy.m */,
+				AB7393759BAC84BEDEB3DE1E98992870 /* MBCircularProgressBar-prefix.pch */,
+				A51B1B4989B6D146CAE07EE89AC244F5 /* MBCircularProgressBar-umbrella.h */,
+				2308AFBFFD7B05385203102AF12DE255 /* ResourceBundle-MBCircularProgressBar-Info.plist */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/MBCircularProgressBar";
+			sourceTree = "<group>";
+		};
 		0F48FBA017A5D682B9729B51139DE473 /* Pods-Djinaro */ = {
 			isa = PBXGroup;
 			children = (
@@ -291,59 +355,18 @@
 			path = "Target Support Files/Pods-Djinaro";
 			sourceTree = "<group>";
 		};
-		16A4ADD4BD17F2E76574B9E96060E4AA /* Support Files */ = {
+		3B90B8CA430BBC2A45A6509CE3ADA2F9 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				D4B42A846731D277BCA0EF83A7CC88AD /* BSImageView.modulemap */,
-				23D73590AFFBC787E83FE6ABBF8CD1FF /* BSImageView.xcconfig */,
-				89A3E27FD3D042164B39128C8222BEC8 /* BSImageView-dummy.m */,
-				53D4D332BF7C592B28B63C09618DB8B9 /* BSImageView-prefix.pch */,
-				47657A6958739F56E88F7C2EF65E78D3 /* BSImageView-umbrella.h */,
-				0833B3248C4EAE04C36312F65C3E21BA /* Info.plist */,
+				6A821DD7EDAA83E0BB5888DB83897769 /* BSImageView.modulemap */,
+				5564A8773D252FC4D21C1E04B4DC060D /* BSImageView.xcconfig */,
+				EC3A6A8AED524B054FD961C619FD9EE6 /* BSImageView-dummy.m */,
+				2E043889094670AC985D573249A9FB9E /* BSImageView-prefix.pch */,
+				01596A19B74192FC955448C4E4419DE2 /* BSImageView-umbrella.h */,
+				B909AF950C5CAB41B156BB5935A8D46E /* Info.plist */,
 			);
 			name = "Support Files";
 			path = "../Target Support Files/BSImageView";
-			sourceTree = "<group>";
-		};
-		1B32128A111DF310D6EC25B153D12247 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				223F58BB951A85747A435BC1E1064065 /* BSGridCollectionViewLayout.modulemap */,
-				CEE41FA7F4231DAD98F882B4C72C9D4C /* BSGridCollectionViewLayout.xcconfig */,
-				39A204F20E8DCD93CC3545BDCEE62412 /* BSGridCollectionViewLayout-dummy.m */,
-				D710124CF46221C05928CDB453812893 /* BSGridCollectionViewLayout-prefix.pch */,
-				D39D315774187647ED349CCE95DE9F27 /* BSGridCollectionViewLayout-umbrella.h */,
-				D0FF03EF24E75B4FBDFB86496E802986 /* Info.plist */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/BSGridCollectionViewLayout";
-			sourceTree = "<group>";
-		};
-		1BBFF1FDEE81561E0C6F8F3F5BC9D817 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				7BCF20D480D16FBBAF785163FDD07AD0 /* BSGridCollectionViewLayout */,
-				3DDA533046A5EAB88DFF19564203CF58 /* BSImagePicker */,
-				D3E361E30FAE431C0D9AC56D550FD167 /* BSImageView */,
-				58BEC4AFB7EA8ACC0599363838CF4C9A /* MBCircularProgressBar */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		1CE09421620D5C5EB442C4ED3F905D33 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				54FD77D718BDBE5B59F5F327F3C6896B /* add_photo.png */,
-				D4E30035CCBE527652D8242713491926 /* add_photo@2x.png */,
-				08EC6C3B367CDBA334C9E7A8966B901E /* add_photo@3x.png */,
-				9EA8131AE542F12AA73CE08FF0C8296C /* Albums.storyboard */,
-				15CE7366EFCEA686243BEE4640C471D2 /* arrow_down@1x.png */,
-				371DE99717FD1B3CBE8EE5E89C69C22D /* arrow_down@2x.png */,
-				2F21194AF415D3870ADF1A2D0FE4074F /* arrow_down@3x.png */,
-				F1BA93CEF9C426F2AA23795B14D2BFCA /* CameraCell.xib */,
-				944A6CD8D95BB46AE49BBA2206147F01 /* PhotoCell.xib */,
-			);
-			name = Resources;
 			sourceTree = "<group>";
 		};
 		3D5EAF2D81D2FA8EBA57202C3C7208FC /* Targets Support Files */ = {
@@ -354,47 +377,18 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		3DDA533046A5EAB88DFF19564203CF58 /* BSImagePicker */ = {
+		4484745F49B066E91F5B84ED48DB5FC7 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				7761251BB6117E69ED30D959D6DCDA28 /* AlbumCell.swift */,
-				DE081C2DE4EC5C4DE44971CDFF69588A /* AlbumsViewController.swift */,
-				69405EF7F078AE72462E092114AB516F /* AlbumTableViewDataSource.swift */,
-				846385337842DF57A5E3324BC413C96A /* AlbumTitleView.swift */,
-				F4186A4F8A244C40D4A3C1EC8BBA1A9C /* BSImagePickerSettings.swift */,
-				EDE9A4B7C301EB8A6AAAE8CCE7B7E543 /* BSImagePickerViewController.swift */,
-				2D73B18019AF41E30B8B23E58DECCE0C /* CameraCell.swift */,
-				AA43C831E5D02EA63362F8EB114382E0 /* CameraCollectionViewDataSource.swift */,
-				3696A2E0FA14912BA090D6E7B3FF4A01 /* ComposedCollectionViewDataSource.swift */,
-				17E8E737F5F1770DFB122CD192CB7783 /* NSIndexSet+NSIndexPath.swift */,
-				0DDFADDA4E2BEE8B71586A56714B0371 /* PhotoCell.swift */,
-				10E3E8F5E2FC650CC9AA88626B9A2A11 /* PhotoCollectionViewDataSource.swift */,
-				B18BE72DD405E1696E112CCE352B7DBA /* PhotosViewController.swift */,
-				1A12B6F714A2E6664D30F27CE6DDEAD1 /* PreviewViewController.swift */,
-				C1E39C88C9F49F8ACD8DDFBB4DB628C1 /* SelectionView.swift */,
-				E15BDE9D295C38968213BE051979EA8D /* Settings.swift */,
-				E9A9F249A036D1BF6E7453BACF1F8ABB /* UIViewController+BSImagePicker.swift */,
-				9607DCAF5162E9BF727890E4021EEEC7 /* ZoomAnimator.swift */,
-				1CE09421620D5C5EB442C4ED3F905D33 /* Resources */,
-				48A1078E72FFE9271F0ECAC611649BD3 /* Support Files */,
-			);
-			name = BSImagePicker;
-			path = BSImagePicker;
-			sourceTree = "<group>";
-		};
-		48A1078E72FFE9271F0ECAC611649BD3 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				739E480EC81FD8B45DEC795704828E30 /* BSImagePicker.modulemap */,
-				5374639220A8064F64B5E112382FDE59 /* BSImagePicker.xcconfig */,
-				107BC6503457C93CA34008F1BD92BF1F /* BSImagePicker-dummy.m */,
-				B7B2482B91C4A272A41C997640ED439D /* BSImagePicker-prefix.pch */,
-				00E5073E5C56B2BF9C05D8D68ED3DEEF /* BSImagePicker-umbrella.h */,
-				0175384712196EBD85145ACBE17E7DF5 /* Info.plist */,
-				D74D2B353979B17CDAA27D1E12A76AA4 /* ResourceBundle-BSImagePicker-Info.plist */,
+				B375E658DE7C0CED60BB22125ADABB79 /* BSGridCollectionViewLayout.modulemap */,
+				9EEC1631ED2EB74886DB7DBC48B90B75 /* BSGridCollectionViewLayout.xcconfig */,
+				CEC8DC6B5A68D51514937A7464F8595B /* BSGridCollectionViewLayout-dummy.m */,
+				7DDC1A27D33E5F33AD9CC26B9A197203 /* BSGridCollectionViewLayout-prefix.pch */,
+				D81670BC48070425797E708A3D326046 /* BSGridCollectionViewLayout-umbrella.h */,
+				7CF1A441BA73A5FF3C03ED3F3245AFCB /* Info.plist */,
 			);
 			name = "Support Files";
-			path = "../Target Support Files/BSImagePicker";
+			path = "../Target Support Files/BSGridCollectionViewLayout";
 			sourceTree = "<group>";
 		};
 		49596C8FC57DED29D9CF6B27542F41D3 /* iOS */ = {
@@ -407,65 +401,15 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		4FE89E6C547376DE799ACEE35CB26818 /* Products */ = {
+		7D33567F4BD7DC18132053F8CFC14369 /* BSImageView */ = {
 			isa = PBXGroup;
 			children = (
-				952B0D237BA897FDFDA651894C33C1AE /* BSGridCollectionViewLayout.framework */,
-				14FCE1BE051FF826ADC673BA5CF53A4C /* BSImagePicker.bundle */,
-				11FB4CE5775FFAD0E0059FB7AAEE73A8 /* BSImagePicker.framework */,
-				5E8E8CA91C4969E4A46CE2C184CD067A /* BSImageView.framework */,
-				192EFBF69D19906B60070031B11E1D56 /* MBCircularProgressBar.bundle */,
-				1AF9020441C6B404E0CD8B45EE79270B /* MBCircularProgressBar.framework */,
-				E508FD33360AE2C06F4E463A99A45136 /* Pods_Djinaro.framework */,
+				A04DF6021E3C93853E82586F35537D76 /* BSImageView.swift */,
+				33EFF8B90D0F3C7A571CF2DF1AC59D54 /* ImageViewLayout.swift */,
+				3B90B8CA430BBC2A45A6509CE3ADA2F9 /* Support Files */,
 			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		58BEC4AFB7EA8ACC0599363838CF4C9A /* MBCircularProgressBar */ = {
-			isa = PBXGroup;
-			children = (
-				CB09F9EFBC3DFEAA946838910E701CDA /* MBCircularProgressBarLayer.h */,
-				A2D82D414E0CA239CFD3E8C1E273DD62 /* MBCircularProgressBarLayer.m */,
-				9D4817A5027F79C37F1BF928DB3AE780 /* MBCircularProgressBarView.h */,
-				6F02CFB250BE8F2BE63594A7CF17FE79 /* MBCircularProgressBarView.m */,
-				6FC637067225C6B52C68147892DD133E /* Resources */,
-				6D5435589F4C25B549CEA7F7EF04050C /* Support Files */,
-			);
-			name = MBCircularProgressBar;
-			path = MBCircularProgressBar;
-			sourceTree = "<group>";
-		};
-		6D5435589F4C25B549CEA7F7EF04050C /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				51E5800849E2DBB3D417A6FA86467571 /* Info.plist */,
-				A8FA8B1F9660C985C978E891EEAB7F95 /* MBCircularProgressBar.modulemap */,
-				D659EFFB8C179E19674C4F316BC8990B /* MBCircularProgressBar.xcconfig */,
-				F273E20B2432D5C730B15F6B3B0E823F /* MBCircularProgressBar-dummy.m */,
-				203130E755F9C1EA06DC185E331F1ACB /* MBCircularProgressBar-prefix.pch */,
-				8FA4EF74824A0E8F4D2CF521303AB561 /* MBCircularProgressBar-umbrella.h */,
-				19D5783CBB09D7F35135D08BAC82EBAE /* ResourceBundle-MBCircularProgressBar-Info.plist */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/MBCircularProgressBar";
-			sourceTree = "<group>";
-		};
-		6FC637067225C6B52C68147892DD133E /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				F24CC1FD92FA579D64E14A4FAF9AEBBF /* example.png */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
-		7BCF20D480D16FBBAF785163FDD07AD0 /* BSGridCollectionViewLayout */ = {
-			isa = PBXGroup;
-			children = (
-				9D1160FE91BFB359DF34C4B337AC5DC3 /* GridCollectionViewLayout.swift */,
-				1B32128A111DF310D6EC25B153D12247 /* Support Files */,
-			);
-			name = BSGridCollectionViewLayout;
-			path = BSGridCollectionViewLayout;
+			name = BSImageView;
+			path = BSImageView;
 			sourceTree = "<group>";
 		};
 		7DB346D0F39D3F0E887471402A8071AB = {
@@ -473,10 +417,67 @@
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				BA3A16E9EAA66C2E4A3CD8BB05825991 /* Frameworks */,
-				1BBFF1FDEE81561E0C6F8F3F5BC9D817 /* Pods */,
-				4FE89E6C547376DE799ACEE35CB26818 /* Products */,
+				C89EFF929D36D33F5301B78B6A432A39 /* Pods */,
+				9A529060B61C6A9F0CF9C94A617CF4B0 /* Products */,
 				3D5EAF2D81D2FA8EBA57202C3C7208FC /* Targets Support Files */,
 			);
+			sourceTree = "<group>";
+		};
+		7F2ED745EC34F2729C3B1C1BD394F148 /* NewPopMenu */ = {
+			isa = PBXGroup;
+			children = (
+				D4EF4E3A45D611E010B4758D787B7F67 /* Haptics.swift */,
+				3761D70E06CDAFEAE03CD76EBEC237D4 /* PopMenu.h */,
+				377BDA35E29ED36C0C74615C317AD018 /* PopMenuAction.swift */,
+				72813C0B51154CB27BE747DF82A1BA2C /* PopMenuAppearance.swift */,
+				6A31DAF05144F6E477B4C700C9803A14 /* PopMenuDismissAnimationController.swift */,
+				1BE72AA1ED4C4FE175FAFB55742435A6 /* PopMenuGradientView.swift */,
+				ABC4B771132E3D7E7DB3C92B21876A46 /* PopMenuManager.swift */,
+				D02761AEC6D04EB87277DE6FDE1E011B /* PopMenuPresentAnimationController.swift */,
+				7C9FF58303FEE39891AF48F5C9C7A48A /* PopMenuViewController.swift */,
+				5D442B9C24D0BCA4F69228D07AB1AFA3 /* UIColor+Contrast.swift */,
+				0A763D20E39F50768AC5FBD742702C17 /* UIView+Shadows.swift */,
+				D765284A8218FA7952A2FAD1D72893A7 /* Support Files */,
+			);
+			name = NewPopMenu;
+			path = NewPopMenu;
+			sourceTree = "<group>";
+		};
+		9A529060B61C6A9F0CF9C94A617CF4B0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2A44006026050AFD06CE9E279F0CE0E2 /* BSGridCollectionViewLayout.framework */,
+				5AC2AC2051CEAC5311536910C03A423B /* BSImagePicker.bundle */,
+				DDC76D2C4C1C320063DC51485B64D6A1 /* BSImagePicker.framework */,
+				131AEC3E65F2A756CF7B83C00E3AEED9 /* BSImageView.framework */,
+				FD5F99695A0C1A63C880253647A0FDD0 /* MBCircularProgressBar.bundle */,
+				99B36385E29C554991930B81C5E1C2A5 /* MBCircularProgressBar.framework */,
+				0A873EC69BF777A587C6D419C93FF3ED /* Pods_Djinaro.framework */,
+				38368954FC1857BC83C45BEDC4F84581 /* PopMenu.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9F5848D964FCD8E49ED16FDC4F7E2D93 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				50826A628830F9942CBBA8294378C13F /* example.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		B5657C5E72A7DB2A11527BD2B2E94E37 /* MBCircularProgressBar */ = {
+			isa = PBXGroup;
+			children = (
+				028236794FF334036B8F6548F1369DD0 /* MBCircularProgressBarLayer.h */,
+				D25ABAEDED000E288B141D82EBE50236 /* MBCircularProgressBarLayer.m */,
+				FFA83E11F224321EB697DAC86B836C6B /* MBCircularProgressBarView.h */,
+				D83D43015A85D8E846810905706375C3 /* MBCircularProgressBarView.m */,
+				9F5848D964FCD8E49ED16FDC4F7E2D93 /* Resources */,
+				07BCD104EA75E2DDB9A81E92D379A314 /* Support Files */,
+			);
+			name = MBCircularProgressBar;
+			path = MBCircularProgressBar;
 			sourceTree = "<group>";
 		};
 		BA3A16E9EAA66C2E4A3CD8BB05825991 /* Frameworks */ = {
@@ -489,15 +490,99 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		D3E361E30FAE431C0D9AC56D550FD167 /* BSImageView */ = {
+		C89EFF929D36D33F5301B78B6A432A39 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				C66FCC167C6FD956B9B197F6D12C5352 /* BSImageView.swift */,
-				7296CF5BECCC54703073680235E5B1A5 /* ImageViewLayout.swift */,
-				16A4ADD4BD17F2E76574B9E96060E4AA /* Support Files */,
+				E9B99B68C7DA68F287E1670490CDCE48 /* BSGridCollectionViewLayout */,
+				E265D117D0221C0204928461DCA14FA1 /* BSImagePicker */,
+				7D33567F4BD7DC18132053F8CFC14369 /* BSImageView */,
+				B5657C5E72A7DB2A11527BD2B2E94E37 /* MBCircularProgressBar */,
+				7F2ED745EC34F2729C3B1C1BD394F148 /* NewPopMenu */,
 			);
-			name = BSImageView;
-			path = BSImageView;
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		D1A5613A86D479B0A9B20B80B6BD6695 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				1ECDF8E4A3042C6FFCBEE74A6471DB4A /* BSImagePicker.modulemap */,
+				52DE5EF79937BD62E24CA8253C6147E1 /* BSImagePicker.xcconfig */,
+				9FCC9847D0A28443D00C406C780EEEE9 /* BSImagePicker-dummy.m */,
+				C17C60387E56AD1F579DA4BBAF22D6FE /* BSImagePicker-prefix.pch */,
+				4D4440F47FF28877E0450A512C697196 /* BSImagePicker-umbrella.h */,
+				25056BA68035206EDA5370C2A8CB39CD /* Info.plist */,
+				B21F966A8E36F88586B4244C9392F9B7 /* ResourceBundle-BSImagePicker-Info.plist */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/BSImagePicker";
+			sourceTree = "<group>";
+		};
+		D765284A8218FA7952A2FAD1D72893A7 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				37D5E0D21CDC2231DBDBD45CF8C7AFAD /* Info.plist */,
+				DA0C2379299A5F167C05D1F9D0128C10 /* NewPopMenu.modulemap */,
+				2F7487BA6F801BA738045818DB0EC440 /* NewPopMenu.xcconfig */,
+				1D62BE270C7D79283D74D4996F2DF32D /* NewPopMenu-dummy.m */,
+				F937DDA7F8353E2D02817EA109D7CD8E /* NewPopMenu-prefix.pch */,
+				B400FAEF330AB316FD964181C8078121 /* NewPopMenu-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/NewPopMenu";
+			sourceTree = "<group>";
+		};
+		E265D117D0221C0204928461DCA14FA1 /* BSImagePicker */ = {
+			isa = PBXGroup;
+			children = (
+				1B19AC5DF28C7A07869C3849AD1BA453 /* AlbumCell.swift */,
+				6D12DE35B3C42A05A10EC952B257D362 /* AlbumsViewController.swift */,
+				754DBB1338718C855EC6085B34F7C1E9 /* AlbumTableViewDataSource.swift */,
+				233D9728B655D3E5308050FF1A05A740 /* AlbumTitleView.swift */,
+				8B28D7ADC30C99BCE32BA929CD893165 /* BSImagePickerSettings.swift */,
+				412443B89964333AA9BFA2E49C0D7EC9 /* BSImagePickerViewController.swift */,
+				7964F8D5D3A365EB1159F441F10AA936 /* CameraCell.swift */,
+				74CC88AD3456F785843DD4490D1C44DC /* CameraCollectionViewDataSource.swift */,
+				ECCD7ABEDAC9AAD2BE59C8ACFD15C803 /* ComposedCollectionViewDataSource.swift */,
+				FD91B58DDF26A9942CE9865A98231DF6 /* NSIndexSet+NSIndexPath.swift */,
+				09E113EA42325B94DA0CF9AF5EC635FA /* PhotoCell.swift */,
+				E269C508B26A9F0E8ECB8271A2023F4A /* PhotoCollectionViewDataSource.swift */,
+				B773BF85EBA31038A05992AC39CA1368 /* PhotosViewController.swift */,
+				78BB82A5F91D6B38F9C5B0A52084C8A0 /* PreviewViewController.swift */,
+				EDCD8572F8164C920B2E40ADB90ADD1D /* SelectionView.swift */,
+				DBC82C46ACF388A6A9D5C1FEA1352BE5 /* Settings.swift */,
+				859141C631712111E021D3A003A38EAF /* UIViewController+BSImagePicker.swift */,
+				B9A974B554293770419F88F1D97371A9 /* ZoomAnimator.swift */,
+				ED14DB919D2DB8C7BCB09C72E4C69643 /* Resources */,
+				D1A5613A86D479B0A9B20B80B6BD6695 /* Support Files */,
+			);
+			name = BSImagePicker;
+			path = BSImagePicker;
+			sourceTree = "<group>";
+		};
+		E9B99B68C7DA68F287E1670490CDCE48 /* BSGridCollectionViewLayout */ = {
+			isa = PBXGroup;
+			children = (
+				E53E9458D70C23CA52A5293F7BBD6F29 /* GridCollectionViewLayout.swift */,
+				4484745F49B066E91F5B84ED48DB5FC7 /* Support Files */,
+			);
+			name = BSGridCollectionViewLayout;
+			path = BSGridCollectionViewLayout;
+			sourceTree = "<group>";
+		};
+		ED14DB919D2DB8C7BCB09C72E4C69643 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				5BC2EA01D130A3EBB3E8716DDF7BEF96 /* add_photo.png */,
+				851F50EC738D4901F114B7C6D7B4C57A /* add_photo@2x.png */,
+				896453A008EB082072C912836F0A2677 /* add_photo@3x.png */,
+				61735AB6CB79D84B524B691AECA548E8 /* Albums.storyboard */,
+				C7ED4915E36A55791E460F695B9B1E33 /* arrow_down@1x.png */,
+				1FE2901D5F65A9BB4CA22F9BE70EB29F /* arrow_down@2x.png */,
+				FCD316612CB5BF6EA62133B472401607 /* arrow_down@3x.png */,
+				B0A1256EB9CEEABEEF3BC8643303E209 /* CameraCell.xib */,
+				3599E6457D8E9BC88B7B3FD8EFF3589C /* PhotoCell.xib */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -511,6 +596,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4C8FC6F5029FC378F61B53122607B9E7 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FF998358CF29253DF75BD67B05C9405F /* NewPopMenu-umbrella.h in Headers */,
+				FC9A4F7DCCD9305E6CFBA6CF34274EE1 /* PopMenu.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4F825684DD4C8FF618AE529FF6BCD140 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -521,19 +615,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5A7D566566F34D2985973718151DA2FC /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B615C6FE5BCB6E50D2CA1E47E237D627 /* Pods-Djinaro-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		A0190DCA1C04C97EA99927857429816D /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				EC46EF6A88B0B7CF0C593B1C9A933765 /* BSGridCollectionViewLayout-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A4BBE2EB5CBCB2FEA55F7E52E2D8DDE0 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1AE0F1D53A040B8B772E99187AA04A86 /* Pods-Djinaro-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -548,28 +642,6 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		095208B6FAD2420F06D784008FE86375 /* Pods-Djinaro */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 08ED9A3B16833871F8511E14ADF031C9 /* Build configuration list for PBXNativeTarget "Pods-Djinaro" */;
-			buildPhases = (
-				5A7D566566F34D2985973718151DA2FC /* Headers */,
-				0D923D23308CD56B2D1021364D00BD12 /* Sources */,
-				36CB0B8AFCD4CA1B941650B29BF59C05 /* Frameworks */,
-				0883BC43FFF6E631274B1AF63FFECC4A /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				9C1E24E32374B7E89A092F7A121CAD28 /* PBXTargetDependency */,
-				C260887E718FCA01BC67A0C6693F61D6 /* PBXTargetDependency */,
-				61DA4E1B66972F88682482E88783A34B /* PBXTargetDependency */,
-				90C2A3B4B6406BA6F155508C0731A22C /* PBXTargetDependency */,
-			);
-			name = "Pods-Djinaro";
-			productName = "Pods-Djinaro";
-			productReference = E508FD33360AE2C06F4E463A99A45136 /* Pods_Djinaro.framework */;
-			productType = "com.apple.product-type.framework";
-		};
 		21FB12B4F6A2FBA2800C75DA7C9DA741 /* BSImageView */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = ED36FA4C99746D66847893DB6994A42E /* Build configuration list for PBXNativeTarget "BSImageView" */;
@@ -585,7 +657,25 @@
 			);
 			name = BSImageView;
 			productName = BSImageView;
-			productReference = 5E8E8CA91C4969E4A46CE2C184CD067A /* BSImageView.framework */;
+			productReference = 131AEC3E65F2A756CF7B83C00E3AEED9 /* BSImageView.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		2984E119D425AD26A0B5DB4F342FEAF4 /* NewPopMenu */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4FABC2D0A3835EE09DD5F54DB4206548 /* Build configuration list for PBXNativeTarget "NewPopMenu" */;
+			buildPhases = (
+				4C8FC6F5029FC378F61B53122607B9E7 /* Headers */,
+				28B3C8AFC8DBCDCF7389AC49C3773DC6 /* Sources */,
+				5DFEEDC0F75F3E034A37DD56E7FAA76D /* Frameworks */,
+				70B7AD0FEA98E416865CD402075FF197 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NewPopMenu;
+			productName = NewPopMenu;
+			productReference = 38368954FC1857BC83C45BEDC4F84581 /* PopMenu.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		3DA77810BEE331070077B6479447EA78 /* MBCircularProgressBar-MBCircularProgressBar */ = {
@@ -602,7 +692,7 @@
 			);
 			name = "MBCircularProgressBar-MBCircularProgressBar";
 			productName = "MBCircularProgressBar-MBCircularProgressBar";
-			productReference = 192EFBF69D19906B60070031B11E1D56 /* MBCircularProgressBar.bundle */;
+			productReference = FD5F99695A0C1A63C880253647A0FDD0 /* MBCircularProgressBar.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
 		936B69F2BCDEAE4E482677843E2C3776 /* BSImagePicker */ = {
@@ -623,7 +713,7 @@
 			);
 			name = BSImagePicker;
 			productName = BSImagePicker;
-			productReference = 11FB4CE5775FFAD0E0059FB7AAEE73A8 /* BSImagePicker.framework */;
+			productReference = DDC76D2C4C1C320063DC51485B64D6A1 /* BSImagePicker.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		A7EE6FEA3BB9CC2F19695964669FB940 /* BSImagePicker-BSImagePicker */ = {
@@ -640,8 +730,31 @@
 			);
 			name = "BSImagePicker-BSImagePicker";
 			productName = "BSImagePicker-BSImagePicker";
-			productReference = 14FCE1BE051FF826ADC673BA5CF53A4C /* BSImagePicker.bundle */;
+			productReference = 5AC2AC2051CEAC5311536910C03A423B /* BSImagePicker.bundle */;
 			productType = "com.apple.product-type.bundle";
+		};
+		CD8EDBB4A0CABC8760D16D5DD7AC0AFE /* Pods-Djinaro */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A96F7BC64B147BDB722DF95C993D951A /* Build configuration list for PBXNativeTarget "Pods-Djinaro" */;
+			buildPhases = (
+				A4BBE2EB5CBCB2FEA55F7E52E2D8DDE0 /* Headers */,
+				0BB055029D2C80482F46FCAD654A4626 /* Sources */,
+				0D43DB8237CF52DD575C13522EF07806 /* Frameworks */,
+				435558A4D2BC38C996862DDFFD9CAE6D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6E21B247FBAADD513C5626C7A7DE2F4A /* PBXTargetDependency */,
+				DA6A4C99436EA81B1F64487232BDF9B7 /* PBXTargetDependency */,
+				856D1FE6F3411992D5F9963BD11FAE91 /* PBXTargetDependency */,
+				CA9D29E2204DF358C611B53B1D1D0EE1 /* PBXTargetDependency */,
+				DE11CC49F210FF12E4EDB5A5BD7E6D5F /* PBXTargetDependency */,
+			);
+			name = "Pods-Djinaro";
+			productName = "Pods-Djinaro";
+			productReference = 0A873EC69BF777A587C6D419C93FF3ED /* Pods_Djinaro.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 		E2F02CE399CDEDE49DEAB03367684E0E /* BSGridCollectionViewLayout */ = {
 			isa = PBXNativeTarget;
@@ -658,7 +771,7 @@
 			);
 			name = BSGridCollectionViewLayout;
 			productName = BSGridCollectionViewLayout;
-			productReference = 952B0D237BA897FDFDA651894C33C1AE /* BSGridCollectionViewLayout.framework */;
+			productReference = 2A44006026050AFD06CE9E279F0CE0E2 /* BSGridCollectionViewLayout.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		EDF01DFEBC4074645C585421EDCDC2D5 /* MBCircularProgressBar */ = {
@@ -677,7 +790,7 @@
 			);
 			name = MBCircularProgressBar;
 			productName = MBCircularProgressBar;
-			productReference = 1AF9020441C6B404E0CD8B45EE79270B /* MBCircularProgressBar.framework */;
+			productReference = 99B36385E29C554991930B81C5E1C2A5 /* MBCircularProgressBar.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -697,7 +810,7 @@
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = 4FE89E6C547376DE799ACEE35CB26818 /* Products */;
+			productRefGroup = 9A529060B61C6A9F0CF9C94A617CF4B0 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -707,20 +820,28 @@
 				21FB12B4F6A2FBA2800C75DA7C9DA741 /* BSImageView */,
 				EDF01DFEBC4074645C585421EDCDC2D5 /* MBCircularProgressBar */,
 				3DA77810BEE331070077B6479447EA78 /* MBCircularProgressBar-MBCircularProgressBar */,
-				095208B6FAD2420F06D784008FE86375 /* Pods-Djinaro */,
+				2984E119D425AD26A0B5DB4F342FEAF4 /* NewPopMenu */,
+				CD8EDBB4A0CABC8760D16D5DD7AC0AFE /* Pods-Djinaro */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		0883BC43FFF6E631274B1AF63FFECC4A /* Resources */ = {
+		0D95A9252092E112BC55A3AE669F155F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		0D95A9252092E112BC55A3AE669F155F /* Resources */ = {
+		435558A4D2BC38C996862DDFFD9CAE6D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		70B7AD0FEA98E416865CD402075FF197 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -777,20 +898,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0BB055029D2C80482F46FCAD654A4626 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3B2268E89C53E9F6857FFBA2FECDE1CD /* Pods-Djinaro-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0CAF839B354B609109BA099D090F168C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				66F6B31C7AF755166279B9A066B3F3DC /* BSGridCollectionViewLayout-dummy.m in Sources */,
 				CEF7A97F12A93F22CF4627567A1276B6 /* GridCollectionViewLayout.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		0D923D23308CD56B2D1021364D00BD12 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7E25C61BC50F7B0FC9D0D812FC53FE85 /* Pods-Djinaro-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -818,6 +939,24 @@
 				DBF679C97E0E035E0C5DB374AEBC92BF /* BSImageView-dummy.m in Sources */,
 				89F27466C9170DAAAEEB5C6601A353DA /* BSImageView.swift in Sources */,
 				6CC6BBF5F1556B218AA101DB6EDF1DDC /* ImageViewLayout.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		28B3C8AFC8DBCDCF7389AC49C3773DC6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E42B052CAE8408EA8360AE3F6E2F6867 /* Haptics.swift in Sources */,
+				E13E55CC7AE054693EDDB19984B45EAD /* NewPopMenu-dummy.m in Sources */,
+				D06BE75418956D16F85175D408CC09DB /* PopMenuAction.swift in Sources */,
+				28E98E4D75B85CFC393DD2AD54FFAE8D /* PopMenuAppearance.swift in Sources */,
+				8358297F263636F67DB852B1F03AABFE /* PopMenuDismissAnimationController.swift in Sources */,
+				C183BD42255A04935F66B5E1292B1D14 /* PopMenuGradientView.swift in Sources */,
+				9B01E64E39C4286FB2E88586C4E0AF82 /* PopMenuManager.swift in Sources */,
+				DF3DDBD8DD5317070D06A1F2B5228EDA /* PopMenuPresentAnimationController.swift in Sources */,
+				5EB963BE6A1B8082476E115E7567DA67 /* PopMenuViewController.swift in Sources */,
+				3F83D27E9BA1ADE337C01425F52365D8 /* UIColor+Contrast.swift in Sources */,
+				5912A8F894C3A4FEB8AE52804B84C73D /* UIView+Shadows.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -863,11 +1002,11 @@
 			target = E2F02CE399CDEDE49DEAB03367684E0E /* BSGridCollectionViewLayout */;
 			targetProxy = 1405BD445B99D7F780B318613BBDA5CE /* PBXContainerItemProxy */;
 		};
-		61DA4E1B66972F88682482E88783A34B /* PBXTargetDependency */ = {
+		6E21B247FBAADD513C5626C7A7DE2F4A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = BSImageView;
-			target = 21FB12B4F6A2FBA2800C75DA7C9DA741 /* BSImageView */;
-			targetProxy = 6E738EFBC301149722482C6EB0D89724 /* PBXContainerItemProxy */;
+			name = BSGridCollectionViewLayout;
+			target = E2F02CE399CDEDE49DEAB03367684E0E /* BSGridCollectionViewLayout */;
+			targetProxy = 7D1767025D0B2FD25D976730E7C4FB90 /* PBXContainerItemProxy */;
 		};
 		829F5598F8396EDA0D0F24D982298724 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -875,23 +1014,29 @@
 			target = 3DA77810BEE331070077B6479447EA78 /* MBCircularProgressBar-MBCircularProgressBar */;
 			targetProxy = E356EF8F835DD8477BB0B09D16167B9A /* PBXContainerItemProxy */;
 		};
-		90C2A3B4B6406BA6F155508C0731A22C /* PBXTargetDependency */ = {
+		856D1FE6F3411992D5F9963BD11FAE91 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = BSImageView;
+			target = 21FB12B4F6A2FBA2800C75DA7C9DA741 /* BSImageView */;
+			targetProxy = 0A632C151062FD13C70F95EE5B6BA5DE /* PBXContainerItemProxy */;
+		};
+		CA9D29E2204DF358C611B53B1D1D0EE1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = MBCircularProgressBar;
 			target = EDF01DFEBC4074645C585421EDCDC2D5 /* MBCircularProgressBar */;
-			targetProxy = 8DAFEDD1BBEC36239C08E6174E52135F /* PBXContainerItemProxy */;
+			targetProxy = 0557D3AFCE7E780330375FD538879C97 /* PBXContainerItemProxy */;
 		};
-		9C1E24E32374B7E89A092F7A121CAD28 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = BSGridCollectionViewLayout;
-			target = E2F02CE399CDEDE49DEAB03367684E0E /* BSGridCollectionViewLayout */;
-			targetProxy = 73F283F5668FEB9E0038B750A2E86BB3 /* PBXContainerItemProxy */;
-		};
-		C260887E718FCA01BC67A0C6693F61D6 /* PBXTargetDependency */ = {
+		DA6A4C99436EA81B1F64487232BDF9B7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = BSImagePicker;
 			target = 936B69F2BCDEAE4E482677843E2C3776 /* BSImagePicker */;
-			targetProxy = 1F154BDD416CE69BFBBD7663A0B88EEA /* PBXContainerItemProxy */;
+			targetProxy = 304FBFA7E8D305F061450C4D0227988F /* PBXContainerItemProxy */;
+		};
+		DE11CC49F210FF12E4EDB5A5BD7E6D5F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = NewPopMenu;
+			target = 2984E119D425AD26A0B5DB4F342FEAF4 /* NewPopMenu */;
+			targetProxy = 596EC8E05B43D1F7E081E01BDEF87410 /* PBXContainerItemProxy */;
 		};
 		E55C1907F2F27C1D3A15DD8414C4F8F8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -976,7 +1121,7 @@
 		};
 		0BBDA9A7AECC5EBF2BFEA752532014D5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D659EFFB8C179E19674C4F316BC8990B /* MBCircularProgressBar.xcconfig */;
+			baseConfigurationReference = 865A4C4DCA2E045CDE6F550E4EA91111 /* MBCircularProgressBar.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1010,12 +1155,10 @@
 			};
 			name = Release;
 		};
-		183C29FD48C1BB2E6F0A8540E296A5CB /* Debug */ = {
+		2E47EBF3A9F593A4042087E868278816 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 704365D2720778800BBAD786AD51BA55 /* Pods-Djinaro.debug.xcconfig */;
+			baseConfigurationReference = 2F7487BA6F801BA738045818DB0EC440 /* NewPopMenu.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1025,32 +1168,32 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-Djinaro/Info.plist";
+				GCC_PREFIX_HEADER = "Target Support Files/NewPopMenu/NewPopMenu-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/NewPopMenu/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-Djinaro/Pods-Djinaro.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				MODULEMAP_FILE = "Target Support Files/NewPopMenu/NewPopMenu.modulemap";
+				PRODUCT_MODULE_NAME = PopMenu;
+				PRODUCT_NAME = PopMenu;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Debug;
+			name = Release;
 		};
 		4540190CB8CEADB9FB79FC6BC566B698 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D659EFFB8C179E19674C4F316BC8990B /* MBCircularProgressBar.xcconfig */;
+			baseConfigurationReference = 865A4C4DCA2E045CDE6F550E4EA91111 /* MBCircularProgressBar.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/MBCircularProgressBar";
@@ -1066,7 +1209,7 @@
 		};
 		528B3F94790BFF4EEA43B26506DE4695 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 23D73590AFFBC787E83FE6ABBF8CD1FF /* BSImageView.xcconfig */;
+			baseConfigurationReference = 5564A8773D252FC4D21C1E04B4DC060D /* BSImageView.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1101,7 +1244,7 @@
 		};
 		55AF79ACBADCC945EF0DDDA2AC1D762D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5374639220A8064F64B5E112382FDE59 /* BSImagePicker.xcconfig */;
+			baseConfigurationReference = 52DE5EF79937BD62E24CA8253C6147E1 /* BSImagePicker.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1136,7 +1279,7 @@
 		};
 		58C5CCEA33EAAD9F097058B1ECCA4261 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D659EFFB8C179E19674C4F316BC8990B /* MBCircularProgressBar.xcconfig */;
+			baseConfigurationReference = 865A4C4DCA2E045CDE6F550E4EA91111 /* MBCircularProgressBar.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1171,7 +1314,7 @@
 		};
 		5CA9086F8433A8549900003AE79FF394 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5374639220A8064F64B5E112382FDE59 /* BSImagePicker.xcconfig */;
+			baseConfigurationReference = 52DE5EF79937BD62E24CA8253C6147E1 /* BSImagePicker.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/BSImagePicker";
@@ -1187,7 +1330,7 @@
 		};
 		6862771EC5A50BE4C73CD7C089D7647C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D659EFFB8C179E19674C4F316BC8990B /* MBCircularProgressBar.xcconfig */;
+			baseConfigurationReference = 865A4C4DCA2E045CDE6F550E4EA91111 /* MBCircularProgressBar.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/MBCircularProgressBar";
@@ -1198,45 +1341,6 @@
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = bundle;
-			};
-			name = Release;
-		};
-		75B55C862716B50F13364202B524468F /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E0C03218E7A2ABE90CCEEC76B0AC1025 /* Pods-Djinaro.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-Djinaro/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-Djinaro/Pods-Djinaro.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
@@ -1304,7 +1408,7 @@
 		};
 		87B67F8A9AF17715F42F89158405AC43 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CEE41FA7F4231DAD98F882B4C72C9D4C /* BSGridCollectionViewLayout.xcconfig */;
+			baseConfigurationReference = 9EEC1631ED2EB74886DB7DBC48B90B75 /* BSGridCollectionViewLayout.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1337,9 +1441,44 @@
 			};
 			name = Debug;
 		};
+		94911C91C8594A0A6BD881E9C25E337C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2F7487BA6F801BA738045818DB0EC440 /* NewPopMenu.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/NewPopMenu/NewPopMenu-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/NewPopMenu/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/NewPopMenu/NewPopMenu.modulemap";
+				PRODUCT_MODULE_NAME = PopMenu;
+				PRODUCT_NAME = PopMenu;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		A9BAD1DDF7A53BB76F299F490474233A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CEE41FA7F4231DAD98F882B4C72C9D4C /* BSGridCollectionViewLayout.xcconfig */;
+			baseConfigurationReference = 9EEC1631ED2EB74886DB7DBC48B90B75 /* BSGridCollectionViewLayout.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1375,7 +1514,7 @@
 		};
 		C5C926082704ADFB4D4B315844D5E31B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5374639220A8064F64B5E112382FDE59 /* BSImagePicker.xcconfig */;
+			baseConfigurationReference = 52DE5EF79937BD62E24CA8253C6147E1 /* BSImagePicker.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/BSImagePicker";
@@ -1389,9 +1528,48 @@
 			};
 			name = Debug;
 		};
+		D76F54606978E9AE74BCC790AF6B8487 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E0C03218E7A2ABE90CCEEC76B0AC1025 /* Pods-Djinaro.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-Djinaro/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Djinaro/Pods-Djinaro.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		E6E64B97EC9F454DBE26B6116177EA9B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 23D73590AFFBC787E83FE6ABBF8CD1FF /* BSImageView.xcconfig */;
+			baseConfigurationReference = 5564A8773D252FC4D21C1E04B4DC060D /* BSImageView.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1425,9 +1603,47 @@
 			};
 			name = Release;
 		};
+		EA262374C3E4345B6B9ED5728B08FF95 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 704365D2720778800BBAD786AD51BA55 /* Pods-Djinaro.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-Djinaro/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Djinaro/Pods-Djinaro.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		EB8851A1C91DBD374C15087161EE3D73 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5374639220A8064F64B5E112382FDE59 /* BSImagePicker.xcconfig */;
+			baseConfigurationReference = 52DE5EF79937BD62E24CA8253C6147E1 /* BSImagePicker.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1464,15 +1680,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		08ED9A3B16833871F8511E14ADF031C9 /* Build configuration list for PBXNativeTarget "Pods-Djinaro" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				183C29FD48C1BB2E6F0A8540E296A5CB /* Debug */,
-				75B55C862716B50F13364202B524468F /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		1B5E7FFE576DB2E9D60F2051E5C16916 /* Build configuration list for PBXNativeTarget "BSImagePicker-BSImagePicker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1496,6 +1703,24 @@
 			buildConfigurations = (
 				0AA3B91655AF95B1F49159CD8085CD89 /* Debug */,
 				8000995DA02063BF3777393CD52061DD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4FABC2D0A3835EE09DD5F54DB4206548 /* Build configuration list for PBXNativeTarget "NewPopMenu" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				94911C91C8594A0A6BD881E9C25E337C /* Debug */,
+				2E47EBF3A9F593A4042087E868278816 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A96F7BC64B147BDB722DF95C993D951A /* Build configuration list for PBXNativeTarget "Pods-Djinaro" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA262374C3E4345B6B9ED5728B08FF95 /* Debug */,
+				D76F54606978E9AE74BCC790AF6B8487 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -5,10 +5,12 @@ PODS:
     - BSImageView (= 1.0.2)
   - BSImageView (1.0.2)
   - MBCircularProgressBar (0.3.5)
+  - NewPopMenu (2.1.1)
 
 DEPENDENCIES:
   - BSImagePicker (~> 2.8)
   - MBCircularProgressBar
+  - NewPopMenu (~> 2.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -16,13 +18,15 @@ SPEC REPOS:
     - BSImagePicker
     - BSImageView
     - MBCircularProgressBar
+    - NewPopMenu
 
 SPEC CHECKSUMS:
   BSGridCollectionViewLayout: 3e6f23b3a2b4f0ca9afae09ca01389d1057f7b32
   BSImagePicker: 553707de1adaad42eac252e0b84d20dbdba83fe9
   BSImageView: ab22ff8cae61f1ae17a3c9efeeb216af3cf84a09
   MBCircularProgressBar: 0b795b722a5eb5b0923822f90474e2576a1a7855
+  NewPopMenu: 60d67846a401964dcaa51bffb792f04f6fe2fc76
 
-PODFILE CHECKSUM: b03a813accafde00fbc9863166278c6c2fbe41b8
+PODFILE CHECKSUM: 0f034dcc4e1a3e62cac1740577a4cebcc2886ff2
 
 COCOAPODS: 1.5.3

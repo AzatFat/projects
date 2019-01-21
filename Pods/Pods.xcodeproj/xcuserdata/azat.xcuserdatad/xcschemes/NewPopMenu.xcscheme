@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CD8EDBB4A0CABC8760D16D5DD7AC0AFE"
-               BuildableName = "Pods_Djinaro.framework"
-               BlueprintName = "Pods-Djinaro"
+               BlueprintIdentifier = "2984E119D425AD26A0B5DB4F342FEAF4"
+               BuildableName = "PopMenu.framework"
+               BlueprintName = "NewPopMenu"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CD8EDBB4A0CABC8760D16D5DD7AC0AFE"
-            BuildableName = "Pods_Djinaro.framework"
-            BlueprintName = "Pods-Djinaro"
+            BlueprintIdentifier = "2984E119D425AD26A0B5DB4F342FEAF4"
+            BuildableName = "PopMenu.framework"
+            BlueprintName = "NewPopMenu"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

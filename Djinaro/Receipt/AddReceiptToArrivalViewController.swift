@@ -192,8 +192,6 @@ class AddReceiptToArrivalViewController: UIViewController, UITableViewDelegate, 
         }
     }
     
-    
-    
     func getSizes(text: String) -> Int? {
         let searchtext = text.uppercased()
         if let sizes = sizes {

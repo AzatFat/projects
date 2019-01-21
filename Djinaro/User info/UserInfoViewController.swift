@@ -84,13 +84,14 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+       
         getUserAchivements()
         scheduledTimerWithTimeInterval()
-     
         
         let user_id = self.defaults?.value(forKey:"userId") as? String ?? ""
         switch user_id {
-        case "5", "7":
+        case "5", "7", "3":
             chanGeReportTypeOutlet.isHidden = false
         default:
             chanGeReportTypeOutlet.isHidden = true
@@ -248,4 +249,5 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
             }
         }
     }
+    
 }

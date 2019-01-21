@@ -764,6 +764,34 @@ class ReceiptController {
         }
         task.resume()
     }
+    //Запрос требуемого размера
+    func POSTRequiredSize (token: String, goodId: String, sizeId: String , completion: @escaping (String?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("/api/Goods/NoSize/" + goodId + "/" + sizeId)
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        // let jsonEcoder = JSONEncoder()
+        // let jsonData = try? jsonEcoder.encode(post)
+        // request.httpBody = jsonData
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            if let httpResponse = response as? HTTPURLResponse {
+                print("statusCode: \(httpResponse.statusCode)")
+                if httpResponse.statusCode == 200 || httpResponse.statusCode == 204 {
+                    print("responsee 200")
+                    completion("Запрос принят")
+                } else {
+                    completion("Произошла ошибка")
+                }
+            }
+        }
+        task.resume()
+    }
+    
+    
     
     //Печать этикетки товара
     func POSTGoodPrintLable (token: String, goodId: String, sizeId: String , completion: @escaping (String?) -> Void) {
@@ -1035,6 +1063,7 @@ class ReceiptController {
         
         task.resume()
     }
+    
     // Размеры по типу
     func GetSizesByType(token: String, type: String ,completion: @escaping ([Sizes]?) -> Void) {
         let GetGood = baseURL.appendingPathComponent("/api/Sizes/Type/" + type)
@@ -1582,7 +1611,7 @@ class ReceiptController {
     }
     // Складская инвентаризация
     // Инвентаризация добавление товара к общему количеству
-    func POSTInventoryCode (token: String, code: String, post: InventoryCode, completion: @escaping (String?) -> Void) {
+    func POSTInventoryCode (token: String, code: String, post: InventoryCode, completion: @escaping (scannedGoodsInStockinventory?) -> Void) {
         let PostReceipt = baseURL.appendingPathComponent("/api/Inventory/Enter/")
         let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
         let ReceiptURL = components.url!
@@ -1597,10 +1626,342 @@ class ReceiptController {
         let task = URLSession.shared.dataTask(with: request){
             (data, response, error) in
             if let data = data{
-                let answer = String(data: data, encoding: String.Encoding.utf8)
-                completion(answer ?? "Неизвестная ошибка")
+                
+                let jsonDecoder = JSONDecoder()
+                if let list = try? jsonDecoder.decode(scannedGoodsInStockinventory.self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode(scannedGoodsInStockinventory.self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in getting scannedGoodStockInventory List")
+                        print(error)
+                        self.denyAuthorisation(data: data)
+                        completion(nil)
+                    }
+                }
+                
             } else {
-                completion("Неизвестная ошибка")
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
+    //finish
+    func POSTFinish (token: String,completion: @escaping (String?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("api/Inventory/finish/")
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        print(request)
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            if let httpResponse = response as? HTTPURLResponse {
+                print("statusCode: \(httpResponse.statusCode)")
+                if httpResponse.statusCode == 200 || httpResponse.statusCode == 204 {
+                    print("responsee 200")
+                    completion("Поступление создано")
+                } else {
+                    completion("Произошла ошибка")
+                }
+            }
+            else {
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
+    
+    
+    // Изменение количества товара
+    func PUTScannedGoodInStock (token: String, put: scannedGoodsInStockinventory, id: String, completion: @escaping (String?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("api/Inventory/" + id)
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "PUT"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        let jsonEcoder = JSONEncoder()
+        let jsonData = try? jsonEcoder.encode(put)
+        request.httpBody = jsonData
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+           // let jsonDecoder = JSONDecoder()
+            if let httpResponse = response as? HTTPURLResponse {
+                print("statusCode: \(httpResponse.statusCode)")
+                if httpResponse.statusCode == 200 || httpResponse.statusCode == 204 {
+                    print("responsee 200")
+                    completion("Данные по инвентаризации удалены")
+                } else {
+                    completion("Произошла ошибка")
+                }
+            }
+             else {
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
+    func GetScannedGoodInStock(id: String, token: String, completion: @escaping (scannedGoodsInStockinventory?) -> Void) {
+        let GetReceipt = baseURL.appendingPathComponent("api/Inventory/" + id)
+        let components = URLComponents(url: GetReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        print(request)
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode(scannedGoodsInStockinventory.self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode(scannedGoodsInStockinventory.self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in getting StockInventoryGoods List")
+                        print(error)
+                        self.denyAuthorisation(data: data)
+                        completion(nil)
+                    }
+                }
+                
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
+    
+    
+    //  Получение списка моделей на складе
+    func GetStockInventoryGoods(typeGood: String, token: String, is_all: Bool, userId: String, completion: @escaping (stockInventoryView?) -> Void) {
+        let GetReceipt = baseURL.appendingPathComponent("/api/Inventory/View/" + typeGood)
+        var components = URLComponents(url: GetReceipt, resolvingAgainstBaseURL: true)!
+        
+        if is_all == true {
+            components.queryItems = [URLQueryItem(name: "start", value: "0"), URLQueryItem(name: "length", value: "1000"), URLQueryItem(name: "is_all", value: "true")]
+        } else {
+            components.queryItems = [URLQueryItem(name: "start", value: "0"), URLQueryItem(name: "length", value: "1000")]
+        }
+        if userId != "" {
+            components.queryItems?.append(URLQueryItem(name: "user_id", value: userId))
+        }
+        
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        print(request)
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode(stockInventoryView.self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode(stockInventoryView.self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in getting StockInventoryGoods List")
+                        print(error)
+                        self.denyAuthorisation(data: data)
+                        completion(nil)
+                    }
+                }
+                
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
+    // отсканированные товары пользователем
+    func GetStockInventoryGoodsByUser(typeGood: String, token: String, userId: String, is_all: Bool,completion: @escaping (stockInventoryView?) -> Void) {
+        let GetReceipt = baseURL.appendingPathComponent("/api/Inventory/View/" + typeGood)
+        var components = URLComponents(url: GetReceipt, resolvingAgainstBaseURL: true)!
+        if is_all == true {
+            components.queryItems = [URLQueryItem(name: "start", value: "0"), URLQueryItem(name: "length", value: "1000"), URLQueryItem(name: "user_id", value: userId), URLQueryItem(name: "is_all", value: "true")]
+        } else {
+            components.queryItems = [URLQueryItem(name: "start", value: "0"), URLQueryItem(name: "length", value: "1000"), URLQueryItem(name: "user_id", value: userId)]
+        }
+        
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        print(request)
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode(stockInventoryView.self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode(stockInventoryView.self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in getting StockInventoryGoods List")
+                        print(error)
+                        self.denyAuthorisation(data: data)
+                        completion(nil)
+                    }
+                }
+                
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
+    
+    // Очистка результата
+    func POSTClearStockInventoryResults (token: String, completion: @escaping (String?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("api/Inventory/clear")
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        // let jsonEcoder = JSONEncoder()
+        // let jsonData = try? jsonEcoder.encode(post)
+        // request.httpBody = jsonData
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            if let httpResponse = response as? HTTPURLResponse {
+                print("statusCode: \(httpResponse.statusCode)")
+                if httpResponse.statusCode == 200 || httpResponse.statusCode == 204 {
+                    print("responsee 200")
+                    completion("Данные по инвентаризации удалены")
+                } else {
+                    completion("Произошла ошибка")
+                }
+            }
+        }
+        task.resume()
+    }
+    
+    // Загрузка данных по типу товара
+    func POSTLoadStockInventoryResults (token: String, typeId: String, completion: @escaping (String?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("api/Inventory/load/" + typeId)
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        // let jsonEcoder = JSONEncoder()
+        // let jsonData = try? jsonEcoder.encode(post)
+        // request.httpBody = jsonData
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            if let httpResponse = response as? HTTPURLResponse {
+                print("statusCode: \(httpResponse.statusCode)")
+                if httpResponse.statusCode == 200 || httpResponse.statusCode == 204 {
+                    print("responsee 200")
+                    completion("Данные загружены")
+                } else {
+                    completion("Произошла ошибка")
+                }
+            }
+        }
+        task.resume()
+    }
+    
+    /// Удаление сканирования по товарам
+    func POSTDeleteGoodModelFromScan (token: String, goodId: String, completion: @escaping (String?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("/api/Inventory/CleanOut/" + goodId)
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        // let jsonEcoder = JSONEncoder()
+        // let jsonData = try? jsonEcoder.encode(post)
+        // request.httpBody = jsonData
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            if let httpResponse = response as? HTTPURLResponse {
+                print("statusCode: \(httpResponse.statusCode)")
+                if httpResponse.statusCode == 200 || httpResponse.statusCode == 204 {
+                    print("responsee 200")
+                    completion("Сканирования по модели удалены")
+                } else {
+                    completion("Произошла ошибка")
+                }
+            }
+        }
+        task.resume()
+    }
+    
+    /// Изменение true на false
+    func POSTApproveInventory (token: String, inventoryId: String, completion: @escaping (String?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("/api/Inventory/Approve/" + inventoryId)
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        // let jsonEcoder = JSONEncoder()
+        // let jsonData = try? jsonEcoder.encode(post)
+        // request.httpBody = jsonData
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            if let httpResponse = response as? HTTPURLResponse {
+                print("statusCode: \(httpResponse.statusCode)")
+                if httpResponse.statusCode == 200 || httpResponse.statusCode == 204 {
+                    print("responsee 200")
+                    completion("Подтверждено")
+                } else {
+                    completion("Произошла ошибка")
+                }
+            }
+        }
+        task.resume()
+    }
+    
+    /// Получение отчета по итогу складской ивентаризации
+    func GetResultInventoryStock(token: String, completion: @escaping (stockInventoryResult?) -> Void) {
+        let GetReceipt = baseURL.appendingPathComponent("/api/Inventory/Res/")
+        let components = URLComponents(url: GetReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        print(request)
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode(stockInventoryResult.self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode(stockInventoryResult.self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in getting StockInventoryGoods List")
+                        print(error)
+                        self.denyAuthorisation(data: data)
+                        completion(nil)
+                    }
+                }
+                
+            } else {
+                completion(nil)
             }
         }
         task.resume()
@@ -1643,7 +2004,7 @@ class ReceiptController {
     }
     // Скан товара витринной инвентаризации
 
-    func POSTInventoryEnter (url: String, token: String, code: String, post: InventoryCode, completion: @escaping (String?) -> Void) {
+    func POSTInventoryEnter (url: String, token: String, code: String, post: InventoryCode, completion: @escaping (ResponseScannedGood?) -> Void) {
         let PostReceipt = baseURL.appendingPathComponent("api/\(url)/Enter")
         let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
         let ReceiptURL = components.url!
@@ -1658,10 +2019,26 @@ class ReceiptController {
         let task = URLSession.shared.dataTask(with: request){
             (data, response, error) in
             if let data = data{
-                let answer = String(data: data, encoding: String.Encoding.utf8)
-                completion(answer ?? "Неизвестная ошибка")
+                let jsonDecoder = JSONDecoder()
+                if let list = try? jsonDecoder.decode(ResponseScannedGood.self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode(ResponseScannedGood.self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in getting ResponseScannedGood")
+                        print(error)
+                        self.denyAuthorisation(data: data)
+                        completion(nil)
+                    }
+                }
+                
+                // let answer = String(data: data, encoding: String.Encoding.utf8)
+                // completion(answer ?? "Неизвестная ошибка")
             } else {
-                completion("Неизвестная ошибка")
+                completion(nil)
             }
         }
         task.resume()

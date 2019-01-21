@@ -67,9 +67,47 @@ class GoodViewController: UIViewController, UITableViewDelegate, UITableViewData
             DispatchQueue.main.async {
                 self.addPreload(start_stop: false)
                 self.table.reloadData()
+                if let goodType = self.good?.type_Goods_Id {
+                    self.getSizesType(good: good!, type: String(goodType))
+                }
             }
         }
     }
+    
+    func getSizesType(good: Goods, type: String) {
+        recieptController.GetSizesByType(token: token, type: type) { (sizes) in
+            if let sizes = sizes {
+                if let availiableSizes = self.good?.available_sizes {
+                    let res = sizes.filter({
+                        let dict = $0
+                        return !(availiableSizes.contains{ dict.id == $0.sizes?.id })
+                    })
+                    
+                    for i in res {
+                        self.good?.available_sizes?.append(Available_sizes.init(sizes: i, count: 0, cost: 0))
+                    }
+                } else {
+                    var availableSizes = [Available_sizes]()
+                    
+                    for i in sizes {
+                         availableSizes.append(Available_sizes.init(sizes: i, count: 0, cost: 0))
+                    }
+                    
+                    self.good?.available_sizes = availableSizes
+                }
+                
+                
+                // print(self.postReceipts)
+                DispatchQueue.main.async {
+                    self.table.reloadData()
+                }
+            }
+        }
+    }
+    
+    
+    
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -91,9 +129,23 @@ class GoodViewController: UIViewController, UITableViewDelegate, UITableViewData
             fatalError("The dequeued cell is not an instance of GoodsAvailableTableViewCell.")
         }
         if let good = good, let avaliableSizes = good.available_sizes {
+            let goodCount = avaliableSizes[indexPath.row].count!
+            
             cell.goodCount.text = String(avaliableSizes[indexPath.row].count!)
             cell.goodSize.text = String(avaliableSizes[indexPath.row].sizes!.name!)
             cell.goodPrise.text = String(avaliableSizes[indexPath.row].cost!.formattedAmount!)
+            
+            
+            if goodCount == 0 {
+                cell.goodCount.textColor = UIColor.lightGray
+                cell.goodSize.textColor = UIColor.lightGray
+                cell.goodPrise.textColor = UIColor.lightGray
+                cell.goodPrise.text = "    "
+            } else {
+                cell.goodCount.textColor = UIColor.black
+                cell.goodSize.textColor = UIColor.black
+                cell.goodPrise.textColor = UIColor.black
+            }
         }
         return cell
     }
@@ -106,24 +158,40 @@ class GoodViewController: UIViewController, UITableViewDelegate, UITableViewData
     }*/
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let addGoodToCheck = UITableViewRowAction(style: .normal, title: "Добавить в чек") { (action, indexPath) in
-            if let checkRecord = self.checkRecord, let good = self.good, let avaliableSizes = self.good!.available_sizes {
-                self.addGoodTocheck(checkRecord: checkRecord, goodId: good.id, sizes_Id: (avaliableSizes[indexPath.row].sizes!.id), cost: avaliableSizes[indexPath.row].cost!)
-            } else if let good = self.good, let avaliableSizes = self.good!.available_sizes{
-                self.addNewCheck(goodId: good.id, sizes_Id: (avaliableSizes[indexPath.row].sizes!.id), cost: avaliableSizes[indexPath.row].cost!)
+        
+        if let goodCount = good?.available_sizes![indexPath.row].count {
+            if goodCount != 0 {
+                let addGoodToCheck = UITableViewRowAction(style: .normal, title: "Добавить в чек") { (action, indexPath) in
+                    if let checkRecord = self.checkRecord, let good = self.good, let avaliableSizes = self.good!.available_sizes {
+                        self.addGoodTocheck(checkRecord: checkRecord, goodId: good.id, sizes_Id: (avaliableSizes[indexPath.row].sizes!.id), cost: avaliableSizes[indexPath.row].cost!)
+                    } else if let good = self.good, let avaliableSizes = self.good!.available_sizes{
+                        self.addNewCheck(goodId: good.id, sizes_Id: (avaliableSizes[indexPath.row].sizes!.id), cost: avaliableSizes[indexPath.row].cost!)
+                    }
+                }
+                
+                let printLableButton = UITableViewRowAction(style: .normal, title: "Печать") { (action, indexPath) in
+                    if let good = self.good, let avaliableSizes = self.good!.available_sizes {
+                        self.printLable(goodId: good.id, sizes_Id: avaliableSizes[indexPath.row].sizes!.id)
+                    }
+                }
+                
+                addGoodToCheck.backgroundColor = UIColor.blue
+                printLableButton.backgroundColor = UIColor.red
+                
+                return [addGoodToCheck, printLableButton]
+            } else if goodCount == 0 {
+                
+                let requireSize = UITableViewRowAction(style: .normal, title: "нужен размер") { (action, indexPath) in
+                    if let good = self.good, let avaliableSizes = self.good!.available_sizes {
+                    self.postRequeredSize(goodId: good.id, sizes_Id: avaliableSizes[indexPath.row].sizes!.id)
+                    }
+                }
+                return [requireSize]
             }
         }
         
-        let printLableButton = UITableViewRowAction(style: .normal, title: "Печать") { (action, indexPath) in
-            if let good = self.good, let avaliableSizes = self.good!.available_sizes {
-                self.printLable(goodId: good.id, sizes_Id: avaliableSizes[indexPath.row].sizes!.id)
-            }
-        }
         
-        addGoodToCheck.backgroundColor = UIColor.blue
-        printLableButton.backgroundColor = UIColor.red
-        
-        return [addGoodToCheck, printLableButton]
+        return nil
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -154,7 +222,7 @@ class GoodViewController: UIViewController, UITableViewDelegate, UITableViewData
             activityIndicator.style = UIActivityIndicatorView.Style.gray
             view.addSubview(activityIndicator)
             activityIndicator.startAnimating()
-            //   activityIndicator.style = UIActivityIndicatorView.t
+            // activityIndicator.style = UIActivityIndicatorView.t
             // itemsTableViewController.shared.beginIgnoringInteractionEvents()
         } else {
             DispatchQueue.main.async {
@@ -212,6 +280,16 @@ class GoodViewController: UIViewController, UITableViewDelegate, UITableViewData
                             }
                         }
                     }
+                }
+            }
+        }
+    }
+    
+    func postRequeredSize(goodId: Int, sizes_Id: Int) {
+        recieptController.POSTRequiredSize(token: token, goodId: String(goodId), sizeId: String(sizes_Id)) { (answer) in
+            DispatchQueue.main.async {
+                if let answer = answer {
+                    self.error(title: answer)
                 }
             }
         }
