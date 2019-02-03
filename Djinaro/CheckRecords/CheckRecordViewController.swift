@@ -14,6 +14,9 @@ class CheckRecordViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet var TotalCost: UILabel!
     @IBOutlet var tableView: UITableView!
     @IBOutlet var Client: UILabel!
+    
+    
+    @IBOutlet var addClientBtn: UIButton!
     @IBAction func AddClient(_ sender: Any) {
         performSegue(withIdentifier: "showClients", sender: nil)
     }
@@ -22,9 +25,12 @@ class CheckRecordViewController: UIViewController, UITableViewDelegate, UITableV
         performSegue(withIdentifier: "addGoodsFromSearch", sender: nil)
     }
     
+    @IBOutlet var cameraBTN: UIButton!
     @IBAction func Camera(_ sender: Any) {
         performSegue(withIdentifier: "addGoodToCheck", sender: nil)
+
     }
+    
     @IBAction func unwindToContainerVC(segue: UIStoryboardSegue) {
         
     }
@@ -45,6 +51,21 @@ class CheckRecordViewController: UIViewController, UITableViewDelegate, UITableV
         token = defaults?.value(forKey:"token") as? String ?? ""
         userId = defaults?.value(forKey:"userId") as? String ?? ""
         checkAppear()
+        
+        let addClientImage = UIImage(named: "addClient");
+        let cameraBtnImage = UIImage(named: "camera4");
+        
+        let tintedImage = addClientImage?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+        addClientBtn.setImage(tintedImage, for: .normal)
+        
+        let tintedImage2 = cameraBtnImage?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
+        
+        cameraBTN.setImage(tintedImage2, for: .normal)
+        
+        
+        addClientBtn.tintColor = self.view.tintColor
+        cameraBTN.tintColor = self.view.tintColor
+        
         // Do any additional setup after loading the view.
     }
     
@@ -73,7 +94,7 @@ class CheckRecordViewController: UIViewController, UITableViewDelegate, UITableV
         }
         if let check = check, let checkRecord = check.checkRecordList {
             cell.goodName.text = checkRecord[indexPath.row].goods?.name
-            cell.checkRecordTotalCost.text = checkRecord[indexPath.row].cost?.formattedAmount
+            cell.checkRecordTotalCost.text = checkRecord[indexPath.row].total_Cost?.formattedAmount
             cell.CheckRecordCountOutlet.text = String(checkRecord[indexPath.row].count!)
             cell.size.text = checkRecord[indexPath.row].sizes?.name
         }
@@ -89,13 +110,19 @@ class CheckRecordViewController: UIViewController, UITableViewDelegate, UITableV
             let checkRecord = check!.checkRecordList![indexPath.row]
             recieptController.DELETECheckRecord(token: token, id: String(checkRecord.id)) { (receipt) in
                 DispatchQueue.main.async {
-                    self.check!.checkRecordList!.remove(at: indexPath.row)
+                    self.check?.checkRecordList?.remove(at: indexPath.row)
                     tableView.deleteRows(at: [indexPath], with: .fade)
                 }
             }
             // Delete the row from the data source
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let checkRecord = check?.checkRecordList?[indexPath.row] {
+            alertOnClickCheckRecord(indexPath: indexPath.row, checkRecord: checkRecord)
         }
     }
     
@@ -156,4 +183,44 @@ class CheckRecordViewController: UIViewController, UITableViewDelegate, UITableV
             }
         }
     }
+    
+    /// Установить скидку на товар
+    func alertOnClickCheckRecord(indexPath: Int, checkRecord: CheckRecord) {
+        var loginTextField: UITextField?
+        var newCheckRecord = checkRecord
+        
+        let alertController = UIAlertController(title: "Скидка \(newCheckRecord.goods_Id ?? 1)", message: nil, preferredStyle: .alert)
+        
+       // alertController.setValue(messageText, forKey: "attributedMessage")
+        alertController.addTextField { (textField) -> Void in
+            loginTextField = textField
+            loginTextField?.delegate = self as? UITextFieldDelegate //REQUIRED
+            loginTextField?.placeholder = "Количество товаров"
+            loginTextField?.keyboardType = .decimalPad
+        }
+        
+        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
+        let putDiscount = UIAlertAction(title: "Установить", style: .default) { (action) in
+            
+            if let textField = loginTextField?.text, textField != "" {
+                newCheckRecord.discount = Decimal(string: textField)
+                self.recieptController.PUTChekRecord(token: self.token, post: newCheckRecord, completion: { (checkRecord) in
+                    if let checkRecord = checkRecord {
+                        print(checkRecord)
+                        DispatchQueue.main.async {
+                            self.checkAppear()
+                        }
+                    }
+                })
+            }
+        }
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(putDiscount)
+        
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    
 }

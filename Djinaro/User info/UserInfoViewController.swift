@@ -21,8 +21,14 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
     enum ReportType {
         case mainReport, consultReport
     }
-    var reportType = ReportType.consultReport
     
+    //  Номер проваливания
+    enum mainReportDrill {
+        case drill_1, drill_2, drill_3
+    }
+    
+    var drillType = mainReportDrill.drill_1
+    var reportType = ReportType.consultReport
     
     // Данные для продаж консультанта
     enum TableSection: Int {
@@ -32,8 +38,13 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
     
     // Данные для отчета для админа
     var mainReport = [mainResults]()
-    
     var progressBar = ProgressViewController()
+    var employees = [Employees]()
+    var mainResultParametrs : datesForMainResult?
+    var typeGoods = [TypeGoods]()
+    var resultText = ""
+    var resultText_2 = ""
+    
     
     @IBOutlet var chanGeReportTypeOutlet: UISegmentedControl!
     
@@ -52,6 +63,7 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
            }
            progressBar.dateFrom?.isHidden = true
            progressBar.dateTo?.isHidden = true
+           progressBar.consultant?.isHidden = true
            
          //  progressBar.
            // self.view.sendSubviewToBack()
@@ -64,11 +76,12 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
             progressBar.timeLeftText.isHidden = true
             progressBar.getDefaultDaysForMaonReport()
             UIView.animate(withDuration: 0.5) {
-                 self.timeUIView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50)
+                 self.timeUIView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 95)
                  self.tableView.reloadData()
             }
             progressBar.dateFrom?.isHidden = false
             progressBar.dateTo?.isHidden = false
+            progressBar.consultant?.isHidden = false
             print("Second Segment Selected")
         default:
             break
@@ -96,6 +109,7 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
         default:
             chanGeReportTypeOutlet.isHidden = true
         }
+        getGoodsType()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -175,14 +189,17 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 35))
+        view.backgroundColor = UIColor(red: 232.0/255, green: 240.0/227, blue: 220.0/255.0, alpha: 0.7)
+        
         switch reportType {
         case.consultReport:
-            let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 25))
-            view.backgroundColor = UIColor(red: 253.0/255.0, green: 240.0/255.0, blue: 196.0/255.0, alpha: 1)
-            let label = UILabel(frame: CGRect(x: 15, y: 0, width: tableView.bounds.width - 30, height: 25))
+            let label = UILabel(frame: CGRect(x: 15, y: 0, width: tableView.bounds.width - 35, height: 25))
             label.font = UIFont.boldSystemFont(ofSize: 15)
             label.textColor = UIColor.black
+            
             if let tableSection = TableSection(rawValue: section) {
+                
                 switch tableSection {
                     
                 case .day:
@@ -196,12 +213,47 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
                 }
             }
             view.addSubview(label)
-            return view
         case.mainReport:
-            return nil
+            
+            let label = UILabel(frame: CGRect(x: 80, y: 0, width: tableView.bounds.width - 30, height: 25))
+          //  label.font = UIFont.boldSystemFont(ofSize: 16)
+            label.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.thin)
+            
+            label.textColor = UIColor.black
+            
+            if drillType != mainReportDrill.drill_1 {
+                
+                label.text = "\(resultText) \(resultText_2)"
+                let button = UIButton(frame: CGRect(x: 5, y: 0, width: 70, height: 25))
+                button.setTitleColor(UIColor.blue, for: .normal)
+                button.setTitle("Назад", for: .normal)
+                button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+                
+                view.addSubview(label)
+                view.addSubview(button)
+            }
+            
         }
+        
+        return view
     }
     
+    @objc func buttonAction(sender: UIButton!) {
+        switch drillType {
+            
+        case .drill_1:
+            drillType = mainReportDrill.drill_1
+        case .drill_2:
+            mainResultParametrs?.check_type_id = nil
+            drillType = mainReportDrill.drill_1
+            resultText = ""
+        case .drill_3:
+            mainResultParametrs?.type_goods_id = nil
+            drillType = mainReportDrill.drill_2
+            resultText_2 = ""
+        }
+        GETMainResult()
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifier = "userAchivement"
@@ -216,9 +268,21 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
                 cell.count.text = ""
             }
         case .mainReport:
-            cell.name.text = mainReport[indexPath.row].name
-            cell.value.text = mainReport[indexPath.row].sum_c.formattedAmount
-            cell.count.text = String(mainReport[indexPath.row].cnt_c)
+            switch drillType {
+                
+            case .drill_1:
+                cell.name.text = mainReport[indexPath.row].name
+                cell.value.text = mainReport[indexPath.row].sum_c?.formattedAmount
+                cell.count.text = String(mainReport[indexPath.row].cnt_c ?? 0)
+            case .drill_2:
+                cell.name.text = mainReport[indexPath.row].tg_nm
+                cell.value.text = mainReport[indexPath.row].sum_c?.formattedAmount
+                cell.count.text = String(mainReport[indexPath.row].cnt_c ?? 0)
+            case .drill_3:
+                cell.name.text = mainReport[indexPath.row].g_nm
+                cell.value.text = mainReport[indexPath.row].sum_c?.formattedAmount
+                cell.count.text = String(mainReport[indexPath.row].cnt_c ?? 0)
+            }
         }
         
         if cell.value.text == ",00" {
@@ -226,6 +290,35 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
         }
 
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch reportType {
+        case .mainReport:
+            //let cell = tableView.cellForRow(at: indexPath as IndexPath)
+            tableView.deselectRow(at: indexPath as IndexPath, animated: true)
+            if var parametrs = mainResultParametrs {
+                
+                switch drillType {
+                case .drill_1:
+                    parametrs.check_type_id = mainReport[indexPath.row].check_type_id
+                    drillType = mainReportDrill.drill_2
+                    resultText = mainReport[indexPath.row].name ?? ""
+                case .drill_2:
+                    parametrs.type_goods_id = mainReport[indexPath.row].type_goods_id
+                    drillType = mainReportDrill.drill_3
+                    resultText_2 =   "-> \(mainReport[indexPath.row].tg_nm ?? "")"
+                case .drill_3:
+                    print("")
+                }
+                
+                mainResultParametrs = parametrs
+                GETMainResult()
+            }
+            
+        case .consultReport:
+            print("")
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -236,18 +329,49 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-    func GETMainResult(dates: datesForMainResult) {
+    func updateMainResultParametrs(mainParametrs: datesForMainResult) {
+        var parametrs = mainParametrs
+        parametrs.check_type_id = mainResultParametrs?.check_type_id
+        parametrs.type_goods_id = mainResultParametrs?.type_goods_id
+        mainResultParametrs = parametrs
+    }
+    
+    func GETMainResult() {
         let receiptController = ReceiptController(useMultiUrl: true)
         let token = self.defaults?.value(forKey:"token") as? String ?? ""
-        receiptController.POSTMainReport(token: token, post: dates) { (mainResults) in
-            if let mainResults = mainResults {
-                print(mainResults)
-                self.mainReport = mainResults.records
-            }
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
+        if let parametrs = mainResultParametrs {
+            receiptController.POSTMainReport(token: token, post: parametrs) { (mainResults) in
+                if var mainResults = mainResults {
+                    print(mainResults)
+                    
+                    if self.drillType == mainReportDrill.drill_2 {
+                        for (n, result) in mainResults.records.enumerated() {
+                            for typeGood in self.typeGoods {
+                                if result.tg_nm == typeGood.name {
+                                    mainResults.records[n].type_goods_id = typeGood.id
+                                    break
+                                }
+                            }
+                        }
+                    }
+                    self.mainReport = mainResults.records
+                    print(self.mainReport)
+                }
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
             }
         }
     }
     
+    func getGoodsType() {
+        let receiptController = ReceiptController(useMultiUrl: true)
+        let defaults = UserDefaults.init(suiteName: "group.djinaroWidget")
+        let token = defaults?.value(forKey:"token") as? String ?? ""
+        receiptController.GETTypeGoods(token: token) { (typeGoods) in
+            if let typeGoods = typeGoods {
+                self.typeGoods = typeGoods
+            }
+        }
+    }
 }

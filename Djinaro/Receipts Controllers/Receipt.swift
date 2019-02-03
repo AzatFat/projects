@@ -626,27 +626,77 @@ struct mainReport: Codable {
 
 
 struct mainResults: Codable {
-    var check_type_id: Int
-    var name : String
-    var cnt_c : Int
-    var sum_c : Decimal
+    var check_type_id: Int?
+    var type_goods_id: Int?
+    var name : String?
+    var tg_nm : String?
+    var g_nm : String?
+    var cnt_c : Int?
+    var sum_c : Decimal?
     
     
     enum CodingKeys: String, CodingKey {
         case check_type_id = "check_type_id"
+        case type_goods_id = "type_goods_id"
+        case tg_nm = "tg_nm"
+        case g_nm = "g_nm"
         case name = "name"
         case cnt_c = "cnt_c"
         case sum_c = "sum_c"
     }
 }
+/*
+struct mainReportDrill2: Codable {
+    var records: [mainResultsDrill2]
+    enum CodingKeys: String, CodingKey {
+        case records = "records"
+    }
+}
+
+struct mainResultsDrill2: Codable {
+    var tg_nm : String
+    var cnt_c : Int
+    var sum_c : Decimal
+    
+    enum CodingKeys: String, CodingKey {
+        case tg_nm = "tg_nm"
+        case cnt_c = "cnt_c"
+        case sum_c = "sum_c"
+    }
+}
+
+struct mainReportDrill3: Codable {
+    var records: [mainResultsDrill3]
+    enum CodingKeys: String, CodingKey {
+        case records = "records"
+    }
+}
+
+struct mainResultsDrill3: Codable {
+    var g_nm : String
+    var cnt_c : Int
+    var sum_c : Decimal
+    
+    enum CodingKeys: String, CodingKey {
+        case g_nm = "g_nm"
+        case cnt_c = "cnt_c"
+        case sum_c = "sum_c"
+    }
+}*/
 
 
 struct datesForMainResult: Codable {
     var date_from: String
     var date_to: String
+    var employees_id: Int?
+    var check_type_id: Int?
+    var type_goods_id: Int?
     enum CodingKeys: String, CodingKey {
         case date_from = "date_from"
         case date_to = "date_to"
+        case employees_id = "employees_id"
+        case check_type_id = "check_type_id"
+        case type_goods_id = "type_goods_id"
     }
 }
 
@@ -754,5 +804,13 @@ struct stockInventoryResult: Codable {
     enum CodingKeys: String, CodingKey {
         case records_off_sale = "records_off_sale"
         case records_receipts = "records_receipts"
+    }
+}
+
+struct DeviceToken: Codable {
+    var device_token: String?
+    
+    enum CodingKeys: String, CodingKey {
+    case device_token = "device_token"
     }
 }

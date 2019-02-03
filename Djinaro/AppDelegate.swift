@@ -11,7 +11,7 @@ import UserNotifications
 
 enum Identifiers {
     static let viewAction = "VIEW_IDENTIFIER"
-    static let coustomNotification = "NEWS_CATEGORY"
+    static let coustomNotification = "reportsURL"
 }
 
 @UIApplicationMain
@@ -22,9 +22,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        
         UIApplication.shared.applicationIconBadgeNumber = 0
+        UNUserNotificationCenter.current().delegate = self as? UNUserNotificationCenterDelegate
         registerForPushNotifications()
-
+        
         // Override point for customization after application launch.
         return true
     }
@@ -59,6 +61,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tokenParts = deviceToken.map { data in String(format: "%02.2hhx", data) }
         let token = tokenParts.joined()
         print("Device Token: \(token)")
+        let defaults = UserDefaults.init(suiteName: "group.djinaroWidget")
+        defaults?.setValue(token, forKey: "deviceToken")
+        let tokenApp = defaults?.value(forKey:"token") as? String ?? ""
+        let receiptController = ReceiptController(useMultiUrl: true)
+        let addedDeviceToken = DeviceToken.init(device_token: token)
+        receiptController.POSTDeviceSize(token: tokenApp, deviceToken: addedDeviceToken) { (answer) in
+            if let answer = answer {
+                print("token sent")
+            }
+        }
     }
     
     func application(
@@ -91,6 +103,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+   
+    
     func getNotificationSettings() {
         UNUserNotificationCenter.current().getNotificationSettings { settings in
             print("Notification settings: \(settings)")
@@ -102,3 +116,53 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        didReceive response: UNNotificationResponse,
+        withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        // 1
+        let userInfo = response.notification.request.content.userInfo
+        
+        // 2
+        if let aps = userInfo["aps"] as? [String: AnyObject] {
+            print(aps)
+            
+           // (window?.rootViewController as? UITabBarController)?.selectedIndex = 1
+            let url = aps["link_url"] as? String
+            let category = aps["category"] as? String
+            if category == Identifiers.coustomNotification,
+                let url = URL(string: url ?? "http://192.168.88.190/rmk/new#") {
+                let safari = WenderSafariViewController(url: url)
+                
+                window?.topViewController()?.present(safari, animated: true, completion: nil)
+                
+            }
+        }
+        
+        // 4
+        completionHandler()
+    }
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler(.alert)
+    }
+}
+
+extension UIWindow {
+    func topViewController() -> UIViewController? {
+        var top = self.rootViewController
+        while true {
+            if let presented = top?.presentedViewController {
+                top = presented
+            } else if let nav = top as? UINavigationController {
+                top = nav.visibleViewController
+            } else if let tab = top as? UITabBarController {
+                top = tab.selectedViewController
+            } else {
+                break
+            }
+        }
+        return top
+    }
+}

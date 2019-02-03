@@ -44,7 +44,10 @@ class ViewController: UIViewController, UITextFieldDelegate {
             break
         }
     }
-    
+    override func viewDidAppear(_ animated: Bool) {
+        let notREsponce = defaults?.value(forKey:"responce") as? String
+        print(notREsponce)
+    }
     override func viewDidLoad() {
         if let cookies = HTTPCookieStorage.shared.cookies {
             for cookie in cookies {
@@ -67,6 +70,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         let userName = defaults?.value(forKey:"userName") as? String
         let password = defaults?.value(forKey:"password") as? String
         let baseUrl = defaults?.value(forKey:"baseUrl") as? String
+        
         //let userId = defaults.object(forKey:"userId") as? String
         
        
@@ -118,7 +122,13 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 self.defaults?.setValue(password, forKey: "password")
                 self.defaults?.setValue(token.user_id, forKey: "userId")
                 self.defaults?.setValue(token.access_token, forKey: "token")
-                
+                let deviceToken = self.defaults?.value(forKey:"deviceToken") as? String
+                let addedDeviceToken = DeviceToken.init(device_token: deviceToken)
+                receiptController.POSTDeviceSize(token: token.access_token, deviceToken: addedDeviceToken) { (answer) in
+                    if let answer = answer {
+                        print("token sent")
+                    }
+                }
                 
                 if self.defaults?.value(forKey:"baseUrl") as? String == "http://192.168.88.190" || self.defaults?.value(forKey:"baseUrl") as? String == "http://91.203.195.74:5001" {
                     DispatchQueue.main.async {

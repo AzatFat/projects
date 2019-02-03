@@ -1404,7 +1404,36 @@ class ReceiptController {
         }
         task.resume()
     }
-    
+    ///Изменение товара в чеке
+    func PUTChekRecord (token: String, post: CheckRecord, completion: @escaping (String?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("api/CheckRecord/" + String(post.id))
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "PUT"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        let jsonEcoder = JSONEncoder()
+        let jsonData = try? jsonEcoder.encode(post)
+        request.httpBody = jsonData
+        print(request)
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            if let httpResponse = response as? HTTPURLResponse {
+                print("statusCode: \(httpResponse.statusCode)")
+                if httpResponse.statusCode == 200 || httpResponse.statusCode == 204 {
+                    print("responsee 200")
+                    completion("Скидка добавлена")
+                } else {
+                    completion("Произошла ошибка")
+                }
+            }
+            else {
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
     
     //Получение последней смены
     func GetLastShift(token: String, completion: @escaping (Shift?) -> Void) {
@@ -2158,6 +2187,7 @@ class ReceiptController {
         let jsonData = try? jsonEcoder.encode(post)
         request.httpBody = jsonData
         print(request)
+        print(post)
         let task = URLSession.shared.dataTask(with: request){
             (data, response, error) in
             let jsonDecoder = JSONDecoder()
@@ -2216,6 +2246,69 @@ class ReceiptController {
         }
         task.resume()
     }
+    
+    ///Отправление девайс токена
+    func POSTDeviceSize (token: String, deviceToken: DeviceToken, completion: @escaping (String?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("api/Account/DeviceToken/")
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        let jsonEcoder = JSONEncoder()
+        let jsonData = try? jsonEcoder.encode(deviceToken)
+        request.httpBody = jsonData
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            if let httpResponse = response as? HTTPURLResponse {
+                print("statusCode: \(httpResponse.statusCode)")
+                if httpResponse.statusCode == 200 || httpResponse.statusCode == 204 {
+                    print("responsee 200")
+                    completion("Запрос принят")
+                } else {
+                    completion("Произошла ошибка")
+                }
+            }
+        }
+        task.resume()
+    }
+    
+    ///Get Active employees
+    func GETEmployees(token: String, completion: @escaping ([Employees]?) -> Void) {
+        let GetReceipt = baseURL.appendingPathComponent("api/Employees")
+        let components = URLComponents(url: GetReceipt, resolvingAgainstBaseURL: true)!
+        //        components.queryItems = [URLQueryItem(name: "start", value: "0"), URLQueryItem(name: "length", value: "100"),URLQueryItem(name: "search", value: search)]
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode([Employees].self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode([Employees].self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in getting employes report")
+                        print(error)
+                        self.denyAuthorisation(data: data)
+                        completion(nil)
+                    }
+                }
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
+    
+    
+    
 }
 
 

@@ -722,26 +722,7 @@ class QRScannerController: UIViewController, InventoryCellTapped {
             }
         }
     }
-    /*
-    func finishStockInventoryResults() {
-        let alert = UIAlertController(title: "Вы действительно хотите создать поступление", message: nil, preferredStyle: UIAlertController.Style.alert)
-        
-        alert.addAction(UIAlertAction(title: "Да", style: .default, handler: { action in
-            self.receiptController.POSTFinish(token: self.token) { (answer) in
-                DispatchQueue.main.async {
-                    if let answer = answer {
-                        self.error(title: answer)
-                    }
-                }
-            }
-        }))
-        alert.addAction(UIAlertAction(title: "Нет", style: .default, handler: { action in
-            
-        }))
-        
-         self.present(alert, animated: true, completion: nil)
-    }*/
-    
+
     func GetStockInventoryResult() {
         self.receiptController.GetResultInventoryStock(token: self.token) { (answer) in
             DispatchQueue.main.async {

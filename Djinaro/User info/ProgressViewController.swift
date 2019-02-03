@@ -12,7 +12,8 @@ import MBCircularProgressBar
 
 
 protocol GETMainReport {
-    func GETMainResult(dates: datesForMainResult)
+    func GETMainResult()
+    func updateMainResultParametrs(mainParametrs: datesForMainResult)
 }
 
 class ProgressViewController: UIViewController {
@@ -24,10 +25,15 @@ class ProgressViewController: UIViewController {
     private var dateFromPicer: UIDatePicker!
     private var dateToPicker: UIDatePicker!
     
+    
     var delegate: UserInfoViewController?
     
     var dateFrom: UITextField?
     var dateTo: UITextField?
+    var consultant: UITextField?
+    var consultantId : Int? = nil
+    private let pickerView = ToolbarPickerView()
+    var pickerData: [Employees] = []
     
     let defaults = UserDefaults.init(suiteName: "group.djinaroWidget")
     //var userInfoView = UserInfoViewController()
@@ -46,9 +52,11 @@ class ProgressViewController: UIViewController {
         
         dateFrom = createDateText(position: CGRect(x: 5, y: 5, width: 100, height: 40))
         dateTo = createDateText(position: CGRect(x: 120, y: 5, width: 100, height: 40))
+        consultant = createDateText(position: CGRect(x: 5, y: 50, width: 100, height: 40))
+        
         dateTo?.isHidden = true
         dateFrom?.isHidden = true
-        
+        consultant?.isHidden = true
        // getDefaultDaysForMaonReport()
        
         let theDateFromBar = UIToolbar().ToolbarPiker(mySelect: #selector(ProgressViewController.dateFromChangeDismissPicker), clear: #selector(ProgressViewController.clearDateFromDismissPicker))
@@ -68,6 +76,15 @@ class ProgressViewController: UIViewController {
         dateFromPicer?.addTarget(self, action: #selector(ProgressViewController.dateFromChange(dateChanged:)), for: .valueChanged)
         dateToPicker?.addTarget(self, action: #selector(ProgressViewController.dateToChange(dateChanged:)), for: .valueChanged)
         
+        
+        self.consultant?.inputView = self.pickerView
+        self.consultant?.inputAccessoryView = self.pickerView.toolbar
+        
+        self.pickerView.dataSource = self as UIPickerViewDataSource
+        self.pickerView.delegate = self as UIPickerViewDelegate
+        self.pickerView.toolbarDelegate = self as ToolbarPickerViewDelegate
+        
+        GETActiveEmployees()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -248,10 +265,69 @@ class ProgressViewController: UIViewController {
             let dateFromForPost = "\(dateF[1]).\(dateF[0]).\(dateF[2])"
             let dateT = dateTo!.text!.components(separatedBy: ".")
             let dateToForPost = "\(dateT[1]).\(dateT[0]).\(dateT[2])"
-            let dates = datesForMainResult.init(date_from: dateFromForPost, date_to: dateToForPost)
-            delegate?.GETMainResult(dates: dates)
+            let dates = datesForMainResult.init(date_from: dateFromForPost, date_to: dateToForPost, employees_id: consultantId, check_type_id: nil, type_goods_id: nil)
+            delegate?.updateMainResultParametrs(mainParametrs: dates)
+            delegate?.GETMainResult()
         } else {
             print("Delegate nil")
         }
+    }
+    
+    func GETActiveEmployees() {
+        let receiptController = ReceiptController(useMultiUrl: true)
+        let token = self.defaults?.value(forKey:"token") as? String ?? ""
+        receiptController.GETEmployees(token: token) { (employees) in
+            if let employees = employees {
+                for employ in employees {
+                    if employ.is_Active == true {
+                        self.pickerData.append(employ)
+                    }
+                }
+                print(self.pickerData)
+                DispatchQueue.main.async {
+                    self.pickerView.reloadAllComponents()
+                }
+            }
+        }
+    }
+}
+
+
+extension ProgressViewController: UIPickerViewDataSource, UIPickerViewDelegate {
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return self.pickerData.count
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return self.pickerData[row].name
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        self.consultant?.text = self.pickerData[row].name
+        self.consultantId = self.pickerData[row].id
+    }
+}
+
+extension ProgressViewController: ToolbarPickerViewDelegate {
+    
+    func didTapDone() {
+        let row = self.pickerView.selectedRow(inComponent: 0)
+        self.pickerView.selectRow(row, inComponent: 0, animated: false)
+        self.consultant?.text = self.pickerData[row].name
+        self.consultantId = self.pickerData[row].id
+        self.consultant?.resignFirstResponder()
+        self.getRemainReport()
+    }
+    
+    func didTapCancel() {
+        self.consultant?.text = nil
+        self.consultantId = nil
+        self.consultant?.resignFirstResponder()
+        self.getRemainReport()
     }
 }
