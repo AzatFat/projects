@@ -257,7 +257,7 @@ class GoodViewController: UIViewController, UITableViewDelegate, UITableViewData
     func addNewCheck(goodId: Int, sizes_Id: Int, cost: Decimal){
         recieptController.GetLastShift(token: token) { (shift) in
             if let shift = shift {
-                 let newCheck = Check.init(id: 1, customer_Id: 0, employees_Id: Int(self.userId), shift_Id: shift.id, check_Type_Id: 1, payment_Type_Id: nil, cash: nil, card: nil, is_Deferred: nil, is_Cancelled: nil, create_Date: nil, the_Date: nil, customer: nil, checkType: nil, employees: nil, shift: nil, checkRecordList: nil, payment: nil)
+                  let newCheck = Check.init(id: 1, customer_Id: 0, employees_Id: Int(self.userId), shift_Id: shift.id, check_Type_Id: 1, payment_Type_Id: nil, cash: nil, card: nil, is_Deferred: nil, is_Cancelled: nil, create_Date: nil, the_Date: nil, customer: nil, checkType: nil, employees: nil, shift: nil, checkRecordList: nil, payment: nil, totalCost: nil)
                 self.recieptController.POSTCheck(token: self.token, post: newCheck) { (check) in
                     if let check = check {
                         var POSTCheckRecord = CheckRecord.init(id: 1, check_Id: check.id, goods_Id: nil, sizes_Id: nil, employees_Id: Int(self.userId), customer_Id: 0, count: 1, cost: nil, discount: nil, total_Cost: nil, stockRemainsCount: nil, check: nil, goods: nil, sizes: nil, employees: nil, customer: nil)

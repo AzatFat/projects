@@ -271,6 +271,7 @@ struct Check: Codable {
     var shift: Shift?
     var checkRecordList: [CheckRecord]?
     var payment: Payment?
+    var totalCost: Decimal?
     
     enum CodingKeys: String, CodingKey {
         case id = "Id"
@@ -291,6 +292,18 @@ struct Check: Codable {
         case shift = "Shift"
         case checkRecordList = "CheckRecordList"
         case payment = "Payment"
+        case totalCost = "TotalCost"
+    }
+}
+///Печать чеков
+struct CheckPrint: Codable {
+    var id : Int
+    var cash : Decimal?
+    var card: Decimal?
+    enum CodingKeys: String, CodingKey {
+        case id = "id"
+        case cash = "cash"
+        case card = "card"
     }
 }
 

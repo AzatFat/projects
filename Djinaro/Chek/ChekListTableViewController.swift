@@ -29,6 +29,8 @@ class ChekListTableViewController: UITableViewController {
         addNewCheck()
     }
     
+    @IBAction func unwindToCheckList(segue:UIStoryboardSegue) { }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addPreload(start_stop: true)
@@ -147,7 +149,7 @@ class ChekListTableViewController: UITableViewController {
             let controller = segue.destination as! CheckRecordViewController
             controller.check = check
             controller.checkId = check?.id
-            controller.totalCost = checkTotalCost
+           // controller.totalCost = checkTotalCost
         }
     }
     
@@ -168,7 +170,7 @@ class ChekListTableViewController: UITableViewController {
         recieptController.GetLastShift(token: token) { (shift) in
             if let shift = shift {
                 self.lastShiftId = shift.id
-                let newCheck = Check.init(id: 1, customer_Id: 0, employees_Id: Int(self.userId), shift_Id: self.lastShiftId, check_Type_Id: 1, payment_Type_Id: nil, cash: nil, card: nil, is_Deferred: nil, is_Cancelled: nil, create_Date: nil, the_Date: nil, customer: nil, checkType: nil, employees: nil, shift: nil, checkRecordList: nil, payment: nil)
+                let newCheck = Check.init(id: 1, customer_Id: 0, employees_Id: Int(self.userId), shift_Id: self.lastShiftId, check_Type_Id: 1, payment_Type_Id: nil, cash: nil, card: nil, is_Deferred: nil, is_Cancelled: nil, create_Date: nil, the_Date: nil, customer: nil, checkType: nil, employees: nil, shift: nil, checkRecordList: nil, payment: nil, totalCost: nil)
                 self.recieptController.POSTCheck(token: self.token, post: newCheck) { (check) in
                     if let check = check {
                         print(check)

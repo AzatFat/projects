@@ -1266,7 +1266,40 @@ class ReceiptController {
         }
         task.resume()
     }
-    // Удаление чека
+    ///
+    func PUTChek (token: String, post: Check, completion: @escaping (String?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("api/Check/" + String(post.id))
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "PUT"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        let jsonEcoder = JSONEncoder()
+        let jsonData = try? jsonEcoder.encode(post)
+        
+        request.httpBody = jsonData
+        print(request)
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            if let httpResponse = response as? HTTPURLResponse {
+                print("statusCode: \(httpResponse.statusCode)")
+                if httpResponse.statusCode == 200 || httpResponse.statusCode == 204 {
+                    print("responsee 200")
+                    completion("done")
+                } else {
+                    completion("Произошла ошибка")
+                }
+            }
+            else {
+                
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
+    
+    /// Удаление чека
     func DELETECheck (token: String, id: String, completion: @escaping (Check?) -> Void) {
         let PostReceipt = baseURL.appendingPathComponent("/api/Check/" + id)
         let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
@@ -1424,6 +1457,36 @@ class ReceiptController {
                 if httpResponse.statusCode == 200 || httpResponse.statusCode == 204 {
                     print("responsee 200")
                     completion("Скидка добавлена")
+                } else {
+                    completion("Произошла ошибка")
+                }
+            }
+            else {
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
+    ///Печать чека
+    func POSTCheckPrint (token: String, post: CheckPrint, completion: @escaping (String?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("api/check/Print")
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        let jsonEcoder = JSONEncoder()
+        let jsonData = try? jsonEcoder.encode(post)
+        request.httpBody = jsonData
+        print(request)
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            if let httpResponse = response as? HTTPURLResponse {
+                print("statusCode: \(httpResponse.statusCode)")
+                if httpResponse.statusCode == 200 || httpResponse.statusCode == 204 {
+                    print("responsee 200")
+                    completion("done")
                 } else {
                     completion("Произошла ошибка")
                 }

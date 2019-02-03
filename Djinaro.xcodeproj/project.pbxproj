@@ -25,6 +25,9 @@
 		AA7A0C5F21A4BCBD0067FB37 /* GoodsPickerViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7A0C5E21A4BCBD0067FB37 /* GoodsPickerViewType.swift */; };
 		AA830AB32205AC1F0081CD59 /* PayChekViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA830AB22205AC1F0081CD59 /* PayChekViewController.swift */; };
 		AA830AB52205D3640081CD59 /* safaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA830AB42205D3630081CD59 /* safaryViewController.swift */; };
+		AA830AB722070E3C0081CD59 /* TextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA830AB622070E3C0081CD59 /* TextFieldExtension.swift */; };
+		AA830ABB220724920081CD59 /* card.png in Resources */ = {isa = PBXBuildFile; fileRef = AA830AB9220724760081CD59 /* card.png */; };
+		AA830ABC220724920081CD59 /* cash.png in Resources */ = {isa = PBXBuildFile; fileRef = AA830ABA2207248E0081CD59 /* cash.png */; };
 		AA830C46215568C800F004B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA830C45215568C800F004B3 /* AppDelegate.swift */; };
 		AA830C48215568C800F004B3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA830C47215568C800F004B3 /* ViewController.swift */; };
 		AA830C4B215568C900F004B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA830C49215568C900F004B3 /* Main.storyboard */; };
@@ -109,6 +112,9 @@
 		AA825EBE21BD2C7E0046E149 /* MBCircularProgressBar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MBCircularProgressBar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA830AB22205AC1F0081CD59 /* PayChekViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayChekViewController.swift; sourceTree = "<group>"; };
 		AA830AB42205D3630081CD59 /* safaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = safaryViewController.swift; sourceTree = "<group>"; };
+		AA830AB622070E3C0081CD59 /* TextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldExtension.swift; sourceTree = "<group>"; };
+		AA830AB9220724760081CD59 /* card.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = card.png; sourceTree = "<group>"; };
+		AA830ABA2207248E0081CD59 /* cash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cash.png; sourceTree = "<group>"; };
 		AA830C42215568C800F004B3 /* Djinaro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Djinaro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA830C45215568C800F004B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AA830C47215568C800F004B3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -189,6 +195,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		AA830AB822070E880081CD59 /* Exensions */ = {
+			isa = PBXGroup;
+			children = (
+				AA830AB622070E3C0081CD59 /* TextFieldExtension.swift */,
+			);
+			path = Exensions;
+			sourceTree = "<group>";
+		};
 		AA830C39215568C800F004B3 = {
 			isa = PBXGroup;
 			children = (
@@ -198,6 +212,8 @@
 				AA830C43215568C800F004B3 /* Products */,
 				AAF9254C21582DED007D7ACE /* Camera-03.svg */,
 				AAF9254A21582DE4007D7ACE /* Camera-03.png */,
+				AA830AB9220724760081CD59 /* card.png */,
+				AA830ABA2207248E0081CD59 /* cash.png */,
 				AAF9254E21583199007D7ACE /* djinaro.jpg */,
 				AA96D522218F7A09000BB6F8 /* microphone.png */,
 				2881050DA81062024ED0881B /* Frameworks */,
@@ -217,6 +233,7 @@
 		AA830C44215568C800F004B3 /* Djinaro */ = {
 			isa = PBXGroup;
 			children = (
+				AA830AB822070E880081CD59 /* Exensions */,
 				AADC70BA21DF55FD00C97D49 /* Djinaro.entitlements */,
 				AA830C45215568C800F004B3 /* AppDelegate.swift */,
 				AA830AB42205D3630081CD59 /* safaryViewController.swift */,
@@ -457,9 +474,11 @@
 			files = (
 				AA08D08D219E0C77009D0CB1 /* ok.mp3 in Resources */,
 				AA830C50215568D000F004B3 /* LaunchScreen.storyboard in Resources */,
+				AA830ABB220724920081CD59 /* card.png in Resources */,
 				AAF9254B21582DE5007D7ACE /* Camera-03.png in Resources */,
 				AAF9254D21582DED007D7ACE /* Camera-03.svg in Resources */,
 				AA96D523218F7A09000BB6F8 /* microphone.png in Resources */,
+				AA830ABC220724920081CD59 /* cash.png in Resources */,
 				AA830C4D215568D000F004B3 /* Assets.xcassets in Resources */,
 				AA830C4B215568C900F004B3 /* Main.storyboard in Resources */,
 				AAF9254F2158319A007D7ACE /* djinaro.jpg in Resources */,
@@ -545,6 +564,7 @@
 				AA5756C52196C1FF00E561F6 /* CustomerInfoViewController.swift in Sources */,
 				AADB932E2173311F00AA2C34 /* Receipt.swift in Sources */,
 				AA01186721B2E0AC00D44DE6 /* GoodsImageCollectionViewCell.swift in Sources */,
+				AA830AB722070E3C0081CD59 /* TextFieldExtension.swift in Sources */,
 				AAB2984321AD344F00B9F96E /* InventoryViewController.swift in Sources */,
 				AA169CB4217CAB1E00BF4C51 /* NewReceiptDocumentViewController.swift in Sources */,
 				AABF7BC021BF178D00420783 /* ProgressViewController.swift in Sources */,

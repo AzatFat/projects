@@ -31,6 +31,11 @@ class CheckRecordViewController: UIViewController, UITableViewDelegate, UITableV
 
     }
     
+    @IBAction func payCheckBTN(_ sender: Any) {
+        performSegue(withIdentifier: "payCheck", sender: nil)
+
+    }
+    
     @IBAction func unwindToContainerVC(segue: UIStoryboardSegue) {
         
     }
@@ -43,7 +48,7 @@ class CheckRecordViewController: UIViewController, UITableViewDelegate, UITableV
     var userId = ""
     var check: Check?
     var checkId: Int?
-    var totalCost = ""
+    var totalCost: Decimal = 0.0
     
     
     override func viewDidLoad() {
@@ -153,6 +158,14 @@ class CheckRecordViewController: UIViewController, UITableViewDelegate, UITableV
                 controller.checkRecord = checkRecord
             }
         }
+        
+        if segue.identifier == "payCheck" {
+            let controller = segue.destination as! PayChekViewController
+            if let check = check {
+                controller.check = check
+                controller.totalCost = totalCost
+            }
+        }
     }
     
     func checkAppear() {
@@ -175,7 +188,7 @@ class CheckRecordViewController: UIViewController, UITableViewDelegate, UITableV
                                 
                             }
                         }
-                        
+                        self.totalCost = chekTotalCost
                         self.TotalCost.text = chekTotalCost.formattedAmount
                         self.tableView.reloadData()
                     }
