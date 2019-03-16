@@ -232,6 +232,7 @@ class AddReceiptToArrivalViewController: UIViewController, UITableViewDelegate, 
                     controller.receipts.append(receipt)
                 }
             }
+            controller.receipts.sort(by: {$0.sizes_Id! < $1.sizes_Id!})
             controller.good = good
         }
     }
@@ -364,7 +365,6 @@ class AddReceiptToArrivalViewController: UIViewController, UITableViewDelegate, 
         var unsuccessReceipt : [Receipt]?
         var countSuccessReceipt = 0
         let myGroup = DispatchGroup()
-        
         if let receipts = postReceipts {
             addPreload(start_stop: true)
             for receipt in receipts {

@@ -30,6 +30,9 @@ class AddGoodsToArrivalViewController: UIViewController, UITableViewDelegate, UI
             good?.price = Decimal(string: prise)
             addPreload(start_stop: true)
             changeGood(good: good!, message: "цена изменена")
+            if let cost = good?.price, receipts.count != 0 {
+                    changeReceiptsPrise(cost: cost)
+            }
         }
         self.view.endEditing(true)
     }
@@ -104,6 +107,24 @@ class AddGoodsToArrivalViewController: UIViewController, UITableViewDelegate, UI
     override func viewDidAppear(_ animated: Bool) {
         tableVIew.reloadData()
         goodPrise.text = good?.price?.formattedAmount
+    }
+    
+    func changeReceiptsPrise(cost: Decimal) {
+        self.addPreload(start_stop: true)
+        let myGroup = DispatchGroup()
+        for (i, _) in receipts.enumerated() {
+            myGroup.enter()
+            receipts[i].cost = cost
+            receiptController.PUTReceipt(token: token, put: receipts[i], id: String(receipts[i].id)) { (receipt) in
+                myGroup.leave()
+            }
+        }
+        myGroup.notify(queue: .main) {
+            DispatchQueue.main.async {
+                self.tableVIew.reloadData()
+                self.addPreload(start_stop: false)
+            }
+        }
     }
     
     func changeGood(good: Goods, message: String) {
@@ -201,7 +222,7 @@ class AddGoodsToArrivalViewController: UIViewController, UITableViewDelegate, UI
         return ""
     }
     
-    func appendReceipt() {
+  /*  func appendReceipt() {
         if addReceipt != nil {
             print("trying to append")
             if receipts.count != 0 {
@@ -209,8 +230,9 @@ class AddGoodsToArrivalViewController: UIViewController, UITableViewDelegate, UI
             } else {
                 receipts = [addReceipt!]
             }
+            receipts.sort(by: {$0.sizes_Id! < $1.sizes_Id!})
         }
-    }
+    }*/
     
     func changeReceipt() {
         if addReceipt != nil {

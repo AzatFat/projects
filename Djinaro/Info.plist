@@ -21,7 +21,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
-	<string>1.6.8</string>
+	<string>1.6.8.7</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>textreader</string>
@@ -39,8 +39,10 @@
 	<string>We need to access your camera for scanning QR code</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>To Use Item Search</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Please allow access to save photo in your photo library</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>For upload images</string>
+	<string>To use photos for Djinaro Customers</string>
 	<key>NSPrefPaneIconFile</key>
 	<string></string>
 	<key>NSSpeechRecognitionUsageDescription</key>

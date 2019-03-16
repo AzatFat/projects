@@ -121,16 +121,38 @@ class CustomerTableViewController: UITableViewController, UISearchBarDelegate {
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let ViewCustomer = UITableViewRowAction(style: .normal, title: "Редактировать") { (action, indexPath) in
+        let ViewCustomer = UITableViewRowAction(style: .normal, title: "Изменить") { (action, indexPath) in
             self.customer = self.customerList[indexPath.row]
             self.performSegue(withIdentifier: "CreateClient", sender: nil)
         }
-        ViewCustomer.backgroundColor = UIColor.blue
         
-        return [ViewCustomer]
+        let DELETECustomer = UITableViewRowAction(style: .normal, title: "Удалить") { (action, indexPath) in
+              self.deleteCustomer(customerId: self.customerList[indexPath.row].id)
+        }
+        
+        ViewCustomer.backgroundColor = UIColor.blue
+        DELETECustomer.backgroundColor = UIColor.red
+        return [ViewCustomer, DELETECustomer]
     }
     
-    
+    func deleteCustomer(customerId: Int) {
+        let alert = UIAlertController(title: "Удалить клиента?", message: nil, preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "Удалить", style: .default, handler: { action in
+            self.recieptController.DELETECustomer(token: self.token, customerId: String(customerId), completion: { (answer) in
+                if answer == "Клиент удален" {
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                }
+            })
+        }))
+        alert.addAction(UIAlertAction(title: "Отменить", style: .cancel, handler: { action in
+            
+        }))
+        
+        self.present(alert, animated: true,completion : nil)
+    }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = true;

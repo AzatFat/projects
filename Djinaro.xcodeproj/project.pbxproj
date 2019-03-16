@@ -41,6 +41,7 @@
 		AA96D53721905F54000BB6F8 /* CheckRecordsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96D53621905F54000BB6F8 /* CheckRecordsTableViewCell.swift */; };
 		AA96D53A21923381000BB6F8 /* CustomerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96D53921923381000BB6F8 /* CustomerTableViewController.swift */; };
 		AA96D53C21923395000BB6F8 /* CustomerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA96D53B21923395000BB6F8 /* CustomerTableViewCell.swift */; };
+		AA9F50572213793600C8A474 /* CustomerPhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9F50562213793600C8A474 /* CustomerPhotosCollectionViewCell.swift */; };
 		AAAECDE22187B49D00F426B1 /* UserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAECDE12187B49D00F426B1 /* UserInfoViewController.swift */; };
 		AAB2984321AD344F00B9F96E /* InventoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB2984221AD344F00B9F96E /* InventoryViewController.swift */; };
 		AAB2984521AD367A00B9F96E /* InventoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB2984421AD367A00B9F96E /* InventoryTableViewCell.swift */; };
@@ -130,6 +131,7 @@
 		AA96D53621905F54000BB6F8 /* CheckRecordsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckRecordsTableViewCell.swift; sourceTree = "<group>"; };
 		AA96D53921923381000BB6F8 /* CustomerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerTableViewController.swift; sourceTree = "<group>"; };
 		AA96D53B21923395000BB6F8 /* CustomerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerTableViewCell.swift; sourceTree = "<group>"; };
+		AA9F50562213793600C8A474 /* CustomerPhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerPhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		AAAECDE12187B49D00F426B1 /* UserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewController.swift; sourceTree = "<group>"; };
 		AAB2984221AD344F00B9F96E /* InventoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryViewController.swift; sourceTree = "<group>"; };
 		AAB2984421AD367A00B9F96E /* InventoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryTableViewCell.swift; sourceTree = "<group>"; };
@@ -357,6 +359,7 @@
 				AA96D53921923381000BB6F8 /* CustomerTableViewController.swift */,
 				AA96D53B21923395000BB6F8 /* CustomerTableViewCell.swift */,
 				AA5756C42196C1FF00E561F6 /* CustomerInfoViewController.swift */,
+				AA9F50562213793600C8A474 /* CustomerPhotosCollectionViewCell.swift */,
 			);
 			path = Client;
 			sourceTree = "<group>";
@@ -562,6 +565,7 @@
 				AA830C48215568C800F004B3 /* ViewController.swift in Sources */,
 				AA7A0C5D21A49F6F0067FB37 /* GoodChangeViewController.swift in Sources */,
 				AA5756C52196C1FF00E561F6 /* CustomerInfoViewController.swift in Sources */,
+				AA9F50572213793600C8A474 /* CustomerPhotosCollectionViewCell.swift in Sources */,
 				AADB932E2173311F00AA2C34 /* Receipt.swift in Sources */,
 				AA01186721B2E0AC00D44DE6 /* GoodsImageCollectionViewCell.swift in Sources */,
 				AA830AB722070E3C0081CD59 /* TextFieldExtension.swift in Sources */,

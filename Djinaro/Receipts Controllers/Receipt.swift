@@ -131,6 +131,7 @@ struct Goods: Codable {
     var image: String?
     var isArchive: Bool?
     var price_Discount: Decimal?
+    var broadcast_New: Bool?
     
     enum CodingKeys: String, CodingKey {
         case id = "Id"
@@ -150,6 +151,7 @@ struct Goods: Codable {
         case image = "Image"
         case isArchive = "Is_Archive"
         case price_Discount = "Price_Discount"
+        case broadcast_New = "Broadcast_New"
     }
 }
 
@@ -300,10 +302,12 @@ struct CheckPrint: Codable {
     var id : Int
     var cash : Decimal?
     var card: Decimal?
+    var printer: Int?
     enum CodingKeys: String, CodingKey {
         case id = "id"
         case cash = "cash"
         case card = "card"
+        case printer = "printer"
     }
 }
 
@@ -344,6 +348,26 @@ struct CustomerSearch: Codable {
         case data = "data"
     }
 }
+// ИЗображения клиентов
+struct  customerImages: Codable {
+    var id: Int
+    var name: String?
+    var customerId: Int?
+    var base64: String?
+    var is_Main: Bool?
+    var url: imageURLpath?
+    
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "Id"
+        case name = "Name"
+        case customerId = "Customer_Id"
+        case base64 = "Base64"
+        case url = "Url"
+        case is_Main = "Is_Main"
+    }
+}
+
 
 /// Тип чека
 struct CheckType: Codable {

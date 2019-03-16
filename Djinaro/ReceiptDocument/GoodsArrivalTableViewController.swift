@@ -24,7 +24,6 @@ class GoodsArrivalTableViewController: UITableViewController, UISearchBarDelegat
     let defaults = UserDefaults.init(suiteName: "group.djinaroWidget")
     var token = ""
     
-    
     struct Objects {
         
         var sectionName : String!
@@ -48,7 +47,8 @@ class GoodsArrivalTableViewController: UITableViewController, UISearchBarDelegat
         }
         
         for (key, value) in objectDictionary {
-            objectArray.append(Objects(sectionName: key, sectionObjects: value))
+            let sortValue = value.sorted(by: {$0.id > $1.id})
+            objectArray.append(Objects(sectionName: key, sectionObjects: sortValue))
         }
         
         objectArray.sort(by: {$0.sectionName > $1.sectionName})
@@ -174,6 +174,14 @@ class GoodsArrivalTableViewController: UITableViewController, UISearchBarDelegat
         if let receiptListCostCount = receipt.totalCost {
             cell.arrivalPrise.text = receiptListCostCount.formattedAmount
         }
+        
+        if receipt.the_Date != nil {
+            cell.backgroundColor = UIColor.init(red: 181.0/255, green: 251.0/255, blue: 221.0/255, alpha: 0.5)
+        } else {
+            cell.backgroundColor = UIColor.white
+        }
+        
+        
         return cell
     }
     

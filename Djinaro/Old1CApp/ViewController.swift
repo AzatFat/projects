@@ -45,8 +45,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         }
     }
     override func viewDidAppear(_ animated: Bool) {
-        let notREsponce = defaults?.value(forKey:"responce") as? String
-        print(notREsponce)
+        _ = defaults?.value(forKey:"responce") as? String
+       // print(notREsponce)
     }
     override func viewDidLoad() {
         if let cookies = HTTPCookieStorage.shared.cookies {

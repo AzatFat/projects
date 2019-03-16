@@ -1639,7 +1639,7 @@ class ReceiptController {
     }
     
     // Создание клиента
-    func POSTCustomer (token: String, post: Customer, completion: @escaping (String?) -> Void) {
+    func POSTCustomer (token: String, post: Customer, completion: @escaping (Customer?) -> Void) {
         let PostReceipt = baseURL.appendingPathComponent("/api/Customer")
         let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
         let ReceiptURL = components.url!
@@ -1653,12 +1653,25 @@ class ReceiptController {
         print(request)
         let task = URLSession.shared.dataTask(with: request){
             (data, response, error) in
+            let jsonDecoder = JSONDecoder()
             if let data = data{
-                let answer = String(data: data, encoding: String.Encoding.utf8)
-               // print(answer)
-                completion(answer ?? "Неизвестная ошибка")
+                if let list = try? jsonDecoder.decode(Customer.self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode(Customer.self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in getting Customer List")
+                        print(error)
+                        self.denyAuthorisation(data: data)
+                        completion(nil)
+                    }
+                }
+                
             } else {
-                completion("Неизвестная ошибка")
+                completion(nil)
             }
         }
         task.resume()
@@ -1701,6 +1714,177 @@ class ReceiptController {
         }
         task.resume()
     }
+    //Удалить клиента
+    func DELETECustomer (token: String, customerId: String, completion: @escaping (String?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("/api/Customer/" + customerId)
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "DELETE"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        // let jsonEcoder = JSONEncoder()
+        // let jsonData = try? jsonEcoder.encode(post)
+        // request.httpBody = jsonData
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            if let httpResponse = response as? HTTPURLResponse {
+                print("statusCode: \(httpResponse.statusCode)")
+                if httpResponse.statusCode == 200 || httpResponse.statusCode == 204 {
+                    print("responsee 200")
+                    //print(String(data: data!, encoding: String.Encoding.utf8))
+                    completion("Клиент удален")
+                } else {
+                    completion("Произошла ошибка")
+                }
+            }
+        }
+        task.resume()
+    }
+    
+    //Получить фотки
+    func GetCustomerPhotoList(id: String, token: String, completion: @escaping ([customerImages]?) -> Void) {
+        let GetReceipt = baseURL.appendingPathComponent("/api/customer/photos/" + id)
+        let components = URLComponents(url: GetReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        print(request)
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode([customerImages].self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode([customerImages].self, from: data)
+                        completion(product)
+                    } catch let error {
+                        print("error in getting customerPhotosList List")
+                        print(error)
+                        self.denyAuthorisation(data: data)
+                        completion(nil)
+                    }
+                }
+                
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
+    // Получение изображения клиента
+    func getCustomerImage(customerId: String,photoId: String , completion: @escaping (UIImage?) -> Void) {
+        let GetImageGood = baseURL.appendingPathComponent("/photostorage/" + customerId  + "/"  + photoId + ".jpg")
+        let components = URLComponents(url: GetImageGood, resolvingAgainstBaseURL: true)!
+        let GoodURL = components.url!
+        let request = URLRequest(url: GoodURL)
+        print("request is \(request)")
+        let task = URLSession.shared.dataTask(with: request) {(data, response, error) in
+            if let data = data, let image = UIImage(data: data) {
+                print("success image get")
+                completion(image)
+            } else {
+                print("success image error")
+                // print(response)
+                // print(error)
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
+    
+    
+    // Прикрепить фото к Клиенту
+    func POSTCustomerImageAsData (token: String, image: UIImage, customer: Customer, completion: @escaping (customerImages?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("api/photo/Add/" + String(customer.id))
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "POST"
+        let boundary = generateBoundaryString()
+        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        
+        let image_data = image.pngData()
+        
+        let body = NSMutableData()
+        let fname = "image.png"
+        let mimetype = "image/png"
+        
+        body.append("--\(boundary)\r\n".data(using: String.Encoding.utf8)!)
+        body.append("Content-Disposition:form-data; name=\"image\"\r\n\r\n".data(using: String.Encoding.utf8)!)
+        body.append("hi\r\n".data(using: String.Encoding.utf8)!)
+        body.append("--\(boundary)\r\n".data(using: String.Encoding.utf8)!)
+        body.append("Content-Disposition:form-data; name=\"image\"; filename=\"\(fname)\"\r\n".data(using: String.Encoding.utf8)!)
+        body.append("Content-Type: \(mimetype)\r\n\r\n".data(using: String.Encoding.utf8)!)
+        body.append(image_data!)
+        body.append("\r\n".data(using: String.Encoding.utf8)!)
+        body.append("--\(boundary)--\r\n".data(using: String.Encoding.utf8)!)
+        request.httpBody = body as Data
+        
+        print(request)
+        print("data send image")
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            let jsonDecoder = JSONDecoder()
+            if let data = data{
+                if let list = try? jsonDecoder.decode(customerImages.self, from: data) {
+                    completion(list)
+                } else {
+                    do {
+                        let decoder = JSONDecoder()
+                        let product = try decoder.decode(customerImages.self, from: data)
+                        completion(product)
+                    } catch _ {
+                        print("error in Post customerImages")
+                        //print(error)
+                        //print(response)
+                        //print(String(data: data, encoding: String.Encoding.utf8))
+                        self.denyAuthorisation(data: data)
+                        completion(nil)
+                    }
+                }
+                
+            } else {
+                completion(nil)
+            }
+        }
+        task.resume()
+    }
+    // Удаление изображения клиент
+    func DELETECustomerImage (token: String, imageId: String , completion: @escaping (String?) -> Void) {
+        let PostReceipt = baseURL.appendingPathComponent("/api/Photo/" + imageId)
+        let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
+        let ReceiptURL = components.url!
+        var request = URLRequest(url: ReceiptURL)
+        request.httpMethod = "DELETE"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        print(request)
+        let task = URLSession.shared.dataTask(with: request){
+            (data, response, error) in
+            if let httpResponse = response as? HTTPURLResponse {
+                print("statusCode: \(httpResponse.statusCode)")
+                if httpResponse.statusCode == 200 || httpResponse.statusCode == 204 {
+                    print("responsee 200")
+                    completion("Товар удален")
+                }
+            }
+            
+            if let data = data{
+                let answer = String(data: data, encoding: String.Encoding.utf8)
+                // print(answer)
+                completion(answer ?? "Неизвестная ошибка")
+            } else {
+                completion("Неизвестная ошибка")
+            }
+        }
+        task.resume()
+    }
+    
     // Складская инвентаризация
     // Инвентаризация добавление товара к общему количеству
     func POSTInventoryCode (token: String, code: String, post: InventoryCode, completion: @escaping (scannedGoodsInStockinventory?) -> Void) {

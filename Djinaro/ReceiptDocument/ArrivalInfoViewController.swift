@@ -124,9 +124,13 @@ class ArrivalInfoViewController: UIViewController, UITableViewDelegate, UITableV
             self.acceptPrintingAllGoodsReceipts(receiptDocumentId: String(receiptDocumentId), goodId: String(goodId))
         }
         
-        printGoodReceipts.backgroundColor = UIColor.blue
+        let deleteReceipts = UITableViewRowAction(style: .normal, title: "Удалить модель") { (action, indexPath) in
+            self.deleteReceipts(receipts: self.GroupReceiptsList[indexPath.row].objectRaw, indexPath: indexPath.row, indexPathRow: indexPath)
+        }
         
-        return [printGoodReceipts]
+        printGoodReceipts.backgroundColor = UIColor.blue
+        deleteReceipts.backgroundColor = UIColor.red
+        return [printGoodReceipts,deleteReceipts ]
     }
     
     
@@ -337,6 +341,34 @@ class ArrivalInfoViewController: UIViewController, UITableViewDelegate, UITableV
         let alert = UIAlertController(title: "Вы действительно хотите распечатать модель поступления?", message: nil, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Да", style: .default, handler: { action in
             self.PrintAllGoodsReceipts(receiptDocumentId: receiptDocumentId, goodId: goodId)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Нет", style: .cancel, handler: { action in
+            
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func deleteReceipts(receipts: [Receipt], indexPath: Int, indexPathRow: IndexPath) {
+        let alert = UIAlertController(title: "Вы действительно удалить  модель поступления?", message: nil, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Да", style: .default, handler: { action in
+            self.addPreload(start_stop: true)
+            let myGroup = DispatchGroup()
+            for i in receipts {
+                myGroup.enter()
+                self.receiptController.DELETEReceipt(token: self.token, id: String(i.id)) { (receipt) in
+                    myGroup.leave()
+                }
+            }
+            
+            myGroup.notify(queue: .main) {
+                DispatchQueue.main.async {
+                    self.GroupReceiptsList.remove(at: indexPath)
+                    self.tableView.deleteRows(at: [indexPathRow], with: .fade)
+                    self.addPreload(start_stop: false)
+                }
+            }
         }))
         
         alert.addAction(UIAlertAction(title: "Нет", style: .cancel, handler: { action in

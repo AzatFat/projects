@@ -288,7 +288,15 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
         if cell.value.text == ",00" {
             cell.value.text = "0"
         }
-
+        if indexPath.row == mainReport.count - 1 {
+            cell.value.font = UIFont.boldSystemFont(ofSize: 12.0)
+            cell.name.font = UIFont.boldSystemFont(ofSize: 12.0)
+            cell.count.font = UIFont.boldSystemFont(ofSize: 12.0)
+        } else {
+            cell.value.font = UIFont.systemFont(ofSize: 12.0)
+            cell.name.font = UIFont.systemFont(ofSize: 12.0)
+            cell.count.font = UIFont.systemFont(ofSize: 12.0)
+        }
         return cell
     }
     
@@ -297,7 +305,7 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
         case .mainReport:
             //let cell = tableView.cellForRow(at: indexPath as IndexPath)
             tableView.deselectRow(at: indexPath as IndexPath, animated: true)
-            if var parametrs = mainResultParametrs {
+            if var parametrs = mainResultParametrs, indexPath.row != mainReport.count - 1{
                 
                 switch drillType {
                 case .drill_1:
@@ -356,12 +364,40 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
                     }
                     self.mainReport = mainResults.records
                     print(self.mainReport)
+                    
                 }
                 DispatchQueue.main.async {
+                    self.sumCount()
                     self.tableView.reloadData()
                 }
             }
         }
+    }
+    
+    func sumCount() {
+        var sum : Decimal = 0.0
+        let name = "Итог"
+        var count = 0
+        if drillType == .drill_1 {
+            sum = mainReport[0].sum_c ?? 0.0
+            count = mainReport[0].cnt_c ?? 0
+            if mainReport.count > 1 {
+                for (n,i) in mainReport.enumerated() {
+                    if n > 1 {
+                        sum -= i.sum_c ?? 0.0
+                        count -= i.cnt_c ?? 0
+                    }
+                }
+            }
+        } else {
+            for i in mainReport {
+                sum += i.sum_c ?? 0.0
+                count += i.cnt_c ?? 0
+            }
+        }
+        let result = mainResults.init(check_type_id: nil, type_goods_id: nil, name: name, tg_nm: name, g_nm: name, cnt_c: count, sum_c: sum)
+        
+        mainReport.append(result)
     }
     
     func getGoodsType() {

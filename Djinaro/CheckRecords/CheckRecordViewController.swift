@@ -200,32 +200,60 @@ class CheckRecordViewController: UIViewController, UITableViewDelegate, UITableV
     /// Установить скидку на товар
     func alertOnClickCheckRecord(indexPath: Int, checkRecord: CheckRecord) {
         var loginTextField: UITextField?
+        var numberOfGoods: UITextField?
         var newCheckRecord = checkRecord
         
-        let alertController = UIAlertController(title: "Скидка \(newCheckRecord.goods_Id ?? 1)", message: nil, preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Настройки \(newCheckRecord.goods_Id ?? 1)", message: nil, preferredStyle: .alert)
         
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .left
+
+        let messageText = NSMutableAttributedString(
+            string: "Скидка и количество",
+            attributes: [
+                NSAttributedString.Key.paragraphStyle: paragraphStyle,
+                NSAttributedString.Key.foregroundColor: UIColor.black
+            ]
+        )
+   
+        alertController.setValue(messageText, forKey: "attributedMessage")
        // alertController.setValue(messageText, forKey: "attributedMessage")
         alertController.addTextField { (textField) -> Void in
             loginTextField = textField
             loginTextField?.delegate = self as? UITextFieldDelegate //REQUIRED
-            loginTextField?.placeholder = "Количество товаров"
+            loginTextField?.placeholder = "Сумма скидки"
             loginTextField?.keyboardType = .decimalPad
         }
+        
+        alertController.addTextField { (textField) -> Void in
+            numberOfGoods = textField
+            numberOfGoods?.delegate = self as? UITextFieldDelegate //REQUIRED
+            numberOfGoods?.placeholder = "Количество"
+            numberOfGoods?.text = "\(checkRecord.count ?? 1)"
+            numberOfGoods?.keyboardType = .decimalPad
+        }
+        
         
         let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
         let putDiscount = UIAlertAction(title: "Установить", style: .default) { (action) in
             
-            if let textField = loginTextField?.text, textField != "" {
-                newCheckRecord.discount = Decimal(string: textField)
-                self.recieptController.PUTChekRecord(token: self.token, post: newCheckRecord, completion: { (checkRecord) in
-                    if let checkRecord = checkRecord {
-                        print(checkRecord)
-                        DispatchQueue.main.async {
-                            self.checkAppear()
-                        }
-                    }
-                })
+            let textField = loginTextField?.text
+            let countText = numberOfGoods?.text
+            if countText == "" {
+                newCheckRecord.count = 1
+            } else {
+                newCheckRecord.count = Int(countText ?? "1")
             }
+            newCheckRecord.discount = Decimal(string: textField ?? "0")
+            self.recieptController.PUTChekRecord(token: self.token, post: newCheckRecord, completion: { (checkRecord) in
+                if let checkRecord = checkRecord {
+                    print(checkRecord)
+                    DispatchQueue.main.async {
+                        self.checkAppear()
+                    }
+                }
+            })
+            
         }
         
         alertController.addAction(cancelAction)

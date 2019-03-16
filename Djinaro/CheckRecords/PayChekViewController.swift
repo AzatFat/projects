@@ -32,7 +32,24 @@ class PayChekViewController: UIViewController {
     
     
     @IBAction func payCheckBTN(_ sender: Any) {
-        payCheck()
+        let alert = UIAlertController(title: "Выберите принтер", message: nil, preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "принтер 1", style: .default, handler: { action in
+            self.payCheck(printer: 1)
+            
+        }))
+        
+        alert.addAction(UIAlertAction(title: "принтер 2", style: .default, handler: { action in
+            self.payCheck(printer: 2)
+            
+        }))
+        
+        alert.addAction(UIAlertAction(title: "принтер 3", style: .default, handler: { action in
+            self.payCheck(printer: 3)
+            
+        }))
+        self.present(alert, animated: true,completion : nil)
+        
     }
     
     @IBAction func PayTypeAction(_ sender: Any) {
@@ -107,10 +124,10 @@ class PayChekViewController: UIViewController {
         cashSum.resignFirstResponder()
     }
 
-    func payCheck() {
+    func payCheck(printer: Int) {
         if let check = check, let totalCost = totalCost, cashSumNum + cardSumNum >= totalCost, cardSumNum <= totalCost {
             addPreload(start_stop: true)
-            let printCheck = CheckPrint.init(id: check.id, cash: totalCost - cardSumNum, card: cardSumNum)
+            let printCheck = CheckPrint.init(id: check.id, cash: totalCost - cardSumNum, card: cardSumNum, printer: printer)
             let putCheck = Check.init(id: check.id, customer_Id: check.customer_Id, employees_Id: check.employees_Id, shift_Id: check.shift_Id, check_Type_Id: check.check_Type_Id, payment_Type_Id: check.payment_Type_Id, cash: nil, card: nil, is_Deferred: nil, is_Cancelled: nil, create_Date: nil, the_Date: nil, customer: nil, checkType: nil, employees: nil, shift: nil, checkRecordList: nil, payment: nil, totalCost: nil)
             
             recieptController.PUTChek(token: token, post: putCheck) { (answerPutChek) in
@@ -120,8 +137,12 @@ class PayChekViewController: UIViewController {
                     self.recieptController.POSTCheckPrint(token: self.token, post: printCheck) { (answer) in
                         if let answer = answer, answer == "done" {
                             DispatchQueue.main.async {
-                                self.error(title: "Чек проведен")
-                                self.addPreload(start_stop: true)
+                                if check.payment_Type_Id == 2 || check.payment_Type_Id == 3 {
+                                    self.printAnotherCheck(check: printCheck)
+                                } else {
+                                    self.error(title: "Чек проведен")
+                                    self.addPreload(start_stop: true)
+                                }
                             }
                         } else {
                             DispatchQueue.main.async {
@@ -142,6 +163,29 @@ class PayChekViewController: UIViewController {
         }
     }
     
+    func printAnotherCheck(check: CheckPrint) {
+        
+        let alert = UIAlertController(title: "Распечать чек повторно", message: nil, preferredStyle: UIAlertController.Style.alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            self.recieptController.POSTCheckPrint(token: self.token, post: check) { (answer) in
+                if let answer = answer, answer == "done" {
+                    DispatchQueue.main.async {
+                        self.error(title: "Чек проведен")
+                        self.addPreload(start_stop: true)
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.error(title: " Произошла ошибка при проведении чека")
+                        self.addPreload(start_stop: true)
+                    }
+                }
+            }
+        }))
+        
+        self.present(alert, animated: true,completion : nil)
+        
+    }
     
     func error(title : String) {
         //self.addPreload(start_stop: false)

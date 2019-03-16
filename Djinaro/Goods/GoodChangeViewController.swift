@@ -29,6 +29,7 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
     
     @IBOutlet var archiveFlag: UISwitch!
     
+    @IBOutlet var showOnSite: UISwitch!
     @IBOutlet var goodsImagesCollection: UICollectionView!
     
     @IBAction func saveButtonAction(_ sender: Any) {
@@ -53,16 +54,18 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
         let price_Discount = GoodDiscountPrice.text
         
         if var good = good {
+            print(good.broadcast_New)
             good.name = name
             good.location = location
             good.price = Decimal(string: price)
             good.type_Goods_Id = typeGoodId != 0 ? typeGoodId: good.type_Goods_Id
             good.isArchive = archiveFlag.isOn ? false : true
+            good.broadcast_New = showOnSite.isOn ? true : false
             good.price_Discount = Decimal(string: price_Discount ?? "0")
-            
+            print(good.broadcast_New)
             changeGood(good: good)
         } else {
-            let newGood = Goods.init(id: 1, group_Goods_Id: nil, name: name, code: nil, description: nil, location: location, vendor_Code: nil, groupGoods: nil, type_Goods_Id: typeGoodId, type_Goods: nil, available_sizes: nil, price: Decimal(string: price), priceReceipt: nil, images: nil, image: nil, isArchive: false, price_Discount: Decimal(string: price_Discount ?? "0"))
+            let newGood = Goods.init(id: 1, group_Goods_Id: nil, name: name, code: nil, description: nil, location: location, vendor_Code: nil, groupGoods: nil, type_Goods_Id: typeGoodId, type_Goods: nil, available_sizes: nil, price: Decimal(string: price), priceReceipt: nil, images: nil, image: nil, isArchive: false, price_Discount: Decimal(string: price_Discount ?? "0"), broadcast_New: true)
            createGood(good:newGood)
         }
     }
@@ -104,6 +107,7 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
             }
             GoodType.text = good?.type_Goods?.name
             archiveFlag.isOn = good?.isArchive ?? true ? false : true
+            showOnSite.isOn = good?.broadcast_New ?? true ? true : false
             if let priceDiscount = good?.price_Discount {
                 GoodDiscountPrice.text = priceDiscount.formattedAmount
                 GoodDiscountPrice.text = GoodDiscountPrice.text == ",00" ? "" : GoodDiscountPrice.text
@@ -347,8 +351,6 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
                 self.SelectedAssets.append(asset[i])
             }
             self.convertAssetToImages()
-            
-            
         }, completion: nil)
     }
     
