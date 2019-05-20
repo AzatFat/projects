@@ -67,7 +67,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let receiptController = ReceiptController(useMultiUrl: true)
         let addedDeviceToken = DeviceToken.init(device_token: token)
         receiptController.POSTDeviceSize(token: tokenApp, deviceToken: addedDeviceToken) { (answer) in
-            if let answer = answer {
+            if answer != nil {
                 print("token sent")
             }
         }

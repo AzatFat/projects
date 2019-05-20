@@ -4,11 +4,13 @@ PODS:
     - BSGridCollectionViewLayout (= 1.2.2)
     - BSImageView (= 1.0.2)
   - BSImageView (1.0.2)
+  - JTAppleCalendar (7.1.6)
   - MBCircularProgressBar (0.3.5)
   - NewPopMenu (2.1.1)
 
 DEPENDENCIES:
   - BSImagePicker (~> 2.8)
+  - JTAppleCalendar (~> 7.0)
   - MBCircularProgressBar
   - NewPopMenu (~> 2.0)
 
@@ -17,6 +19,7 @@ SPEC REPOS:
     - BSGridCollectionViewLayout
     - BSImagePicker
     - BSImageView
+    - JTAppleCalendar
     - MBCircularProgressBar
     - NewPopMenu
 
@@ -24,9 +27,10 @@ SPEC CHECKSUMS:
   BSGridCollectionViewLayout: 3e6f23b3a2b4f0ca9afae09ca01389d1057f7b32
   BSImagePicker: 553707de1adaad42eac252e0b84d20dbdba83fe9
   BSImageView: ab22ff8cae61f1ae17a3c9efeeb216af3cf84a09
+  JTAppleCalendar: abb30678f42a4ef8a340a932b1dcb8c85a33dac2
   MBCircularProgressBar: 0b795b722a5eb5b0923822f90474e2576a1a7855
   NewPopMenu: 60d67846a401964dcaa51bffb792f04f6fe2fc76
 
-PODFILE CHECKSUM: 0f034dcc4e1a3e62cac1740577a4cebcc2886ff2
+PODFILE CHECKSUM: 00029c833222d2d34d2da31cb4ee72cd73419491
 
 COCOAPODS: 1.5.3

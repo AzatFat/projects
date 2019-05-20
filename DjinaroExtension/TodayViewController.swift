@@ -24,7 +24,7 @@ class TodayViewController: UIViewController, NCWidgetProviding, UITableViewDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print("loaded")
         self.extensionContext?.widgetLargestAvailableDisplayMode = .expanded
         // Do any additional setup after loading the view from its nib.
         tableView.reloadData()

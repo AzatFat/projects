@@ -9,7 +9,7 @@
 import UIKit
 
 
-class UserInfoViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, GETMainReport  {
+ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, GETMainReport  {
 
     let defaults = UserDefaults.init(suiteName: "group.djinaroWidget")
     var userAchivement : userListAchivements?
@@ -164,7 +164,7 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-     func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         switch reportType {
         case .consultReport:
@@ -174,9 +174,7 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         switch reportType {
         case.consultReport:
             if let tableSection = TableSection(rawValue: section), let typeAchivements = data[tableSection] {
@@ -191,7 +189,6 @@ class UserInfoViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: 35))
         view.backgroundColor = UIColor(red: 232.0/255, green: 240.0/227, blue: 220.0/255.0, alpha: 0.7)
-        
         switch reportType {
         case.consultReport:
             let label = UILabel(frame: CGRect(x: 15, y: 0, width: tableView.bounds.width - 35, height: 25))

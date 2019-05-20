@@ -54,7 +54,7 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
         let price_Discount = GoodDiscountPrice.text
         
         if var good = good {
-            print(good.broadcast_New)
+            //print(good.broadcast_New)
             good.name = name
             good.location = location
             good.price = Decimal(string: price)
@@ -62,7 +62,7 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
             good.isArchive = archiveFlag.isOn ? false : true
             good.broadcast_New = showOnSite.isOn ? true : false
             good.price_Discount = Decimal(string: price_Discount ?? "0")
-            print(good.broadcast_New)
+            //print(good.broadcast_New)
             changeGood(good: good)
         } else {
             let newGood = Goods.init(id: 1, group_Goods_Id: nil, name: name, code: nil, description: nil, location: location, vendor_Code: nil, groupGoods: nil, type_Goods_Id: typeGoodId, type_Goods: nil, available_sizes: nil, price: Decimal(string: price), priceReceipt: nil, images: nil, image: nil, isArchive: false, price_Discount: Decimal(string: price_Discount ?? "0"), broadcast_New: true)
@@ -386,7 +386,8 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
         let receiptController = ReceiptController(useMultiUrl: true)
         let defaults = UserDefaults.init(suiteName: "group.djinaroWidget")
         let token = defaults?.value(forKey:"token") as? String ?? ""
-        receiptController.POSTGoodImageAsData(token: token, image: image, good: good) { (postedImage) in
+        
+        receiptController.POSTGoodImageAsData(token: token, image: image.fixOrientation()!, good: good) { (postedImage) in
             if let posted = postedImage {
                 DispatchQueue.main.async {
                     self.goodUIImagesDict.append(goodUIimages.init(id: String(posted.id), image: image, main: false))
@@ -529,13 +530,6 @@ extension GoodChangeViewController: ToolbarPickerViewDelegate {
     }
 }
 
-extension UIImage {
-    func toBase64() -> String? {
-        guard let imageData = self.pngData() else { return nil }
-        return imageData.base64EncodedString(options: Data.Base64EncodingOptions.lineLength64Characters)
-    }
-}
-
 
 extension UIAlertController {
     func addImage(image: UIImage) {
@@ -567,22 +561,3 @@ extension UIAlertController {
         self.addAction(imgAction)
     }
 }
-
-extension UIImage {
-    func resizeImage(targetSize: CGSize) -> UIImage {
-        let size = self.size
-        let widthRatio  = targetSize.width  / size.width
-        let heightRatio = targetSize.height / size.height
-        let newSize = widthRatio > heightRatio ?  CGSize(width: size.width * heightRatio, height: size.height * heightRatio) : CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
-        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
-        
-        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
-        self.draw(in: rect)
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        //print(newImage!.size)
-        return newImage!
-    }
-}
-
-

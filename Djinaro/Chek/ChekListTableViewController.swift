@@ -37,6 +37,16 @@ class ChekListTableViewController: UITableViewController {
        // self.title = "Мои открытые чеки"
         token = defaults?.value(forKey:"token") as? String ?? ""
         userId = defaults?.value(forKey:"userId") as? String ?? ""
+        getCheks()
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        getCheks()
+        
+    }
+
+    func getCheks() {
         recieptController.GetCheckList(userId: userId, token: token) { (chekList) in
             if let chekList = chekList {
                 self.checkList = chekList
@@ -47,19 +57,6 @@ class ChekListTableViewController: UITableViewController {
             }
         }
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        recieptController.GetCheckList(userId: userId,token: token) { (chekList) in
-            if let chekList = chekList {
-                self.checkList = chekList
-            }
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
-    }
-
-    
     
     // MARK: - Table view data source
 

@@ -9,9 +9,6 @@
 import Foundation
 import UIKit
 
-
-
-
 class ReceiptController {
    // var baseURL = URL(string: "http://91.203.195.74:5001")!
     var baseURL = URL(string: "http://192.168.88.190")!
@@ -32,7 +29,6 @@ class ReceiptController {
             }
         }
     }
-    
     
     // Token
     
@@ -230,7 +226,7 @@ class ReceiptController {
     }
     // Изменение документа поступления
     func PUTReceiptDocument (token: String, put: ReceiptDocument, id: String,completion: @escaping (ReceiptDocument?) -> Void) {
-        let PostReceipt = baseURL.appendingPathComponent("/api/ReceiptDocument/" + id)
+        let PostReceipt = baseURL.appendingPathComponent("/api/ /" + id)
         let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!
         let ReceiptURL = components.url!
         var request = URLRequest(url: ReceiptURL)
@@ -926,9 +922,9 @@ class ReceiptController {
                         completion(product)
                     } catch _ {
                         print("error in Post goodsImages")
-                        //print(error)
-                        //print(response)
-                        //print(String(data: data, encoding: String.Encoding.utf8))
+                       // print(error)
+                       // print(response)
+                       // print(String(data: data, encoding: String.Encoding.utf8))
                         self.denyAuthorisation(data: data)
                         completion(nil)
                     }
@@ -1162,7 +1158,6 @@ class ReceiptController {
                 completion(nil)
             }
         }
-        
         task.resume()
     }
     // Чеки (список чеков)
@@ -1603,7 +1598,6 @@ class ReceiptController {
     }
     
 //Поиск клиентов
-
     func GetCustomerSearch(token: String, search:String, completion: @escaping ([Customer]?) -> Void) {
         let GetReceipt = baseURL.appendingPathComponent("api/customer/Search")
         var components = URLComponents(url: GetReceipt, resolvingAgainstBaseURL: true)!
@@ -2061,6 +2055,7 @@ class ReceiptController {
         }
         task.resume()
     }
+    
     // отсканированные товары пользователем
     func GetStockInventoryGoodsByUser(typeGood: String, token: String, userId: String, is_all: Bool,completion: @escaping (stockInventoryView?) -> Void) {
         let GetReceipt = baseURL.appendingPathComponent("/api/Inventory/View/" + typeGood)
@@ -2420,7 +2415,7 @@ class ReceiptController {
         task.resume()
     }
     
-    
+    // Отчет по продажам
     func POSTMainReport (token: String,  post: datesForMainResult, completion: @escaping (mainReport?) -> Void) {
         let PostReceipt = baseURL.appendingPathComponent("api/report/main_results")
         let components = URLComponents(url: PostReceipt, resolvingAgainstBaseURL: true)!

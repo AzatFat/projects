@@ -140,7 +140,6 @@ class AddGoodsToArrivalViewController: UIViewController, UITableViewDelegate, UI
                     self.delegate?.changeGoodInGoodsTable(index: self.goodIndexFromGoodsTableVC!, good: self.good!)
                 } else {
                     print("delegate is nil")
-                    
                 }
                 
                 self.addPreload(start_stop: false)

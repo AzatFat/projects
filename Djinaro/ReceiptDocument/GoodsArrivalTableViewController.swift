@@ -56,7 +56,6 @@ class GoodsArrivalTableViewController: UITableViewController, UISearchBarDelegat
     }
     
     func getReceiptDocuments() {
-        print("token when function work \(token)")
         recieptController.GetReceiptDocuments(token: token) { (listReceipt) in
             if let listReceipt = listReceipt {
                 print("GetReceiptDocuments get succes")
@@ -133,8 +132,10 @@ class GoodsArrivalTableViewController: UITableViewController, UISearchBarDelegat
     
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        print("search button clicked")
+        guard let scopeString = searchBar.scopeButtonTitles? [searchBar.selectedScopeButtonIndex] else {return }
         
-        guard (searchBar.scopeButtonTitles? [searchBar.selectedScopeButtonIndex]) != nil else {return }
+        print("search button clicked_2")
         searchBar.showsCancelButton = false;
         searchBar.showsScopeBar = false
         searchBar.sizeToFit()

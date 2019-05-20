@@ -782,11 +782,8 @@ extension QRScannerController: AVCaptureMetadataOutputObjectsDelegate {
             return
         }
         
-        
-        
         // Get the metadata object.
         let metadataObj = metadataObjects[0] as! AVMetadataMachineReadableCodeObject
-        
         
         if supportedCodeTypes.contains(metadataObj.type) {
             // If the found metadata is equal to the QR code metadata (or barcode) then update the status label's text and set the bounds
@@ -812,7 +809,7 @@ extension QRScannerController: AVCaptureMetadataOutputObjectsDelegate {
                     found_text = (urlText[0] == "https:" || urlText[0] == "http:") ? urlText[urlText.count - 1] : found_text
                     searchType = "POSTFrontInventoryShop"
                     
-                } else if urlText[0] == "https:" && checkRecord == nil{
+                }else if urlText[0] == "https:" && checkRecord == nil{
                     
                     searchType = "findGood"
                     found_text = urlText[urlText.count - 1]

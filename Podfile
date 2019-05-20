@@ -9,5 +9,6 @@ target 'Djinaro' do
   pod "MBCircularProgressBar"
   pod "BSImagePicker", "~> 2.8"
   pod 'NewPopMenu', '~> 2.0'
+  pod 'JTAppleCalendar', '~> 7.0'
 
 end

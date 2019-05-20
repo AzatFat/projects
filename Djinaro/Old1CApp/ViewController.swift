@@ -125,7 +125,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
                 let deviceToken = self.defaults?.value(forKey:"deviceToken") as? String
                 let addedDeviceToken = DeviceToken.init(device_token: deviceToken)
                 receiptController.POSTDeviceSize(token: token.access_token, deviceToken: addedDeviceToken) { (answer) in
-                    if let answer = answer {
+                    if answer != nil {
                         print("token sent")
                     }
                 }
