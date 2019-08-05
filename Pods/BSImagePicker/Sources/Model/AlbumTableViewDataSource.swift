@@ -27,10 +27,9 @@ import Photos
 Implements the UITableViewDataSource protocol with a data source and cell factory
 */
 final class AlbumTableViewDataSource : NSObject, UITableViewDataSource {
-    @objc let fetchResults: [PHFetchResult<PHAssetCollection>]
-    fileprivate let albumCellIdentifier = "albumCell"
+    let fetchResults: [PHFetchResult<PHAssetCollection>]
     
-    @objc init(fetchResults: [PHFetchResult<PHAssetCollection>]) {
+    init(fetchResults: [PHFetchResult<PHAssetCollection>]) {
         self.fetchResults = fetchResults
         
         super.init()
@@ -45,7 +44,7 @@ final class AlbumTableViewDataSource : NSObject, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: albumCellIdentifier, for: indexPath) as! AlbumCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: AlbumCell.cellIdentifier, for: indexPath) as! AlbumCell
         let cachingManager = PHCachingImageManager.default() as? PHCachingImageManager
         cachingManager?.allowsCachingHighQualityImages = false
         
@@ -54,19 +53,17 @@ final class AlbumTableViewDataSource : NSObject, UITableViewDataSource {
         // Title
         cell.albumTitleLabel.text = album.localizedTitle
         
-        // Selection style
-        cell.selectionStyle = .none
-        
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors = [
             NSSortDescriptor(key: "creationDate", ascending: false)
         ]
         fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
-        
+
+        let scale = UIScreen.main.scale
+        let imageSize = CGSize(width: 79 * scale, height: 79 * scale)
+        let imageContentMode: PHImageContentMode = .aspectFill
         let result = PHAsset.fetchAssets(in: album, options: fetchOptions)
         result.enumerateObjects({ (asset, idx, stop) in
-            let imageSize = CGSize(width: 79, height: 79)
-            let imageContentMode: PHImageContentMode = .aspectFill
             switch idx {
             case 0:
                 PHCachingImageManager.default().requestImage(for: asset, targetSize: imageSize, contentMode: imageContentMode, options: nil) { (result, _) in

@@ -1,6 +1,6 @@
 // The MIT License (MIT)
 //
-// Copyright (c) 2015 Joakim Gyllström
+// Copyright (c) 2019 Joakim Gyllström
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -20,37 +20,31 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import UIKit
+import Foundation
+import Photos
 
-/**
-Cell for photo albums in the albums drop down menu
-*/
-final class AlbumCell: UITableViewCell {
-    @IBOutlet weak var firstImageView: UIImageView!
-    @IBOutlet weak var secondImageView: UIImageView!
-    @IBOutlet weak var thirdImageView: UIImageView!
-    @IBOutlet weak var albumTitleLabel: UILabel!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        // Add a little shadow to images views
-        for imageView in [firstImageView, secondImageView, thirdImageView] {
-            imageView?.layer.shadowColor = UIColor.white.cgColor
-            imageView?.layer.shadowRadius = 1.0
-            imageView?.layer.shadowOffset = CGSize(width: 0.5, height: -0.5)
-            imageView?.layer.shadowOpacity = 1.0
-        }
+class AssetStore {
+    private(set) var assets: [PHAsset]
+
+    init(assets: [PHAsset] = []) {
+        self.assets = assets
     }
-    
-    override var isSelected: Bool {
-        didSet {
-            // Selection checkmark
-            if isSelected == true {
-                accessoryType = .checkmark
-            } else {
-                accessoryType = .none
-            }
-        }
+
+    var count: Int {
+        return assets.count
+    }
+
+    func contains(_ asset: PHAsset) -> Bool {
+        return assets.contains(asset)
+    }
+
+    func append(_ asset: PHAsset) {
+        guard contains(asset) == false else { return }
+        assets.append(asset)
+    }
+
+    func remove(_ asset: PHAsset) {
+        guard let index = assets.firstIndex(of: asset) else { return }
+        assets.remove(at: index)
     }
 }

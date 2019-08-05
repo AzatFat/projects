@@ -23,70 +23,48 @@
 import UIKit
 import Photos
 import BSGridCollectionViewLayout
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
-}
-
 
 final class PhotosViewController : UICollectionViewController {    
-    @objc var selectionClosure: ((_ asset: PHAsset) -> Void)?
-    @objc var deselectionClosure: ((_ asset: PHAsset) -> Void)?
-    @objc var cancelClosure: ((_ assets: [PHAsset]) -> Void)?
-    @objc var finishClosure: ((_ assets: [PHAsset]) -> Void)?
-    @objc var selectLimitReachedClosure: ((_ selectionLimit: Int) -> Void)?
+    var selectionClosure: ((_ asset: PHAsset) -> Void)?
+    var deselectionClosure: ((_ asset: PHAsset) -> Void)?
+    var cancelClosure: ((_ assets: [PHAsset]) -> Void)?
+    var finishClosure: ((_ assets: [PHAsset]) -> Void)?
+    var selectLimitReachedClosure: ((_ selectionLimit: Int) -> Void)?
     
-    @objc var doneBarButton: UIBarButtonItem?
-    @objc var cancelBarButton: UIBarButtonItem?
-    @objc var albumTitleView: UIButton?
+    var doneBarButton: UIBarButtonItem?
+    var cancelBarButton: UIBarButtonItem?
+    var albumTitleView: UIButton?
     
-    @objc let expandAnimator = ZoomAnimator()
-    @objc let shrinkAnimator = ZoomAnimator()
+    let expandAnimator = ZoomAnimator()
+    let shrinkAnimator = ZoomAnimator()
     
-    fileprivate var photosDataSource: PhotoCollectionViewDataSource?
-    fileprivate var albumsDataSource: AlbumTableViewDataSource
-    fileprivate let cameraDataSource: CameraCollectionViewDataSource
-    fileprivate var composedDataSource: ComposedCollectionViewDataSource?
-    
-    fileprivate var defaultSelections: PHFetchResult<PHAsset>?
+    private var photosDataSource: PhotoCollectionViewDataSource?
+    private var albumsDataSource: AlbumTableViewDataSource
+    private let cameraDataSource: CameraCollectionViewDataSource
+    private var composedDataSource: ComposedCollectionViewDataSource?
+    private var assetStore: AssetStore
     
     let settings: BSImagePickerSettings
     
-    fileprivate let doneBarButtonTitle: String = NSLocalizedString("Done", comment: "Done")
+    private let doneBarButtonTitle: String = NSLocalizedString("Done", comment: "Done")
     
-    @objc lazy var albumsViewController: AlbumsViewController = {
-        let storyboard = UIStoryboard(name: "Albums", bundle: BSImagePickerViewController.bundle)
-        let vc = storyboard.instantiateInitialViewController() as! AlbumsViewController
+    lazy var albumsViewController: AlbumsViewController = {
+        let vc = AlbumsViewController()
         vc.tableView.dataSource = self.albumsDataSource
         vc.tableView.delegate = self
         
         return vc
     }()
     
-    fileprivate lazy var previewViewContoller: PreviewViewController? = {
+    private lazy var previewViewContoller: PreviewViewController? = {
         return PreviewViewController(nibName: nil, bundle: nil)
     }()
     
-    required init(fetchResults: [PHFetchResult<PHAssetCollection>], defaultSelections: PHFetchResult<PHAsset>? = nil, settings aSettings: BSImagePickerSettings) {
+    required init(fetchResults: [PHFetchResult<PHAssetCollection>], assetStore: AssetStore, settings aSettings: BSImagePickerSettings) {
         albumsDataSource = AlbumTableViewDataSource(fetchResults: fetchResults)
         cameraDataSource = CameraCollectionViewDataSource(settings: aSettings, cameraAvailable: UIImagePickerController.isSourceTypeAvailable(.camera))
-        self.defaultSelections = defaultSelections
         settings = aSettings
+        self.assetStore = assetStore
         
         super.init(collectionViewLayout: GridCollectionViewLayout())
         
@@ -122,7 +100,7 @@ final class PhotosViewController : UICollectionViewController {
         navigationItem.titleView = albumTitleView
 
         if let album = albumsDataSource.fetchResults.first?.firstObject {
-            initializePhotosDataSource(album, selections: defaultSelections)
+            initializePhotosDataSource(album)
             updateAlbumTitle(album)
             collectionView?.reloadData()
         }
@@ -149,28 +127,13 @@ final class PhotosViewController : UICollectionViewController {
     
     // MARK: Button actions
     @objc func cancelButtonPressed(_ sender: UIBarButtonItem) {
-        guard let closure = cancelClosure, let photosDataSource = photosDataSource else {
-            dismiss(animated: true, completion: nil)
-            return
-        }
-        DispatchQueue.global().async {
-            closure(photosDataSource.selections)
-        }
-        
         dismiss(animated: true, completion: nil)
+        cancelClosure?(assetStore.assets)
     }
     
     @objc func doneButtonPressed(_ sender: UIBarButtonItem) {
-        guard let closure = finishClosure, let photosDataSource = photosDataSource else {
-            dismiss(animated: true, completion: nil)
-            return
-        }
-        
-        DispatchQueue.global().async {
-            closure(photosDataSource.selections)
-        }
-        
         dismiss(animated: true, completion: nil)
+        finishClosure?(assetStore.assets)
     }
     
     @objc func albumButtonPressed(_ sender: UIButton) {
@@ -229,45 +192,42 @@ final class PhotosViewController : UICollectionViewController {
     }
     
     // MARK: Private helper methods
-    @objc func updateDoneButton() {
-        guard let photosDataSource = photosDataSource else { return }
-
-        if photosDataSource.selections.count > 0 {
-            doneBarButton = UIBarButtonItem(title: "\(doneBarButtonTitle) (\(photosDataSource.selections.count))", style: .done, target: doneBarButton?.target, action: doneBarButton?.action)
+    func updateDoneButton() {
+        if assetStore.assets.count > 0 {
+            doneBarButton = UIBarButtonItem(title: "\(doneBarButtonTitle) (\(assetStore.count))", style: .done, target: doneBarButton?.target, action: doneBarButton?.action)
         } else {
             doneBarButton = UIBarButtonItem(title: doneBarButtonTitle, style: .done, target: doneBarButton?.target, action: doneBarButton?.action)
         }
 
         // Enabled?
-        doneBarButton?.isEnabled = photosDataSource.selections.count > 0
+        doneBarButton?.isEnabled = assetStore.assets.count > 0
 
         navigationItem.rightBarButtonItem = doneBarButton
     }
 
-    @objc func updateAlbumTitle(_ album: PHAssetCollection) {
+    func updateAlbumTitle(_ album: PHAssetCollection) {
         guard let title = album.localizedTitle else { return }
         // Update album title
         albumTitleView?.setAlbumTitle(title)
     }
     
-  @objc func initializePhotosDataSource(_ album: PHAssetCollection, selections: PHFetchResult<PHAsset>? = nil) {
+  func initializePhotosDataSource(_ album: PHAssetCollection) {
         // Set up a photo data source with album
         let fetchOptions = PHFetchOptions()
         fetchOptions.sortDescriptors = [
             NSSortDescriptor(key: "creationDate", ascending: false)
         ]
         fetchOptions.predicate = NSPredicate(format: "mediaType = %d", PHAssetMediaType.image.rawValue)
-        initializePhotosDataSourceWithFetchResult(PHAsset.fetchAssets(in: album, options: fetchOptions), selections: selections)
+        initializePhotosDataSourceWithFetchResult(PHAsset.fetchAssets(in: album, options: fetchOptions))
     }
     
-    @objc func initializePhotosDataSourceWithFetchResult(_ fetchResult: PHFetchResult<PHAsset>, selections: PHFetchResult<PHAsset>? = nil) {
-        let newDataSource = PhotoCollectionViewDataSource(fetchResult: fetchResult, selections: selections, settings: settings)
+    func initializePhotosDataSourceWithFetchResult(_ fetchResult: PHFetchResult<PHAsset>) {
+        let newDataSource = PhotoCollectionViewDataSource(fetchResult: fetchResult, assetStore: assetStore, settings: settings)
         
         // Transfer image size
         // TODO: Move image size to settings
         if let photosDataSource = photosDataSource {
             newDataSource.imageSize = photosDataSource.imageSize
-            newDataSource.selections = photosDataSource.selections
         }
         
         photosDataSource = newDataSource
@@ -305,15 +265,15 @@ extension PhotosViewController {
         let asset = photosDataSource.fetchResult.object(at: indexPath.row)
 
         // Select or deselect?
-        if let index = photosDataSource.selections.index(of: asset) { // Deselect
+        if assetStore.contains(asset) { // Deselect
             // Deselect asset
-            photosDataSource.selections.remove(at: index)
+            assetStore.remove(asset)
 
             // Update done button
             updateDoneButton()
 
             // Get indexPaths of selected items
-            let selectedIndexPaths = photosDataSource.selections.compactMap({ (asset) -> IndexPath? in
+            let selectedIndexPaths = assetStore.assets.compactMap({ (asset) -> IndexPath? in
                 let index = photosDataSource.fetchResult.index(of: asset)
                 guard index != NSNotFound else { return nil }
                 return IndexPath(item: index, section: 1)
@@ -327,20 +287,16 @@ extension PhotosViewController {
             cell.photoSelected = false
 
             // Call deselection closure
-            if let closure = deselectionClosure {
-                DispatchQueue.global().async {
-                    closure(asset)
-                }
-            }
-        } else if photosDataSource.selections.count < settings.maxNumberOfSelections { // Select
+            deselectionClosure?(asset)
+        } else if assetStore.count < settings.maxNumberOfSelections { // Select
             // Select asset if not already selected
-            photosDataSource.selections.append(asset)
+            assetStore.append(asset)
 
             // Set selection number
             if let selectionCharacter = settings.selectionCharacter {
                 cell.selectionString = String(selectionCharacter)
             } else {
-                cell.selectionString = String(photosDataSource.selections.count)
+                cell.selectionString = String(assetStore.count)
             }
 
             cell.photoSelected = true
@@ -349,16 +305,9 @@ extension PhotosViewController {
             updateDoneButton()
 
             // Call selection closure
-            if let closure = selectionClosure {
-                DispatchQueue.global().async {
-                    closure(asset)
-                }
-            }
-        } else if photosDataSource.selections.count >= settings.maxNumberOfSelections,
-            let closure = selectLimitReachedClosure {
-            DispatchQueue.global().async {
-                closure(self.settings.maxNumberOfSelections)
-            }
+            selectionClosure?(asset)
+        } else if assetStore.count >= settings.maxNumberOfSelections {
+            selectLimitReachedClosure?(assetStore.count)
         }
 
         return false
@@ -430,10 +379,7 @@ extension PhotosViewController {
 // MARK: UIImagePickerControllerDelegate
 extension PhotosViewController: UIImagePickerControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-// Local variable inserted by Swift 4.2 migrator.
-let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
-
-        guard let image = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as? UIImage else {
+        guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
             picker.dismiss(animated: true, completion: nil)
             return
         }
@@ -450,15 +396,11 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
                 
                 DispatchQueue.main.async {
                     // TODO: move to a function. this is duplicated in didSelect
-                    self.photosDataSource?.selections.append(asset)
+                    self.assetStore.append(asset)
                     self.updateDoneButton()
                     
                     // Call selection closure
-                    if let closure = self.selectionClosure {
-                        DispatchQueue.global().async {
-                            closure(asset)
-                        }
-                    }
+                    self.selectionClosure?(asset)
                     
                     picker.dismiss(animated: true, completion: nil)
                 }
@@ -481,7 +423,10 @@ extension PhotosViewController: PHPhotoLibraryChangeObserver {
             if let photosChanges = changeInstance.changeDetails(for: photosDataSource.fetchResult as! PHFetchResult<PHObject>) {
                 // Update collection view
                 // Alright...we get spammed with change notifications, even when there are none. So guard against it
-                if photosChanges.hasIncrementalChanges && (photosChanges.removedIndexes?.count > 0 || photosChanges.insertedIndexes?.count > 0 || photosChanges.changedIndexes?.count > 0) {
+                let removedCount = photosChanges.removedIndexes?.count ?? 0
+                let insertedCount = photosChanges.insertedIndexes?.count ?? 0
+                let changedCount = photosChanges.changedIndexes?.count ?? 0
+                if photosChanges.hasIncrementalChanges && (removedCount > 0 || insertedCount > 0 || changedCount > 0) {
                     // Update fetch result
                     photosDataSource.fetchResult = photosChanges.fetchResultAfterChanges as! PHFetchResult<PHAsset>
                     
@@ -523,14 +468,4 @@ extension PhotosViewController: PHPhotoLibraryChangeObserver {
         
         // TODO: Changes in albums
     }
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromUIImagePickerControllerInfoKeyDictionary(_ input: [UIImagePickerController.InfoKey: Any]) -> [String: Any] {
-	return Dictionary(uniqueKeysWithValues: input.map {key, value in (key.rawValue, value)})
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertFromUIImagePickerControllerInfoKey(_ input: UIImagePickerController.InfoKey) -> String {
-	return input.rawValue
 }

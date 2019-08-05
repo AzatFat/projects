@@ -42,17 +42,6 @@ extension UIButton {
     }
     
     private var arrowDownImage: UIImage? {
-        // Get path for BSImagePicker bundle
-        let bundlePath = Bundle(for: PhotosViewController.self).path(forResource: "BSImagePicker", ofType: "bundle")
-        let bundle: Bundle?
-        
-        // Load bundle
-        if let bundlePath = bundlePath {
-            bundle = Bundle(path: bundlePath)
-        } else {
-            bundle = nil
-        }
-        
-        return UIImage(named: "arrow_down", in: bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
+        return UIImage(named: "arrow_down", in: BSImagePickerViewController.bundle, compatibleWith: nil)?.withRenderingMode(.alwaysTemplate)
     }
 }

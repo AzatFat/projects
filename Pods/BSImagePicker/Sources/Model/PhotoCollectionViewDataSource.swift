@@ -24,31 +24,28 @@ import UIKit
 import Photos
 
 /**
-Gives UICollectionViewDataSource functionality with a given data source and cell factory
-*/
+ Gives UICollectionViewDataSource functionality with a given data source and cell factory
+ */
 final class PhotoCollectionViewDataSource : NSObject, UICollectionViewDataSource {
-    @objc var selections = [PHAsset]()
-    @objc var fetchResult: PHFetchResult<PHAsset>
-    
-    fileprivate let photoCellIdentifier = "photoCellIdentifier"
-    fileprivate let photosManager = PHCachingImageManager.default()
-    fileprivate let imageContentMode: PHImageContentMode = .aspectFill
+    var fetchResult: PHFetchResult<PHAsset>
+
+    private let photosManager = PHCachingImageManager.default()
+    private let imageContentMode: PHImageContentMode = .aspectFill
+    private let assetStore: AssetStore
     
     let settings: BSImagePickerSettings?
-    @objc var imageSize: CGSize = CGSize.zero
+    var imageSize: CGSize = CGSize.zero {
+        didSet {
+            let scale = UIScreen.main.scale
+            imageSize = CGSize(width: imageSize.width * scale, height: imageSize.height * scale)
+        }
+    }
     
-  init(fetchResult: PHFetchResult<PHAsset>, selections: PHFetchResult<PHAsset>? = nil, settings: BSImagePickerSettings?) {
+    init(fetchResult: PHFetchResult<PHAsset>, assetStore: AssetStore, settings: BSImagePickerSettings?) {
         self.fetchResult = fetchResult
         self.settings = settings
-        if let selections = selections {
-            var selectionsArray = [PHAsset]()
-            selections.enumerateObjects({ (asset, idx, stop) in
-                selectionsArray.append(asset)
-            })
-            
-            self.selections = selectionsArray
-        }
-    
+        self.assetStore = assetStore
+
         super.init()
     }
     
@@ -62,7 +59,7 @@ final class PhotoCollectionViewDataSource : NSObject, UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         UIView.setAnimationsEnabled(false)
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: photoCellIdentifier, for: indexPath) as! PhotoCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.cellIdentifier, for: indexPath) as! PhotoCell
         cell.accessibilityIdentifier = "photo_cell_\(indexPath.item)"
         cell.isAccessibilityElement = true
         if let settings = settings {
@@ -83,7 +80,7 @@ final class PhotoCollectionViewDataSource : NSObject, UICollectionViewDataSource
         })
         
         // Set selection number
-        if let index = selections.index(of: asset) {
+        if let index = assetStore.assets.firstIndex(of: asset) {
             if let character = settings?.selectionCharacter {
                 cell.selectionString = String(character)
             } else {
@@ -103,7 +100,7 @@ final class PhotoCollectionViewDataSource : NSObject, UICollectionViewDataSource
         return cell
     }
     
-    @objc func registerCellIdentifiersForCollectionView(_ collectionView: UICollectionView?) {
-        collectionView?.register(UINib(nibName: "PhotoCell", bundle: BSImagePickerViewController.bundle), forCellWithReuseIdentifier: photoCellIdentifier)
+    func registerCellIdentifiersForCollectionView(_ collectionView: UICollectionView?) {
+        collectionView?.register(PhotoCell.self, forCellWithReuseIdentifier: PhotoCell.cellIdentifier)
     }
 }

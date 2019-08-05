@@ -65,16 +65,28 @@ open class BSImagePickerViewController : UINavigationController {
     }()
     
     @objc var albumTitleView: UIButton = {
-        let btn =  UIButton(frame: .zero)
+        let btn =  UIButton(type: .system)
         btn.setTitleColor(btn.tintColor, for: .normal)
         return btn
     }()
     
-    @objc static let bundle: Bundle = Bundle(path: Bundle(for: PhotosViewController.self).path(forResource: "BSImagePicker", ofType: "bundle")!)!
+    static var bundle: Bundle {
+        if let path = Bundle(for: PhotosViewController.self).path(forResource: "BSImagePicker", ofType: "bundle"), let b = Bundle(path: path) {
+            return b
+        } else {
+            return Bundle(for: PhotosViewController.self)
+        }
+    }
     
     @objc lazy var photosViewController: PhotosViewController = {
+        var selections: [PHAsset] = []
+        defaultSelections?.enumerateObjects({ (asset, idx, stop) in
+            selections.append(asset)
+        })
+
+        let assetStore = AssetStore(assets: selections)
         let vc = PhotosViewController(fetchResults: self.fetchResults,
-                                      defaultSelections: self.defaultSelections,
+                                      assetStore: assetStore,
                                       settings: self.settings)
         
         vc.doneBarButton = self.doneButton

@@ -27,11 +27,14 @@ import Photos
 The photo cell.
 */
 final class PhotoCell: UICollectionViewCell {
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var selectionOverlayView: UIView!
-    @IBOutlet weak var selectionView: SelectionView!
+    static let cellIdentifier = "photoCellIdentifier"
     
-    @objc weak var asset: PHAsset?
+    let imageView: UIImageView = UIImageView(frame: .zero)
+
+    private let selectionOverlayView: UIView = UIView(frame: .zero)
+    private let selectionView: SelectionView = SelectionView(frame: .zero)
+    
+    weak var asset: PHAsset?
     var settings: BSImagePickerSettings {
         get {
             return selectionView.settings
@@ -41,7 +44,7 @@ final class PhotoCell: UICollectionViewCell {
         }
     }
     
-    @objc var selectionString: String {
+    var selectionString: String {
         get {
             return selectionView.selectionString
         }
@@ -51,7 +54,7 @@ final class PhotoCell: UICollectionViewCell {
         }
     }
     
-    @objc var photoSelected: Bool = false {
+    var photoSelected: Bool = false {
         didSet {
             self.updateAccessibilityLabel(photoSelected)
             let hasChanged = photoSelected != oldValue
@@ -73,12 +76,47 @@ final class PhotoCell: UICollectionViewCell {
             }
         }
     }
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+
+        // Setup views
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        selectionOverlayView.backgroundColor = UIColor.lightGray
+        selectionOverlayView.translatesAutoresizingMaskIntoConstraints = false
+        selectionView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(imageView)
+        contentView.addSubview(selectionOverlayView)
+        contentView.addSubview(selectionView)
+
+        // Add constraints
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            selectionOverlayView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            selectionOverlayView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            selectionOverlayView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            selectionOverlayView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            selectionView.heightAnchor.constraint(equalToConstant: 25),
+            selectionView.widthAnchor.constraint(equalToConstant: 25),
+            selectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4),
+            selectionView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4)
+        ])
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     func updateAccessibilityLabel(_ selected: Bool) {
         self.accessibilityLabel = selected ? "deselect image" : "select image"
     }
     
-    fileprivate func updateAlpha(_ selected: Bool) {
+    private func updateAlpha(_ selected: Bool) {
         if selected == true {
             self.selectionView.alpha = 1.0
             self.selectionOverlayView.alpha = 0.3
