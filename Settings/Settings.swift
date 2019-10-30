@@ -11,12 +11,27 @@ import Foundation
 
 
 class Settings {
-    let sharedInstanse = Settings()
+    let sharedInstance = Settings()
     static var inURL = "http://192.168.88.190"
     static var outURL = "http://87.117.180.87:7000"
+    static var base = outURL
+    
+    /**
+    `BaseURL use by Reports`
+     # Need to delete after refactoring whole network.
+     */
+    
+    
     static var baseURL = URL(string: inURL)
-    static var token = ""
+    static var token : String  {
+        let defaults = UserDefaults.init(suiteName: "group.djinaroWidget")
+        return defaults?.value(forKey:"token") as? String ?? ""
+        
+    }
 }
+
+
+
 
 class UserSettings {
     
@@ -25,9 +40,6 @@ class UserSettings {
     init() {
         if let url = defaults?.value(forKey:"baseUrl") as? String {
             Settings.baseURL = URL(string: url)!
-        }
-        if let userToken = defaults?.value(forKey:"token ") as? String {
-            Settings.token = userToken
         }
     }
 }

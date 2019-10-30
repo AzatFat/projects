@@ -314,9 +314,15 @@ class CustomerInfoViewController: UIViewController, UITextFieldDelegate, UINavig
     }
     
     func applyRoundCorner (_ object: AnyObject) {
-        object.layer.cornerRadius = object.frame.size.width / 4
-        object.layer.cornerRadius = object.frame.size.height / 4
-        object.layer?.masksToBounds = true
+        if #available(iOS 13.0, *) {
+            object.layer.cornerRadius = object.frame.size.width / 4
+            object.layer.cornerRadius = object.frame.size.height / 4
+            object.layer?.masksToBounds = true
+        } else {
+            print("object.layer - radius not available")
+            // Fallback on earlier versions
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

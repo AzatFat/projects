@@ -49,8 +49,13 @@ class SpeechViewController: UIViewController, SFSpeechRecognizerDelegate {
     }
     
     func applyRoundCorner (_ object: AnyObject) {
-        object.layer.cornerRadius = object.frame.size.width / 2
-        object.layer?.masksToBounds = true
+        if #available(iOS 13.0, *) {
+            object.layer.cornerRadius = object.frame.size.width / 2
+            object.layer?.masksToBounds = true
+        } else {
+            // Fallback on earlier versions
+        }
+        
         
     }
     

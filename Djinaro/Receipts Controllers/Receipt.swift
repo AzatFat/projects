@@ -112,48 +112,6 @@ struct ReceiptDocument: Codable {
     
 }
 
-// Товары в поступлении
-struct Goods: Codable {
-    var id: Int
-    var group_Goods_Id: Int?
-    var name: String?
-    var code: String?
-    var description: String?
-    var location: String?
-    var vendor_Code: String?
-    var groupGoods: GroupGoods?
-    var type_Goods_Id: Int?
-    var type_Goods: TypeGoods?
-    var available_sizes:  [Available_sizes]?
-    var price: Decimal?
-    var priceReceipt: Decimal?
-    var images: [goodsImages]?
-    var image: String?
-    var isArchive: Bool?
-    var price_Discount: Decimal?
-    var broadcast_New: Bool?
-    
-    enum CodingKeys: String, CodingKey {
-        case id = "Id"
-        case group_Goods_Id = "Group_Goods_Id"
-        case name = "Name"
-        case code =  "Code"
-        case description = "Description"
-        case location = "Location"
-        case vendor_Code = "Vendor_Code"
-        case groupGoods = "GroupGoods"
-        case type_Goods = "Type_Goods"
-        case type_Goods_Id = "Type_Goods_Id"
-        case available_sizes = "Available_sizes"
-        case price = "Price"
-        case priceReceipt = "Price_Receipt"
-        case images = "Images"
-        case image = "Image"
-        case isArchive = "Is_Archive"
-        case price_Discount = "Price_Discount"
-        case broadcast_New = "Broadcast_New"
-    }
-}
 
 struct Available_sizes: Codable {
     var sizes: Sizes?
@@ -178,25 +136,7 @@ struct GoodsSearch: Codable {
     }
 }
 
-// Группа товаров
-struct GroupGoods: Codable {
-    
-    var id: Int
-    var type_Goods_Id: Int?
-    var name: String?
-    var code: String?
- //   var typeGoods: TypeGoods?
-    
-    enum CodingKeys: String, CodingKey {
-        case id = "Id"
-        case type_Goods_Id = "Type_Goods_Id"
-        case name = "Name"
-        case code = "Code"
- //       case typeGoods = "TypeGoods"
-        
-    }
-    
-}
+
 // Сотрудники
 struct Employees: Codable {
     var id: Int
@@ -810,3 +750,5 @@ struct DeviceToken: Codable {
     case device_token = "device_token"
     }
 }
+
+

@@ -13,11 +13,11 @@ class GoodViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet var table: UITableView!
     @IBOutlet var doneOutlet: UIBarButtonItem!
     @IBAction func doneAction(_ sender: Any) {
-        performSegue(withIdentifier: "changeGood", sender: nil)
+       // performSegue(withIdentifier: "changeGood", sender: nil)
+        let fooViewController = GoodInformationViewController()
+        fooViewController.goodId = good?.id
+        navigationController?.pushViewController(fooViewController, animated: true)
     }
-    
-    
-    
     
     
     var recieptController = ReceiptController(useMultiUrl: true)
@@ -53,7 +53,7 @@ class GoodViewController: UIViewController, UITableViewDelegate, UITableViewData
         recieptController.GetGood(token: token, goodId: goodId) { (good) in
             if let good = good {
                 self.good = good
-                self.title = String(good.id)
+               // self.title = String(good.id)
                 if let goodName = good.name, let goodLocation = good.location {
                     self.location = goodLocation
                     self.name = goodName
@@ -69,6 +69,7 @@ class GoodViewController: UIViewController, UITableViewDelegate, UITableViewData
                 self.table.reloadData()
                 if let goodType = self.good?.type_Goods_Id {
                     self.getSizesType(good: good!, type: String(goodType))
+                    self.title = String(good!.id)
                 }
             }
         }
@@ -128,7 +129,7 @@ class GoodViewController: UIViewController, UITableViewDelegate, UITableViewData
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? GoodsAvailableTableViewCell  else {
             fatalError("The dequeued cell is not an instance of GoodsAvailableTableViewCell.")
         }
-        if let good = good, let avaliableSizes = good.available_sizes {
+        if let good = good, let avaliableSizes = good.available_sizes, avaliableSizes.count > 0 {
             let goodCount = avaliableSizes[indexPath.row].count!
             
             cell.goodCount.text = String(avaliableSizes[indexPath.row].count!)
@@ -210,8 +211,10 @@ class GoodViewController: UIViewController, UITableViewDelegate, UITableViewData
             controller.checkId = checkRecord?.check_Id
         }
         if segue.identifier == "changeGood" {
+            
             let controller = segue.destination as! GoodChangeViewController
             controller.good = good
+             
         }
     }
     

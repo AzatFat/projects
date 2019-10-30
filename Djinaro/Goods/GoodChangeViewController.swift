@@ -30,6 +30,7 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
     @IBOutlet var archiveFlag: UISwitch!
     
     @IBOutlet var showOnSite: UISwitch!
+    
     @IBOutlet var goodsImagesCollection: UICollectionView!
     
     @IBAction func saveButtonAction(_ sender: Any) {
@@ -222,10 +223,13 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
     }
     
     func applyRoundCorner (_ object: AnyObject) {
-        object.layer.cornerRadius = object.frame.size.width / 4
-        object.layer.cornerRadius = object.frame.size.height / 4
-        object.layer?.masksToBounds = true
-        
+        if #available(iOS 13.0, *) {
+            object.layer.cornerRadius = object.frame.size.width / 4
+            object.layer.cornerRadius = object.frame.size.height / 4
+            object.layer?.masksToBounds = true
+        } else {
+            // Fallback on earlier versions
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -251,7 +255,6 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Selected Cell: \(indexPath.row)")
 
         if indexPath.row == 0 {
            // takeImage()
@@ -291,7 +294,6 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
     
     
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
-        print("didUnhighlightItemAt")
         let cell = collectionView.cellForItem(at: indexPath)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             cell?.layer.borderWidth = 0.0
@@ -327,7 +329,7 @@ class GoodChangeViewController: UIViewController,UIImagePickerControllerDelegate
         let vc = BSImagePickerViewController()
         vc.defaultSelections = evenAssets
         
-    
+        
         bs_presentImagePickerController(vc, animated: true,
                                         select: { (asset: PHAsset) -> Void in
                                             print("Selected: \(asset)")

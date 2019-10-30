@@ -165,7 +165,7 @@ class ProgressViewController: UIViewController {
     
     func getMoneyEarned(moneyEarned : Decimal) {
         let money = moneyEarned.formattedAmount
-        guard let money_earned = NumberFormatter().number(from: money!) else { return }
+        guard let money_earned = NumberFormatter().number(from: money ?? "0") else { return }
         DispatchQueue.main.async {
             UIView.animate(withDuration: 2.0) {
                 self.moneyEarn.value = CGFloat(truncating: money_earned)
